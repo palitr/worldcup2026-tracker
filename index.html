@@ -2963,12 +2963,14 @@ function loadFromStorage() {
     var s = localStorage.getItem(STORAGE_SCORES);
     var p = localStorage.getItem(STORAGE_PENS);
     var t = localStorage.getItem(STORAGE_SAVEDAT);
-    if (!s && !p) return false;
+    console.log('[LOAD] s:', s, '| p:', p, '| !s&&!p:', (!s && !p));
+    if (!s && !p) { console.log('[LOAD] returning false — no data'); return false; }
     if (s) { var ps = JSON.parse(s); Object.keys(ps).forEach(function(k){ scores[k] = ps[k]; }); }
     if (p) { var pp = JSON.parse(p); Object.keys(pp).forEach(function(k){ penScores[k] = pp[k]; }); }
     window._restoredAt = t || new Date().toISOString();
+    console.log('[LOAD] returning true — scores:', JSON.stringify(scores));
     return true;
-  } catch(e) { return false; }
+  } catch(e) { console.log('[LOAD] EXCEPTION:', e.message); return false; }
 }
 
 function updateSaveIndicator(msg, cls) {
