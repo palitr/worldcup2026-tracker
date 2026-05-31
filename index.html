@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1590,6 +1591,7 @@ bronze: [
 // STATE
 // ============================================================
 const scores = {}; // matchId -> { h: number|null, a: number|null }
+var _suppressSave = false; // true during init render to prevent overwriting restored data
 const koTeams = {};
 const penScores = {}; // matchId → {h,a} penalty shootout scores // matchId -> { home: str, away: str }
 
@@ -2196,10 +2198,12 @@ hadEmbedded = true;
 }
 // Priority 2: localStorage (may not survive browser restart for file:// URLs)
 var hadStorage = !hadEmbedded && loadFromStorage();
+_suppressSave = true;  // prevent oninput events during render from overwriting restored data
 renderGroups();
 renderKnockout();
 updateStats();
 renderElements();
+_suppressSave = false; // re-enable saves for user input
 if (hadEmbedded) {
 var cnt = Object.keys(scores).filter(function(k){
 return scores[k] && scores[k].h !== null && scores[k].a !== null;
@@ -2925,7 +2929,6 @@ root.innerHTML = h;
 var STORAGE_SCORES  = 'fifa2026_scores';
 var STORAGE_PENS    = 'fifa2026_pens';
 var STORAGE_SAVEDAT = 'fifa2026_savedAt';
-var _autoSaveTimer  = null;
 
 function countScores() {
   return Object.keys(scores).filter(function(k) {
@@ -2933,22 +2936,22 @@ function countScores() {
   }).length;
 }
 
-// Called on every score input — debounced 1s to avoid excessive writes
+// Called on every score input — writes synchronously (no debounce)
+// Debouncing caused issues because renderGroups() re-renders DOM after each
+// input, which was resetting the timer before it could fire.
 function saveToStorage() {
-  if (_autoSaveTimer) clearTimeout(_autoSaveTimer);
-  _autoSaveTimer = setTimeout(function() {
-    try {
-      var now = new Date().toISOString();
-      localStorage.setItem(STORAGE_SCORES,  JSON.stringify(scores));
-      localStorage.setItem(STORAGE_PENS,    JSON.stringify(penScores));
-      localStorage.setItem(STORAGE_SAVEDAT, now);
-      var cnt = countScores();
-      var ts  = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-      updateSaveIndicator('✓ Auto-saved at ' + ts + ' · ' + cnt + ' result' + (cnt===1?'':'s'), 'autosaved');
-    } catch(e) {
-      updateSaveIndicator('⚠ Auto-save failed — try ↓ Backup JSON', 'warning');
-    }
-  }, 1000);
+  if (_suppressSave) return; // skip during init render
+  try {
+    var now = new Date().toISOString();
+    localStorage.setItem(STORAGE_SCORES,  JSON.stringify(scores));
+    localStorage.setItem(STORAGE_PENS,    JSON.stringify(penScores));
+    localStorage.setItem(STORAGE_SAVEDAT, now);
+    var cnt = countScores();
+    var ts  = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    updateSaveIndicator('✓ Auto-saved at ' + ts + ' · ' + cnt + ' result' + (cnt===1?'':'s'), 'autosaved');
+  } catch(e) {
+    updateSaveIndicator('⚠ Auto-save failed — try ↓ Backup JSON', 'warning');
+  }
 }
 
 function loadFromStorage() {
