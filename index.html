@@ -1408,6 +1408,11 @@ transition:all 0.15s; cursor:default;
 let ytPlayerLoaded = false;
 let ytPlayerPaused = false;
 
+// Storage keys — declared at top so loadFromStorage() can use them during init()
+var STORAGE_SCORES  = 'fifa2026_scores';
+var STORAGE_PENS    = 'fifa2026_pens';
+var STORAGE_SAVEDAT = 'fifa2026_savedAt';
+
 // ============================================================
 // DATA — All 12 Groups + Full Schedule
 // BST offset to IST: BST = UTC+1, IST = UTC+5:30 → +4h30m
@@ -2930,9 +2935,7 @@ root.innerHTML = h;
 // Auto-saves on every score entry. Restores on page reload.
 // JSON export/import for cross-device/cross-browser transfer.
 // ============================================================
-var STORAGE_SCORES  = 'fifa2026_scores';
-var STORAGE_PENS    = 'fifa2026_pens';
-var STORAGE_SAVEDAT = 'fifa2026_savedAt';
+// Storage keys declared at top of script
 
 function countScores() {
   return Object.keys(scores).filter(function(k) {
