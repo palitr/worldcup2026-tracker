@@ -2187,6 +2187,7 @@ mini.classList.remove('visible');
 // INIT
 // ============================================================
 function init() {
+console.log('[INIT] start — localStorage:', localStorage.getItem('fifa2026_scores'));
 // Priority 1: scores embedded in the file via saveToFile() — always reliable
 var hadEmbedded = false;
 if (window.SAVED_SCORES && typeof window.SAVED_SCORES === 'object') {
@@ -2196,14 +2197,16 @@ Object.keys(window.SAVED_PENS).forEach(function(k) { penScores[k] = window.SAVED
 }
 hadEmbedded = true;
 }
-// Priority 2: localStorage (may not survive browser restart for file:// URLs)
+// Priority 2: localStorage
 var hadStorage = !hadEmbedded && loadFromStorage();
-_suppressSave = true;  // prevent oninput events during render from overwriting restored data
+console.log('[INIT] hadEmbedded:', hadEmbedded, '| hadStorage:', hadStorage, '| scores after load:', JSON.stringify(scores));
+_suppressSave = true;
 renderGroups();
 renderKnockout();
 updateStats();
 renderElements();
-_suppressSave = false; // re-enable saves for user input
+_suppressSave = false;
+console.log('[INIT] scores after render:', JSON.stringify(scores));
 if (hadEmbedded) {
 var cnt = Object.keys(scores).filter(function(k){
 return scores[k] && scores[k].h !== null && scores[k].a !== null;
@@ -2218,6 +2221,7 @@ updateSaveIndicator('✓ ' + cnt2 + ' result' + (cnt2===1?'':'s') + ' restored �
 } else {
 updateSaveIndicator('No saved data — enter scores and they will auto-save', '');
 }
+console.log('[INIT] end — indicator should show restored or no-data');
 }
 
 init();
