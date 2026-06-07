@@ -1,4 +1,7 @@
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1275,6 +1278,96 @@ transition:all 0.15s; cursor:default;
 .save-indicator.warning { color:#FFC107; }
 .save-indicator.downloading { color:#4a9fd4; }
 
+
+  /* ====== ANIMATED BRACKET ====== */
+  .anim-bracket-wrap {
+    position: relative;
+    width: 100%;
+    background: var(--dark);
+    border-radius: 16px;
+    overflow: visible;
+  }
+  .anim-bracket-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 16px;
+    flex-wrap: wrap;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid var(--border);
+  }
+  .anim-play-btn {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #000;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 24px;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 0 16px rgba(255,215,0,0.3);
+  }
+  .anim-play-btn:hover { transform: scale(1.05); box-shadow: 0 0 24px rgba(255,215,0,0.5); }
+  .anim-play-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .anim-speed-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .anim-speed-wrap input[type=range] {
+    width: 80px;
+    accent-color: var(--gold);
+  }
+  .anim-sound-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+  .anim-sound-btn.on { border-color: rgba(255,215,0,0.4); color: var(--gold); background: rgba(255,215,0,0.08); }
+  
+  .anim-status {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    min-width: 160px;
+    text-align: center;
+  }
+  #bracket-svg-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 20px;
+  }
+  #bracket-svg-container svg {
+    width: 100%;
+    max-width: 920px;
+    height: auto;
+    display: block;
+    aspect-ratio: 1000 / 700;
+  }
+  /* Confetti canvas */
+  #confetti-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
 </style>
 </head>
 <body>
@@ -1293,7 +1386,7 @@ transition:all 0.15s; cursor:default;
 </header>
 
 <div class="data-bar" id="data-bar">
-<span class="save-indicator" id="save-indicator">No saved data &#8212; enter scores to begin</span>
+<span class="save-indicator" id="save-indicator">No saved data &#8212; enter scores and they will auto-save</span>
 <div class="data-bar-btns">
 <button class="data-btn export-btn" id="export-btn" onclick="exportScores()" title="Download scores as JSON backup — use this to transfer to another machine">&#8595; Backup JSON</button>
 <label class="data-btn import-btn" title="Restore scores from a JSON backup file">
@@ -1386,8 +1479,22 @@ transition:all 0.15s; cursor:default;
 
 <!-- ====== BRACKET ====== -->
 <div id="tab-bracket" class="tab-panel">
-<div class="info-note">🔁 Auto-populated from scores entered in each round. Scroll horizontally if needed.</div>
-<div id="bracket-root"></div>
+<div id="bracket-root">
+  <div class="anim-bracket-wrap" id="anim-bracket-wrap">
+    <canvas id="confetti-canvas"></canvas>
+    <div class="anim-bracket-controls">
+      <button class="anim-play-btn" id="anim-play-btn" onclick="bracketPlayOrReset()">&#9654; PLAY</button>
+      
+      <div class="anim-speed-wrap">
+        &#x1F422; <input type="range" id="anim-speed" min="2" max="5" step="0.5" value="3" oninput="document.getElementById('anim-speed-label').textContent=this.value+'x'"> &#x1F407;
+        <span id="anim-speed-label">3x</span>
+      </div>
+      <button class="anim-sound-btn on" id="anim-sound-btn" onclick="bracketToggleSound()">&#x1F50A; SOUND ON</button>
+      <span class="anim-status" id="anim-status">Ready — enter scores to animate</span>
+    </div>
+    <div id="bracket-svg-container"></div>
+  </div>
+</div>
 </div>
 
 <!-- ====== SCHEDULE TAB ====== -->
@@ -1411,6 +1518,22 @@ let ytPlayerPaused = false;
 var STORAGE_SCORES  = 'fifa2026_scores';
 var STORAGE_PENS    = 'fifa2026_pens';
 var STORAGE_SAVEDAT = 'fifa2026_savedAt';
+
+// Bracket SVG constants — declared at top to avoid temporal dead zone when init() runs
+var VW = 1000, VH = 700;
+var bracketPlayed = false; // true after animation completes — button shows RESET
+var TOP_PAD = 24; // global so animation functions can access it
+var HALF = VW / 2;
+var FLAG_R = 18, FLAG_R_FINAL = 28, FLAG_R_SF = 20, FLAG_R_QF = 20;
+var X = { r32: 22, r16: 205, qf: 320, sf: 415, final: 500 };
+
+// Schedule state — declared at top to avoid temporal dead zone
+var schedKey = null;
+var schedMonth = 6;
+
+// Confetti state
+var confettiRAF = null;
+var confettiParticles = [];
 
 // ============================================================
 // DATA — All 12 Groups + Full Schedule
@@ -1591,11 +1714,62 @@ bronze: [
 ]
 };
 
+
+var flagCodes = {
+  'Mexico':'mx','South Korea':'kr','South Africa':'za','Czechia':'cz',
+  'Canada':'ca','Switzerland':'ch','Qatar':'qa','Bosnia-Herzegovina':'ba',
+  'Brazil':'br','Morocco':'ma','Scotland':'gb-sct','Haiti':'ht',
+  'USA':'us','Australia':'au','Paraguay':'py','Turkiye':'tr',
+  'Germany':'de','Ecuador':'ec','Ivory Coast':'ci','Curacao':'cw',
+  'Netherlands':'nl','Japan':'jp','Tunisia':'tn','Sweden':'se',
+  'Belgium':'be','Iran':'ir','Egypt':'eg','New Zealand':'nz',
+  'Spain':'es','Uruguay':'uy','Saudi Arabia':'sa','Cape Verde':'cv',
+  'France':'fr','Senegal':'sn','Norway':'no','Iraq':'iq',
+  'Argentina':'ar','Austria':'at','Algeria':'dz','Jordan':'jo',
+  'Portugal':'pt','Colombia':'co','Uzbekistan':'uz','DR Congo':'cd',
+  'England':'gb-eng','Croatia':'hr','Panama':'pa','Ghana':'gh',
+  'TBD':'','Best 3rd':''
+};
+
+
+function getFlagUrl(team) {
+  const code = flagCodes[team];
+  if (!code) return '';
+  return `https://hatscripts.github.io/circle-flags/flags/${code}.svg`;
+}
+
+
+var BRACKET_TREE = {
+  left: [
+    // Branch A → R16_1 → QF1 → SF1
+    { r32: ['R32_1','R32_2'], r16: 'R16_1', qf: 'QF1', sf: 'SF1' },
+    // Branch B → R16_2 → QF1 → SF1
+    { r32: ['R32_3','R32_4'], r16: 'R16_2', qf: 'QF1', sf: 'SF1' },
+    // Branch C → R16_3 → QF2 → SF1
+    { r32: ['R32_5','R32_6'], r16: 'R16_3', qf: 'QF2', sf: 'SF1' },
+    // Branch D → R16_4 → QF2 → SF1
+    { r32: ['R32_7','R32_8'], r16: 'R16_4', qf: 'QF2', sf: 'SF1' },
+  ],
+  right: [
+    // Branch E → R16_5 → QF3 → SF2
+    { r32: ['R32_9','R32_10'],  r16: 'R16_5', qf: 'QF3', sf: 'SF2' },
+    // Branch F → R16_6 → QF3 → SF2
+    { r32: ['R32_11','R32_12'], r16: 'R16_6', qf: 'QF3', sf: 'SF2' },
+    // Branch G → R16_7 → QF4 → SF2
+    { r32: ['R32_13','R32_14'], r16: 'R16_7', qf: 'QF4', sf: 'SF2' },
+    // Branch H → R16_8 → QF4 → SF2
+    { r32: ['R32_15','R32_16'], r16: 'R16_8', qf: 'QF4', sf: 'SF2' },
+  ]
+};
 // ============================================================
 // STATE
 // ============================================================
 const scores = {}; // matchId -> { h: number|null, a: number|null }
-var _suppressSave = false; // true during init render to prevent overwriting restored data
+var _suppressSave = false;
+// Bracket animation state — declared here so showTab/init can reference safely
+var bracketAnimating = false;
+var bracketSoundOn = true;
+var bracketAudioCtx = null; // true during init render to prevent overwriting restored data
 const koTeams = {};
 const penScores = {}; // matchId → {h,a} penalty shootout scores // matchId -> { home: str, away: str }
 
@@ -2034,7 +2208,7 @@ renderKoStage('qf-container', koMatchDefs.qf, 'Quarter Finals');
 renderKoStage('sf-container', koMatchDefs.sf, 'Semi Finals');
 
 renderFinalTab();
-renderBracket();
+if (typeof bracketAnimating === 'undefined' || !bracketAnimating) renderBracket();
 }
 
 function renderKoStage(containerId, matches, title) {
@@ -2174,10 +2348,15 @@ document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
 const panel = document.getElementById('tab-' + tab);
 if (panel) panel.classList.add('active');
 if (btn) btn.classList.add('active');
+// Tab-specific renders
+if (tab === 'bracket') {
+    // If in post-animation state, keep it; otherwise re-render fresh
+    if (!bracketPlayed) { renderBracket(); }
+  }
+if (tab === 'schedule') { renderSchedule(); }
 // Mini-player only visible on the Tournament tab
 const mini = document.getElementById('mini-player');
 if (mini) {
-if (tab === 'schedule') renderSchedule();
 if (tab === 'elements' && ytPlayerLoaded) {
 mini.classList.add('visible');
 } else {
@@ -2226,91 +2405,1314 @@ updateSaveIndicator('No saved data — enter scores and they will auto-save', ''
 init();
 
 // ============================================================
-// BRACKET TAB
+// ANIMATED MIRRORED SVG BRACKET
 // ============================================================
-// BRACKET TAB — Canvas-positioned SVG connector approach
-// ============================================================
+
+// Country code map for circle-flags library
+// Bracket state vars declared at top of script (near scores/koTeams)
+
+// Bracket tree: left side feeds SF1, right side feeds SF2
+// Each entry: [matchId, top-team-slot, bottom-team-slot]
+
+// ── Coordinate system ──────────────────────────────────────────────────────
+// SVG viewBox: 0 0 1000 860  (landscape)
+// Left side:  x=0..420, mirrored right: x=580..1000, centre trophy at x=500
+// Rounds (left side, x increases inward):
+//   R32: x=30, R16: x=170, QF: x=290, SF: x=390, Final: x=480 (centre)
+// VW, VH, HALF, FLAG_R* constants declared at top of script
+
+// Y positions for 16 R32 matches per side (8 pairs per side)
+// Each pair occupies VH/8 = 107.5px
+function r32Y(branchIdx, matchInBranch) {
+  // 8 match slots per side, each occupying VH/8
+  // TOP_PAD pushes content below the round labels at y=14
+  var TOP_PAD = 24;
+  var usableH = VH - TOP_PAD;
+  var slot = branchIdx * 2 + matchInBranch;
+  var slotH = usableH / 8;
+  return TOP_PAD + slot * slotH + slotH * 0.5;
+}
+
+function r16Y(branchIdx) {
+  // Midpoint between the two r32 match centres for this branch
+  return (r32Y(branchIdx, 0) + r32Y(branchIdx, 1)) / 2;
+}
+
+function qfY(qfIdx) {
+  // QF0 = branches 0+1, QF1 = branches 2+3
+  var b0 = qfIdx * 2;
+  var b1 = b0 + 1;
+  return (r16Y(b0) + r16Y(b1)) / 2;
+}
+
+function sfY() { return VH / 2; }
+
+// X positions (left side, mirrored for right)
+// X declared at top of script
+
+function mirrorX(x) { return VW - x; }
+
+// ── Build SVG ──────────────────────────────────────────────────────────────
+function buildBracketSVG() {
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs) {
+    var e = document.createElementNS(NS, tag);
+    if (attrs) Object.keys(attrs).forEach(function(k){ e.setAttribute(k, attrs[k]); });
+    return e;
+  }
+
+  var svg = el('svg', { id: 'bracket-svg', viewBox: '0 0 '+VW+' '+VH, xmlns: NS });
+
+  // Dark background
+  svg.appendChild(el('rect', { width: VW, height: VH, fill: '#0a0e1a' }));
+
+  // Defs — create children properly (no innerHTML on SVG)
+  var defs = el('defs');
+  
+  // Radial gradient for bg glow
+  var bgGrad = el('radialGradient', { id:'bgGlow', cx:'50%', cy:'50%', r:'50%' });
+  bgGrad.appendChild(el('stop', { offset:'0%', 'stop-color':'#FFD700', 'stop-opacity':'0.06' }));
+  bgGrad.appendChild(el('stop', { offset:'100%', 'stop-color':'#0a0e1a', 'stop-opacity':'0' }));
+  defs.appendChild(bgGrad);
+
+  var champGrad = el('radialGradient', { id:'champGlow', cx:'50%', cy:'50%', r:'50%' });
+  champGrad.appendChild(el('stop', { offset:'0%', 'stop-color':'#FFD700', 'stop-opacity':'0.3' }));
+  champGrad.appendChild(el('stop', { offset:'100%', 'stop-color':'#FFD700', 'stop-opacity':'0' }));
+  defs.appendChild(champGrad);
+
+  // Clip paths for flag circles
+  ['final','sf','qf','r32'].forEach(function(sz) {
+    var r = sz==='final'?FLAG_R_FINAL : sz==='sf'?FLAG_R_SF : sz==='qf'?FLAG_R_QF : FLAG_R;
+    var cp = el('clipPath', { id:'cp-'+sz });
+    cp.appendChild(el('circle', { cx:'0', cy:'0', r: String(r) }));
+    defs.appendChild(cp);
+  });
+  svg.appendChild(defs);
+
+  // Glow overlay
+  svg.appendChild(el('rect', { width: VW, height: VH, fill: 'url(#bgGlow)' }));
+
+  // Layer groups — use setAttribute for id
+  var linesGroup = el('g', { id: 'lines-group' });
+  var flagsGroup  = el('g', { id: 'flags-group' });
+  var labelsGroup = el('g', { id: 'labels-group' });
+  var animGroup   = el('g', { id: 'anim-group' });
+  svg.appendChild(linesGroup);
+  svg.appendChild(flagsGroup);
+  svg.appendChild(labelsGroup);
+  svg.appendChild(animGroup);
+
+  // Store direct references
+  svg._layers = { lines: linesGroup, flags: flagsGroup, labels: labelsGroup, anim: animGroup };
+  return svg;
+}
+
+
+function makeFlagNode(team, x, y, r, opacity, id, labelSide) {
+  var NS = 'http://www.w3.org/2000/svg';
+  var url = getFlagUrl(team);
+  var g = document.createElementNS(NS,'g');
+  g.setAttribute('transform', 'translate('+x+','+y+')');
+  if (id) g.setAttribute('id', id);
+  g.setAttribute('opacity', opacity !== undefined ? String(opacity) : '1');
+
+  // Circle background
+  var circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  circle.setAttribute('r', r);
+  circle.setAttribute('fill', '#1a2540');
+  circle.setAttribute('stroke', 'rgba(255,215,0,0.3)');
+  circle.setAttribute('stroke-width', '1.5');
+  g.appendChild(circle);
+
+  if (url) {
+    var img = document.createElementNS('http://www.w3.org/2000/svg','image');
+    img.setAttribute('href', url);
+    img.setAttribute('x', -r); img.setAttribute('y', -r);
+    img.setAttribute('width', r*2); img.setAttribute('height', r*2);
+    img.setAttribute('clip-path', 'url(#cp-'+(r===FLAG_R_FINAL?'final':r===FLAG_R_SF?'sf':r===FLAG_R_QF?'qf':'r32')+')');
+    g.appendChild(img);
+  } else {
+    // TBD - just question mark
+    var t = document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','central');
+    t.setAttribute('font-size', r*0.8); t.setAttribute('fill','#7a8099');
+    t.textContent = '?';
+    g.appendChild(t);
+  }
+
+  // Name label below — smart display
+  var nameMap = {
+    'South Korea':'S. Korea','South Africa':'S. Africa',
+    'Bosnia-Herzegovina':'Bosnia','Saudi Arabia':'S. Arabia',
+    'Ivory Coast':'Ivry Cst','New Zealand':'N. Zealand',
+    'Cape Verde':'C. Verde','DR Congo':'D.R. Congo',
+    'Netherlands':'Netherlds','Switzerland':'Switzrld'
+  };
+  var dispName = team === 'TBD' || team === 'Best 3rd' ? '' :
+                 (nameMap[team] || (team.length > 9 ? team.substring(0,9) : team));
+  if (dispName) {
+    var label = document.createElementNS('http://www.w3.org/2000/svg','text');
+    if (labelSide === 'left') {
+      // Name to the LEFT of flag (for left-side R32)
+      label.setAttribute('text-anchor', 'end');
+      label.setAttribute('x', -(r + 4));
+      label.setAttribute('y', 4); // vertically centred
+    } else if (labelSide === 'right') {
+      // Name to the RIGHT of flag (for right-side R32)
+      label.setAttribute('text-anchor', 'start');
+      label.setAttribute('x', r + 4);
+      label.setAttribute('y', 4); // vertically centred
+    } else {
+      // Default: name below flag (for R16/QF/SF/Final)
+      label.setAttribute('text-anchor', 'middle');
+      label.setAttribute('y', r + 10);
+    }
+    label.setAttribute('font-size', Math.max(7, r*0.5));
+    label.setAttribute('font-family', "'Barlow Condensed',sans-serif");
+    label.setAttribute('fill', '#b0b8d0');
+    label.setAttribute('letter-spacing', '0.3');
+    label.textContent = dispName;
+    g.appendChild(label);
+  }
+
+  return g;
+}
+
+function makeLine(x1, y1, x2, y2, color) {
+  var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1',x1); line.setAttribute('y1',y1);
+  line.setAttribute('x2',x2); line.setAttribute('y2',y2);
+  line.setAttribute('stroke', color || 'rgba(255,215,0,0.18)');
+  line.setAttribute('stroke-width', '1.5');
+  return line;
+}
+
+function makeElbow(x1, y1, x2, y2, side) {
+  var midX = side === 'left' ? x1 + (x2-x1)*0.5 : x1 - (x1-x2)*0.5;
+  var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+  path.setAttribute('d', 'M'+x1+','+y1+' L'+midX+','+y1+' L'+midX+','+y2+' L'+x2+','+y2);
+  path.setAttribute('stroke','rgba(255,215,0,0.2)');
+  path.setAttribute('stroke-width','1.5');
+  path.setAttribute('fill','none');
+  return path;
+}
+
+// ── Render static bracket skeleton ────────────────────────────────────────
 function renderBracket() {
-const root = document.getElementById('bracket-root');
-if (!root) return;
+  var container = document.getElementById('bracket-svg-container');
+  if (!container) { console.error('[BRACKET] bracket-svg-container NOT FOUND'); return; }
 
-function bTeams(id) { return getKoTeams(id); }
-function bScore(id) { const s = getScore(id); return s; }
-function winnerSide(id) {
-const s = getScore(id);
-if (s.h === null || s.a === null) return null;
-if (s.h > s.a) return 'h';
-if (s.a > s.h) return 'a';
-return null;
+  var svg = buildBracketSVG();
+  container.innerHTML = '';
+  container.appendChild(svg);
+
+  var linesG  = svg._layers.lines;
+  var flagsG  = svg._layers.flags;
+  var labelsG = svg._layers.labels;
+
+  // ── Layout constants ──────────────────────────────────────────────────
+  var TOP_PAD  = 24;
+  var usableH  = VH - TOP_PAD;
+
+  // Spread: half-distance between the 2 flags in a match slot
+  var SPREAD = {
+    r32: FLAG_R * 1.2,
+    r16: FLAG_R_QF * 1.5,
+    qf:  FLAG_R_QF * 2.1,
+    sf:  FLAG_R_SF * 2.5
+  };
+
+  var FRAD = {
+    r32: FLAG_R,
+    r16: FLAG_R_QF,
+    qf:  FLAG_R_QF,
+    sf:  FLAG_R_SF
+  };
+
+  // Slot centre Y for a given round and match index
+  function slotY(numMatches, matchIdx) {
+    var slotH = usableH / numMatches;
+    return TOP_PAD + matchIdx * slotH + slotH / 2;
+  }
+
+  // Y of individual flag (fi=0 top/home, fi=1 bottom/away)
+  function flagYpos(numMatches, matchIdx, fi, rnd) {
+    var c = slotY(numMatches, matchIdx);
+    return fi === 0 ? c - SPREAD[rnd] : c + SPREAD[rnd];
+  }
+
+  // ── X positions ───────────────────────────────────────────────────────
+  var Xl = { r32: X.r32, r16: X.r16, qf: X.qf, sf: X.sf, fin: X.final };
+  var Xr = { r32: mirrorX(X.r32), r16: mirrorX(X.r16), qf: mirrorX(X.qf), sf: mirrorX(X.sf), fin: mirrorX(X.final) };
+
+  // ── Bracket connectivity ──────────────────────────────────────────────
+  // Left side: 8 R32 matches → 4 R16 matches → 2 QF → 1 SF → Final
+  // R32 match i feeds R16 match (i//2), slot h if even, a if odd
+  // R16 match i feeds QF match (i//2), slot h if even, a if odd
+  // QF match i feeds SF match 0, slot h if even, a if odd
+  // SF left feeds Final left (h slot), SF right feeds Final right (a slot)
+
+  // Map: which destination flag does each source match winner go to?
+  // destInfo[srcMatchId] = { destMatchId, fi } (fi=0 home slot, fi=1 away slot)
+  var destInfo = {
+    // R32 → R16 (left side, branches 0-7 map to R32_1..R32_8)
+    'R32_1': {id:'R16_1', fi:0}, 'R32_2': {id:'R16_1', fi:1},
+    'R32_3': {id:'R16_2', fi:0}, 'R32_4': {id:'R16_2', fi:1},
+    'R32_5': {id:'R16_3', fi:0}, 'R32_6': {id:'R16_3', fi:1},
+    'R32_7': {id:'R16_4', fi:0}, 'R32_8': {id:'R16_4', fi:1},
+    // R32 → R16 (right side)
+    'R32_9':  {id:'R16_5', fi:0}, 'R32_10': {id:'R16_5', fi:1},
+    'R32_11': {id:'R16_6', fi:0}, 'R32_12': {id:'R16_6', fi:1},
+    'R32_13': {id:'R16_7', fi:0}, 'R32_14': {id:'R16_7', fi:1},
+    'R32_15': {id:'R16_8', fi:0}, 'R32_16': {id:'R16_8', fi:1},
+    // R16 → QF (left)
+    'R16_1': {id:'QF1', fi:0}, 'R16_2': {id:'QF1', fi:1},
+    'R16_3': {id:'QF2', fi:0}, 'R16_4': {id:'QF2', fi:1},
+    // R16 → QF (right)
+    'R16_5': {id:'QF3', fi:0}, 'R16_6': {id:'QF3', fi:1},
+    'R16_7': {id:'QF4', fi:0}, 'R16_8': {id:'QF4', fi:1},
+    // QF → SF (left)
+    'QF1': {id:'SF1', fi:0}, 'QF2': {id:'SF1', fi:1},
+    // QF → SF (right)
+    'QF3': {id:'SF2', fi:0}, 'QF4': {id:'SF2', fi:1},
+    // SF → Final
+    'SF1': {id:'FINAL', fi:0}, 'SF2': {id:'FINAL', fi:1},
+  };
+
+  // ── Helper: draw one match block (2 flags + bracket connector + elbow) ─
+  function drawMatch(matchId, numMatches, matchIdx, xPos, rnd, side, nextX, nextNumMatches, nextMatchIdx) {
+    // Only show teams for R32 (from group stage) or if this match has scores entered
+    // R16/QF/SF/Final/Bronze show TBD until animation fills them in
+    var rawTeams = getKoTeams(matchId);
+    var hasScore = (function() {
+      var s = getScore(matchId);
+      return s.h !== null && s.a !== null;
+    })();
+    var t;
+    if (rnd === 'r32') {
+      // R32: always show qualifying teams from group stage
+      t = rawTeams;
+    } else {
+      // Other rounds: only show if the match itself has been played
+      if (hasScore) {
+        t = rawTeams;
+      } else {
+        t = { home: 'TBD', away: 'TBD' };
+      }
+    }
+    var yh = flagYpos(numMatches, matchIdx, 0, rnd);
+    var ya = flagYpos(numMatches, matchIdx, 1, rnd);
+    var r  = FRAD[rnd];
+    var isLeft = side === 'left';
+
+    // Two flags — R32 gets side labels, other rounds get bottom labels
+    var lblSide = (rnd === 'r32') ? (isLeft ? 'left' : 'right') : undefined;
+    flagsG.appendChild(makeFlagNode(t.home || 'TBD', xPos, yh, r, 1, 'flag-'+matchId+'-h', lblSide));
+    flagsG.appendChild(makeFlagNode(t.away || 'TBD', xPos, ya, r, 1, 'flag-'+matchId+'-a', lblSide));
+
+    // Short horizontal stubs from flags inward
+    var stubLen = 12;
+    var stubX = isLeft ? xPos + r : xPos - r;
+    var stubEnd = isLeft ? stubX + stubLen : stubX - stubLen;
+    linesG.appendChild(makeLine(stubX, yh, stubEnd, yh));
+    linesG.appendChild(makeLine(stubX, ya, stubEnd, ya));
+
+    // Vertical bracket connector between stubs
+    linesG.appendChild(makeLine(stubEnd, yh, stubEnd, ya));
+
+    // Elbow from bracket midpoint to next round
+    if (nextX !== undefined) {
+      var yMid = (yh + ya) / 2;
+      var nextY = slotY(nextNumMatches, nextMatchIdx);
+      // Determine if this match feeds the h or a slot of next round
+      var di = destInfo[matchId];
+      if (di) {
+        var targetY = flagYpos(nextNumMatches, nextMatchIdx, di.fi, rnd === 'r32' ? 'r16' : rnd === 'r16' ? 'qf' : rnd === 'qf' ? 'sf' : 'sf');
+        linesG.appendChild(makeElbow(stubEnd, yMid, nextX, targetY, side));
+      }
+    }
+  }
+
+  // ── Render each round ─────────────────────────────────────────────────
+  // BRACKET_TREE tells us the match IDs per branch
+  // Left side: 4 branches × 2 R32 matches = 8 R32 matches
+  // R32 match index (0-7) maps to branch = floor(i/2), mi = i%2
+
+  ['left','right'].forEach(function(side) {
+    var isLeft = side === 'left';
+    var branches = BRACKET_TREE[side];
+    var Xrnd = isLeft ? Xl : Xr;
+
+    // ── R32 ─────────────────────────────────────────────────────────────
+    branches.forEach(function(branch, bi) {
+      branch.r32.forEach(function(r32id, mi) {
+        var matchIdx = bi * 2 + mi; // 0-7
+        // Next round: R16 match index = floor(matchIdx/2)
+        var r16Idx = Math.floor(matchIdx / 2);
+        drawMatch(r32id, 8, matchIdx, Xrnd.r32, 'r32', side, Xrnd.r16, 4, r16Idx);
+      });
+    });
+
+    // ── R16 ─────────────────────────────────────────────────────────────
+    var r16ids = isLeft
+      ? [branches[0].r16, branches[1].r16, branches[2].r16, branches[3].r16]
+      : [BRACKET_TREE.right[0].r16, BRACKET_TREE.right[1].r16, BRACKET_TREE.right[2].r16, BRACKET_TREE.right[3].r16];
+
+    r16ids.forEach(function(r16id, ri) {
+      var qfIdx = Math.floor(ri / 2);
+      drawMatch(r16id, 4, ri, Xrnd.r16, 'r16', side, Xrnd.qf, 2, qfIdx);
+    });
+
+    // ── QF ──────────────────────────────────────────────────────────────
+    var qfids = isLeft ? ['QF1','QF2'] : ['QF3','QF4'];
+    qfids.forEach(function(qfid, qi) {
+      drawMatch(qfid, 2, qi, Xrnd.qf, 'qf', side, Xrnd.sf, 1, 0);
+    });
+
+    // ── SF ──────────────────────────────────────────────────────────────
+    var sfid = isLeft ? 'SF1' : 'SF2';
+    drawMatch(sfid, 1, 0, Xrnd.sf, 'sf', side, undefined);
+  });
+
+  // ── Centre section: Trophy → Champion → VS Finalists, 3rd Place below ────
+
+  var sfCentre = TOP_PAD + usableH / 2;
+  var sfSpread = SPREAD.sf;
+
+  // Key Y positions (all at X.final centre line)
+  var vsY       = sfCentre;           // VS finalists at SF match centre height
+  var champTextY= vsY - 242;          // CHAMPION text — high up
+  var trophyY   = champTextY + 42;    // Trophy below text (enough gap)
+  var champFlagY= trophyY + 78;       // Flag below trophy (clear of trophy bottom)
+  var bronzeY   = sfCentre + sfSpread + 75; // 3rd place below SF bottom flags
+
+  // X positions for finalists (flanking centre)
+  // Finalists sit exactly on the SF bracket stub end line
+  var sfStubEnd = X.sf + FLAG_R_SF + 12;          // x=447
+  var finXh = sfStubEnd;                           // left finalist on SF left stub
+  var finXa = mirrorX(sfStubEnd);                  // right finalist on SF right stub
+
+  // ── CHAMPION text (very top) ─────────────────────────────────────────
+  var champTxt = document.createElementNS('http://www.w3.org/2000/svg','text');
+  champTxt.setAttribute('x', X.final);
+  champTxt.setAttribute('y', champTextY);
+  champTxt.setAttribute('text-anchor','middle');
+  champTxt.setAttribute('dominant-baseline','central');
+  champTxt.setAttribute('font-family',"'Bebas Neue',cursive");
+  champTxt.setAttribute('font-size','16');
+  champTxt.setAttribute('letter-spacing','5');
+  champTxt.setAttribute('fill','rgba(255,215,0,0.9)');
+  labelsG.appendChild(champTxt);
+  champTxt.textContent = 'CHAMPION';
+
+  // ── Trophy (below CHAMPION text) ─────────────────────────────────────
+  var trophyG = document.createElementNS('http://www.w3.org/2000/svg','g');
+  trophyG.setAttribute('transform', 'translate('+X.final+','+trophyY+')');
+  var trophyText = document.createElementNS('http://www.w3.org/2000/svg','text');
+  trophyText.setAttribute('text-anchor','middle');
+  trophyText.setAttribute('dominant-baseline','central');
+  trophyText.setAttribute('font-size','54');
+  trophyText.setAttribute('id','trophy-emoji');
+  trophyText.textContent = String.fromCodePoint(0x1F3C6);
+  trophyG.appendChild(trophyText);
+  flagsG.appendChild(trophyG);
+
+  // ── Champion waving flag (below trophy) ─────────────────────────────
+  var FW = 64, FH = 42; // flag dimensions — larger for better visibility
+  var champSlot = document.createElementNS('http://www.w3.org/2000/svg','g');
+  champSlot.setAttribute('id','champ-flag-group');
+  champSlot.setAttribute('opacity','0');
+  champSlot.setAttribute('transform','translate('+X.final+','+champFlagY+')');
+
+  // Flagpole — left side, tall gold rod
+  var pole = document.createElementNS('http://www.w3.org/2000/svg','line');
+  pole.setAttribute('x1', -(FW/2)-3); pole.setAttribute('y1', -(FH/2)-6);
+  pole.setAttribute('x2', -(FW/2)-3); pole.setAttribute('y2', FH/2+6);
+  pole.setAttribute('stroke','rgba(255,215,0,0.8)');
+  pole.setAttribute('stroke-width','3');
+  pole.setAttribute('stroke-linecap','round');
+  champSlot.appendChild(pole);
+
+  // Pole ball/finial at top
+  var poleBall = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  poleBall.setAttribute('cx', -(FW/2)-3); poleBall.setAttribute('cy', -(FH/2)-9);
+  poleBall.setAttribute('r','4');
+  poleBall.setAttribute('fill','#FFD700');
+  champSlot.appendChild(poleBall);
+
+  // Clip path for the waving flag image
+  var clipId = 'champ-flag-clip';
+  var cp = document.createElementNS('http://www.w3.org/2000/svg','clipPath');
+  cp.setAttribute('id', clipId);
+  var cpRect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+  cpRect.setAttribute('x', -(FW/2)); cpRect.setAttribute('y', -(FH/2));
+  cpRect.setAttribute('width', FW); cpRect.setAttribute('height', FH);
+  cp.appendChild(cpRect);
+  champSlot.appendChild(cp);
+
+  // Flag group that gets the wave transform
+  var flagWaveG = document.createElementNS('http://www.w3.org/2000/svg','g');
+  flagWaveG.setAttribute('clip-path','url(#'+clipId+')');
+
+  // Flag background rect
+  var flagBg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+  flagBg.setAttribute('x', -(FW/2)); flagBg.setAttribute('y', -(FH/2));
+  flagBg.setAttribute('width', FW); flagBg.setAttribute('height', FH);
+  flagBg.setAttribute('fill','#1a2540');
+  flagWaveG.appendChild(flagBg);
+
+  // Flag image inside wave group
+  var champImg = document.createElementNS('http://www.w3.org/2000/svg','image');
+  champImg.setAttribute('id','champ-flag-img');
+  champImg.setAttribute('x', -(FW/2)); champImg.setAttribute('y', -(FH/2));
+  champImg.setAttribute('width', FW); champImg.setAttribute('height', FH);
+  champImg.setAttribute('preserveAspectRatio','xMidYMid slice');
+  flagWaveG.appendChild(champImg);
+
+  // Wave animation: skewX oscillates for wind effect
+  var waveAnim = document.createElementNS('http://www.w3.org/2000/svg','animateTransform');
+  waveAnim.setAttribute('attributeName','transform');
+  waveAnim.setAttribute('type','skewX');
+  waveAnim.setAttribute('values','0;6;0;-5;0;7;0');
+  waveAnim.setAttribute('keyTimes','0;0.2;0.4;0.55;0.7;0.85;1');
+  waveAnim.setAttribute('dur','1.8s');
+  waveAnim.setAttribute('repeatCount','indefinite');
+  waveAnim.setAttribute('calcMode','spline');
+  waveAnim.setAttribute('keySplines','0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1');
+  flagWaveG.appendChild(waveAnim);
+
+  champSlot.appendChild(flagWaveG);
+
+  // Gold border around flag
+  var flagBorder = document.createElementNS('http://www.w3.org/2000/svg','rect');
+  flagBorder.setAttribute('x', -(FW/2)); flagBorder.setAttribute('y', -(FH/2));
+  flagBorder.setAttribute('width', FW); flagBorder.setAttribute('height', FH);
+  flagBorder.setAttribute('fill','none');
+  flagBorder.setAttribute('stroke','rgba(255,215,0,0.7)');
+  flagBorder.setAttribute('stroke-width','1.5');
+  flagBorder.setAttribute('rx','1');
+  champSlot.appendChild(flagBorder);
+
+  flagsG.appendChild(champSlot);
+  svg._layers.champ = champSlot;
+
+  // Line from flag bottom down to VS area
+  linesG.appendChild(makeLine(X.final, champFlagY + FH/2 + 4, X.final, vsY - 12));
+
+  // ── VS Finalists ───────────────────────────────────────────────────────
+  // Finalist flags — only show teams if Final match has scores entered
+  var ft = getKoTeams('FINAL');
+  var ftScore = getScore('FINAL');
+  var ftHome = (ftScore.h !== null) ? (ft.home||'TBD') : 'TBD';
+  var ftAway = (ftScore.h !== null) ? (ft.away||'TBD') : 'TBD';
+  flagsG.appendChild(makeFlagNode(ftHome, finXh, vsY, FLAG_R_SF, 1, 'flag-FINAL-h'));
+  flagsG.appendChild(makeFlagNode(ftAway, finXa, vsY, FLAG_R_SF, 1, 'flag-FINAL-a'));
+
+  // VS text between the two flags
+  var vsText = document.createElementNS('http://www.w3.org/2000/svg','text');
+  vsText.setAttribute('x', X.final);
+  vsText.setAttribute('y', vsY + 4);
+  vsText.setAttribute('text-anchor','middle');
+  vsText.setAttribute('dominant-baseline','central');
+  vsText.setAttribute('font-family',"'Bebas Neue',cursive");
+  vsText.setAttribute('font-size','14');
+  vsText.setAttribute('fill','rgba(255,215,0,0.9)');
+  vsText.setAttribute('letter-spacing','2');
+  vsText.textContent = 'VS';
+  labelsG.appendChild(vsText);
+
+  // Horizontal lines: each finalist flag → VS centre
+  linesG.appendChild(makeLine(finXh + FLAG_R_SF + 2, vsY, X.final - 14, vsY));
+  linesG.appendChild(makeLine(finXa - FLAG_R_SF - 2, vsY, X.final + 14, vsY));
+
+  // SF stubs → finalist flags
+  // Left: SF stub (x=420) → left finalist outer edge (x=400-FLAG_R_SF)
+  // Right: SF stub (x=580) → right finalist outer edge (x=560+FLAG_R_SF)
+  // Lines connect SF bracket midpoint to finalist flag centre (flag circle covers endpoint)
+  linesG.appendChild(makeLine(X.sf + 12, sfCentre, finXh, vsY));
+  linesG.appendChild(makeLine(mirrorX(X.sf) - 12, sfCentre, finXa, vsY));
+
+  // ── 3rd Place ─────────────────────────────────────────────────────────
+  // Dashed lines from bottom flag of each SF match down to single bronze slot
+  var sfBottomY = sfCentre + sfSpread; // Y of bottom (away) flag of SF match
+  var bronzeXc  = X.final;             // single centred bronze slot
+
+  function dashLine(d) {
+    var p = document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d', d);
+    p.setAttribute('stroke','rgba(205,127,50,0.55)');
+    p.setAttribute('stroke-width','1.5');
+    p.setAttribute('fill','none');
+    p.setAttribute('stroke-dasharray','5,3');
+    return p;
+  }
+
+  // Upside-down T shape:
+  // 1. Vertical drops from each SF bottom flag down to horizontal connector
+  // 2. Horizontal dashed line connecting them
+  // 3. Short vertical drop from midpoint down to 3rd place flag
+  var bronzeConnY = sfBottomY + 55;  // Y of horizontal connector line
+  var bronzeFlagY = bronzeConnY + 40; // 3rd place flag below connector
+
+  // Left vertical drop: SF bottom flag → connector
+  linesG.appendChild(dashLine('M'+X.sf+','+sfBottomY+' L'+X.sf+','+bronzeConnY));
+  // Right vertical drop: SF bottom flag → connector
+  linesG.appendChild(dashLine('M'+mirrorX(X.sf)+','+sfBottomY+' L'+mirrorX(X.sf)+','+bronzeConnY));
+  // Horizontal connector between the two verticals
+  linesG.appendChild(dashLine('M'+X.sf+','+bronzeConnY+' L'+mirrorX(X.sf)+','+bronzeConnY));
+  // Short vertical from connector midpoint down to 3rd place flag
+  linesG.appendChild(dashLine('M'+bronzeXc+','+bronzeConnY+' L'+bronzeXc+','+bronzeFlagY));
+
+  // 3RD PLACE label below flag
+  var bLbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+  bLbl.setAttribute('x', bronzeXc);
+  bLbl.setAttribute('y', bronzeFlagY + FLAG_R_SF + 14);
+  bLbl.setAttribute('text-anchor','middle');
+  bLbl.setAttribute('font-family',"'Bebas Neue',cursive");
+  bLbl.setAttribute('font-size','9');
+  bLbl.setAttribute('letter-spacing','2');
+  bLbl.setAttribute('fill','rgba(205,127,50,0.85)');
+  bLbl.textContent = '3RD PLACE';
+  labelsG.appendChild(bLbl);
+
+  // Single centred bronze flag placeholder
+  flagsG.appendChild(makeFlagNode('TBD', bronzeXc, bronzeFlagY, FLAG_R_SF, 0.35, 'flag-BRONZE'));
+
+
+  // ── Round labels ──────────────────────────────────────────────────────
+  var lblY = 14;
+  var lblStyle = "font-family:'Bebas Neue',cursive;font-size:11px;letter-spacing:2px;fill:#FFD700;opacity:0.7;";
+  [['R32',X.r32],['R16',X.r16],['QF',X.qf],['SF',X.sf],['FINAL',X.final]].forEach(function(p) {
+    var t1 = document.createElementNS('http://www.w3.org/2000/svg','text');
+    t1.setAttribute('x',p[1]); t1.setAttribute('y',lblY);
+    t1.setAttribute('text-anchor','middle'); t1.setAttribute('style',lblStyle);
+    t1.textContent = p[0];
+    labelsG.appendChild(t1);
+    if (p[0] !== 'FINAL') {
+      var t2 = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t2.setAttribute('x',mirrorX(p[1])); t2.setAttribute('y',lblY);
+      t2.setAttribute('text-anchor','middle'); t2.setAttribute('style',lblStyle);
+      t2.textContent = p[0];
+      labelsG.appendChild(t2);
+    }
+  });
 }
 
-function card(id) {
-const t = bTeams(id);
-const s = bScore(id);
-const ws = winnerSide(id);
-const rows = [
-{ team: t.home, score: s.h, win: ws === 'h' },
-{ team: t.away, score: s.a, win: ws === 'a' }
-];
-const inner = rows.map(r => {
-const isTbd = !r.team || r.team === 'TBD' || r.team === 'Best 3rd';
-return `<div class="bc-team ${r.win ? 'bc-win' : ''} ${isTbd ? 'bc-tbd' : ''}">
-<span class="bc-tn">${isTbd ? '—' : (flag(r.team) + ' ' + r.team)}</span>
-<span class="bc-sc">${r.score !== null && r.score !== undefined ? r.score : ''}</span>
-</div>`;
-}).join('<div class="bc-div"></div>');
-return `<div class="bc-card" data-id="${id}">${inner}</div>`;
+
+
+
+
+function animateRoundByRound(rounds, roundIdx, delay) {
+  if (roundIdx >= rounds.length) {
+    // All rounds done — only celebrate if a real champion was determined
+    var champ = getWinner('FINAL');
+    var isRealChamp = champ && champ !== 'TBD' && champ !== '';
+    if (isRealChamp) {
+      showChampionCelebration(champ, function() { bracketReset(); });
+    } else {
+      setTimeout(function() { bracketReset(); }, 600);
+    }
+    return;
+  }
+
+  var rnd = rounds[roundIdx];
+  var rndDefs = koMatchDefs[rnd] || [];
+
+  // Build sequence for this round only (koTeams already set for this round)
+  var seq = [];
+  rndDefs.forEach(function(m) {
+    var w = getWinner(m.id);
+    if (w) seq.push({ matchId: m.id, winner: w, loser: getLoser(m.id) });
+  });
+
+  if (seq.length === 0) {
+    // No scored matches in this round — skip to next
+    animateRoundByRound(rounds, roundIdx+1, delay);
+    return;
+  }
+
+  animateSequence(seq, 0, delay, function() {
+    var nextRnd = rounds[roundIdx+1];
+    if (nextRnd) setupNextRoundKoTeams(rnd, nextRnd);
+    animateRoundByRound(rounds, roundIdx+1, delay);
+  });
 }
 
-// Round definitions
-const rounds = [
-{ label: 'R32', ids: koMatchDefs.r32.map(m=>m.id), count: 16 },
-{ label: 'R16', ids: koMatchDefs.r16.map(m=>m.id), count: 8 },
-{ label: 'QF', ids: koMatchDefs.qf.map(m=>m.id), count: 4 },
-{ label: 'SF', ids: koMatchDefs.sf.map(m=>m.id), count: 2 },
-{ label: 'FINAL', ids: [koMatchDefs.final[0].id], count: 1 },
-];
-
-const champion = getWinner('FINAL');
-
-// Build HTML — each round column uses CSS grid with equal rows
-let html = '<div class="bk-wrap"><div class="bk-scroll"><div class="bk-tree">';
-
-rounds.forEach((rnd, ri) => {
-html += `<div class="bk-col" data-round="${ri}">
-<div class="bk-col-label">${rnd.label}</div>
-<div class="bk-col-body" style="--slots:${rnd.count}">`;
-rnd.ids.forEach((id, i) => {
-html += `<div class="bk-slot">${card(id)}</div>`;
-});
-html += '</div></div>';
-
-// Connector column between rounds (not after last)
-if (ri < rounds.length - 1) {
-const nextCount = rounds[ri + 1].count;
-let connHtml = '';
-for (let i = 0; i < nextCount; i++) {
-// Each connector pair = 2 slots from current joining into 1 slot of next
-connHtml += `<div class="bk-conn-pair">
-<div class="bk-conn-top"></div>
-<div class="bk-conn-mid"></div>
-<div class="bk-conn-bot"></div>
-</div>`;
+function setupNextRoundKoTeams(completedRnd, nextRnd) {
+  // Ensure koTeams for next round are set using actual winners
+  function actualWinner(matchId) {
+    var w = getWinner(matchId);
+    if (w) return w;
+    return (koTeams[matchId] && koTeams[matchId].home) || 'TBD';
+  }
+  if (nextRnd === 'r16') {
+    [['R16_1','R32_1','R32_2'],['R16_2','R32_3','R32_4'],
+     ['R16_3','R32_5','R32_6'],['R16_4','R32_7','R32_8'],
+     ['R16_5','R32_9','R32_10'],['R16_6','R32_11','R32_12'],
+     ['R16_7','R32_13','R32_14'],['R16_8','R32_15','R32_16']].forEach(function(t) {
+      koTeams[t[0]] = { home: actualWinner(t[1]), away: actualWinner(t[2]) };
+    });
+  } else if (nextRnd === 'qf') {
+    [['QF1','R16_1','R16_2'],['QF2','R16_3','R16_4'],
+     ['QF3','R16_5','R16_6'],['QF4','R16_7','R16_8']].forEach(function(t) {
+      koTeams[t[0]] = { home: actualWinner(t[1]), away: actualWinner(t[2]) };
+    });
+  } else if (nextRnd === 'sf') {
+    [['SF1','QF1','QF2'],['SF2','QF3','QF4']].forEach(function(t) {
+      koTeams[t[0]] = { home: actualWinner(t[1]), away: actualWinner(t[2]) };
+    });
+  } else if (nextRnd === 'final') {
+    koTeams['FINAL'] = { home: actualWinner('SF1'), away: actualWinner('SF2') };
+  } else if (nextRnd === 'bronze') {
+    function actualLoser(matchId) {
+      var winner = getWinner(matchId);
+      var t = getKoTeams(matchId);
+      if (!winner) return (koTeams[matchId] && koTeams[matchId].away) || 'TBD';
+      return winner === t.home ? t.away : t.home;
+    }
+    if (!koTeams['BRONZE']) koTeams['BRONZE'] = {home:'TBD',away:'TBD'};
+    koTeams['BRONZE'].home = actualLoser('SF1');
+    koTeams['BRONZE'].away = actualLoser('SF2');
+  }
 }
-html += `<div class="bk-connectors" style="--pairs:${nextCount}">${connHtml}</div>`;
-}
-});
 
-// Champion display
-const champLabel = champion ? (flag(champion) + ' ' + champion) : '?';
-html += `<div class="bk-champion">
-<div class="bk-trophy">🏆</div>
-<div class="bk-champ-label">${champLabel}</div>
-</div>`;
-
-html += '</div></div></div>';
-root.innerHTML = html;
+function bracketPlayOrReset() {
+  if (bracketPlayed) {
+    // RESET mode — re-render fresh and go back to PLAY state
+    bracketPlayed = false;
+    var btn = document.getElementById('anim-play-btn');
+    btn.innerHTML = '&#9654; PLAY';
+    btn.disabled = false;
+    // Clear anim overlays
+    var animG = document.getElementById('anim-group');
+    if (animG) { while (animG.firstChild) animG.removeChild(animG.firstChild); }
+    stopConfetti();
+    document.getElementById('anim-status').textContent = 'Ready — enter scores to animate';
+    renderBracket();
+    return;
+  }
+  bracketPlay();
 }
+
+function bracketPlay() {
+  if (bracketAnimating) return;
+
+  // Check if any scores exist
+  var sequence = buildAnimSequence();
+  if (sequence.length === 0) {
+    document.getElementById('anim-status').textContent = 'Enter R32 scores first to animate';
+    return;
+  }
+
+  bracketAnimating = true;
+  document.getElementById('anim-play-btn').disabled = true;
+  document.getElementById('anim-status').textContent = 'Animating...';
+  if (bracketAudioCtx && bracketAudioCtx.state === 'suspended') bracketAudioCtx.resume();
+  else if (!bracketAudioCtx) bracketAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  resetBracketFlags();
+
+  var speed = parseFloat(document.getElementById('anim-speed').value);
+  var delay = 1000 / speed;
+
+  // Animate round by round so each round's winners appear in next round before it starts
+  animateRoundByRound(['r32','r16','qf','sf','final','bronze'], 0, delay);
+}
+
+function buildAnimSequence() {
+  var seq = [];
+  // Build in order: all R32, then R16, then QF, then SF, then Final
+  var rounds = [
+    koMatchDefs.r32,
+    koMatchDefs.r16,
+    koMatchDefs.qf,
+    koMatchDefs.sf,
+    koMatchDefs.final
+  ];
+  rounds.forEach(function(round) {
+    round.forEach(function(m) {
+      var w = getWinner(m.id);
+      if (w) seq.push({ matchId: m.id, winner: w, loser: getLoser(m.id) });
+    });
+  });
+  return seq;
+}
+
+function animateSequence(seq, idx, delay, done) {
+  if (idx >= seq.length) { done(); return; }
+
+  var item = seq[idx];
+
+  document.getElementById('anim-status').textContent =
+    'Round ' + getRoundLabel(item.matchId) + ' — ' + (item.winner || '') + ' advances';
+
+  showScorePopup(item.matchId, function() {
+    animateFlagAdvance(item, function() {
+      dimLoser(item);
+      // Immediately update the winner's destination slot in the next round
+      updateWinnerDestSlot(item);
+      setTimeout(function() {
+        animateSequence(seq, idx+1, delay, done);
+      }, delay * 0.3);
+    }, delay);
+  }, delay * 0.5);
+}
+
+function updateWinnerDestSlot(item) {
+  // SF losers: both populate single bronze slot (winner determined later)
+  if ((item.matchId === 'SF1' || item.matchId === 'SF2') && item.loser) {
+    if (!koTeams['BRONZE']) koTeams['BRONZE'] = {home:'TBD',away:'TBD'};
+    if (item.matchId === 'SF1') koTeams['BRONZE'].home = item.loser;
+    else                        koTeams['BRONZE'].away = item.loser;
+  }
+  var destInfo = getDestination(item.matchId);
+  if (!destInfo) {
+    // Final: champion flag set in showChampionCelebration, not here
+    // (winner appears during celebration, not during match animation)
+    // Bronze: winner in bronze slot
+    if (item.matchId === 'BRONZE' && item.winner) {
+      var bg = document.getElementById('flag-BRONZE');
+      if (bg) {
+        updateFlagNode(bg, item.winner, FLAG_R_SF);
+        bg.setAttribute('opacity','1');
+      }
+    }
+    return; // no destination — handled above
+  }
+  var destMatchId = destInfo.id;
+  var fi = destInfo.fi; // 0=home slot, 1=away slot
+  var flagId = 'flag-' + destMatchId + (fi === 0 ? '-h' : '-a');
+  var flagEl = document.getElementById(flagId);
+  if (!flagEl || !item.winner) return;
+  // Determine radius for destination round
+  // FINAL uses FLAG_R_SF to keep finalist flags same size throughout
+  var destR = destMatchId.startsWith('R16')   ? FLAG_R_QF :
+              destMatchId.startsWith('QF')    ? FLAG_R_QF :
+              destMatchId.startsWith('SF')    ? FLAG_R_SF  :
+              destMatchId === 'FINAL'         ? FLAG_R_SF  : FLAG_R;
+  // Update the destination flag to show the winner
+  updateFlagNode(flagEl, item.winner, destR);
+  flagEl.setAttribute('opacity', '1');
+  // Also update koTeams so getWinner works for next round
+  if (!koTeams[destMatchId]) koTeams[destMatchId] = { home: 'TBD', away: 'TBD' };
+  if (fi === 0) koTeams[destMatchId].home = item.winner;
+  else          koTeams[destMatchId].away = item.winner;
+}
+
+function updateRoundFlags(round) {
+  // Update visual flag placeholders when a new round begins
+  var roundMap = {
+    'R16':   ['R16_1','R16_2','R16_3','R16_4','R16_5','R16_6','R16_7','R16_8'],
+    'QF':    ['QF1','QF2','QF3','QF4'],
+    'SF':    ['SF1','SF2'],
+    'Final': ['FINAL']
+  };
+  var ids = roundMap[round] || [];
+  var radMap = {'R16':FLAG_R_QF,'QF':FLAG_R_QF,'SF':FLAG_R_SF,'Final':FLAG_R_FINAL};
+  var rad = radMap[round] || FLAG_R_QF;
+  ids.forEach(function(matchId) {
+    var t = getKoTeams(matchId);
+    var fh = document.getElementById('flag-'+matchId+'-h');
+    var fa = document.getElementById('flag-'+matchId+'-a');
+    if (fh && t.home && t.home !== 'TBD') updateFlagNode(fh, t.home, rad);
+    if (fa && t.away && t.away !== 'TBD') updateFlagNode(fa, t.away, rad);
+  });
+}
+
+function getRoundLabel(matchId) {
+  if (matchId.startsWith('R32')) return 'R32';
+  if (matchId.startsWith('R16')) return 'R16';
+  if (matchId.startsWith('QF'))  return 'QF';
+  if (matchId.startsWith('SF'))  return 'SF';
+  return 'Final';
+}
+
+function getDestination(matchId) {
+  // Returns {id: destMatchId, fi: 0|1} — which slot (home=0, away=1) the winner fills
+  var map = {
+    'R32_1':{id:'R16_1',fi:0}, 'R32_2':{id:'R16_1',fi:1},
+    'R32_3':{id:'R16_2',fi:0}, 'R32_4':{id:'R16_2',fi:1},
+    'R32_5':{id:'R16_3',fi:0}, 'R32_6':{id:'R16_3',fi:1},
+    'R32_7':{id:'R16_4',fi:0}, 'R32_8':{id:'R16_4',fi:1},
+    'R32_9':{id:'R16_5',fi:0}, 'R32_10':{id:'R16_5',fi:1},
+    'R32_11':{id:'R16_6',fi:0},'R32_12':{id:'R16_6',fi:1},
+    'R32_13':{id:'R16_7',fi:0},'R32_14':{id:'R16_7',fi:1},
+    'R32_15':{id:'R16_8',fi:0},'R32_16':{id:'R16_8',fi:1},
+    'R16_1':{id:'QF1',fi:0},'R16_2':{id:'QF1',fi:1},
+    'R16_3':{id:'QF2',fi:0},'R16_4':{id:'QF2',fi:1},
+    'R16_5':{id:'QF3',fi:0},'R16_6':{id:'QF3',fi:1},
+    'R16_7':{id:'QF4',fi:0},'R16_8':{id:'QF4',fi:1},
+    'QF1':{id:'SF1',fi:0},'QF2':{id:'SF1',fi:1},
+    'QF3':{id:'SF2',fi:0},'QF4':{id:'SF2',fi:1},
+    'SF1':{id:'FINAL',fi:0},'SF2':{id:'FINAL',fi:1},
+  };
+  return map[matchId] || null;
+}
+
+function getBronzeDestination(matchId) {
+  // Both SF losers go to the single centred bronze slot
+  if (matchId === 'SF1' || matchId === 'SF2') return {id:'BRONZE', fi:0};
+  return null;
+}
+
+function getWinnerFlagId(matchId) {
+  // Use getWinner() so penalty shootout results are respected in PLAY mode
+  var winner = getWinner(matchId);
+  if (!winner) return null;
+  var t = getKoTeams(matchId);
+  if (winner === t.home) return 'flag-'+matchId+'-h';
+  if (winner === t.away) return 'flag-'+matchId+'-a';
+  return null;
+}
+
+function getLoserFlagId(matchId) {
+  // Use getWinner() so penalty results are respected
+  var winner = getWinner(matchId);
+  if (!winner) return null;
+  var t = getKoTeams(matchId);
+  // Loser is the OTHER team from the winner
+  if (winner === t.home) return 'flag-'+matchId+'-a';
+  if (winner === t.away) return 'flag-'+matchId+'-h';
+  return null;
+}
+
+function animateFlagAdvance(item, done, duration) {
+  var svg = document.getElementById('bracket-svg');
+  if (!svg) { done(); return; }
+
+  var destInfo = getDestination(item.matchId);
+  if (!destInfo) { done(); return; }
+  var destFlagId = 'flag-' + destInfo.id + (destInfo.fi === 0 ? '-h' : '-a');
+
+  var srcFlagId = getWinnerFlagId(item.matchId);
+  if (!srcFlagId) { done(); return; }
+
+  var srcFlag = document.getElementById(srcFlagId);
+  var destFlag = document.getElementById(destFlagId);
+  if (!srcFlag || !destFlag) { done(); return; }
+
+  // Get current positions
+  var srcT  = getGroupTransform(srcFlag);
+  var destT = getGroupTransform(destFlag);
+
+  // Create animated clone
+  var animG = document.getElementById('anim-group');
+  var clone = srcFlag.cloneNode(true);
+  clone.id = 'anim-clone';
+  clone.setAttribute('transform', 'translate('+srcT.x+','+srcT.y+')');
+  animG.appendChild(clone);
+
+  // Determine size at destination
+  var destId = destInfo.id;
+  var destR = destId.startsWith('R16') ? FLAG_R_QF :
+              destId.startsWith('QF')  ? FLAG_R_QF :
+              destId.startsWith('SF')  ? FLAG_R_SF  :
+              destId === 'FINAL'        ? FLAG_R_SF  : FLAG_R;
+
+  // Scale duration proportionally to distance traveled
+  // Longer paths (R32→R16) get more time, shorter paths (SF→Final) less
+  var dx = destT.x - srcT.x;
+  var dy = destT.y - srcT.y;
+  var dist = Math.sqrt(dx*dx + dy*dy);
+  var maxDist = 200; // approximate max distance in SVG units
+  var minFrac = 0.4; // minimum fraction of base duration
+  var distFrac = Math.max(minFrac, Math.min(1, dist / maxDist));
+  var dur = duration * distFrac;
+
+  var start = null;
+  function step(ts) {
+    if (!start) start = ts;
+    var t = Math.min((ts - start) / dur, 1);
+    var ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t; // ease-in-out
+
+    var cx = srcT.x + (destT.x - srcT.x) * ease;
+    var cy = srcT.y + (destT.y - srcT.y) * ease;
+    clone.setAttribute('transform', 'translate('+cx+','+cy+')');
+
+    if (t < 1) {
+      requestAnimationFrame(step);
+    } else {
+      // Reached destination: update dest flag to show winner
+      updateFlagNode(destFlag, item.winner, destR);
+      destFlag.setAttribute('opacity', '1');
+      animG.removeChild(clone);
+      playWhoosh();
+      done();
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+function getGroupTransform(el) {
+  var t = el.getAttribute('transform') || 'translate(0,0)';
+  var m = t.match(/translate\(([^,]+),([^)]+)\)/);
+  return m ? { x: parseFloat(m[1]), y: parseFloat(m[2]) } : { x:0, y:0 };
+}
+
+function updateFlagNode(flagG, team, r) {
+  // Replace circle + image content
+  while (flagG.firstChild) flagG.removeChild(flagG.firstChild);
+
+  var circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  circle.setAttribute('r', r || FLAG_R_QF);
+  circle.setAttribute('fill','#1a2540');
+  circle.setAttribute('stroke','rgba(255,215,0,0.6)');
+  circle.setAttribute('stroke-width','2');
+  flagG.appendChild(circle);
+
+  var url = getFlagUrl(team);
+  var cpId = r === FLAG_R_FINAL ? 'cp-final' : r === FLAG_R_SF ? 'cp-sf' : r === FLAG_R_QF ? 'cp-qf' : 'cp-r32';
+  if (url) {
+    var img = document.createElementNS('http://www.w3.org/2000/svg','image');
+    img.setAttribute('href', url);
+    img.setAttribute('x', -(r||FLAG_R_QF)); img.setAttribute('y', -(r||FLAG_R_QF));
+    img.setAttribute('width', (r||FLAG_R_QF)*2); img.setAttribute('height', (r||FLAG_R_QF)*2);
+    img.setAttribute('clip-path', 'url(#'+cpId+')');
+    flagG.appendChild(img);
+  }
+
+  var nameMap2 = {
+    'South Korea':'S. Korea','South Africa':'S. Africa',
+    'Bosnia-Herzegovina':'Bosnia','Saudi Arabia':'S. Arabia',
+    'Ivory Coast':'Ivry Cst','New Zealand':'N. Zealand',
+    'Cape Verde':'C. Verde','DR Congo':'D.R. Congo',
+    'Netherlands':'Netherlds','Switzerland':'Switzrld'
+  };
+  var dispName2 = nameMap2[team] || (team.length > 9 ? team.substring(0,9) : team);
+  var label = document.createElementNS('http://www.w3.org/2000/svg','text');
+  label.setAttribute('text-anchor','middle');
+  label.setAttribute('y', (r||FLAG_R_QF) + 10);
+  label.setAttribute('font-size', Math.max(7,(r||FLAG_R_QF)*0.44));
+  label.setAttribute('font-family',"'Barlow Condensed',sans-serif");
+  label.setAttribute('fill','#e8eaf0');
+  label.textContent = dispName2;
+  flagG.appendChild(label);
+}
+
+function dimLoser(item) {
+  var loserId = getLoserFlagId(item.matchId);
+  if (!loserId) return;
+  var loserFlag = document.getElementById(loserId);
+  if (loserFlag) {
+    // Dim to 0.35 so team name and flag are still recognisable
+    loserFlag.setAttribute('opacity', '0.35');
+    // Desaturate by overlaying a dark semi-transparent circle on top of flag
+    var overlay = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    var r = loserFlag.querySelector ? null : null;
+    // Get radius from first circle child
+    var children = loserFlag.childNodes;
+    var flagR = 18; // default
+    for (var i=0; i<children.length; i++) {
+      if (children[i].tagName === 'circle') {
+        flagR = parseFloat(children[i].getAttribute('r')) || 18;
+        break;
+      }
+    }
+    overlay.setAttribute('r', flagR);
+    overlay.setAttribute('fill', 'rgba(10,14,26,0.55)');
+    overlay.setAttribute('pointer-events', 'none');
+    loserFlag.appendChild(overlay);
+    // Change name label color to muted grey
+    for (var i=0; i<children.length; i++) {
+      if (children[i].tagName === 'text') {
+        children[i].setAttribute('fill','#667');
+        break;
+      }
+    }
+  }
+}
+
+function showScorePopup(matchId, done, duration) {
+  var s = getScore(matchId);
+  if (s.h === null || s.a === null) { done(); return; }
+
+  var svg = document.getElementById('bracket-svg');
+  if (!svg) { done(); return; }
+
+  var t = getKoTeams(matchId);
+  var scoreText = (s.h !== null ? s.h : '-') + ' – ' + (s.a !== null ? s.a : '-');
+
+  // Position popup at midpoint between the two flags
+  var side = getSide(matchId);
+  var isLeft = side === 'left';
+  var roundInfo = getRoundInfo(matchId);
+  var px = isLeft ? roundInfo.x : mirrorX(roundInfo.x);
+  var py = roundInfo.y - 28;
+
+  var popup = document.createElementNS('http://www.w3.org/2000/svg','g');
+  popup.id = 'score-popup';
+
+  var rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+  rect.setAttribute('x', px - 35); rect.setAttribute('y', py - 12);
+  rect.setAttribute('width', '70'); rect.setAttribute('height', '22');
+  rect.setAttribute('rx', '5'); rect.setAttribute('fill','rgba(0,0,0,0.8)');
+  rect.setAttribute('stroke','rgba(255,215,0,0.5)');
+  popup.appendChild(rect);
+
+  var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+  txt.setAttribute('x', px); txt.setAttribute('y', py + 3);
+  txt.setAttribute('text-anchor','middle'); txt.setAttribute('dominant-baseline','central');
+  txt.setAttribute('font-family',"'Bebas Neue',cursive");
+  txt.setAttribute('font-size','14'); txt.setAttribute('fill','#FFD700');
+  txt.textContent = scoreText;
+  popup.appendChild(txt);
+
+  document.getElementById('anim-group').appendChild(popup);
+  popup.style.opacity = '0';
+  popup.style.transition = 'opacity 0.2s';
+  setTimeout(function() { popup.style.opacity = '1'; }, 10);
+
+  setTimeout(function() {
+    popup.style.opacity = '0';
+    setTimeout(function() {
+      var ag = document.getElementById('anim-group');
+      if (ag && popup.parentNode === ag) ag.removeChild(popup);
+      done();
+    }, 200);
+  }, duration * 0.9);
+}
+
+function getSide(matchId) {
+  var leftIds = new Set();
+  BRACKET_TREE.left.forEach(function(b) {
+    b.r32.forEach(function(id){ leftIds.add(id); });
+    leftIds.add(b.r16); leftIds.add(b.qf); leftIds.add(b.sf);
+  });
+  leftIds.add('SF1'); leftIds.add('QF1'); leftIds.add('QF2');
+  ['R16_1','R16_2','R16_3','R16_4'].forEach(function(id){ leftIds.add(id); });
+  ['R32_1','R32_2','R32_3','R32_4','R32_5','R32_6','R32_7','R32_8'].forEach(function(id){ leftIds.add(id); });
+  return leftIds.has(matchId) ? 'left' : 'right';
+}
+
+function getRoundInfo(matchId) {
+  // Return {x, y} of the match position for popup
+  if (matchId.startsWith('R32_')) {
+    var n = parseInt(matchId.replace('R32_','')) - 1;
+    var side = n < 8 ? 'left' : 'right';
+    var bi = n < 8 ? Math.floor(n/2) : Math.floor((n-8)/2);
+    var mi = n < 8 ? n%2 : (n-8)%2;
+    var y1 = r32Y(bi, 0) - FLAG_R*1.4;
+    var y2 = r32Y(bi, 1) + FLAG_R*1.4;
+    return { x: X.r32, y: (y1+y2)/2 };
+  }
+  if (matchId.startsWith('R16_')) {
+    var n = parseInt(matchId.replace('R16_','')) - 1;
+    return { x: X.r16, y: r16Y(n < 4 ? n : n-4) };
+  }
+  if (matchId.startsWith('QF')) {
+    var n = parseInt(matchId.replace('QF','')) - 1;
+    return { x: X.qf, y: qfY(n < 2 ? n : n-2) };
+  }
+  if (matchId.startsWith('SF')) return { x: X.sf, y: sfY() };
+  return { x: HALF, y: sfY() };
+}
+
+function resetBracketFlags() {
+  renderBracket(); // re-draw fresh
+}
+
+function bracketReset() {
+  // Soft reset — keep bracket visual as-is, just re-enable controls
+  // User must click RESET button to re-render the bracket
+  bracketAnimating = false;
+  bracketPlayed = true; // switch button to RESET mode
+  var btn = document.getElementById('anim-play-btn');
+  btn.innerHTML = '&#8635; RESET';
+  btn.disabled = false;
+  document.getElementById('anim-status').textContent = 'Animation complete — click Reset to refresh bracket';
+}
+
+// ── Champion celebration ───────────────────────────────────────────────────
+function showChampionCelebration(team, done) {
+  var svg = document.getElementById('bracket-svg');
+  if (!svg) { done(); return; }
+
+  // 1. Show champion in animated flag slot
+  var champG = document.getElementById('champ-flag-group');
+  if (champG) {
+    champG.setAttribute('opacity','1');
+    // Set flag image on the rectangular flag
+    var champImgEl = document.getElementById('champ-flag-img');
+    if (champImgEl) {
+      var url = getFlagUrl(team);
+      if (url) champImgEl.setAttribute('href', url);
+    }
+    // Update champion text label
+    var champTxtEl = document.querySelector('#labels-group text:first-child');
+  }
+
+  // 2. Fade out both finalists
+  var fh = document.getElementById('flag-FINAL-h');
+  var fa = document.getElementById('flag-FINAL-a');
+  if (fh) fh.setAttribute('opacity','0.25');
+  if (fa) fa.setAttribute('opacity','0.25');
+
+  // 3. Golden glow at trophy position
+  var rb = document.getElementById('bracket-svg');
+  var animG = document.getElementById('anim-group');
+  if (animG) {
+    var glow = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    glow.setAttribute('cx', X.final);
+    // trophyY is roughly sfCentre - 80 - 55 = sfCentre - 135
+    glow.setAttribute('cy', 227);
+    glow.setAttribute('r','80');
+    glow.setAttribute('fill','url(#champGlow)');
+    animG.appendChild(glow);
+  }
+
+  // 4. WORLD CHAMPION text
+  if (animG) {
+    var champLabel = document.createElementNS('http://www.w3.org/2000/svg','text');
+    champLabel.setAttribute('x', X.final);
+    // Position below the VS finalists
+    champLabel.setAttribute('y', 417);
+    champLabel.setAttribute('text-anchor','middle');
+    champLabel.setAttribute('font-family',"'Bebas Neue',cursive");
+    champLabel.setAttribute('font-size','20');
+    champLabel.setAttribute('fill','#FFD700');
+    champLabel.setAttribute('letter-spacing','4');
+    champLabel.setAttribute('id','champ-label-text');
+    champLabel.textContent = String.fromCodePoint(0x1F3C6) + ' WORLD CHAMPION ' + String.fromCodePoint(0x1F3C6);
+    animG.appendChild(champLabel);
+  }
+
+  playCrowdCheer();
+  startConfetti();
+  document.getElementById('anim-status').textContent = String.fromCodePoint(0x1F3C6) + ' ' + team + ' — World Champion!';
+
+  setTimeout(function() {
+    stopConfetti();
+    done();
+  }, 7000);
+}
+
+
+// ── Confetti ───────────────────────────────────────────────────────────────
+// confettiRAF and confettiParticles declared at top of script
+
+function startConfetti() {
+  var canvas = document.getElementById('confetti-canvas');
+  if (!canvas) return;
+  var wrap = document.getElementById('anim-bracket-wrap');
+  canvas.width = wrap.offsetWidth;
+  canvas.height = wrap.offsetHeight;
+
+  confettiParticles = [];
+  for (var i = 0; i < 120; i++) {
+    confettiParticles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * -canvas.height,
+      w: 6 + Math.random()*6,
+      h: 10 + Math.random()*10,
+      color: ['#FFD700','#FFA500','#FF6B35','#FFFFFF','#4ade80','#60a5fa'][Math.floor(Math.random()*6)],
+      speed: 1.5 + Math.random()*3,
+      spin: (Math.random()-0.5)*0.3,
+      angle: Math.random()*Math.PI*2
+    });
+  }
+  animConfetti();
+}
+
+function animConfetti() {
+  var canvas = document.getElementById('confetti-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  var alive = false;
+  confettiParticles.forEach(function(p) {
+    p.y += p.speed;
+    p.angle += p.spin;
+    if (p.y < canvas.height + 20) alive = true;
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.angle);
+    ctx.fillStyle = p.color;
+    ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+    ctx.restore();
+  });
+
+  if (alive) confettiRAF = requestAnimationFrame(animConfetti);
+  else stopConfetti();
+}
+
+function stopConfetti() {
+  if (confettiRAF) { cancelAnimationFrame(confettiRAF); confettiRAF = null; }
+  var canvas = document.getElementById('confetti-canvas');
+  if (canvas) canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
+}
+
+// ── Web Audio sound effects ────────────────────────────────────────────────
+function getAudioCtx() {
+  if (!bracketAudioCtx) bracketAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return bracketAudioCtx;
+}
+
+function playWhoosh() {
+  if (!bracketSoundOn) return;
+  try {
+    var ctx = getAudioCtx();
+    var buf = ctx.createBuffer(1, ctx.sampleRate * 0.3, ctx.sampleRate);
+    var data = buf.getChannelData(0);
+    for (var i=0; i<data.length; i++) {
+      data[i] = (Math.random()*2-1) * Math.pow(1 - i/data.length, 2);
+    }
+    var src = ctx.createBufferSource();
+    src.buffer = buf;
+    var gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+    var filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(800, ctx.currentTime);
+    filter.frequency.exponentialRampToValueAtTime(3200, ctx.currentTime + 0.3);
+    src.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+    src.start();
+  } catch(e) {}
+}
+
+function playCrowdCheer() {
+  if (!bracketSoundOn) return;
+  try {
+    var ctx = getAudioCtx();
+    // Layered crowd noise with ascending tone
+    [220,330,440,550,660].forEach(function(freq, i) {
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      osc.frequency.linearRampToValueAtTime(freq*1.5, ctx.currentTime + 1.5);
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.1 + i*0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + i*0.04);
+      osc.stop(ctx.currentTime + 2);
+    });
+    // Noise burst for crowd
+    var nBuf = ctx.createBuffer(1, ctx.sampleRate*1.5, ctx.sampleRate);
+    var nd = nBuf.getChannelData(0);
+    for(var i=0;i<nd.length;i++) nd[i]=(Math.random()*2-1)*Math.pow(1-i/nd.length,0.3);
+    var ns = ctx.createBufferSource(); ns.buffer = nBuf;
+    var ng = ctx.createGain(); ng.gain.setValueAtTime(0.25,ctx.currentTime);
+    ng.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+1.5);
+    ns.connect(ng); ng.connect(ctx.destination); ns.start();
+  } catch(e) {}
+}
+
+function bracketToggleSound() {
+  bracketSoundOn = !bracketSoundOn;
+  var btn = document.getElementById('anim-sound-btn');
+  if (bracketSoundOn) {
+    btn.textContent = '🔊 SOUND ON'; btn.className = 'anim-sound-btn on';
+  } else {
+    btn.textContent = '🔇 SOUND OFF'; btn.className = 'anim-sound-btn';
+  }
+}
+
 
 // ============================================================
 // ELEMENTS SHOWCASE TAB
@@ -2652,8 +4054,7 @@ b.style.animationPlayState = active ? 'running' : 'paused';
 // ============================================================
 // SCHEDULE TAB
 // ============================================================
-let schedKey = null; // selected date key "month-day", null = none
-let schedMonth = 6; // 6=June, 7=July
+// schedKey and schedMonth declared at top of script
 
 function schedNav(dir) {
 schedMonth = Math.max(6, Math.min(7, schedMonth + dir));
@@ -2669,8 +4070,10 @@ if (el) setTimeout(function(){ el.scrollIntoView({behavior:'smooth',block:'start
 }
 
 function renderSchedule() {
+console.log('[SCHEDULE] renderSchedule() called');
 const root = document.getElementById('schedule-root');
-if (!root) return;
+if (!root) { console.error('[SCHEDULE] schedule-root NOT FOUND'); return; }
+console.log('[SCHEDULE] root found, building content...');
 
 // ── helpers ──────────────────────────────────────────────────────────────
 function parseISTDay(ist) {
