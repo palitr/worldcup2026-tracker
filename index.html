@@ -1287,17 +1287,25 @@ transition:all 0.15s; cursor:default;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 14px;
-    padding: 16px;
+    gap: 20px;
+    padding: 10px 24px;
     flex-wrap: wrap;
-    background: rgba(255,255,255,0.03);
-    border-bottom: 1px solid var(--border);
+    background: linear-gradient(90deg, transparent 0%, rgba(255,215,0,0.07) 35%, rgba(255,215,0,0.07) 65%, transparent 100%);
+    border-top: 1px solid rgba(255,215,0,0.12);
+    border-bottom: 1px solid rgba(255,215,0,0.12);
+  }
+  /* Divider between PLAY and secondary controls */
+  .anim-bracket-controls .ctrl-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,215,0,0.18);
+    flex-shrink: 0;
   }
   .anim-play-btn {
     background: linear-gradient(135deg, var(--gold), var(--gold2));
     color: #000;
     border: none;
-    padding: 10px 28px;
+    padding: 9px 30px;
     border-radius: 24px;
     font-family: 'Bebas Neue', cursive;
     font-size: 1.1rem;
@@ -1305,6 +1313,7 @@ transition:all 0.15s; cursor:default;
     cursor: pointer;
     transition: all 0.2s;
     box-shadow: 0 0 16px rgba(255,215,0,0.3);
+    flex-shrink: 0;
   }
   .anim-play-btn:hover { transform: scale(1.05); box-shadow: 0 0 24px rgba(255,215,0,0.5); }
   .anim-play-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
@@ -1322,10 +1331,10 @@ transition:all 0.15s; cursor:default;
     accent-color: var(--gold);
   }
   .anim-sound-btn {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
     color: var(--muted);
-    padding: 7px 14px;
+    padding: 6px 14px;
     border-radius: 20px;
     font-size: 0.8rem;
     cursor: pointer;
@@ -1333,15 +1342,41 @@ transition:all 0.15s; cursor:default;
     letter-spacing: 1px;
     transition: all 0.2s;
   }
-  .anim-sound-btn.on { border-color: rgba(255,215,0,0.4); color: var(--gold); background: rgba(255,215,0,0.08); }
-  
+  .anim-sound-btn.on { border-color: rgba(255,215,0,0.35); color: var(--gold); background: rgba(255,215,0,0.07); }
+
   .anim-status {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.8rem;
-    color: var(--muted);
+    font-size: 0.88rem;
+    color: rgba(180,200,255,0.75);
     letter-spacing: 1px;
-    min-width: 160px;
+    min-width: 200px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+  .anim-status::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(100,160,255,0.7);
+    flex-shrink: 0;
+    animation: statusPulse 1.6s ease-in-out infinite;
+  }
+  .anim-status.status-error { color: rgba(255,180,60,0.9); }
+  .anim-status.status-error::before { background: rgba(255,160,40,0.8); animation: none; }
+  .anim-status.status-animating { color: rgba(180,220,255,0.9); }
+  .anim-status.status-animating::before { background: rgba(80,200,255,0.9); animation: statusPulse 0.7s ease-in-out infinite; }
+  .anim-status.status-done { color: var(--muted); }
+  .anim-status.status-done::before { background: rgba(120,120,120,0.5); animation: none; }
+  .anim-status.status-champion { color: var(--gold); }
+  .anim-status.status-champion::before { background: var(--gold); animation: statusPulse 0.9s ease-in-out infinite; }
+  @keyframes statusPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.25; transform: scale(0.7); }
   }
   #bracket-svg-container {
     width: 100%;
@@ -1604,11 +1639,12 @@ transition:all 0.15s; cursor:default;
 <!-- ====== BRACKET ====== -->
 <div id="tab-bracket" class="tab-panel">
 <div id="bracket-root">
+  <div style="text-align:center;padding:3px 0 3px;letter-spacing:3px;font-family:'Bebas Neue',cursive;font-size:1.35rem;color:#FFD700;opacity:0.92;text-shadow:0 0 18px rgba(255,215,0,0.35);">FIFA WORLD CUP 2026 &mdash; KNOCKOUT BRACKET</div>
   <div class="anim-bracket-wrap" id="anim-bracket-wrap">
     <canvas id="confetti-canvas"></canvas>
     <div class="anim-bracket-controls">
       <button class="anim-play-btn" id="anim-play-btn" onclick="bracketPlayOrReset()">&#9654; PLAY</button>
-      
+      <div class="ctrl-divider"></div>
       <div class="anim-speed-wrap">
         &#x1F422; <input type="range" id="anim-speed" min="2" max="5" step="0.5" value="3" oninput="document.getElementById('anim-speed-label').textContent=this.value+'x'"> &#x1F407;
         <span id="anim-speed-label">3x</span>
@@ -3277,13 +3313,21 @@ function renderBracket() {
   // Short vertical from connector midpoint down to 3rd place flag
   linesG.appendChild(dashLine('M'+bronzeXc+','+bronzeConnY+' L'+bronzeXc+','+bronzeFlagY));
 
-  // 3RD PLACE label below flag
+  // 3RD PLACE label below flag (emoji + text as separate elements for cross-browser reliability)
+  var bLblY = bronzeFlagY + FLAG_R_SF + 14;
+  var bEmoji = document.createElementNS('http://www.w3.org/2000/svg','text');
+  bEmoji.setAttribute('x', bronzeXc - 32);
+  bEmoji.setAttribute('y', bLblY);
+  bEmoji.setAttribute('text-anchor','middle');
+  bEmoji.setAttribute('font-size','13');
+  bEmoji.textContent = '\uD83E\uDD49';
+  labelsG.appendChild(bEmoji);
   var bLbl = document.createElementNS('http://www.w3.org/2000/svg','text');
-  bLbl.setAttribute('x', bronzeXc);
-  bLbl.setAttribute('y', bronzeFlagY + FLAG_R_SF + 14);
+  bLbl.setAttribute('x', bronzeXc + 6);
+  bLbl.setAttribute('y', bLblY);
   bLbl.setAttribute('text-anchor','middle');
   bLbl.setAttribute('font-family',"'Bebas Neue',cursive");
-  bLbl.setAttribute('font-size','9');
+  bLbl.setAttribute('font-size','11');
   bLbl.setAttribute('letter-spacing','2');
   bLbl.setAttribute('fill','rgba(205,127,50,0.85)');
   bLbl.textContent = '3RD PLACE';
@@ -3294,19 +3338,21 @@ function renderBracket() {
 
 
   // ── Round labels ──────────────────────────────────────────────────────
-  var lblY = 14;
-  var lblStyle = "font-family:'Bebas Neue',cursive;font-size:11px;letter-spacing:2px;fill:#FFD700;opacity:0.7;";
+  var lblY = 16;
+  var lblStyle = "font-family:'Bebas Neue',cursive;font-size:13px;letter-spacing:2px;fill:#C0C0C0;opacity:1;";
   [['R32',X.r32],['R16',X.r16],['QF',X.qf],['SF',X.sf],['FINAL',X.final]].forEach(function(p) {
+    var lbl = p[0], cx = p[1];
     var t1 = document.createElementNS('http://www.w3.org/2000/svg','text');
-    t1.setAttribute('x',p[1]); t1.setAttribute('y',lblY);
+    t1.setAttribute('x',cx); t1.setAttribute('y',lblY);
     t1.setAttribute('text-anchor','middle'); t1.setAttribute('style',lblStyle);
-    t1.textContent = p[0];
+    t1.textContent = lbl;
     labelsG.appendChild(t1);
-    if (p[0] !== 'FINAL') {
+    if (lbl !== 'FINAL') {
+      var mx = mirrorX(cx);
       var t2 = document.createElementNS('http://www.w3.org/2000/svg','text');
-      t2.setAttribute('x',mirrorX(p[1])); t2.setAttribute('y',lblY);
+      t2.setAttribute('x',mx); t2.setAttribute('y',lblY);
       t2.setAttribute('text-anchor','middle'); t2.setAttribute('style',lblStyle);
-      t2.textContent = p[0];
+      t2.textContent = lbl;
       labelsG.appendChild(t2);
     }
   });
@@ -3401,7 +3447,7 @@ function bracketPlayOrReset() {
     var animG = document.getElementById('anim-group');
     if (animG) { while (animG.firstChild) animG.removeChild(animG.firstChild); }
     stopConfetti();
-    document.getElementById('anim-status').textContent = 'Ready — enter scores to animate';
+    var _s=document.getElementById('anim-status'); _s.className='anim-status'; _s.textContent='Ready — enter scores to animate';
     renderBracket();
     return;
   }
@@ -3414,13 +3460,13 @@ function bracketPlay() {
   // Check if any scores exist
   var sequence = buildAnimSequence();
   if (sequence.length === 0) {
-    document.getElementById('anim-status').textContent = 'Enter R32 scores first to animate';
+    var _s=document.getElementById('anim-status'); _s.className='anim-status status-error'; _s.textContent='Enter R32 scores first to animate';
     return;
   }
 
   bracketAnimating = true;
   document.getElementById('anim-play-btn').disabled = true;
-  document.getElementById('anim-status').textContent = 'Animating...';
+  var _s=document.getElementById('anim-status'); _s.className='anim-status status-animating'; _s.textContent='Animating...';
   if (bracketAudioCtx && bracketAudioCtx.state === 'suspended') bracketAudioCtx.resume();
   else if (!bracketAudioCtx) bracketAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -3457,8 +3503,7 @@ function animateSequence(seq, idx, delay, done) {
 
   var item = seq[idx];
 
-  document.getElementById('anim-status').textContent =
-    'Round ' + getRoundLabel(item.matchId) + ' — ' + (item.winner || '') + ' advances';
+  var _s=document.getElementById('anim-status'); _s.className='anim-status status-animating'; _s.textContent='Round ' + getRoundLabel(item.matchId) + ' — ' + (item.winner || '') + ' advances';
 
   showScorePopup(item.matchId, function() {
     animateFlagAdvance(item, function() {
@@ -3791,28 +3836,27 @@ function dimLoser(item) {
   if (!loserId) return;
   var loserFlag = document.getElementById(loserId);
   if (loserFlag) {
-    // Dim to 0.35 so team name and flag are still recognisable
-    loserFlag.setAttribute('opacity', '0.35');
-    // Desaturate by overlaying a dark semi-transparent circle on top of flag
-    var overlay = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    var r = loserFlag.querySelector ? null : null;
-    // Get radius from first circle child
-    var children = loserFlag.childNodes;
-    var flagR = 18; // default
-    for (var i=0; i<children.length; i++) {
-      if (children[i].tagName === 'circle') {
-        flagR = parseFloat(children[i].getAttribute('r')) || 18;
-        break;
-      }
+    // Greyscale desaturation via SVG filter + slight dim
+    var svgEl = loserFlag.ownerSVGElement;
+    var filterId = 'loser-greyscale';
+    if (svgEl && !svgEl.getElementById(filterId)) {
+      var defs = svgEl.querySelector('defs') || svgEl.insertBefore(
+        document.createElementNS('http://www.w3.org/2000/svg','defs'), svgEl.firstChild);
+      var filter = document.createElementNS('http://www.w3.org/2000/svg','filter');
+      filter.setAttribute('id', filterId);
+      var cm = document.createElementNS('http://www.w3.org/2000/svg','feColorMatrix');
+      cm.setAttribute('type','saturate');
+      cm.setAttribute('values','0');
+      filter.appendChild(cm);
+      defs.appendChild(filter);
     }
-    overlay.setAttribute('r', flagR);
-    overlay.setAttribute('fill', 'rgba(10,14,26,0.55)');
-    overlay.setAttribute('pointer-events', 'none');
-    loserFlag.appendChild(overlay);
-    // Change name label color to muted grey
+    loserFlag.setAttribute('filter', 'url(#' + filterId + ')');
+    loserFlag.setAttribute('opacity', '0.55');
+    // Mute the name label to grey
+    var children = loserFlag.childNodes;
     for (var i=0; i<children.length; i++) {
       if (children[i].tagName === 'text') {
-        children[i].setAttribute('fill','#667');
+        children[i].setAttribute('fill','#888');
         break;
       }
     }
@@ -3916,7 +3960,7 @@ function bracketReset() {
   var btn = document.getElementById('anim-play-btn');
   btn.innerHTML = '&#8635; RESET';
   btn.disabled = false;
-  document.getElementById('anim-status').textContent = 'Animation complete — click Reset to refresh bracket';
+  var _s=document.getElementById('anim-status'); _s.className='anim-status status-done'; _s.textContent='Animation complete — click Reset to refresh bracket';
 }
 
 // ── Champion celebration ───────────────────────────────────────────────────
@@ -3975,7 +4019,7 @@ function showChampionCelebration(team, done) {
 
   playCrowdCheer();
   startConfetti();
-  document.getElementById('anim-status').textContent = String.fromCodePoint(0x1F3C6) + ' ' + team + ' — World Champion!';
+  var _s=document.getElementById('anim-status'); _s.className='anim-status status-champion'; _s.textContent=String.fromCodePoint(0x1F3C6) + ' ' + team + ' — World Champion!';
 
   setTimeout(function() {
     stopConfetti();
