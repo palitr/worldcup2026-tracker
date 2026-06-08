@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1360,6 +1356,111 @@ transition:all 0.15s; cursor:default;
     display: block;
     aspect-ratio: 1000 / 700;
   }
+  #bracket-svg [id^="flag-"]:hover {
+    cursor: pointer;
+  }
+  /* ── Info Icon + Tooltip ─────────────────────────────────────────── */
+  .save-info-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+  }
+  .save-info-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    min-width: 44px; /* touch target */
+    min-height: 44px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+  }
+  .save-info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(80,160,255,0.7);
+    background: rgba(80,160,255,0.1);
+    color: rgba(120,185,255,0.9);
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    line-height: 1;
+    transition: all 0.2s;
+    pointer-events: none;
+  }
+  .save-info-btn:hover .save-info-icon,
+  .save-info-btn.active .save-info-icon {
+    background: rgba(80,160,255,0.2);
+    border-color: rgba(80,160,255,1);
+    color: #60b0ff;
+    box-shadow: 0 0 8px rgba(80,160,255,0.4);
+  }
+  .save-info-tooltip {
+    display: none;
+    position: fixed;
+    width: min(300px, 90vw);
+    background: #0d1220;
+    border: 1px solid rgba(100,170,255,0.3);
+    border-radius: 10px;
+    padding: 14px 16px;
+    z-index: 9999;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+    pointer-events: none;
+  }
+  .save-info-tooltip.visible {
+    display: block;
+    pointer-events: auto;
+  }
+
+  .save-info-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 20px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid rgba(100,170,255,0.3);
+  }
+  .save-info-tooltip h4 {
+    margin: 0 0 10px 0;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #FFD700;
+    border-bottom: 1px solid rgba(255,215,0,0.15);
+    padding-bottom: 8px;
+  }
+  .save-info-tooltip ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .save-info-tooltip li {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    color: #a0a8c0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.3;
+  }
+  .save-info-tooltip li span.si { font-size: 14px; flex-shrink: 0; }
+
+/* Confetti canvas */
   /* Confetti canvas */
   #confetti-canvas {
     position: absolute;
@@ -1382,11 +1483,33 @@ transition:all 0.15s; cursor:default;
 <span class="host-tag"><img src="https://flagcdn.com/20x15/ca.png" width="20" height="15" alt="Canada" style="border-radius:2px;vertical-align:middle;display:inline-block;margin-right:4px;">Canada</span>
 <span class="host-tag"><img src="https://flagcdn.com/20x15/mx.png" width="20" height="15" alt="Mexico" style="border-radius:2px;vertical-align:middle;display:inline-block;margin-right:4px;">Mexico</span>
 </div>
-<p class="tournament-dates">11 JUNE — 19 JULY 2026 &nbsp;·&nbsp; 48 TEAMS &nbsp;·&nbsp; 104 MATCHES</p>
+<p class="tournament-dates">12 JUNE — 20 JULY 2026 &nbsp;·&nbsp; 48 TEAMS &nbsp;·&nbsp; 104 MATCHES</p>
 </header>
 
 <div class="data-bar" id="data-bar">
-<span class="save-indicator" id="save-indicator">No saved data &#8212; enter scores and they will auto-save</span>
+<div class="save-info-wrap">
+    <span class="save-indicator" id="save-indicator">No saved data &#8212; enter scores and they will auto-save</span>
+    <button class="save-info-btn" id="save-info-btn" aria-label="How saving works" onclick="toggleSaveInfo(event)">
+      <span class="save-info-icon">i</span>
+    </button>
+    <div class="save-info-tooltip" id="save-info-tooltip">
+      <h4>HOW SAVING WORKS</h4>
+      <ul>
+        <li><span class="si">&#x2705;</span> Scores survive page refreshes</li>
+        <li><span class="si">&#x2705;</span> Scores survive closing &amp; reopening the tab</li>
+        <li><span class="si">&#x2705;</span> Scores survive restarting the browser</li>
+        <li><span class="si">&#x2705;</span> Scores survive restarting the computer</li>
+        <li><span class="si">&#x274C;</span> Lost if you clear browser data/cache</li>
+        <li><span class="si">&#x274C;</span> Lost if you use a different browser</li>
+        <li><span class="si">&#x274C;</span> Lost if you use a different device</li>
+        <li><span class="si">&#x274C;</span> Lost if you use Incognito mode</li>
+      </ul>
+      <div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(100,170,255,0.15);font-family:'Barlow Condensed',sans-serif;font-size:12px;color:#6080a0;line-height:1.5;">
+        <strong style="color:#60b0ff;">&#x2193; Backup JSON</strong> &mdash; export your scores to a file for safekeeping or sharing.<br>
+        <strong style="color:#60b0ff;">&#x2191; Restore JSON</strong> &mdash; load scores from a previously exported backup file.
+      </div>
+    </div>
+  </div>
 <div class="data-bar-btns">
 <button class="data-btn export-btn" id="export-btn" onclick="exportScores()" title="Download scores as JSON backup — use this to transfer to another machine">&#8595; Backup JSON</button>
 <label class="data-btn import-btn" title="Restore scores from a JSON backup file">
@@ -2368,6 +2491,53 @@ mini.classList.remove('visible');
 // ============================================================
 // INIT
 // ============================================================
+function showSaveInfo() {
+  var btn = document.getElementById('save-info-btn');
+  var tip = document.getElementById('save-info-tooltip');
+  if (!btn || !tip) return;
+  // Position tooltip above the icon using getBoundingClientRect
+  var rect = btn.getBoundingClientRect();
+  var tipW = Math.min(300, window.innerWidth * 0.9);
+  // Left: align left edge with icon, but keep within viewport
+  var left = Math.max(8, Math.min(rect.left, window.innerWidth - tipW - 8));
+  tip.style.width = tipW + 'px';
+  tip.style.left = left + 'px';
+  // Position above: set bottom relative to viewport bottom
+  tip.style.bottom = (window.innerHeight - rect.top + 10) + 'px';
+  tip.style.top = 'auto';
+  tip.classList.add('visible');
+  btn.classList.add('active');
+}
+
+function hideSaveInfo() {
+  var btn = document.getElementById('save-info-btn');
+  var tip = document.getElementById('save-info-tooltip');
+  if (!tip || !btn) return;
+  tip.classList.remove('visible');
+  btn.classList.remove('active');
+}
+
+function toggleSaveInfo(e) {
+  e.stopPropagation();
+  var tip = document.getElementById('save-info-tooltip');
+  if (tip && tip.classList.contains('visible')) {
+    hideSaveInfo();
+  } else {
+    showSaveInfo();
+    // Close on next click outside
+    setTimeout(function() {
+      document.addEventListener('click', function closeInfo(ev) {
+        var tip2 = document.getElementById('save-info-tooltip');
+        var btn2 = document.getElementById('save-info-btn');
+        if (tip2 && !tip2.contains(ev.target) && ev.target !== btn2) {
+          hideSaveInfo();
+          document.removeEventListener('click', closeInfo);
+        }
+      });
+    }, 0);
+  }
+}
+
 function init() {
 // Priority 1: scores embedded in the file via saveToFile() — always reliable
 var hadEmbedded = false;
@@ -2403,6 +2573,27 @@ updateSaveIndicator('No saved data — enter scores and they will auto-save', ''
 }
 
 init();
+
+// ── Info icon hover for desktop (after DOM ready) ────────────────────────
+(function() {
+  var infoBtn = document.getElementById('save-info-btn');
+  if (infoBtn) {
+    infoBtn.addEventListener('mouseenter', showSaveInfo);
+    infoBtn.addEventListener('mouseleave', function() {
+      var tip = document.getElementById('save-info-tooltip');
+      if (tip) {
+        setTimeout(function() {
+          var tip2 = document.getElementById('save-info-tooltip');
+          if (tip2 && !tip2.matches(':hover')) hideSaveInfo();
+        }, 100);
+      }
+    });
+    var tip = document.getElementById('save-info-tooltip');
+    if (tip) {
+      tip.addEventListener('mouseleave', hideSaveInfo);
+    }
+  }
+})();
 
 // ============================================================
 // ANIMATED MIRRORED SVG BRACKET
@@ -3193,6 +3384,8 @@ function updateWinnerDestSlot(item) {
   // Update the destination flag to show the winner
   updateFlagNode(flagEl, item.winner, destR);
   flagEl.setAttribute('opacity', '1');
+  // Attach tooltip showing match result
+  addTooltip(flagEl, item.matchId);
   // Also update koTeams so getWinner works for next round
   if (!koTeams[destMatchId]) koTeams[destMatchId] = { home: 'TBD', away: 'TBD' };
   if (fi === 0) koTeams[destMatchId].home = item.winner;
@@ -3276,6 +3469,85 @@ function getLoserFlagId(matchId) {
   return null;
 }
 
+function addTooltip(flagEl, matchId) {
+  // Attach hover tooltip showing match result above the flag
+  var s = getScore(matchId);
+  if (!s || s.h === null || s.a === null) return; // no score yet
+  var t = getKoTeams(matchId);
+  if (!t || !t.home || t.home === 'TBD') return; // no teams
+
+  // Build tooltip text
+  var scoreStr = t.home + '  ' + s.h + ' – ' + s.a + '  ' + t.away;
+  // Add penalty info if applicable
+  var pen = penScores[matchId];
+  if (pen && pen.h !== null && pen.a !== null && s.h === s.a) {
+    scoreStr += '  (pen ' + pen.h + '–' + pen.a + ')';
+  }
+
+  flagEl.addEventListener('mouseover', function(e) {
+    // Remove any existing tooltip
+    var existing = document.getElementById('bracket-tooltip');
+    if (existing) existing.parentNode.removeChild(existing);
+
+    var animG = document.getElementById('anim-group');
+    if (!animG) return;
+
+    // Get flag position from transform
+    var tr = flagEl.getAttribute('transform') || 'translate(0,0)';
+    var m = tr.match(/translate\(([^,]+),([^)]+)\)/);
+    if (!m) return;
+    var fx = parseFloat(m[1]);
+    var fy = parseFloat(m[2]);
+
+    // Create tooltip group
+    var tip = document.createElementNS('http://www.w3.org/2000/svg','g');
+    tip.setAttribute('id','bracket-tooltip');
+    tip.setAttribute('pointer-events','none');
+
+    // Measure text width approximately (7px per char at font-size 11)
+    var tw = Math.max(scoreStr.length * 6.5, 80);
+    var th = 20;
+    var tx = fx - tw/2;
+    var ty = fy - 35; // above the flag
+
+    // Background rect
+    var bg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    bg.setAttribute('x', tx); bg.setAttribute('y', ty);
+    bg.setAttribute('width', tw); bg.setAttribute('height', th);
+    bg.setAttribute('rx','4');
+    bg.setAttribute('fill','rgba(0,0,0,0.85)');
+    bg.setAttribute('stroke','rgba(255,215,0,0.5)');
+    bg.setAttribute('stroke-width','1');
+    tip.appendChild(bg);
+
+    // Text
+    var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+    txt.setAttribute('x', fx);
+    txt.setAttribute('y', ty + th/2 + 1);
+    txt.setAttribute('text-anchor','middle');
+    txt.setAttribute('dominant-baseline','central');
+    txt.setAttribute('font-family',"'Barlow Condensed',sans-serif");
+    txt.setAttribute('font-size','11');
+    txt.setAttribute('fill','#FFD700');
+    txt.setAttribute('letter-spacing','0.5');
+    txt.textContent = scoreStr;
+    tip.appendChild(txt);
+
+    // Small triangle pointer below rect
+    var tri = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+    tri.setAttribute('points', fx+','+( ty+th+5)+' '+(fx-5)+','+(ty+th)+' '+(fx+5)+','+(ty+th));
+    tri.setAttribute('fill','rgba(0,0,0,0.85)');
+    tip.appendChild(tri);
+
+    animG.appendChild(tip);
+  });
+
+  flagEl.addEventListener('mouseout', function() {
+    var existing = document.getElementById('bracket-tooltip');
+    if (existing) existing.parentNode.removeChild(existing);
+  });
+}
+
 function animateFlagAdvance(item, done, duration) {
   var svg = document.getElementById('bracket-svg');
   if (!svg) { done(); return; }
@@ -3337,6 +3609,8 @@ function animateFlagAdvance(item, done, duration) {
       destFlag.setAttribute('opacity', '1');
       animG.removeChild(clone);
       playWhoosh();
+      // Attach tooltip showing match result
+      addTooltip(destFlag, item.matchId);
       done();
     }
   }
@@ -4154,7 +4428,7 @@ for (var i=0; i<firstDow; i++) cal += '<div class="sched-cell empty"></div>';
 for (var d=1; d<=dim; d++) {
 var k = month+'-'+d;
 var cnt = dateMap[k] ? dateMap[k].length : 0;
-var inWC = (month===6 && d>=11) || (month===7 && d<=19);
+var inWC = (month===6 && d>=12) || (month===7 && d<=20);
 var isSel = (k===schedKey);
 var cls = 'sched-cell';
 if (!inWC) cls += ' oor';
