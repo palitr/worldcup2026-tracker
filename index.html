@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -553,6 +554,64 @@ transition: all 0.2s;
 }
 
 .stat-card:hover { border-color: rgba(255,215,0,0.3); transform: translateY(-2px); }
+
+.progress-wrap {
+  margin: 0 0 24px;
+  padding: 16px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+.progress-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.progress-count {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #3b82f6 0%, #FFD700 100%);
+  transition: width 0.5s ease;
+  min-width: 0%;
+}
+.progress-stages {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.progress-stage {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--muted);
+  opacity: 0.6;
+  text-align: center;
+  flex: 1;
+}
+.progress-stage.done { color: var(--gold); opacity: 1; }
+.progress-stage.active { color: #60b0ff; opacity: 1; }
 
 .stat-value {
 font-family: 'Bebas Neue', cursive;
@@ -1220,6 +1279,10 @@ transition:all 0.15s; cursor:default;
 .sched-card-foot { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
 .sched-card-time { display:flex; align-items:center; gap:5px; font-family:'Barlow Condensed',sans-serif; font-size:0.88rem; font-weight:700; color:var(--gold); }
 .sched-card-venue { display:flex; align-items:center; gap:5px; font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; color:var(--muted); }
+.sched-card-result { display:inline-flex; align-items:center; gap:6px; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; font-weight:700; color:#e2e8f0; letter-spacing:1px; }
+.sched-card-result .res-score { font-size:1.05rem; color:#fff; }
+.sched-card-result .res-pen { font-size:0.78rem; color:var(--muted); font-weight:400; letter-spacing:0.5px; }
+.sched-card-result .res-ft { font-size:0.72rem; font-weight:700; letter-spacing:2px; color:#4ade80; background:rgba(74,222,128,0.12); border:1px solid rgba(74,222,128,0.25); border-radius:4px; padding:1px 5px; }
 /* ====== 3RD PLACE RACE TABLE ====== */
 .tpr-wrap { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-top:28px; }
 .tpr-head { display:flex; justify-content:space-between; align-items:center; padding:14px 18px 13px; border-bottom:1px solid var(--border); background:rgba(255,255,255,0.02); flex-wrap:wrap; gap:8px; }
@@ -1586,6 +1649,7 @@ transition:all 0.15s; cursor:default;
 
 <!-- ====== OVERVIEW TAB ====== -->
 <div id="tab-overview" class="tab-panel active">
+<div id="progress-bar-wrap"></div>
 <div class="stats-grid" id="stats-grid"></div>
 <div class="legend-bar">
 <div class="legend-item"><div class="legend-dot" style="background:#2DC653;"></div> Qualified for R32 (1st/2nd place)</div>
@@ -2045,8 +2109,15 @@ container.appendChild(card);
 
 // Standings rows
 const tbody = card.querySelector(`#tb-${key}`);
+const GROUP_COLOURS = {
+  A:'#E53935', B:'#1E88E5', C:'#43A047', D:'#8E24AA',
+  E:'#FB8C00', F:'#00BCD4', G:'#FFC107', H:'#F44336',
+  I:'#3F51B5', J:'#009688', K:'#795548', L:'#607D8B'
+};
+const grpCol = GROUP_COLOURS[key] || 'rgba(255,255,255,0.15)';
 standings.forEach(s => {
 const tr = document.createElement('tr');
+tr.style.borderLeft = '3px solid ' + grpCol;
 let cls = 'team-row';
 let badge = '';
 if (s.rank === 1) { cls += ' qualified'; badge = '<span class="qual-badge q1">1ST</span>'; }
@@ -2134,12 +2205,18 @@ div.innerHTML = `
 <span style="font-size:1.1rem;">${grp.name}</span>
 </div>
 `;
+const OV_GROUP_COLOURS = {
+  A:'#E53935', B:'#1E88E5', C:'#43A047', D:'#8E24AA',
+  E:'#FB8C00', F:'#00BCD4', G:'#FFC107', H:'#F44336',
+  I:'#3F51B5', J:'#009688', K:'#795548', L:'#607D8B'
+};
+const ovCol = OV_GROUP_COLOURS[key] || 'rgba(255,255,255,0.15)';
 standings.forEach(s => {
 const row = document.createElement('div');
 let bg = '';
 if (s.rank <= 2) bg = 'rgba(45,198,83,0.08)';
 else if (s.rank === 3) bg = 'rgba(255,193,7,0.06)';
-row.style.cssText = `display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:${bg};border-top:1px solid var(--border);font-size:0.85rem;`;
+row.style.cssText = `display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:${bg};border-top:1px solid var(--border);border-left:3px solid ${ovCol};font-size:0.85rem;`;
 row.innerHTML = `
 <span>${flag(s.team)}&nbsp;${s.team}</span>
 <span style="font-family:'Bebas Neue',cursive;color:var(--gold);font-size:1.1rem;">${s.pts}</span>
@@ -2165,6 +2242,50 @@ const s = getScore(m.id);
 return sum + (s.h || 0) + (s.a || 0);
 }, 0);
 const avgGoals = playedGroup ? (totalGoals / playedGroup).toFixed(1) : '0.0';
+
+// ── Tournament progress bar ──────────────────────────────────────────────
+const koAllIds = [].concat(
+  koMatchDefs.r32, koMatchDefs.r16, koMatchDefs.qf,
+  koMatchDefs.sf, koMatchDefs.final, koMatchDefs.bronze
+).map(m => m.id);
+const playedKo    = koAllIds.filter(id => isPlayed(id)).length;
+const totalPlayed = playedGroup + playedKo;
+const TOTAL       = 104;
+const pct         = (totalPlayed / TOTAL * 100).toFixed(1);
+
+// Stage thresholds (cumulative matches)
+const stages = [
+  { label:'Group Stage', end:72  },
+  { label:'R32',         end:88  },
+  { label:'R16',         end:96  },
+  { label:'QF',          end:100 },
+  { label:'SF',          end:102 },
+  { label:'Final',       end:104 },
+];
+function stageClass(s) {
+  if (totalPlayed >= s.end) return 'done';
+  if (totalPlayed >= (s.end - (s.end - (stages[stages.indexOf(s)-1]||{end:0}).end))) return 'active';
+  return '';
+}
+const stagePills = stages.map(function(s, i) {
+  var prev = i === 0 ? 0 : stages[i-1].end;
+  var cls = totalPlayed >= s.end ? 'done' : (totalPlayed > prev ? 'active' : '');
+  return '<span class="progress-stage ' + cls + '">' + s.label + '</span>';
+}).join('');
+
+const pbWrap = document.getElementById('progress-bar-wrap');
+if (pbWrap) {
+  pbWrap.innerHTML = '<div class="progress-wrap">'
+    + '<div class="progress-header">'
+    + '<span class="progress-title">Tournament Progress</span>'
+    + '<span class="progress-count">' + totalPlayed + ' / ' + TOTAL + ' matches played</span>'
+    + '</div>'
+    + '<div class="progress-track">'
+    + '<div class="progress-fill" style="width:' + pct + '%"></div>'
+    + '</div>'
+    + '<div class="progress-stages">' + stagePills + '</div>'
+    + '</div>';
+}
 
 const statsEl = document.getElementById('stats-grid');
 if (!statsEl) return;
@@ -2513,7 +2634,7 @@ if (tab === 'bracket') {
     // If in post-animation state, keep it; otherwise re-render fresh
     if (!bracketPlayed) { renderBracket(); }
   }
-if (tab === 'schedule') { renderSchedule(); }
+if (tab === 'schedule') { schedAutoSelect(); renderSchedule(); }
 // Mini-player only visible on the Tournament tab
 const mini = document.getElementById('mini-player');
 if (mini) {
@@ -4495,7 +4616,115 @@ b.style.animationPlayState = active ? 'running' : 'paused';
 // ============================================================
 // SCHEDULE TAB
 // ============================================================
+// ── Score display helper for schedule cards ─────────────────────────────
+function getScoreDisplay(matchId) {
+  // Returns result HTML string if score entered, empty string otherwise
+  var s = getScore(matchId);
+  if (s.h === null || s.a === null) return '';
+  var scoreStr = s.h + '–' + s.a;
+  var penStr = '';
+  var pen = penScores[matchId];
+  if (s.h === s.a && pen && pen.h !== null && pen.a !== null) {
+    penStr = ' <span class="res-pen">(pen ' + pen.h + '–' + pen.a + ')</span>';
+  }
+  return '<span class="sched-card-result">'
+    + '<span class="res-score">' + scoreStr + '</span>'
+    + penStr
+    + '<span class="res-ft">FT</span>'
+    + '</span>';
+}
+
 // schedKey and schedMonth declared at top of script
+
+function schedAutoSelect() {
+  // Only auto-select on first open (schedKey still null) or explicit reset
+  if (schedKey !== null) return;
+
+  // parseISTDay is defined inside renderSchedule so we can't call it here.
+  // Use istToUtcMs + Intl.DateTimeFormat directly instead.
+  function localMonthDay(utcStr) {
+    var ms = istToUtcMs(utcStr);
+    if (!ms) return null;
+    var fmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: userTZ, day: 'numeric', month: 'numeric'
+    });
+    var parts = fmt.formatToParts(new Date(ms));
+    var r = {};
+    parts.forEach(function(p) {
+      if (p.type === 'day')   r.day   = parseInt(p.value);
+      if (p.type === 'month') r.month = parseInt(p.value);
+    });
+    return (r.day && r.month) ? r : null;
+  }
+
+  // Build dateMap snapshot to know which dates have matches
+  var matchDates = {};
+  groupMatches.forEach(function(m) {
+    var d = localMonthDay(m.utc);
+    if (d) matchDates[d.month + '-' + d.day] = true;
+  });
+  var koAllArr = [].concat(
+    koMatchDefs.r32, koMatchDefs.r16, koMatchDefs.qf,
+    koMatchDefs.sf, koMatchDefs.final, koMatchDefs.bronze
+  );
+  koAllArr.forEach(function(m) {
+    var d = localMonthDay(m.utc);
+    if (d) matchDates[d.month + '-' + d.day] = true;
+  });
+
+  // Today in user's local timezone
+  var now = new Date();
+  var fmt = new Intl.DateTimeFormat('en-GB', {
+    timeZone: userTZ, day: 'numeric', month: 'numeric'
+  });
+  var parts = fmt.formatToParts(now);
+  var todayDay = 0, todayMonth = 0;
+  parts.forEach(function(p) {
+    if (p.type === 'day')   todayDay   = parseInt(p.value);
+    if (p.type === 'month') todayMonth = parseInt(p.value);
+  });
+
+  // Convert a month-day key to a comparable integer for ordering
+  function keyToInt(k) {
+    var sp = k.split('-');
+    return parseInt(sp[0]) * 100 + parseInt(sp[1]);
+  }
+  var todayInt = todayMonth * 100 + todayDay;
+
+  // Sort all match date keys
+  var allKeys = Object.keys(matchDates).sort(function(a,b) {
+    return keyToInt(a) - keyToInt(b);
+  });
+  if (!allKeys.length) return;
+
+  var firstInt = keyToInt(allKeys[0]);
+  var lastInt  = keyToInt(allKeys[allKeys.length - 1]);
+
+  var chosen;
+  if (todayInt < firstInt) {
+    // Before tournament — jump to first match date
+    chosen = allKeys[0];
+  } else if (todayInt > lastInt) {
+    // After tournament — jump to last match date
+    chosen = allKeys[allKeys.length - 1];
+  } else if (matchDates[todayMonth + '-' + todayDay]) {
+    // Today has matches — select today
+    chosen = todayMonth + '-' + todayDay;
+  } else {
+    // Rest day — find nearest future date with matches
+    chosen = null;
+    for (var i = 0; i < allKeys.length; i++) {
+      if (keyToInt(allKeys[i]) >= todayInt) { chosen = allKeys[i]; break; }
+    }
+    // Fallback to last date if somehow nothing ahead
+    if (!chosen) chosen = allKeys[allKeys.length - 1];
+  }
+
+  // Set month nav to correct month
+  var chosenMonth = parseInt(chosen.split('-')[0]);
+  schedMonth = chosenMonth;
+  schedKey   = chosen;
+}
 
 function schedNav(dir) {
 schedMonth = Math.max(6, Math.min(7, schedMonth + dir));
@@ -4662,7 +4891,10 @@ teamsHtml = '<div class="sched-card-teams">'
 list += '<div class="sched-card">'
 + '<div class="sched-card-hdr">'
 + '<span class="sched-card-stage">'+m.stage+'</span>'
++ '<span style="display:flex;align-items:center;gap:10px;">'
++ getScoreDisplay(m.id)
 + '<span class="sched-card-mid">'+m.dispId+'</span>'
++ '</span>'
 + '</div>'
 + teamsHtml
 + '<div class="sched-card-foot">'
