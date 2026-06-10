@@ -1524,7 +1524,7 @@ transition:all 0.15s; cursor:default;
   .save-info-tooltip {
     display: none;
     position: fixed;
-    width: min(300px, 90vw);
+    width: min(450px, 90vw);
     background: #0d1220;
     border: 1px solid rgba(100,170,255,0.3);
     border-radius: 10px;
@@ -1541,11 +1541,11 @@ transition:all 0.15s; cursor:default;
   .save-info-tooltip::after {
     content: '';
     position: absolute;
-    bottom: -7px;
+    top: -7px;
     left: 20px;
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
-    border-top: 7px solid rgba(100,170,255,0.3);
+    border-bottom: 7px solid rgba(100,170,255,0.3);
   }
   .save-info-tooltip h4 {
     margin: 0 0 10px 0;
@@ -1611,18 +1611,18 @@ transition:all 0.15s; cursor:default;
     <div class="save-info-tooltip" id="save-info-tooltip">
       <h4>HOW SAVING WORKS</h4>
       <ul>
-        <li><span class="si">&#x2705;</span> Scores survive page refreshes</li>
-        <li><span class="si">&#x2705;</span> Scores survive closing &amp; reopening the tab</li>
-        <li><span class="si">&#x2705;</span> Scores survive restarting the browser</li>
-        <li><span class="si">&#x2705;</span> Scores survive restarting the computer</li>
-        <li><span class="si">&#x274C;</span> Lost if you clear browser data/cache</li>
-        <li><span class="si">&#x274C;</span> Lost if you use a different browser</li>
-        <li><span class="si">&#x274C;</span> Lost if you use a different device</li>
-        <li><span class="si">&#x274C;</span> Lost if you use Incognito mode</li>
+        <li><span class="si">&#x2705;</span> Match scores update automatically every 5 minutes</li>
+        <li><span class="si">&#x2705;</span> You can still enter scores manually &mdash; your entry takes priority</li>
+        <li><span class="si">&#x2705;</span> Manual entries survive page refreshes, closing &amp; reopening the tab, restarting the browser/computer</li>
+        <li><span class="si">&#x274C;</span> Manual entries lost if you clear browser data/cache</li>
+        <li><span class="si">&#x274C;</span> Manual entries lost if you use a different browser or device</li>
+        <li><span class="si">&#x274C;</span> Manual entries lost if you use Incognito mode</li>
+        <li style="color:rgba(100,170,255,0.7);font-style:italic;font-size:0.92em;">(Auto-updated scores still show in all the above cases)</li>
       </ul>
       <div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(100,170,255,0.15);font-family:'Barlow Condensed',sans-serif;font-size:12px;color:#6080a0;line-height:1.5;">
-        <strong style="color:#60b0ff;">&#x2193; Backup JSON</strong> &mdash; export your scores to a file for safekeeping or sharing.<br>
-        <strong style="color:#60b0ff;">&#x2191; Restore JSON</strong> &mdash; load scores from a previously exported backup file.
+        <strong style="color:#60b0ff;">&#x2193; Backup JSON</strong> &mdash; export your manual entries to a file for safekeeping.<br>
+        <strong style="color:#60b0ff;">&#x2191; Restore JSON</strong> &mdash; load scores from a previously exported backup file.<br>
+        <strong style="color:#60b0ff;">&#x2715; Clear All</strong> &mdash; removes only your manual entries; auto-updated scores will reload automatically.
       </div>
     </div>
   </div>
@@ -2694,14 +2694,26 @@ function showSaveInfo() {
   if (!btn || !tip) return;
   // Position tooltip above the icon using getBoundingClientRect
   var rect = btn.getBoundingClientRect();
-  var tipW = Math.min(300, window.innerWidth * 0.9);
+  var tipW = Math.min(450, window.innerWidth * 0.9);
   // Left: align left edge with icon, but keep within viewport
   var left = Math.max(8, Math.min(rect.left, window.innerWidth - tipW - 8));
   tip.style.width = tipW + 'px';
   tip.style.left = left + 'px';
-  // Position above: set bottom relative to viewport bottom
-  tip.style.bottom = (window.innerHeight - rect.top + 10) + 'px';
-  tip.style.top = 'auto';
+  // Position below the button, but ensure it stays within viewport
+  var tipH = tip.scrollHeight || 400;
+  var spaceBelow = window.innerHeight - rect.bottom - 8;
+  var spaceAbove = rect.top - 8;
+  if (spaceBelow >= tipH || spaceBelow >= spaceAbove) {
+    // Open downward
+    tip.style.top = (rect.bottom + 10) + 'px';
+    tip.style.bottom = 'auto';
+    tip.style.setProperty('--arrow-top', '-7px');
+    tip.style.setProperty('--arrow-bottom', 'auto');
+  } else {
+    // Fall back to upward if more space above
+    tip.style.bottom = (window.innerHeight - rect.top + 10) + 'px';
+    tip.style.top = 'auto';
+  }
   tip.classList.add('visible');
   btn.classList.add('active');
 }
