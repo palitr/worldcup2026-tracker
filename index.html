@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -701,56 +702,11 @@ vertical-align: middle;
 
 /* ====== RESPONSIVE ====== */
 @media (max-width: 600px) {
-  /* ── General ── */
-  .groups-grid { grid-template-columns: 1fr; }
-  .ko-matches-grid { grid-template-columns: 1fr; }
-  h1 { font-size: 2.8rem; }
-
-  /* ── Tab bar: horizontal scroll, single row ── */
-  .nav-tabs {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 6px;
-    padding-bottom: 6px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .nav-tabs::-webkit-scrollbar { display: none; }
-  .tab-btn {
-    padding: 7px 11px;
-    font-size: 0.78rem;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  /* ── Bracket: horizontal scroll at natural size ── */
-  #bracket-svg-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    justify-content: flex-start;
-    padding: 10px 0 20px;
-  }
-  #bracket-svg-container svg {
-    width: 900px;
-    max-width: none;
-    height: auto;
-    flex-shrink: 0;
-  }
-
-  /* ── Group Stage standings: hide D, L, GF, GA columns ── */
-  .standings-table th:nth-child(4),
-  .standings-table td:nth-child(4),
-  .standings-table th:nth-child(5),
-  .standings-table td:nth-child(5),
-  .standings-table th:nth-child(6),
-  .standings-table td:nth-child(6),
-  .standings-table th:nth-child(7),
-  .standings-table td:nth-child(7) { display: none; }
-
-  /* Redistribute width: team name wider, remaining cols equal */
-  .standings-table th:first-child { width: 52%; }
-  .standings-table th:not(:first-child) { width: 12%; }
+.groups-grid { grid-template-columns: 1fr; }
+.ko-matches-grid { grid-template-columns: 1fr; }
+.nav-tabs { gap: 6px; }
+.tab-btn { padding: 8px 12px; font-size: 0.82rem; }
+h1 { font-size: 2.8rem; }
 }
 
 /* Section title */
@@ -2921,7 +2877,38 @@ updateSaveIndicator('No saved data — enter scores and they will auto-save', ''
 }
 }
 
-init();
+// ── Load live scores from scores.json then initialise ───────────────────
+(function loadLiveScores() {
+  fetch('scores.json?v=' + Date.now())
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(data) {
+      if (data && data.scores) {
+        Object.keys(data.scores).forEach(function(id) {
+          var s = data.scores[id];
+          if (s && s.h !== null && s.a !== null) {
+            scores[id] = { h: s.h, a: s.a };
+          }
+        });
+      }
+      if (data && data.penScores) {
+        Object.keys(data.penScores).forEach(function(id) {
+          var p = data.penScores[id];
+          if (p && p.h !== null && p.a !== null) {
+            penScores[id] = { h: p.h, a: p.a };
+          }
+        });
+      }
+      if (data && data.updated) {
+        console.log('[Scores] Loaded live scores updated at ' + data.updated);
+      }
+    })
+    .catch(function() {
+      console.log('[Scores] scores.json not available — manual entry mode');
+    })
+    .finally(function() {
+      init();
+    });
+})();
 
 // ── Info icon hover for desktop (after DOM ready) ────────────────────────
 (function() {
