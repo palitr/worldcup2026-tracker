@@ -1,0 +1,44 @@
+name: Update WC2026 Scores
+
+on:
+  schedule:
+    # Every 5 minutes from Jun 11 to Jul 19 (GitHub Actions uses UTC)
+    # Note: GitHub Actions cron minimum is every 5 minutes
+    # This runs 24/7 during the tournament window — the script itself
+    # only writes changes when there are finished/live matches
+    - cron: '*/5 * 11-30 6 *'   # Jun 11–30
+    - cron: '*/5 * 1-19  7 *'   # Jul 1–19
+
+  # Allow manual trigger from GitHub Actions tab (useful for testing)
+  workflow_dispatch:
+
+jobs:
+  update-scores:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch latest scores
+        env:
+          FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+        run: python update_scores.py
+
+      - name: Commit scores.json if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add scores.json
+          # Only commit if scores.json actually changed
+          if git diff --staged --quiet; then
+            echo "No changes to scores.json — skipping commit"
+          else
+            git commit -m "chore: update scores $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
