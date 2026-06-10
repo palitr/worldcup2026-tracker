@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -701,11 +702,56 @@ vertical-align: middle;
 
 /* ====== RESPONSIVE ====== */
 @media (max-width: 600px) {
-.groups-grid { grid-template-columns: 1fr; }
-.ko-matches-grid { grid-template-columns: 1fr; }
-.nav-tabs { gap: 6px; }
-.tab-btn { padding: 8px 12px; font-size: 0.82rem; }
-h1 { font-size: 2.8rem; }
+  /* ── General ── */
+  .groups-grid { grid-template-columns: 1fr; }
+  .ko-matches-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 2.8rem; }
+
+  /* ── Tab bar: horizontal scroll, single row ── */
+  .nav-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 6px;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 7px 11px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── Bracket: horizontal scroll at natural size ── */
+  #bracket-svg-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    padding: 10px 0 20px;
+  }
+  #bracket-svg-container svg {
+    width: 900px;
+    max-width: none;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  /* ── Group Stage standings: hide D, L, GF, GA columns ── */
+  .standings-table th:nth-child(4),
+  .standings-table td:nth-child(4),
+  .standings-table th:nth-child(5),
+  .standings-table td:nth-child(5),
+  .standings-table th:nth-child(6),
+  .standings-table td:nth-child(6),
+  .standings-table th:nth-child(7),
+  .standings-table td:nth-child(7) { display: none; }
+
+  /* Redistribute width: team name wider, remaining cols equal */
+  .standings-table th:first-child { width: 52%; }
+  .standings-table th:not(:first-child) { width: 12%; }
 }
 
 /* Section title */
