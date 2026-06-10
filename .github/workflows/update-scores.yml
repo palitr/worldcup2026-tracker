@@ -12,6 +12,9 @@ on:
   # Allow manual trigger from GitHub Actions tab (useful for testing)
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   update-scores:
     runs-on: ubuntu-latest
