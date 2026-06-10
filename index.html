@@ -2017,6 +2017,7 @@ var BRACKET_TREE = {
 const scores = {}; // matchId -> { h: number|null, a: number|null }
 var _suppressSave = false;
 var manualScores = {}; // tracks which match IDs were entered by the user manually
+var _postClearMsg = null; // save indicator message to show after clear, overrides init message
 // Bracket animation state — declared here so showTab/init can reference safely
 var bracketAnimating = false;
 var bracketSoundOn = true;
@@ -2888,6 +2889,11 @@ var ts2 = d2.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
 updateSaveIndicator('✓ ' + cnt2 + ' result' + (cnt2===1?'':'s') + ' restored · last saved ' + ds2 + ' ' + ts2, 'restored');
 } else {
 updateSaveIndicator('No saved data — enter scores and they will auto-save', '');
+}
+// If clearAllScores set a post-clear message, show it instead
+if (_postClearMsg) {
+  updateSaveIndicator(_postClearMsg, '');
+  _postClearMsg = null;
 }
 }
 
@@ -5242,11 +5248,13 @@ fetch('scores.json?v=' + Date.now())
   })
   .catch(function() {})
   .finally(function() {
+    _postClearMsg = 'Manual entries cleared — live scores still showing';
     renderGroups();
     renderKnockout();
     updateOverviewStandings();
     updateStats();
-    updateSaveIndicator('Manual entries cleared — live scores still showing', '');
+    updateSaveIndicator(_postClearMsg, '');
+    _postClearMsg = null;
   });
 }
 
