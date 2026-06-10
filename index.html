@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5134,6 +5135,10 @@ function loadFromStorage() {
           manualScores[k] = true;
         }
       });
+      // Backward compat: if STORAGE_MANUAL was missing, persist it now
+      if (!m && Object.keys(manualScores).length > 0) {
+        try { localStorage.setItem(STORAGE_MANUAL, JSON.stringify(manualScores)); } catch(e) {}
+      }
     }
     if (p) { var pp = JSON.parse(p); Object.keys(pp).forEach(function(k){ penScores[k] = pp[k]; }); }
     window._restoredAt = t || new Date().toISOString();
