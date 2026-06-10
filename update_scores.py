@@ -15,7 +15,6 @@ API_KEY = os.environ.get("FOOTBALL_DATA_API_KEY", "")
 API_URL = "https://api.football-data.org/v4/competitions/WC/matches?season=2026"
 
 # ── Team name mapping: API name → your tracker name ──────────────────────
-# football-data.org uses FIFA official names which sometimes differ
 TEAM_MAP = {
     "Mexico":                    "Mexico",
     "Korea Republic":            "South Korea",
@@ -52,6 +51,7 @@ TEAM_MAP = {
     "New Zealand":               "New Zealand",
     "Spain":                     "Spain",
     "Cape Verde":                "Cape Verde",
+    "Cabo Verde":                "Cape Verde",
     "France":                    "France",
     "Senegal":                   "Senegal",
     "Iraq":                      "Iraq",
@@ -191,10 +191,10 @@ def build_scores(data):
         away_team = map_team(m.get("awayTeam", {}).get("name", ""))
         stage     = m.get("stage", "")
 
-        # ── Group stage: look up match ID by team pair ─────────────────
+        # Group stage: look up match ID by team pair
         match_id = MATCH_MAP.get((home_team, away_team))
 
-        # ── KO stage: assign sequential IDs ───────────────────────────
+        # KO stage: assign sequential IDs
         if not match_id and stage in KO_STAGE_MAP:
             prefix = KO_STAGE_MAP[stage]
             if prefix in ("FINAL", "BRONZE"):
