@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1767,6 +1766,7 @@ let ytPlayerPaused = false;
 var STORAGE_SCORES  = 'fifa2026_scores';
 var STORAGE_PENS    = 'fifa2026_pens';
 var STORAGE_SAVEDAT = 'fifa2026_savedAt';
+var STORAGE_MANUAL  = 'fifa2026_manual'; // tracks which scores user entered manually
 
 // Bracket SVG constants — declared at top to avoid temporal dead zone when init() runs
 var VW = 1000, VH = 700;
@@ -2015,6 +2015,7 @@ var BRACKET_TREE = {
 // ============================================================
 const scores = {}; // matchId -> { h: number|null, a: number|null }
 var _suppressSave = false;
+var manualScores = {}; // tracks which match IDs were entered by the user manually
 // Bracket animation state — declared here so showTab/init can reference safely
 var bracketAnimating = false;
 var bracketSoundOn = true;
@@ -2204,6 +2205,12 @@ const side = el.dataset.side;
 const val = el.value.trim() === '' ? null : parseInt(el.value);
 if (!scores[id]) scores[id] = { h: null, a: null };
 scores[id][side] = (val !== null && !isNaN(val) && val >= 0) ? val : null;
+// Mark this match as manually entered by the user
+if (scores[id].h !== null || scores[id].a !== null) {
+  manualScores[id] = true;
+} else {
+  delete manualScores[id]; // if both cleared, remove manual tag
+}
 saveToStorage();
 // Re-render affected areas
 renderGroups();
@@ -2612,6 +2619,12 @@ const side = el.dataset.side;
 const val = el.value.trim() === '' ? null : parseInt(el.value);
 if (!scores[id]) scores[id] = { h: null, a: null };
 scores[id][side] = (val !== null && !isNaN(val) && val >= 0) ? val : null;
+// Mark this match as manually entered by the user
+if (scores[id].h !== null || scores[id].a !== null) {
+  manualScores[id] = true;
+} else {
+  delete manualScores[id]; // if both cleared, remove manual tag
+}
 saveToStorage();
 renderKnockout();
 }
@@ -2877,7 +2890,11 @@ updateSaveIndicator('No saved data — enter scores and they will auto-save', ''
 }
 }
 
-// ── Load live scores from scores.json then initialise ───────────────────
+// ── Layered score loader ─────────────────────────────────────────────────
+// Priority 1: SAVED_SCORES embedded (handled inside init)
+// Priority 2: localStorage manual entries (handled inside init)
+// Priority 3: scores.json from API — base layer, loaded first
+// Manual entries always win over API scores for the same match ID
 (function loadLiveScores() {
   fetch('scores.json?v=' + Date.now())
     .then(function(r) { return r.ok ? r.json() : null; })
@@ -2885,7 +2902,8 @@ updateSaveIndicator('No saved data — enter scores and they will auto-save', ''
       if (data && data.scores) {
         Object.keys(data.scores).forEach(function(id) {
           var s = data.scores[id];
-          if (s && s.h !== null && s.a !== null) {
+          // Only set if not already manually entered (manual wins)
+          if (s && s.h !== null && s.a !== null && !manualScores[id]) {
             scores[id] = { h: s.h, a: s.a };
           }
         });
@@ -2893,7 +2911,7 @@ updateSaveIndicator('No saved data — enter scores and they will auto-save', ''
       if (data && data.penScores) {
         Object.keys(data.penScores).forEach(function(id) {
           var p = data.penScores[id];
-          if (p && p.h !== null && p.a !== null) {
+          if (p && p.h !== null && p.a !== null && !manualScores[id]) {
             penScores[id] = { h: p.h, a: p.a };
           }
         });
@@ -2909,6 +2927,7 @@ updateSaveIndicator('No saved data — enter scores and they will auto-save', ''
       init();
     });
 })();
+
 
 // ── Info icon hover for desktop (after DOM ready) ────────────────────────
 (function() {
@@ -5087,6 +5106,7 @@ function saveToStorage() {
     localStorage.setItem(STORAGE_SCORES,  JSON.stringify(scores));
     localStorage.setItem(STORAGE_PENS,    JSON.stringify(penScores));
     localStorage.setItem(STORAGE_SAVEDAT, now);
+    localStorage.setItem(STORAGE_MANUAL,  JSON.stringify(manualScores));
     var cnt = countScores();
     var ts  = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     updateSaveIndicator('✓ Auto-saved at ' + ts + ' · ' + cnt + ' result' + (cnt===1?'':'s'), 'autosaved');
@@ -5100,8 +5120,21 @@ function loadFromStorage() {
     var s = localStorage.getItem(STORAGE_SCORES);
     var p = localStorage.getItem(STORAGE_PENS);
     var t = localStorage.getItem(STORAGE_SAVEDAT);
+    var m = localStorage.getItem(STORAGE_MANUAL);
     if (!s && !p) return false;
-    if (s) { var ps = JSON.parse(s); Object.keys(ps).forEach(function(k){ scores[k] = ps[k]; }); }
+    if (s) {
+      var ps = JSON.parse(s);
+      // Only restore scores that were manually entered by the user
+      // If STORAGE_MANUAL exists, use it to filter; otherwise treat all as manual
+      // (backward compatibility: old format has no STORAGE_MANUAL)
+      var manual = m ? JSON.parse(m) : ps; // if no manual record, treat all as manual
+      Object.keys(ps).forEach(function(k) {
+        if (manual[k]) {
+          scores[k] = ps[k];
+          manualScores[k] = true;
+        }
+      });
+    }
     if (p) { var pp = JSON.parse(p); Object.keys(pp).forEach(function(k){ penScores[k] = pp[k]; }); }
     window._restoredAt = t || new Date().toISOString();
     return true;
@@ -5172,20 +5205,44 @@ reader.readAsText(file);
 }
 
 function clearAllScores() {
-if (!confirm('Clear ALL entered scores and penalties?\n\nThis will remove all ' +
-Object.keys(scores).filter(function(k){ return scores[k] && scores[k].h !== null && scores[k].a !== null; }).length +
-' results and cannot be undone.')) return;
+var manualCount = Object.keys(manualScores).length;
+if (!confirm('Clear your manually entered scores?\n\n' +
+  manualCount + ' manual entr' + (manualCount === 1 ? 'y' : 'ies') + ' will be removed.\n\n' +
+  'Live scores from the API will still show after clearing.')) return;
 Object.keys(scores).forEach(function(k) { delete scores[k]; });
 Object.keys(penScores).forEach(function(k) { delete penScores[k]; });
+Object.keys(manualScores).forEach(function(k) { delete manualScores[k]; });
 try {
 localStorage.removeItem(STORAGE_SCORES);
 localStorage.removeItem(STORAGE_PENS);
 localStorage.removeItem(STORAGE_SAVEDAT);
+localStorage.removeItem(STORAGE_MANUAL);
 } catch(e) {}
-renderGroups();
-renderKnockout();
-updateOverviewStandings();
-updateSaveIndicator('All data cleared \u2014 ready for fresh start', '');
+// Reload API scores after clearing manual entries
+fetch('scores.json?v=' + Date.now())
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(data) {
+    if (data && data.scores) {
+      Object.keys(data.scores).forEach(function(id) {
+        var s = data.scores[id];
+        if (s && s.h !== null && s.a !== null) scores[id] = { h: s.h, a: s.a };
+      });
+    }
+    if (data && data.penScores) {
+      Object.keys(data.penScores).forEach(function(id) {
+        var p = data.penScores[id];
+        if (p && p.h !== null && p.a !== null) penScores[id] = { h: p.h, a: p.a };
+      });
+    }
+  })
+  .catch(function() {})
+  .finally(function() {
+    renderGroups();
+    renderKnockout();
+    updateOverviewStandings();
+    updateStats();
+    updateSaveIndicator('Manual entries cleared — live scores still showing', '');
+  });
 }
 
 </script>
