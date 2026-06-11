@@ -708,6 +708,29 @@ vertical-align: middle;
 h1 { font-size: 2.8rem; }
 }
 
+/* ====== SCROLL TO TOP ====== */
+#scroll-top-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 22px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,215,0,0.15);
+  border: 1px solid rgba(255,215,0,0.35);
+  color: var(--gold);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+#scroll-top-btn.visible { display: flex; }
+#scroll-top-btn:hover { background: rgba(255,215,0,0.28); transform: translateY(-2px); }
+
 /* ====== UPI SUPPORT MODAL ====== */
 .upi-overlay {
   display: none;
@@ -1159,6 +1182,110 @@ margin-top: 8px;
 .track-num { width: 20px; text-align: center; color: var(--muted); font-family: 'Bebas Neue', cursive; font-size: 1rem; flex-shrink: 0; }
 .track-name { font-weight: 600; color: var(--text); flex: 1; }
 .track-artist { color: var(--muted); font-size: 0.8rem; }
+.ceremony-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 960px;
+  margin: 0 auto 10px;
+}
+.ceremony-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s;
+  position: relative;
+}
+.ceremony-card:hover { transform: translateY(-5px); box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
+.ceremony-card-header {
+  padding: 20px 20px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.ceremony-card-header img { width: 36px; height: 27px; border-radius: 4px; flex-shrink: 0; }
+.ceremony-card-country {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.4rem;
+  letter-spacing: 3px;
+  color: #fff;
+  line-height: 1;
+}
+.ceremony-card-venue {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+.ceremony-card-time {
+  margin-left: auto;
+  text-align: right;
+  flex-shrink: 0;
+}
+.ceremony-card-time .cer-date {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  color: var(--gold);
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+.ceremony-card-time .cer-time {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+.ceremony-card-body { padding: 14px 20px 18px; }
+.ceremony-official-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,215,0,0.1);
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.ceremony-performers-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.ceremony-performers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ceremony-performer {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  color: var(--text);
+  letter-spacing: 0.5px;
+  transition: all 0.15s;
+}
+.ceremony-performer:hover { background: rgba(255,255,255,0.1); }
+.ceremony-performer.headliner {
+  background: rgba(255,215,0,0.1);
+  border-color: rgba(255,215,0,0.35);
+  color: var(--gold);
+  font-weight: 700;
+}
+
 .mascots-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; max-width: 850px; margin: 0 auto; }
 .mascot-card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid var(--border); transition: all 0.3s; text-align: center; }
 .mascot-card:hover { transform: translateY(-8px); box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
@@ -3358,10 +3485,19 @@ if (_postClearMsg) {
 }
 }
 
+// ====== SCROLL TO TOP ============================================================
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('scroll-top-btn');
+  if (!btn) return;
+  if (window.scrollY > 300) btn.classList.add('visible');
+  else btn.classList.remove('visible');
+}, { passive: true });
+
 // ====== UPI SUPPORT MODAL ========================================================
 
 function openUpiModal() {
   document.getElementById('upi-overlay').classList.add('visible');
+  if (typeof gtag === 'function') gtag('event', 'upi_modal_opened', { event_category: 'monetisation' });
 }
 function closeUpiModal() {
   document.getElementById('upi-overlay').classList.remove('visible');
@@ -3378,6 +3514,7 @@ function upiCopyId() {
       setTimeout(function() { fb.textContent = ''; }, 2500);
     });
   }
+  if (typeof gtag === 'function') gtag('event', 'upi_id_copied', { event_category: 'monetisation' });
 }
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
@@ -3601,6 +3738,7 @@ document.addEventListener('keydown', function(e) {
       }
       if (data && data.updated) {
         console.log('[Scores] Loaded live scores updated at ' + data.updated);
+        window._liveScoresUpdatedAt = data.updated;
       }
     })
     .catch(function() {
@@ -3608,6 +3746,17 @@ document.addEventListener('keydown', function(e) {
     })
     .finally(function() {
       init();
+      if (window._liveScoresUpdatedAt && Object.keys(manualScores).length === 0) {
+        var d = new Date(window._liveScoresUpdatedAt);
+        var fmt = new Intl.DateTimeFormat('en-GB', {
+          timeZone: userTZ, day:'numeric', month:'short',
+          hour:'numeric', minute:'2-digit', hour12:true
+        });
+        var liveCount = Object.keys(scores).length;
+        if (liveCount > 0) {
+          updateSaveIndicator('🔄 Scores last updated: ' + fmt.format(d) + ' ' + getTZLabel(), 'restored');
+        }
+      }
     });
 })();
 
@@ -5037,8 +5186,89 @@ function bracketToggleSound() {
 // ============================================================
 // ELEMENTS SHOWCASE TAB
 // ============================================================
+function renderCeremonies() {
+  var grid = document.getElementById('ceremony-grid');
+  if (!grid) return;
+
+  // UTC times for each ceremony (90 mins before kick-off)
+  var ceremonies = [
+    {
+      country: 'Mexico',
+      iso: 'mx',
+      venue: 'Estadio Azteca, Mexico City',
+      utc: '2026-06-11T17:30:00Z', // 1:30 PM ET = 17:30 UTC
+      badge: '⭐ Official Song Premiere',
+      headliners: ['Shakira', 'Burna Boy'],
+      performers: ['Alejandro Fernández', 'Belinda', 'Danny Ocean', 'J Balvin', 'Lila Downs', 'Los Ángeles Azules', 'Maná', 'Tyla']
+    },
+    {
+      country: 'Canada',
+      iso: 'ca',
+      venue: 'BMO Field, Toronto',
+      utc: '2026-06-12T17:30:00Z', // 1:30 PM ET = 17:30 UTC
+      badge: null,
+      headliners: ['Alanis Morissette', 'Michael Bublé'],
+      performers: ['Alessia Cara', 'Nora Fatehi', 'Jessie Reyez', 'Elyanna', 'Sanjoy', 'Vegedream', 'William Prince']
+    },
+    {
+      country: 'United States',
+      iso: 'us',
+      venue: 'SoFi Stadium, Los Angeles',
+      utc: '2026-06-12T23:30:00Z', // 7:30 PM ET Jun 12 = 23:30 UTC Jun 12
+      badge: null,
+      headliners: ['Katy Perry', 'LISA'],
+      performers: ['Rema', 'Anitta', 'Future', 'Dan + Shay']
+    },
+  ];
+
+  var html = '';
+  ceremonies.forEach(function(c) {
+    // Format date and time in user's local timezone
+    var ms = istToUtcMs(c.utc);
+    var dateFmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: userTZ, weekday:'short', day:'numeric', month:'short'
+    });
+    var timeFmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: userTZ, hour:'numeric', minute:'2-digit', hour12:true
+    });
+    var d = new Date(ms);
+    var dateStr = dateFmt.format(d);
+    var timeStr = timeFmt.format(d) + ' ' + getTZLabel();
+
+    var badgeHtml = c.badge
+      ? '<div class="ceremony-official-badge">' + c.badge + '</div>'
+      : '';
+
+    var performerHtml = c.headliners.map(function(p) {
+      return '<span class="ceremony-performer headliner">' + p + '</span>';
+    }).join('') + c.performers.map(function(p) {
+      return '<span class="ceremony-performer">' + p + '</span>';
+    }).join('');
+
+    html += '<div class="ceremony-card">'
+      + '<div class="ceremony-card-header">'
+      + '<img src="https://flagcdn.com/20x15/' + c.iso + '.png" width="36" height="27" alt="' + c.country + '">'
+      + '<div><div class="ceremony-card-country">' + c.country + '</div>'
+      + '<div class="ceremony-card-venue">' + c.venue + '</div></div>'
+      + '<div class="ceremony-card-time">'
+      + '<div class="cer-date">' + dateStr + '</div>'
+      + '<div class="cer-time">' + timeStr + '</div>'
+      + '</div>'
+      + '</div>'
+      + '<div class="ceremony-card-body">'
+      + badgeHtml
+      + '<div class="ceremony-performers-label">Performers</div>'
+      + '<div class="ceremony-performers">' + performerHtml + '</div>'
+      + '</div>'
+      + '</div>';
+  });
+
+  grid.innerHTML = html;
+}
+
 function renderElements() {
 const root = document.getElementById('elements-root');
+  renderCeremonies();
 if (!root || root.innerHTML !== '') return;
 
 const stadiums = [
@@ -5300,6 +5530,11 @@ Watch on YouTube
 ${tracksHtml}
 </div>
 </div>
+
+<!-- ── OPENING CEREMONIES ── -->
+<div class="elements-section-title">🎉 Opening Ceremonies</div>
+<div class="elements-sub">Three Nations · Three Celebrations · June 11–12</div>
+<div class="ceremony-grid" id="ceremony-grid"></div>
 
 <!-- ── OFFICIAL MASCOTS ── -->
 <div class="elements-section-title">🐾 Official Mascots</div>
@@ -6069,6 +6304,9 @@ fetch('scores.json?v=' + Date.now())
 <footer class="creator-footer">
 <div class="creator-copyright">&#169; 2026 <a href="https://www.linkedin.com/in/rajarshipalit/" target="_blank" rel="noopener noreferrer">Rajarshi Palit</a> &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; FIFA World Cup 2026 Interactive Fixture Tracker &nbsp;&middot;&nbsp; <a class="creator-li-link" href="https://www.linkedin.com/in/rajarshipalit/" target="_blank" rel="noopener noreferrer">Connect with Rajarshi on LinkedIn</a> &nbsp;&middot;&nbsp; <button class="upi-footer-btn" onclick="openUpiModal()">&#9749; Support via UPI</button></div>
 </footer>
+
+<!-- ====== SCROLL TO TOP ====== -->
+<button id="scroll-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#8679;</button>
 
 <!-- ====== UPI SUPPORT MODAL ====== -->
 <div class="upi-overlay" id="upi-overlay" onclick="upiOverlayClick(event)">
