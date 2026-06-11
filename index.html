@@ -708,6 +708,232 @@ vertical-align: middle;
 h1 { font-size: 2.8rem; }
 }
 
+/* ====== TEAM SEARCH OVERLAY ====== */
+.ts-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  align-items: flex-end;
+  justify-content: center;
+}
+.ts-overlay.visible { display: flex; }
+@media (min-width: 601px) {
+  .ts-overlay { align-items: center; }
+}
+.ts-panel {
+  background: #0d1220;
+  border: 1px solid rgba(100,170,255,0.2);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 620px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.6);
+  animation: ts-slide-up 0.22s ease;
+}
+@media (min-width: 601px) {
+  .ts-panel { border-radius: 20px; max-height: 80vh; animation: ts-fade-in 0.18s ease; }
+}
+@keyframes ts-slide-up { from { transform: translateY(60px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+@keyframes ts-fade-in  { from { opacity:0; transform:scale(0.97); } to { opacity:1; transform:scale(1); } }
+
+.ts-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+}
+.ts-search-input {
+  flex: 1;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 8px 14px;
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  outline: none;
+}
+.ts-search-input:focus { border-color: rgba(100,170,255,0.4); }
+.ts-search-input::placeholder { color: rgba(255,255,255,0.3); }
+.ts-close-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  width: 32px; height: 32px;
+  color: var(--muted);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.ts-close-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+.ts-back-btn {
+  background: none;
+  border: none;
+  color: rgba(100,170,255,0.8);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.88rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: flex; align-items: center; gap: 5px;
+  flex-shrink: 0;
+}
+.ts-back-btn:hover { color: #fff; background: rgba(255,255,255,0.05); }
+
+.ts-body {
+  overflow-y: auto;
+  flex: 1;
+  padding: 12px 14px 20px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Flag grid */
+.ts-flag-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+@media (max-width: 400px) { .ts-flag-grid { grid-template-columns: repeat(5, 1fr); } }
+.ts-flag-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+.ts-flag-btn:hover { background: rgba(100,170,255,0.12); border-color: rgba(100,170,255,0.3); }
+.ts-flag-btn img { width: 28px; height: 21px; border-radius: 3px; }
+.ts-flag-btn span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+  word-break: break-word;
+}
+.ts-flag-btn.hidden { display: none; }
+.ts-group-label {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin: 10px 0 6px;
+  padding-left: 2px;
+}
+
+/* Team match list */
+.ts-team-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.ts-team-header img { width: 36px; height: 27px; border-radius: 4px; }
+.ts-team-name {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  color: #fff;
+}
+.ts-stage-label {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin: 14px 0 6px;
+  opacity: 0.8;
+}
+.ts-match-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+.ts-match-meta {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  display: flex;
+  gap: 10px;
+}
+.ts-match-teams {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.ts-match-teams .ts-highlight { color: #fff; }
+.ts-match-teams .ts-opponent  { color: rgba(255,255,255,0.65); }
+.ts-match-score {
+  margin-left: auto;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ts-ft-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #4ade80;
+  background: rgba(74,222,128,0.12);
+  border: 1px solid rgba(74,222,128,0.25);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+.ts-match-card.ts-played { border-color: rgba(74,222,128,0.2); }
+.ts-match-card.ts-tbd { opacity: 0.55; }
+.ts-tbd-text {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Search icon button in toolbar */
+.ts-trigger-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 5px 13px;
+  color: var(--text);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.ts-trigger-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.22); }
+
 /* Section title */
 .section-title {
 font-family: 'Bebas Neue', cursive;
@@ -1237,6 +1463,111 @@ text-decoration: none;
 /* ====== SCHEDULE TAB ====== */
 .sched-page { padding: 16px 0; }
 
+.sched-venue-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.sched-venue-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.sched-venue-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.25); }
+.sched-venue-btn.filtered {
+  background: rgba(255,215,0,0.12);
+  border-color: rgba(255,215,0,0.45);
+  color: var(--gold);
+}
+.sched-venue-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 500;
+  background: #0d1220;
+  border: 1px solid rgba(100,170,255,0.2);
+  border-radius: 12px;
+  padding: 10px 0 0;
+  min-width: 200px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  overflow: hidden;
+}
+.sched-venue-dropdown.open { display: block; }
+.sched-venue-list {
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 0 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+.sched-venue-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  transition: background 0.12s;
+  user-select: none;
+}
+.sched-venue-item:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+.sched-venue-item input[type=checkbox] {
+  accent-color: var(--gold);
+  width: 14px; height: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.sched-venue-footer {
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px 10px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  margin-top: 6px;
+}
+.sched-venue-apply {
+  flex: 1;
+  padding: 6px 0;
+  border-radius: 16px;
+  border: none;
+  background: var(--gold);
+  color: #000;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.sched-venue-apply:hover { opacity: 0.85; }
+.sched-venue-reset {
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: var(--muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.sched-venue-reset:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+
 .sched-cal-wrap {
 background: var(--card2); border: 1px solid rgba(255,255,255,0.07);
 border-radius: 16px; padding: 20px 18px 18px; margin-bottom: 24px;
@@ -1627,6 +1958,7 @@ transition:all 0.15s; cursor:default;
     </div>
   </div>
 <div class="data-bar-btns">
+<button class="ts-trigger-btn" onclick="openTeamSearch()" title="Search by team">&#128269; Team Search</button>
 <button class="data-btn export-btn" id="export-btn" onclick="exportScores()" title="Download scores as JSON backup — use this to transfer to another machine">&#8595; Backup JSON</button>
 <label class="data-btn import-btn" title="Restore scores from a JSON backup file">
 &#8593; Restore JSON
@@ -1779,6 +2111,7 @@ var X = { r32: 22, r16: 205, qf: 320, sf: 415, final: 500 };
 // Schedule state — declared at top to avoid temporal dead zone
 var schedKey = null;
 var schedMonth = 6;
+var schedVenue = []; // empty array = All venues (no filter)
 
 // Confetti state
 var confettiRAF = null;
@@ -2673,7 +3006,7 @@ if (tab === 'bracket') {
     // If in post-animation state, keep it; otherwise re-render fresh
     if (!bracketPlayed) { renderBracket(); }
   }
-if (tab === 'schedule') { schedAutoSelect(); renderSchedule(); }
+if (tab === 'schedule') { schedVenue = []; schedAutoSelect(); renderSchedule(); }
 // Mini-player only visible on the Tournament tab
 const mini = document.getElementById('mini-player');
 if (mini) {
@@ -2907,6 +3240,193 @@ if (_postClearMsg) {
   _postClearMsg = null;
 }
 }
+
+// ====== TEAM SEARCH OVERLAY ======================================================
+
+var _tsSelectedTeam = null;
+
+// All 48 teams in group order
+var TS_TEAMS = [];
+(function() {
+  var order = ['A','B','C','D','E','F','G','H','I','J','K','L'];
+  order.forEach(function(g) {
+    if (groups[g]) groups[g].teams.forEach(function(t) { TS_TEAMS.push({team:t, group:g}); });
+  });
+})();
+
+// Stage labels for KO rounds
+var TS_STAGE_LABELS = {
+  r32:'Round of 32', r16:'Round of 16', qf:'Quarter Finals',
+  sf:'Semi Finals', final:'Final', bronze:'3rd Place'
+};
+
+function openTeamSearch() {
+  _tsSelectedTeam = null;
+  document.getElementById('ts-overlay').classList.add('visible');
+  document.getElementById('ts-search-input').value = '';
+  document.getElementById('ts-back-btn').style.display = 'none';
+  tsRenderGrid();
+  setTimeout(function() { document.getElementById('ts-search-input').focus(); }, 200);
+}
+
+function closeTeamSearch() {
+  document.getElementById('ts-overlay').classList.remove('visible');
+  _tsSelectedTeam = null;
+}
+
+function tsOverlayClick(e) {
+  if (e.target === document.getElementById('ts-overlay')) closeTeamSearch();
+}
+
+function tsShowGrid() {
+  _tsSelectedTeam = null;
+  document.getElementById('ts-search-input').value = '';
+  document.getElementById('ts-back-btn').style.display = 'none';
+  document.getElementById('ts-search-input').placeholder = 'Search team...';
+  tsRenderGrid();
+}
+
+function tsFilterGrid(val) {
+  if (_tsSelectedTeam) return; // in team view — ignore
+  var q = val.trim().toLowerCase();
+  var btns = document.querySelectorAll('.ts-flag-btn');
+  btns.forEach(function(btn) {
+    var name = (btn.dataset.team || '').toLowerCase();
+    btn.classList.toggle('hidden', q.length > 0 && name.indexOf(q) === -1);
+  });
+  // Hide group labels if all their teams are hidden
+  var labels = document.querySelectorAll('.ts-group-label');
+  labels.forEach(function(lbl) {
+    var g = lbl.dataset.group;
+    var anyVisible = false;
+    document.querySelectorAll('.ts-flag-btn[data-group="' + g + '"]').forEach(function(b) {
+      if (!b.classList.contains('hidden')) anyVisible = true;
+    });
+    lbl.style.display = anyVisible ? '' : 'none';
+  });
+}
+
+function tsRenderGrid() {
+  var body = document.getElementById('ts-body');
+  var html = '<div class="ts-flag-grid" id="ts-flag-grid">';
+  // Group by group letter, add group labels
+  var currentGroup = null;
+  // Close grid, add label, reopen for each group
+  html = '';
+  TS_TEAMS.forEach(function(item) {
+    if (item.group !== currentGroup) {
+      if (currentGroup !== null) html += '</div>'; // close prev grid
+      html += '<div class="ts-group-label" data-group="' + item.group + '">Group ' + item.group + '</div>';
+      html += '<div class="ts-flag-grid">';
+      currentGroup = item.group;
+    }
+    var iso = isoCodes[item.team] || '';
+    var imgHtml = iso
+      ? '<img src="https://flagcdn.com/20x15/' + iso + '.png" width="28" height="21" alt="' + item.team + '">'
+      : '<span style="font-size:1.4rem">&#127963;&#65039;</span>';
+    // Short display name
+    var displayName = item.team.length > 10 ? item.team.replace('Bosnia-Herzegovina','Bosnia').replace('Saudi Arabia','S. Arabia').replace('Ivory Coast','Ivory Cst').replace('New Zealand','N. Zealand').replace('South Africa','S. Africa').replace('South Korea','S. Korea').replace('Netherlands','Nthrlnds').replace('Uzbekistan','Uzbekistn') : item.team;
+    html += '<button class="ts-flag-btn" data-team="' + item.team + '" data-group="' + item.group + '" onclick="tsSelectTeam(this.dataset.team)">' + imgHtml + '<span>' + displayName + '</span></button>';
+  });
+  if (currentGroup) html += '</div>'; // close last grid
+  body.innerHTML = html;
+}
+
+function tsSelectTeam(team) {
+  _tsSelectedTeam = team;
+  document.getElementById('ts-back-btn').style.display = '';
+  document.getElementById('ts-search-input').placeholder = team;
+  document.getElementById('ts-search-input').value = '';
+  tsRenderTeam(team);
+}
+
+function tsRenderTeam(team) {
+  var body = document.getElementById('ts-body');
+  var iso = isoCodes[team] || '';
+  var imgHtml = iso ? '<img src="https://flagcdn.com/20x15/' + iso + '.png">' : '';
+
+  var html = '<div class="ts-team-header">' + imgHtml + '<span class="ts-team-name">' + team + '</span></div>';
+
+  // ── Group stage matches ───────────────────────────────────────────────
+  var teamGroup = null;
+  Object.keys(groups).forEach(function(g) { if (groups[g].teams.indexOf(team) > -1) teamGroup = g; });
+  var teamGroupMatches = groupMatches.filter(function(m) { return m.home === team || m.away === team; });
+
+  if (teamGroupMatches.length) {
+    html += '<div class="ts-stage-label">Group Stage · Group ' + teamGroup + '</div>';
+    teamGroupMatches.forEach(function(m) {
+      html += tsBuildMatchCard(m.id, m.home, m.away, m.utc, m.venue, team);
+    });
+  }
+
+  // ── KO stage matches ──────────────────────────────────────────────────
+  var koStages = [
+    { key:'r32', label:'Round of 32' },
+    { key:'r16', label:'Round of 16' },
+    { key:'qf',  label:'Quarter Finals' },
+    { key:'sf',  label:'Semi Finals' },
+    { key:'final', label:'Final' },
+    { key:'bronze', label:'3rd Place' },
+  ];
+
+  koStages.forEach(function(stage) {
+    var stageDefs = koMatchDefs[stage.key] || [];
+    stageDefs.forEach(function(m) {
+      var teams = getKoTeams(m.id);
+      if (teams.home === team || teams.away === team) {
+        if (!html.includes('ts-stage-label">' + stage.label)) {
+          html += '<div class="ts-stage-label">' + stage.label + '</div>';
+        }
+        html += tsBuildMatchCard(m.id, teams.home, teams.away, m.utc, m.venue, team);
+      }
+    });
+  });
+
+  body.innerHTML = html;
+  body.scrollTop = 0;
+}
+
+function tsBuildMatchCard(id, home, away, utc, venue, highlightTeam) {
+  var played = isPlayed(id);
+  var s = getScore(id);
+  var timeStr = formatMatchTime(utc);
+  var tzLbl = getTZLabel();
+  var isTBD = (home === 'TBD' || away === 'TBD');
+
+  // Shorten venue
+  var shortVenue = venue.replace(' Stadium','').replace('BC Place, Vancouver','Vancouver').replace('Estadio ','');
+
+  var cardCls = 'ts-match-card' + (played ? ' ts-played' : '') + (isTBD ? ' ts-tbd' : '');
+
+  var homeHtml = '<span class="' + (home === highlightTeam ? 'ts-highlight' : 'ts-opponent') + '">'
+    + (isoCodes[home] ? '<img src="https://flagcdn.com/20x15/' + isoCodes[home] + '.png" style="width:16px;height:12px;border-radius:2px;vertical-align:middle;margin-right:3px;">' : '')
+    + home + '</span>';
+  var awayHtml = '<span class="' + (away === highlightTeam ? 'ts-highlight' : 'ts-opponent') + '">'
+    + (isoCodes[away] ? '<img src="https://flagcdn.com/20x15/' + isoCodes[away] + '.png" style="width:16px;height:12px;border-radius:2px;vertical-align:middle;margin-right:3px;">' : '')
+    + away + '</span>';
+
+  var scoreHtml = '';
+  if (played) {
+    var pen = penScores[id];
+    var penStr = (s.h === s.a && pen && pen.h !== null) ? ' <span style="font-size:0.7rem;color:var(--muted)">(pen ' + pen.h + '–' + pen.a + ')</span>' : '';
+    scoreHtml = '<div class="ts-match-score"><span>' + s.h + '–' + s.a + '</span>' + penStr + '<span class="ts-ft-badge">FT</span></div>';
+  } else if (!isTBD) {
+    scoreHtml = '<div class="ts-match-score" style="font-size:0.8rem;color:var(--muted);font-weight:400;">' + timeStr + ' ' + tzLbl + '</div>';
+  }
+
+  return '<div class="' + cardCls + '">'
+    + '<div class="ts-match-meta"><span>&#128205;&nbsp;' + shortVenue + '</span>'
+    + (!played && !isTBD ? '' : '')
+    + '</div>'
+    + '<div class="ts-match-teams">' + homeHtml + '<span style="color:var(--muted);font-size:0.8rem;margin:0 2px;">vs</span>' + awayHtml + scoreHtml + '</div>'
+    + (isTBD ? '<div class="ts-tbd-text">Awaiting group results</div>' : '')
+    + '</div>';
+}
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeTeamSearch();
+});
 
 // ── Layered score loader ─────────────────────────────────────────────────
 // Priority 1: SAVED_SCORES embedded (handled inside init)
@@ -4819,6 +5339,94 @@ function schedAutoSelect() {
   schedKey   = chosen;
 }
 
+// Temporary selection state (pending Apply)
+var _venuePending = [];
+
+function schedVenueOpen() {
+  var dd = document.getElementById('sched-venue-dd');
+  if (!dd) return;
+  // Sync checkboxes with current schedVenue
+  _venuePending = schedVenue.slice();
+  var cbs = dd.querySelectorAll('.sched-venue-cb');
+  cbs.forEach(function(cb) {
+    cb.checked = _venuePending.indexOf(cb.value) > -1;
+  });
+  dd.classList.toggle('open');
+}
+
+function schedVenueCheck(cb) {
+  var v = cb.value;
+  if (cb.checked) {
+    if (_venuePending.indexOf(v) === -1) _venuePending.push(v);
+  } else {
+    _venuePending = _venuePending.filter(function(x){ return x !== v; });
+  }
+}
+
+function schedVenueApply() {
+  schedVenue = _venuePending.slice();
+  document.getElementById('sched-venue-dd').classList.remove('open');
+  schedKey = null;
+  // Auto-jump to nearest date with matches at selected venues
+  if (schedVenue.length > 0) {
+    var venueKeys = [];
+    var allMatches = [];
+    groupMatches.forEach(function(m) { allMatches.push(m); });
+    [koMatchDefs.r32, koMatchDefs.r16, koMatchDefs.qf,
+     koMatchDefs.sf, koMatchDefs.final, koMatchDefs.bronze].forEach(function(arr) {
+      arr.forEach(function(m) { allMatches.push(m); });
+    });
+    allMatches.forEach(function(m) {
+      if (schedVenue.indexOf(m.venue) === -1) return;
+      var ms = istToUtcMs(m.utc);
+      if (!ms) return;
+      var fmt = new Intl.DateTimeFormat('en-GB', { timeZone: userTZ, day:'numeric', month:'numeric' });
+      var parts = fmt.formatToParts(new Date(ms));
+      var d = 0, mo = 0;
+      parts.forEach(function(p) {
+        if (p.type==='day')   d  = parseInt(p.value);
+        if (p.type==='month') mo = parseInt(p.value);
+      });
+      var k = mo + '-' + d;
+      if (venueKeys.indexOf(k) === -1) venueKeys.push(k);
+    });
+    function keyToInt(k) { var s=k.split('-'); return parseInt(s[0])*100+parseInt(s[1]); }
+    venueKeys.sort(function(a,b){ return keyToInt(a)-keyToInt(b); });
+    if (venueKeys.length) {
+      var now = new Date();
+      var fmt2 = new Intl.DateTimeFormat('en-GB', { timeZone:userTZ, day:'numeric', month:'numeric' });
+      var tp = fmt2.formatToParts(now);
+      var td = 0, tm2 = 0;
+      tp.forEach(function(p) { if(p.type==='day') td=parseInt(p.value); if(p.type==='month') tm2=parseInt(p.value); });
+      var todayInt = tm2*100+td;
+      var chosen = venueKeys[venueKeys.length-1];
+      for (var i=0; i<venueKeys.length; i++) {
+        if (keyToInt(venueKeys[i]) >= todayInt) { chosen = venueKeys[i]; break; }
+      }
+      schedKey = chosen;
+      schedMonth = parseInt(chosen.split('-')[0]);
+    }
+  } else {
+    schedAutoSelect();
+  }
+  renderSchedule();
+}
+
+function schedVenueReset() {
+  _venuePending = [];
+  var cbs = document.querySelectorAll('.sched-venue-cb');
+  cbs.forEach(function(cb) { cb.checked = false; });
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  var wrap = document.getElementById('sched-venue-wrap');
+  if (wrap && !wrap.contains(e.target)) {
+    var dd = document.getElementById('sched-venue-dd');
+    if (dd) dd.classList.remove('open');
+  }
+});
+
 function schedNav(dir) {
 schedMonth = Math.max(6, Math.min(7, schedMonth + dir));
 renderSchedule();
@@ -4892,9 +5500,12 @@ slotA:m.slotA, slotB:m.slotB});
 });
 });
 
+// ── filter by venue if selected ──────────────────────────────────────────
+const filteredM = schedVenue.length > 0 ? allM.filter(function(m){ return schedVenue.indexOf(m.venue) > -1; }) : allM;
+
 // ── group by date ─────────────────────────────────────────────────────────
 const dateMap = {};
-allM.forEach(function(m) {
+filteredM.forEach(function(m) {
 const k = m.month+'-'+m.day;
 if (!dateMap[k]) dateMap[k] = [];
 dateMap[k].push(m);
@@ -4910,6 +5521,37 @@ const firstDow = new Date(2026, month-1, 1).getDay(); // 0=Sun…6=Sat
 const monLabel = month===6 ? 'JUNE' : 'JULY';
 const dowHdrs = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 
+// ── build venue dropdown button ───────────────────────────────────────────
+var VENUE_LABELS = {
+  'BC Place, Vancouver':   'Vancouver',
+  'Los Angeles Stadium':   'Los Angeles',
+  'New York NJ Stadium':   'New York',
+  'Dallas Stadium':        'Dallas',
+  'Houston Stadium':       'Houston',
+  'Boston Stadium':        'Boston',
+  'Toronto Stadium':       'Toronto',
+  'Miami Stadium':         'Miami',
+  'Atlanta Stadium':       'Atlanta',
+  'Seattle Stadium':       'Seattle',
+  'SF Bay Area Stadium':   'SF Bay Area',
+  'Kansas City Stadium':   'Kansas City',
+  'Philadelphia Stadium':  'Philadelphia',
+  'Estadio Guadalajara':   'Guadalajara',
+  'Estadio Monterrey':     'Monterrey',
+  'Mexico City Stadium':   'Mexico City',
+};
+var btnLabel = schedVenue.length === 0 ? '&#128205; All Venues'
+  : schedVenue.length === 1 ? '&#128205; ' + VENUE_LABELS[schedVenue[0]]
+  : '&#128205; ' + schedVenue.length + ' Venues';
+var btnCls = 'sched-venue-btn' + (schedVenue.length > 0 ? ' filtered' : '');
+var ddHtml = '<div class="sched-venue-wrap" id="sched-venue-wrap">'  + '<button class="'+btnCls+'" onclick="schedVenueOpen()">'+btnLabel+' &#9660;</button>'  + '<div class="sched-venue-dropdown" id="sched-venue-dd">'  + '<div class="sched-venue-list">';
+Object.keys(VENUE_LABELS).forEach(function(v) {
+  var chk = schedVenue.indexOf(v) > -1 ? ' checked' : '';
+  ddHtml += '<label class="sched-venue-item">'    + '<input type="checkbox" class="sched-venue-cb" value="'+v+'"'+chk+' onchange="schedVenueCheck(this)">'    + VENUE_LABELS[v]    + '</label>';
+});
+ddHtml += '</div>'  + '<div class="sched-venue-footer">'  + '<button class="sched-venue-reset" onclick="schedVenueReset()">Reset</button>'  + '<button class="sched-venue-apply" onclick="schedVenueApply()">Apply</button>'  + '</div></div></div>';
+var venuePills = ddHtml;
+
 let cal = '<div class="sched-cal-wrap">'
 + '<div class="sched-cal-nav">'
 + '<span class="sched-mon-title">'+monLabel+' 2026</span>'
@@ -4917,6 +5559,7 @@ let cal = '<div class="sched-cal-wrap">'
 + '<button class="sched-nav-btn"'+(month===6?' disabled':'')+' onclick="schedNav(-1)">&#8592;</button>'
 + '<button class="sched-nav-btn nxt"'+(month===7?' disabled':'')+' onclick="schedNav(1)">&#8594;</button>'
 + '</div></div>'
++ venuePills
 + '<div class="sched-cal-grid">';
 
 dowHdrs.forEach(function(d){ cal += '<div class="sched-dow">'+d+'</div>'; });
@@ -5281,6 +5924,18 @@ fetch('scores.json?v=' + Date.now())
 <footer class="creator-footer">
 <div class="creator-copyright">&#169; 2026 <a href="https://www.linkedin.com/in/rajarshipalit/" target="_blank" rel="noopener noreferrer">Rajarshi Palit</a> &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; FIFA World Cup 2026 Interactive Fixture Tracker &nbsp;&middot;&nbsp; <a class="creator-li-link" href="https://www.linkedin.com/in/rajarshipalit/" target="_blank" rel="noopener noreferrer">Connect with Rajarshi on LinkedIn</a></div>
 </footer>
+
+<!-- ====== TEAM SEARCH OVERLAY ====== -->
+<div class="ts-overlay" id="ts-overlay" onclick="tsOverlayClick(event)">
+  <div class="ts-panel" id="ts-panel">
+    <div class="ts-header" id="ts-header">
+      <button class="ts-back-btn" id="ts-back-btn" onclick="tsShowGrid()" style="display:none">&#8592; All Teams</button>
+      <input class="ts-search-input" id="ts-search-input" type="text" placeholder="Search team..." oninput="tsFilterGrid(this.value)">
+      <button class="ts-close-btn" onclick="closeTeamSearch()">&#10005;</button>
+    </div>
+    <div class="ts-body" id="ts-body"></div>
+  </div>
+</div>
 
 </body>
 </html>
