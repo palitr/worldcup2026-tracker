@@ -1,7 +1,7 @@
 """
 update_scores.py
 FIFA World Cup 2026 — Live Score Updater
-Fetches results from football-data.org v4 API and writes scores.json
+Fetches results from worldcup26.ir (free, no API key needed for /get/games)
 © 2026 Rajarshi Palit
 """
 
@@ -11,17 +11,19 @@ import urllib.request
 import urllib.error
 from datetime import datetime, timezone
 
-API_KEY = os.environ.get("FOOTBALL_DATA_API_KEY", "")
-API_URL = "https://api.football-data.org/v4/competitions/WC/matches?season=2026"
+API_URL = "https://worldcup26.ir/get/games"
 
-# ── Team name mapping: API name → your tracker name ──────────────────────
+# ── Team name mapping: API name → tracker name ────────────────────────────
 TEAM_MAP = {
     "Mexico":                    "Mexico",
-    "Korea Republic":            "South Korea",
     "South Africa":              "South Africa",
+    "South Korea":               "South Korea",
+    "Korea Republic":            "South Korea",
     "Czechia":                   "Czechia",
+    "Czech Republic":            "Czechia",
     "Canada":                    "Canada",
     "Bosnia and Herzegovina":    "Bosnia-Herzegovina",
+    "Bosnia & Herzegovina":      "Bosnia-Herzegovina",
     "Qatar":                     "Qatar",
     "Switzerland":               "Switzerland",
     "Brazil":                    "Brazil",
@@ -32,9 +34,11 @@ TEAM_MAP = {
     "United States":             "USA",
     "Paraguay":                  "Paraguay",
     "Australia":                 "Australia",
-    "Türkiye":                   "Turkiye",
     "Turkey":                    "Turkiye",
+    "Turkiye":                   "Turkiye",
+    "Türkiye":                   "Turkiye",
     "Germany":                   "Germany",
+    "Curacao":                   "Curacao",
     "Curaçao":                   "Curacao",
     "Ivory Coast":               "Ivory Coast",
     "Côte d'Ivoire":             "Ivory Coast",
@@ -71,7 +75,7 @@ TEAM_MAP = {
     "Panama":                    "Panama",
 }
 
-# ── Match ID mapping: (home_team, away_team) → your tracker ID ───────────
+# ── Match ID mapping: (home_team, away_team) → tracker ID ─────────────────
 MATCH_MAP = {
     ("Mexico",          "South Africa"):       "A1",
     ("South Korea",     "Czechia"):            "A2",
@@ -147,88 +151,110 @@ MATCH_MAP = {
     ("Croatia",         "Ghana"):              "L6",
 }
 
-# KO stage matches identified by API stage field
+# KO stage mapping
 KO_STAGE_MAP = {
-    "LAST_32":          "R32",
-    "LAST_16":          "R16",
-    "QUARTER_FINALS":   "QF",
-    "SEMI_FINALS":      "SF",
-    "FINAL":            "FINAL",
-    "THIRD_PLACE":      "BRONZE",
+    "Round of 32":         "R32",
+    "Round Of 32":         "R32",
+    "last_32":             "R32",
+    "Round of 16":         "R16",
+    "Round Of 16":         "R16",
+    "last_16":             "R16",
+    "Quarter Final":       "QF",
+    "Quarter Finals":      "QF",
+    "quarter_finals":      "QF",
+    "Semi Final":          "SF",
+    "Semi Finals":         "SF",
+    "semi_finals":         "SF",
+    "Final":               "FINAL",
+    "final":               "FINAL",
+    "Third Place":         "BRONZE",
+    "Third Place Playoff": "BRONZE",
+    "third_place":         "BRONZE",
 }
 
 
-def fetch_matches():
+def fetch_games():
     req = urllib.request.Request(
         API_URL,
-        headers={"X-Auth-Token": API_KEY}
+        headers={
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Accept-Language": "en-US,en;q=0.9",
+        }
     )
     with urllib.request.urlopen(req, timeout=15) as resp:
         return json.loads(resp.read().decode())
 
 
-def map_team(api_name):
-    return TEAM_MAP.get(api_name, api_name)
+def map_team(name):
+    if not name:
+        return name
+    return TEAM_MAP.get(name, name)
 
 
 def build_scores(data):
     scores = {}
     pen_scores = {}
-    ko_counters = {stage: 1 for stage in KO_STAGE_MAP.values()}
+    ko_counters = {s: 1 for s in ["R32", "R16", "QF", "SF"]}
 
-    for m in data.get("matches", []):
-        status = m.get("status", "")
-        if status not in ("FINISHED", "IN_PLAY", "PAUSED"):
+    matches = data
+    if isinstance(data, dict):
+        matches = (data.get("games") or data.get("matches")
+                   or data.get("data") or [])
+
+    print(f"  Total matches from API: {len(matches)}")
+
+    for m in matches:
+        status = str(m.get("status") or m.get("matchStatus") or "").lower()
+        if status not in ("completed", "finished", "in_play", "live",
+                          "inplay", "in-play", "paused", "1", "2", "3"):
             continue
 
-        full_time = m.get("score", {}).get("fullTime", {})
-        home_score = full_time.get("home")
-        away_score = full_time.get("away")
+        home_raw = ((m.get("homeTeam") or {}).get("name")
+                    or m.get("home_team") or m.get("team1") or "")
+        away_raw = ((m.get("awayTeam") or {}).get("name")
+                    or m.get("away_team") or m.get("team2") or "")
+
+        home_score = (m.get("homeScore") or m.get("home_score")
+                      or m.get("score1") or 0)
+        away_score = (m.get("awayScore") or m.get("away_score")
+                      or m.get("score2") or 0)
+
         if home_score is None or away_score is None:
             continue
 
-        home_team = map_team(m.get("homeTeam", {}).get("name", ""))
-        away_team = map_team(m.get("awayTeam", {}).get("name", ""))
-        stage     = m.get("stage", "")
+        home  = map_team(home_raw.strip())
+        away  = map_team(away_raw.strip())
+        stage = str(m.get("stage") or m.get("round") or m.get("phase") or "")
 
-        # Group stage: look up match ID by team pair
-        match_id = MATCH_MAP.get((home_team, away_team))
-
-        # KO stage: assign sequential IDs
-        if not match_id and stage in KO_STAGE_MAP:
-            prefix = KO_STAGE_MAP[stage]
-            if prefix in ("FINAL", "BRONZE"):
-                match_id = prefix
-            else:
-                n = ko_counters[prefix]
-                match_id = f"{prefix}_{n}"
-                ko_counters[prefix] += 1
+        match_id = MATCH_MAP.get((home, away))
 
         if not match_id:
-            print(f"  ⚠️  Unmatched: {home_team} vs {away_team} [{stage}]")
+            stage_key = KO_STAGE_MAP.get(stage)
+            if stage_key:
+                if stage_key in ("FINAL", "BRONZE"):
+                    match_id = stage_key
+                else:
+                    n = ko_counters.get(stage_key, 1)
+                    match_id = f"{stage_key}_{n}"
+                    ko_counters[stage_key] = n + 1
+
+        if not match_id:
+            print(f"  ⚠️  Unmatched: {home} vs {away} [{stage}] status={status}")
             continue
 
-        scores[match_id] = {"h": home_score, "a": away_score}
-
-        # Penalty shootout
-        penalties = m.get("score", {}).get("penalties", {})
-        ph = penalties.get("home")
-        pa = penalties.get("away")
-        if ph is not None and pa is not None:
-            pen_scores[match_id] = {"h": ph, "a": pa}
+        scores[match_id] = {"h": int(home_score), "a": int(away_score)}
+        print(f"  ✅ {match_id}: {home} {home_score}–{away_score} {away}")
 
     return scores, pen_scores
 
 
 def main():
-    if not API_KEY:
-        print("❌ FOOTBALL_DATA_API_KEY not set")
-        return 1
-
-    print(f"[{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}] Fetching WC2026 scores...")
+    print(f"[{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}] "
+          f"Fetching WC2026 scores from worldcup26.ir...")
 
     try:
-        data = fetch_matches()
+        data = fetch_games()
     except urllib.error.HTTPError as e:
         print(f"❌ HTTP {e.code}: {e.reason}")
         return 1
@@ -247,7 +273,7 @@ def main():
     with open("scores.json", "w") as f:
         json.dump(output, f, indent=2)
 
-    print(f"✅ scores.json written — {len(scores)} results, {len(pen_scores)} penalty shootouts")
+    print(f"✅ scores.json written — {len(scores)} results")
     return 0
 
 
