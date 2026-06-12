@@ -258,14 +258,20 @@ def main():
 
     scores, pen_scores = build_scores(data)
 
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:00Z")
+
     output = {
-        "updated":   datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:00Z"),
+        "updated":   now,
         "scores":    scores,
         "penScores": pen_scores,
     }
 
     with open("scores.json", "w") as f:
         json.dump(output, f, indent=2)
+
+    # Always write heartbeat so GitHub Actions never sees a no-change run
+    with open("heartbeat.json", "w") as f:
+        json.dump({"updated": now}, f)
 
     print(f"✅ scores.json written — {len(scores)} results")
     return 0
