@@ -2,14 +2,9 @@ name: Update WC2026 Scores
 
 on:
   schedule:
-    # Every 5 minutes from Jun 11 to Jul 19 (GitHub Actions uses UTC)
-    # Note: GitHub Actions cron minimum is every 5 minutes
-    # This runs 24/7 during the tournament window — the script itself
-    # only writes changes when there are finished/live matches
-    - cron: '*/5 * 11-30 6 *'   # Jun 11–30
-    - cron: '*/5 * 1-19  7 *'   # Jul 1–19
+    - cron: '*/30 * 11-30 6 *'   # Jun 11–30, every 30 mins
+    - cron: '*/30 * 1-19  7 *'   # Jul 1–19,  every 30 mins
 
-  # Allow manual trigger from GitHub Actions tab (useful for testing)
   workflow_dispatch:
 
 permissions:
@@ -38,7 +33,6 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add scores.json
-          # Only commit if scores.json actually changed
           if git diff --staged --quiet; then
             echo "No changes to scores.json — skipping commit"
           else
