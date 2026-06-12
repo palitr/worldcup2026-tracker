@@ -6,6 +6,7 @@ Fetches results from worldcup26.ir
 """
 
 import json
+import time
 import urllib.request
 import urllib.error
 from datetime import datetime, timezone
@@ -158,16 +159,25 @@ KO_TYPE_MAP = {
 }
 
 
-def fetch_games():
-    req = urllib.request.Request(
-        API_URL,
-        headers={
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            "Accept": "application/json, text/plain, */*",
-        }
-    )
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        return json.loads(resp.read().decode())
+def fetch_games(retries=3, delay=5):
+    last_error = None
+    for attempt in range(1, retries + 1):
+        try:
+            req = urllib.request.Request(
+                API_URL,
+                headers={
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                    "Accept": "application/json, text/plain, */*",
+                }
+            )
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                return json.loads(resp.read().decode())
+        except Exception as e:
+            last_error = e
+            print(f"  Attempt {attempt}/{retries} failed: {e}")
+            if attempt < retries:
+                time.sleep(delay)
+    raise last_error
 
 
 def map_team(name):
@@ -244,7 +254,6 @@ def build_scores(data):
 
 
 def write_heartbeat(now):
-    """Always write heartbeat — keeps GitHub Actions scheduler active."""
     try:
         with open("heartbeat.json", "w") as f:
             json.dump({"updated": now}, f)
@@ -260,11 +269,11 @@ def main():
     write_heartbeat(now)
 
     try:
-        data = fetch_games()
+        data = fetch_games(retries=3, delay=5)
     except Exception as e:
-        # API failure — log it but exit 0 so GitHub doesn't mark as failed
-        print(f"⚠️  API unavailable: {e}")
-        print("heartbeat.json written — scores unchanged")
+        # All retries failed — log and exit cleanly
+        print(f"⚠️  API unavailable after 3 attempts: {e}")
+        print("heartbeat.json written — scores unchanged, will retry next run")
         return 0
 
     scores, pen_scores = build_scores(data)
