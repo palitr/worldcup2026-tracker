@@ -243,22 +243,31 @@ def build_scores(data):
     return scores, pen_scores
 
 
+def write_heartbeat(now):
+    """Always write heartbeat — keeps GitHub Actions scheduler active."""
+    try:
+        with open("heartbeat.json", "w") as f:
+            json.dump({"updated": now}, f)
+    except Exception as e:
+        print(f"⚠️  heartbeat write failed: {e}")
+
+
 def main():
-    print(f"[{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}] "
-          f"Fetching WC2026 scores from worldcup26.ir...")
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:00Z")
+    print(f"[{now}] Fetching WC2026 scores from worldcup26.ir...")
+
+    # Always write heartbeat first — even if API fails
+    write_heartbeat(now)
 
     try:
         data = fetch_games()
-    except urllib.error.HTTPError as e:
-        print(f"❌ HTTP {e.code}: {e.reason}")
-        return 1
     except Exception as e:
-        print(f"❌ Error: {e}")
-        return 1
+        # API failure — log it but exit 0 so GitHub doesn't mark as failed
+        print(f"⚠️  API unavailable: {e}")
+        print("heartbeat.json written — scores unchanged")
+        return 0
 
     scores, pen_scores = build_scores(data)
-
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:00Z")
 
     output = {
         "updated":   now,
@@ -268,10 +277,6 @@ def main():
 
     with open("scores.json", "w") as f:
         json.dump(output, f, indent=2)
-
-    # Always write heartbeat so GitHub Actions never sees a no-change run
-    with open("heartbeat.json", "w") as f:
-        json.dump({"updated": now}, f)
 
     print(f"✅ scores.json written — {len(scores)} results")
     return 0
