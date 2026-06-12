@@ -177,13 +177,26 @@ def map_team(name):
 
 
 def is_finished(m):
-    # API uses "finished": "TRUE"/"FALSE" and "time_elapsed"
     finished = str(m.get("finished") or "").upper()
-    elapsed  = str(m.get("time_elapsed") or "").lower()
+    elapsed  = str(m.get("time_elapsed") or "").lower().strip()
+
+    # Explicitly finished
     if finished == "TRUE":
         return True
-    if elapsed in ("finished", "ht", "live", "in_play", "inplay"):
+
+    # Known in-progress/finished string values
+    if elapsed in ("finished", "ht", "live", "in_play",
+                   "inplay", "in-play", "paused"):
         return True
+
+    # Numeric minute value = match in progress (e.g. "23", "67", "90")
+    try:
+        minute = int(elapsed)
+        if minute > 0:
+            return True
+    except (ValueError, TypeError):
+        pass
+
     return False
 
 
