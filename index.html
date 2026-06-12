@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2833,12 +2834,7 @@ gms.forEach(m => {
 const s = getScore(m.id);
 const hv = s.h !== null ? s.h : '';
 const av = s.a !== null ? s.a : '';
-let resultLabel = '';
-if (s.h !== null && s.a !== null) {
-if (s.h > s.a) resultLabel = `<div class="match-result-label win-home">${m.home} WIN</div>`;
-else if (s.a > s.h) resultLabel = `<div class="match-result-label win-away">${m.away} WIN</div>`;
-else resultLabel = `<div class="match-result-label draw">DRAW</div>`;
-}
+let resultLabel = ''; // WIN/DRAW badges removed — score shown only after confirmed full time
 const item = document.createElement('div');
 item.className = 'group-match-item';
 item.innerHTML = `
