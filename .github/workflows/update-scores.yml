@@ -1,6 +1,8 @@
 name: Update WC2026 Scores
 
 on:
+  repository_dispatch:
+    types: [update-scores]
   schedule:
     - cron: '0,30 * 11-30 6 *'
     - cron: '0,30 * 1-19  7 *'
@@ -12,6 +14,7 @@ permissions:
 jobs:
   update-scores:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
