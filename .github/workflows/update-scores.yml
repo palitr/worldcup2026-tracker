@@ -1,5 +1,5 @@
 name: Update WC2026 Scores
-
+# Runs every 30 minutes during tournament (Jun 11 - Jul 19)
 on:
   schedule:
     - cron: '*/30 * 11-30 6 *'   # Jun 11–30, every 30 mins
