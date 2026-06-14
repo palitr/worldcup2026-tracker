@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5877,7 +5879,7 @@ b.style.animationPlayState = active ? 'running' : 'paused';
 // SCHEDULE TAB
 // ============================================================
 // ── Score display helper for schedule cards ─────────────────────────────
-function getScoreDisplay(matchId) {
+function getScoreDisplay(matchId, utcStr) {
   // Returns result HTML string if score entered, empty string otherwise
   var s = getScore(matchId);
   if (s.h === null || s.a === null) return '';
@@ -5887,10 +5889,13 @@ function getScoreDisplay(matchId) {
   if (s.h === s.a && pen && pen.h !== null && pen.a !== null) {
     penStr = ' <span class="res-pen">(pen ' + pen.h + '–' + pen.a + ')</span>';
   }
+  // Only show FT badge when match is confirmed finished (not currently live)
+  var ftBadge = (!utcStr || !isMatchLive(utcStr))
+    ? '<span class="res-ft">FT</span>' : '';
   return '<span class="sched-card-result">'
     + '<span class="res-score">' + scoreStr + '</span>'
     + penStr
-    + '<span class="res-ft">FT</span>'
+    + ftBadge
     + '</span>';
 }
 
@@ -6276,7 +6281,7 @@ list += '<div class="sched-card">'
 + '<span class="sched-card-stage">'+m.stage+'</span>'
 + '<span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">'
 + '<span style="display:flex;align-items:center;gap:10px;">'
-+ getScoreDisplay(m.id)
++ getScoreDisplay(m.id, m.utc)
 + '<span class="sched-card-mid">'+m.dispId+'</span>'
 + '</span>'
 + makeStarBtn(m.id)
