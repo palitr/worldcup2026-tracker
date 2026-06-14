@@ -2,6 +2,7 @@
 update_scores.py
 FIFA World Cup 2026 — Live Score Updater
 Fetches results from worldcup26.ir
+Maps KO matches by UTC datetime for reliable ID assignment
 © 2026 Rajarshi Palit
 """
 
@@ -13,6 +14,7 @@ from datetime import datetime, timezone
 
 API_URL = "https://worldcup26.ir/get/games"
 
+# ── Team name mapping ─────────────────────────────────────────────────────
 TEAM_MAP = {
     "Mexico":                    "Mexico",
     "South Africa":              "South Africa",
@@ -74,6 +76,7 @@ TEAM_MAP = {
     "Panama":                    "Panama",
 }
 
+# ── Group stage match ID mapping ──────────────────────────────────────────
 MATCH_MAP = {
     ("Mexico",          "South Africa"):       "A1",
     ("South Korea",     "Czechia"):            "A2",
@@ -149,14 +152,72 @@ MATCH_MAP = {
     ("Croatia",         "Ghana"):              "L6",
 }
 
-KO_TYPE_MAP = {
-    "knockout_r32":    "R32",
-    "knockout_r16":    "R16",
-    "knockout_qf":     "QF",
-    "knockout_sf":     "SF",
-    "knockout_final":  "FINAL",
-    "knockout_3rd":    "BRONZE",
+# ── KO match UTC → tracker ID mapping ────────────────────────────────────
+# Keyed by UTC datetime string — order-independent, guaranteed correct
+KO_UTC_MAP = {
+    # Round of 32
+    "2026-06-28T19:00:00Z": "R32_1",
+    "2026-06-29T17:00:00Z": "R32_2",
+    "2026-06-29T20:30:00Z": "R32_3",
+    "2026-06-30T01:00:00Z": "R32_4",
+    "2026-06-30T17:00:00Z": "R32_5",
+    "2026-06-30T21:00:00Z": "R32_6",
+    "2026-07-01T01:00:00Z": "R32_7",
+    "2026-07-01T16:00:00Z": "R32_8",
+    "2026-07-01T20:00:00Z": "R32_9",
+    "2026-07-02T00:00:00Z": "R32_10",
+    "2026-07-02T19:00:00Z": "R32_11",
+    "2026-07-02T23:00:00Z": "R32_12",
+    "2026-07-03T03:00:00Z": "R32_13",
+    "2026-07-03T18:00:00Z": "R32_14",
+    "2026-07-03T22:00:00Z": "R32_15",
+    "2026-07-04T01:30:00Z": "R32_16",
+    # Round of 16
+    "2026-07-04T17:00:00Z": "R16_1",
+    "2026-07-04T21:00:00Z": "R16_2",
+    "2026-07-05T17:00:00Z": "R16_3",
+    "2026-07-05T21:00:00Z": "R16_4",
+    "2026-07-06T17:00:00Z": "R16_5",
+    "2026-07-06T21:00:00Z": "R16_6",
+    "2026-07-07T17:00:00Z": "R16_7",
+    "2026-07-07T21:00:00Z": "R16_8",
+    # Quarter Finals
+    "2026-07-09T19:00:00Z": "QF1",
+    "2026-07-10T19:00:00Z": "QF2",
+    "2026-07-11T19:00:00Z": "QF3",
+    "2026-07-11T23:00:00Z": "QF4",
+    # Semi Finals
+    "2026-07-14T19:00:00Z": "SF1",
+    "2026-07-15T19:00:00Z": "SF2",
+    # Bronze & Final
+    "2026-07-18T19:00:00Z": "BRONZE",
+    "2026-07-19T19:00:00Z": "FINAL",
 }
+
+
+def normalise_utc(s):
+    """Handle multiple date formats from worldcup26.ir API"""
+    if not s:
+        return None
+    s = s.strip()
+    from datetime import datetime as _dt
+    # Format 1: MM/DD/YYYY HH:MM (stadium local time stored as-is)
+    if '/' in s:
+        try:
+            dt = _dt.strptime(s, "%m/%d/%Y %H:%M")
+            return dt.strftime("%Y-%m-%dT%H:%M:00Z")
+        except Exception:
+            pass
+    # Format 2: ISO YYYY-MM-DDTHH:MM:SSZ
+    s = s.replace(' ', 'T')
+    if not s.endswith('Z'):
+        s += 'Z'
+    parts = s.rstrip('Z').split('T')
+    if len(parts) == 2:
+        time_part = parts[1]
+        if time_part.count(':') == 1:
+            s = parts[0] + 'T' + time_part + ':00Z'
+    return s
 
 
 def fetch_games(retries=3, delay=5):
@@ -205,7 +266,6 @@ def is_finished(m):
 def build_scores(data):
     scores = {}
     pen_scores = {}
-    ko_counters = {s: 1 for s in ["R32", "R16", "QF", "SF"]}
 
     matches = data
     if isinstance(data, dict):
@@ -231,17 +291,17 @@ def build_scores(data):
         away  = map_team(away_raw)
         mtype = str(m.get("type") or "").lower()
 
+        # ── Group stage: lookup by team pair ─────────────────────────────
         match_id = MATCH_MAP.get((home, away))
 
-        if not match_id:
-            stage_key = KO_TYPE_MAP.get(mtype)
-            if stage_key:
-                if stage_key in ("FINAL", "BRONZE"):
-                    match_id = stage_key
-                else:
-                    n = ko_counters.get(stage_key, 1)
-                    match_id = f"{stage_key}_{n}"
-                    ko_counters[stage_key] = n + 1
+        # ── KO stage: lookup by UTC datetime ─────────────────────────────
+        if not match_id and mtype.startswith("knockout"):
+            utc_raw = (m.get("local_date") or m.get("utc") or
+                       m.get("datetime") or "")
+            utc_norm = normalise_utc(utc_raw)
+            match_id = KO_UTC_MAP.get(utc_norm)
+            if not match_id:
+                print(f"  ⚠️  KO UTC not in map: {utc_norm} | {home} vs {away}")
 
         if not match_id:
             print(f"  ⚠️  Unmatched: {home} vs {away} [type={mtype}]")
@@ -265,13 +325,11 @@ def main():
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:00Z")
     print(f"[{now}] Fetching WC2026 scores from worldcup26.ir...")
 
-    # Always write heartbeat first — even if API fails
     write_heartbeat(now)
 
     try:
         data = fetch_games(retries=3, delay=5)
     except Exception as e:
-        # All retries failed — log and exit cleanly
         print(f"⚠️  API unavailable after 3 attempts: {e}")
         print("heartbeat.json written — scores unchanged, will retry next run")
         return 0
