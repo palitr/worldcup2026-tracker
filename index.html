@@ -736,6 +736,42 @@ h1 { font-size: 2.8rem; }
 .wl-countdown.soon { color:var(--gold); font-weight:700; }
 .wl-live-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); border-radius:20px; padding:3px 10px; font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:1.5px; color:#f87171; margin-top:5px; }
 .wl-live-dot { width:7px; height:7px; border-radius:50%; background:#f87171; animation:statusPulse 1s ease-in-out infinite; flex-shrink:0; }
+/* Live and FT badges on group/KO cards */
+.match-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.35);
+  border-radius: 20px;
+  padding: 2px 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #f87171;
+  margin-top: 4px;
+}
+.match-live-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #f87171;
+  animation: statusPulse 1s ease-in-out infinite;
+}
+.match-ft-badge {
+  display: inline-block;
+  background: rgba(74,222,128,0.12);
+  border: 1px solid rgba(74,222,128,0.25);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #4ade80;
+  margin-top: 4px;
+}
+
 .star-btn {
   background: none;
   border: none;
@@ -2877,7 +2913,15 @@ gms.forEach(m => {
 const s = getScore(m.id);
 const hv = s.h !== null ? s.h : '';
 const av = s.a !== null ? s.a : '';
-let resultLabel = ''; // WIN/DRAW badges removed — score shown only after confirmed full time
+// Show LIVE badge if match in progress, FT if finished, nothing if upcoming
+let resultLabel = '';
+if (s.h !== null && s.a !== null) {
+  if (isMatchLive(m.utc)) {
+    resultLabel = '<div class="match-live-badge"><span class="match-live-dot"></span>LIVE</div>';
+  } else {
+    resultLabel = '<div class="match-ft-badge">FT</div>';
+  }
+}
 const item = document.createElement('div');
 item.className = 'group-match-item';
 item.innerHTML = `
@@ -3317,6 +3361,7 @@ card.innerHTML =
 + '</div>'
 + penHtml
 + '<div class="ko-match-footer">'
++ (isMatchLive(m.utc) ? '<div class="match-live-badge" style="margin-bottom:4px;"><span class="match-live-dot"></span>LIVE</div>' : (isPlayed(m.id) ? '<div class="match-ft-badge" style="margin-bottom:4px;">FT</div>' : ''))
 + '<div class="ko-time">\u23f1 ' + formatMatchTime(m.utc) + '</div>'
 + '<div class="ko-venue">\ud83d\udccd ' + m.venue + '</div>'
 + winLabel
@@ -6627,3 +6672,5 @@ fetch('scores.json?v=' + Date.now())
   </div>
 </div>
 
+</body>
+</html>
