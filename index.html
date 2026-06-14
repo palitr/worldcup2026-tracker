@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6128,7 +6129,7 @@ groupMatches.forEach(function(m) {
 const d = parseISTDay(m.utc);
 if (!d) return;
 allM.push({id:m.id, day:d.day, month:d.month, timeStr:d.timeStr,
-home:m.home, away:m.away, venue:m.venue,
+home:m.home, away:m.away, venue:m.venue, utc:m.utc,
 stage:'Group '+m.group, stageKey:'group', dispId:m.id,
 slotA:null, slotB:null});
 });
@@ -6146,7 +6147,7 @@ const d = parseISTDay(m.utc);
 if (!d) return;
 const t = koTeams[m.id] || {home:'TBD',away:'TBD'};
 allM.push({id:m.id, day:d.day, month:d.month, timeStr:d.timeStr,
-home:t.home, away:t.away, venue:m.venue,
+home:t.home, away:t.away, venue:m.venue, utc:m.utc,
 stage:ki.stage, stageKey:ki.stageKey, dispId:m.desc||m.id,
 slotA:m.slotA, slotB:m.slotB});
 });
@@ -6626,5 +6627,3 @@ fetch('scores.json?v=' + Date.now())
   </div>
 </div>
 
-</body>
-</html>
