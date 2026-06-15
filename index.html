@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -616,8 +619,21 @@ transition: all 0.2s;
   height: 8px;
   background: rgba(255,255,255,0.07);
   border-radius: 99px;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
 }
+.progress-tick {
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 14px;
+  border-radius: 1px;
+  transform: translateX(-50%);
+  transition: background 0.3s;
+}
+.progress-tick.done  { background: rgba(255,215,0,0.7); }
+.progress-tick.active { background: rgba(96,176,255,0.7); }
+.progress-tick.pending { background: rgba(255,255,255,0.2); }
 .progress-fill {
   height: 100%;
   border-radius: 99px;
@@ -626,18 +642,20 @@ transition: all 0.2s;
   min-width: 0%;
 }
 .progress-stages {
-  display: flex;
-  justify-content: space-between;
+  position: relative;
+  height: 20px;
   margin-top: 8px;
 }
 .progress-stage {
+  position: absolute;
+  transform: translateX(-50%);
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 0.7rem;
   letter-spacing: 1px;
   color: var(--muted);
   opacity: 0.6;
   text-align: center;
-  flex: 1;
+  white-space: nowrap;
 }
 .progress-stage.done { color: var(--gold); opacity: 1; }
 .progress-stage.active { color: #60b0ff; opacity: 1; }
@@ -3174,15 +3192,13 @@ const stages = [
   { label:'SF',          end:102 },
   { label:'Final',       end:104 },
 ];
-function stageClass(s) {
-  if (totalPlayed >= s.end) return 'done';
-  if (totalPlayed >= (s.end - (s.end - (stages[stages.indexOf(s)-1]||{end:0}).end))) return 'active';
-  return '';
-}
+// Place each label at its proportional position on the bar
 const stagePills = stages.map(function(s, i) {
   var prev = i === 0 ? 0 : stages[i-1].end;
   var cls = totalPlayed >= s.end ? 'done' : (totalPlayed > prev ? 'active' : '');
-  return '<span class="progress-stage ' + cls + '">' + s.label + '</span>';
+  // Position label at midpoint between previous stage end and this stage end
+  var midPct = ((prev + s.end) / 2 / 104 * 100).toFixed(1);
+  return '<span class="progress-stage ' + cls + '" style="left:' + midPct + '%">' + s.label + '</span>';
 }).join('');
 
 const pbWrap = document.getElementById('progress-bar-wrap');
@@ -3194,6 +3210,12 @@ if (pbWrap) {
     + '</div>'
     + '<div class="progress-track">'
     + '<div class="progress-fill" style="width:' + pct + '%"></div>'
+    + stages.map(function(s, i) {
+        var prev = i === 0 ? 0 : stages[i-1].end;
+        var tickPct = (s.end / 104 * 100).toFixed(1);
+        var tickCls = totalPlayed >= s.end ? 'done' : (totalPlayed > prev ? 'active' : 'pending');
+        return '<div class="progress-tick ' + tickCls + '" style="left:' + tickPct + '%"></div>';
+      }).join('')
     + '</div>'
     + '<div class="progress-stages">' + stagePills + '</div>'
     + '</div>';
