@@ -1,8 +1,3 @@
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +24,43 @@
 <title>FIFA World Cup 2026 — Interactive Fixture Tracker</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+:root {
+  /* Live indicator colors — red when inactive, green when live */
+  --live-color: #f87171;
+  --live-bg-subtle: rgba(239,68,68,0.08);
+  --live-bg-mild: rgba(239,68,68,0.12);
+  --live-bg-strong: rgba(239,68,68,0.15);
+  --live-bg-hover: rgba(239,68,68,0.25);
+  --live-bg-card: rgba(239,68,68,0.06);
+  --live-border-subtle: rgba(239,68,68,0.25);
+  --live-border-mid: rgba(239,68,68,0.35);
+  --live-border-strong: rgba(239,68,68,0.5);
+  --live-border-hover: rgba(239,68,68,0.7);
+  --live-border-card: rgba(239,68,68,0.2);
+  --live-border-card-hover: rgba(239,68,68,0.4);
+  --live-shadow: rgba(239,68,68,0.2);
+  --live-shadow-hover: rgba(239,68,68,0.3);
+}
+/* When a live match is in progress — flip all live colors to green */
+body.has-live {
+  --live-color: #4ade80;
+  --live-bg-subtle: rgba(74,222,128,0.08);
+  --live-bg-mild: rgba(74,222,128,0.12);
+  --live-bg-strong: rgba(74,222,128,0.15);
+  --live-bg-hover: rgba(74,222,128,0.25);
+  --live-bg-card: rgba(74,222,128,0.06);
+  --live-border-subtle: rgba(74,222,128,0.25);
+  --live-border-mid: rgba(74,222,128,0.35);
+  --live-border-strong: rgba(74,222,128,0.5);
+  --live-border-hover: rgba(74,222,128,0.7);
+  --live-border-card: rgba(74,222,128,0.2);
+  --live-border-card-hover: rgba(74,222,128,0.4);
+  --live-shadow: rgba(74,222,128,0.2);
+  --live-shadow-hover: rgba(74,222,128,0.3);
+}
+/* Keep "N matches in progress" and stage label (e.g. "GROUP H") red */
+
+
 :root {
 --gold: #FFD700;
 --gold2: #FFA500;
@@ -851,8 +883,8 @@ header { padding: 10px 20px 20px; }
 
 /* ====== LIVE NOW SECTION ====== */
 .live-nav-btn {
-  background: rgba(239,68,68,0.08);
-  border: 1px solid rgba(239,68,68,0.25);
+  background: var(--live-bg-subtle);
+  border: 1px solid var(--live-border-subtle);
   border-radius: 20px;
   padding: 6px 14px;
   color: rgba(248,113,113,0.5);
@@ -867,15 +899,15 @@ header { padding: 10px 20px 20px; }
   gap: 6px;
 }
 .live-nav-btn.active {
-  background: rgba(239,68,68,0.15);
-  border-color: rgba(239,68,68,0.5);
-  color: #f87171;
-  box-shadow: 0 0 14px rgba(239,68,68,0.2);
+  background: var(--live-bg-strong);
+  border-color: var(--live-border-strong);
+  color: var(--live-color);
+  box-shadow: 0 0 14px var(--live-shadow);
 }
 .live-nav-btn.active:hover {
-  background: rgba(239,68,68,0.25);
-  border-color: rgba(239,68,68,0.7);
-  box-shadow: 0 0 20px rgba(239,68,68,0.3);
+  background: var(--live-bg-hover);
+  border-color: var(--live-border-hover);
+  box-shadow: 0 0 20px var(--live-shadow-hover);
 }
 .live-nav-dot {
   width: 7px; height: 7px;
@@ -885,7 +917,7 @@ header { padding: 10px 20px 20px; }
   transition: all 0.2s;
 }
 .live-nav-btn.active .live-nav-dot {
-  background: #f87171;
+  background: var(--live-color);
   animation: statusPulse 1s ease-in-out infinite;
 }
 .live-now-wrap {
@@ -901,7 +933,7 @@ header { padding: 10px 20px 20px; }
   font-family: 'Bebas Neue', cursive;
   font-size: 1.1rem;
   letter-spacing: 3px;
-  color: #f87171;
+  color: var(--live-color);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -909,14 +941,15 @@ header { padding: 10px 20px 20px; }
 .live-now-dot {
   width: 9px; height: 9px;
   border-radius: 50%;
-  background: #f87171;
+  background: var(--live-color);
   animation: statusPulse 1s ease-in-out infinite;
   flex-shrink: 0;
 }
 .live-now-count {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 0.78rem;
-  color: rgba(248,113,113,0.6);
+  color: var(--live-color);
+  opacity: 0.6;
   letter-spacing: 1px;
 }
 .live-now-grid {
@@ -925,18 +958,19 @@ header { padding: 10px 20px 20px; }
   gap: 12px;
 }
 .live-match-card {
-  background: rgba(239,68,68,0.06);
-  border: 1px solid rgba(239,68,68,0.2);
+  background: var(--live-bg-card);
+  border: 1px solid var(--live-border-card);
   border-radius: 14px;
   padding: 13px 15px;
   transition: all 0.2s;
 }
-.live-match-card:hover { border-color: rgba(239,68,68,0.4); }
+.live-match-card:hover { border-color: var(--live-border-card-hover); }
 .live-match-stage {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 0.7rem;
   letter-spacing: 1.5px;
-  color: rgba(248,113,113,0.6);
+  color: var(--live-color);
+  opacity: 0.6;
   text-transform: uppercase;
   margin-bottom: 8px;
   display: flex;
@@ -957,7 +991,7 @@ header { padding: 10px 20px 20px; }
 .live-match-score {
   font-family: 'Bebas Neue', cursive;
   font-size: 1.3rem;
-  color: #f87171;
+  color: var(--live-color);
   letter-spacing: 3px;
   flex-shrink: 0;
 }
@@ -989,28 +1023,28 @@ header { padding: 10px 20px 20px; }
 .wl-footer { font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--muted); margin-top:6px; }
 .wl-countdown { font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; color:rgba(180,220,255,0.85); letter-spacing:0.5px; margin-top:5px; }
 .wl-countdown.soon { color:var(--gold); font-weight:700; }
-.wl-live-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); border-radius:20px; padding:3px 10px; font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:1.5px; color:#f87171; margin-top:5px; }
-.wl-live-dot { width:7px; height:7px; border-radius:50%; background:#f87171; animation:statusPulse 1s ease-in-out infinite; flex-shrink:0; }
+.wl-live-badge { display:inline-flex; align-items:center; gap:5px; background:var(--live-bg-strong); border:1px solid var(--live-border-card-hover); border-radius:20px; padding:3px 10px; font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:1.5px; color:var(--live-color); margin-top:5px; }
+.wl-live-dot { width:7px; height:7px; border-radius:50%; background:var(--live-color); animation:statusPulse 1s ease-in-out infinite; flex-shrink:0; }
 /* Live and FT badges on group/KO cards */
 .match-live-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: rgba(239,68,68,0.15);
-  border: 1px solid rgba(239,68,68,0.35);
+  background: var(--live-bg-strong);
+  border: 1px solid var(--live-border-mid);
   border-radius: 20px;
   padding: 2px 8px;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 1.5px;
-  color: #f87171;
+  color: var(--live-color);
   margin-top: 4px;
 }
 .match-live-dot {
   width: 5px; height: 5px;
   border-radius: 50%;
-  background: #f87171;
+  background: var(--live-color);
   animation: statusPulse 1s ease-in-out infinite;
 }
 .match-ft-badge {
@@ -1049,8 +1083,8 @@ header { padding: 10px 20px 20px; }
 }
 .star-btn:hover { opacity: 1; transform: scale(1.2); }
 .star-btn.starred { opacity: 1; }
-.sched-live-badge { display:inline-flex; align-items:center; gap:4px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.35); border-radius:20px; padding:2px 8px; font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:1.5px; color:#f87171; }
-.sched-live-dot { width:5px; height:5px; border-radius:50%; background:#f87171; animation:statusPulse 1s ease-in-out infinite; }
+.sched-live-badge { display:inline-flex; align-items:center; gap:4px; background:var(--live-bg-strong); border:1px solid var(--live-border-mid); border-radius:20px; padding:2px 8px; font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:1.5px; color:var(--live-color); }
+.sched-live-dot { width:5px; height:5px; border-radius:50%; background:var(--live-color); animation:statusPulse 1s ease-in-out infinite; }
 
 /* ====== TOAST NOTIFICATION ====== */
 #wl-toast {
@@ -4034,11 +4068,13 @@ function renderLiveNow() {
 
   var liveMatches = getLiveMatches();
 
-  // Update nav button state
+  // Update nav button state + global live color scheme
   if (navBtn) {
     if (liveMatches.length > 0) navBtn.classList.add('active');
     else navBtn.classList.remove('active');
   }
+  if (liveMatches.length > 0) document.body.classList.add('has-live');
+  else document.body.classList.remove('has-live');
 
   if (liveMatches.length === 0) { section.innerHTML = ''; return; }
 
