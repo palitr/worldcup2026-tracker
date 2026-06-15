@@ -8,6 +8,7 @@ Maps KO matches by UTC datetime for reliable ID assignment
 
 import json
 import time
+import ssl
 import urllib.request
 import urllib.error
 from datetime import datetime, timezone
@@ -153,7 +154,6 @@ MATCH_MAP = {
 }
 
 # ── KO match UTC → tracker ID mapping ────────────────────────────────────
-# Keyed by UTC datetime string — order-independent, guaranteed correct
 KO_UTC_MAP = {
     # Round of 32
     "2026-06-28T19:00:00Z": "R32_1",
@@ -201,14 +201,12 @@ def normalise_utc(s):
         return None
     s = s.strip()
     from datetime import datetime as _dt
-    # Format 1: MM/DD/YYYY HH:MM (stadium local time stored as-is)
     if '/' in s:
         try:
             dt = _dt.strptime(s, "%m/%d/%Y %H:%M")
             return dt.strftime("%Y-%m-%dT%H:%M:00Z")
         except Exception:
             pass
-    # Format 2: ISO YYYY-MM-DDTHH:MM:SSZ
     s = s.replace(' ', 'T')
     if not s.endswith('Z'):
         s += 'Z'
@@ -220,8 +218,25 @@ def normalise_utc(s):
     return s
 
 
-def fetch_games(retries=3, delay=5):
+def make_ssl_context():
+    """
+    Create an SSL context that tolerates worldcup26.ir's broken SSL config.
+    UNEXPECTED_EOF_WHILE_READING = server closes connection abruptly during
+    handshake — disabling cert verification + using TLSv1.2 fallback fixes it.
+    """
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
+    # Allow legacy renegotiation (common cause of EOF on cheap hosting)
+    ctx.options |= ssl.OP_LEGACY_SERVER_CONNECT
+    return ctx
+
+
+def fetch_games(retries=3, delay=15):
+    """Fetch with SSL workaround and longer delay between retries."""
     last_error = None
+    ssl_ctx = make_ssl_context()
+
     for attempt in range(1, retries + 1):
         try:
             req = urllib.request.Request(
@@ -229,14 +244,16 @@ def fetch_games(retries=3, delay=5):
                 headers={
                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
                     "Accept": "application/json, text/plain, */*",
+                    "Connection": "close",
                 }
             )
-            with urllib.request.urlopen(req, timeout=15) as resp:
+            with urllib.request.urlopen(req, timeout=20, context=ssl_ctx) as resp:
                 return json.loads(resp.read().decode())
         except Exception as e:
             last_error = e
             print(f"  Attempt {attempt}/{retries} failed: {e}")
             if attempt < retries:
+                print(f"  Waiting {delay}s before retry...")
                 time.sleep(delay)
     raise last_error
 
@@ -291,10 +308,8 @@ def build_scores(data):
         away  = map_team(away_raw)
         mtype = str(m.get("type") or "").lower()
 
-        # ── Group stage: lookup by team pair ─────────────────────────────
         match_id = MATCH_MAP.get((home, away))
 
-        # ── KO stage: lookup by UTC datetime ─────────────────────────────
         if not match_id and mtype.startswith("knockout"):
             utc_raw = (m.get("local_date") or m.get("utc") or
                        m.get("datetime") or "")
@@ -328,7 +343,7 @@ def main():
     write_heartbeat(now)
 
     try:
-        data = fetch_games(retries=3, delay=5)
+        data = fetch_games(retries=3, delay=15)
     except Exception as e:
         print(f"⚠️  API unavailable after 3 attempts: {e}")
         print("heartbeat.json written — scores unchanged, will retry next run")
