@@ -1,3 +1,8 @@
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2337,6 +2342,22 @@ transition:all 0.15s; cursor:default;
 .import-btn { cursor:pointer; }
 .import-btn:hover { border-color:rgba(74,159,212,0.45); color:#4a9fd4; }
 .clear-btn:hover { border-color:rgba(230,57,70,0.45); color:#e87070; }
+
+@media (max-width: 600px) {
+  .data-bar-btns { flex-wrap: nowrap; gap: 6px; }
+  /* Shrink utility buttons to icon-only on mobile */
+  .data-btn.util-btn {
+    padding: 5px 9px;
+    font-size: 1rem;
+    letter-spacing: 0;
+    min-width: 0;
+    flex-shrink: 0;
+  }
+  /* Hide text labels inside utility buttons on mobile */
+  .data-btn.util-btn .btn-label { display: none; }
+  /* Shrink Team Search text slightly to fit */
+  .ts-trigger-btn { padding: 6px 10px; font-size: 0.78rem; }
+}
 .export-btn-glow { animation: exportPulse 2s ease-in-out 3; }
 @keyframes exportPulse {
   0%,100% { box-shadow:none; }
@@ -2621,12 +2642,12 @@ transition:all 0.15s; cursor:default;
 <div class="data-bar-btns">
 <button class="live-nav-btn" id="live-nav-btn" onclick="goToLive()" title="View live matches"><span class="live-nav-dot" id="live-nav-dot"></span>LIVE</button>
 <button class="ts-trigger-btn" onclick="openTeamSearch()" title="Search by team">&#128269; Team Search</button>
-<button class="data-btn export-btn" id="export-btn" onclick="exportScores()" title="Download scores as JSON backup — use this to transfer to another machine">&#8595; Backup JSON</button>
-<label class="data-btn import-btn" title="Restore scores from a JSON backup file">
-&#8593; Restore JSON
+<button class="data-btn export-btn util-btn" id="export-btn" onclick="exportScores()" title="Backup JSON">&#8595;<span class="btn-label"> Backup JSON</span></button>
+<label class="data-btn import-btn util-btn" title="Restore JSON">
+&#8593;<span class="btn-label"> Restore JSON</span>
 <input type="file" accept=".json" style="display:none" onchange="importScores(this)">
 </label>
-<button class="data-btn clear-btn" onclick="clearAllScores()" title="Clear all entered scores">&#10005; Clear All</button>
+<button class="data-btn clear-btn util-btn" onclick="clearAllScores()" title="Clear All">&#10005;<span class="btn-label"> Clear All</span></button>
 </div>
 </div>
 
