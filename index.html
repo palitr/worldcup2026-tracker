@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -4067,16 +4064,21 @@ function goToLive() {
     showToast('No live matches right now', 'remove');
     return;
   }
-  // Switch to overview tab and scroll to live section
+  // Switch to overview tab
   var overviewBtn = document.querySelector('[onclick*="overview"]');
   if (overviewBtn) overviewBtn.click();
   else showTab('overview', null);
+  // Toast so user knows where to look
+  showToast('● Live match card at top of Overview', 'add');
+  // Scroll to live-now-section with offset for sticky nav
   setTimeout(function() {
     var section = document.getElementById('live-now-section');
-    if (section && section.innerHTML) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (section) {
+      var rect = section.getBoundingClientRect();
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      window.scrollTo({ top: scrollTop + rect.top - 120, behavior: 'smooth' });
     }
-  }, 100);
+  }, 150);
 }
 
 // Check live status every 30 seconds
