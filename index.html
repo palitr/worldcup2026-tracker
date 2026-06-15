@@ -720,6 +720,126 @@ vertical-align: middle;
 h1 { font-size: 2.8rem; }
 }
 
+/* ====== LIVE NOW SECTION ====== */
+.live-nav-btn {
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: 20px;
+  padding: 6px 14px;
+  color: rgba(248,113,113,0.5);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.live-nav-btn.active {
+  background: rgba(239,68,68,0.15);
+  border-color: rgba(239,68,68,0.5);
+  color: #f87171;
+  box-shadow: 0 0 14px rgba(239,68,68,0.2);
+}
+.live-nav-btn.active:hover {
+  background: rgba(239,68,68,0.25);
+  border-color: rgba(239,68,68,0.7);
+  box-shadow: 0 0 20px rgba(239,68,68,0.3);
+}
+.live-nav-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(248,113,113,0.4);
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.live-nav-btn.active .live-nav-dot {
+  background: #f87171;
+  animation: statusPulse 1s ease-in-out infinite;
+}
+.live-now-wrap {
+  margin-bottom: 20px;
+}
+.live-now-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.live-now-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  color: #f87171;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.live-now-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: #f87171;
+  animation: statusPulse 1s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.live-now-count {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(248,113,113,0.6);
+  letter-spacing: 1px;
+}
+.live-now-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.live-match-card {
+  background: rgba(239,68,68,0.06);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 14px;
+  padding: 13px 15px;
+  transition: all 0.2s;
+}
+.live-match-card:hover { border-color: rgba(239,68,68,0.4); }
+.live-match-stage {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  color: rgba(248,113,113,0.6);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.live-match-teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.live-match-team { display: flex; align-items: center; gap: 5px; color: #fff; }
+.live-match-score {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.3rem;
+  color: #f87171;
+  letter-spacing: 3px;
+  flex-shrink: 0;
+}
+.live-match-footer {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+  display: flex;
+  gap: 10px;
+}
+
 /* ====== WATCHLIST / FAVOURITES ====== */
 .watchlist-wrap { margin-bottom: 24px; }
 .watchlist-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
@@ -2375,6 +2495,7 @@ transition:all 0.15s; cursor:default;
     </div>
   </div>
 <div class="data-bar-btns">
+<button class="live-nav-btn" id="live-nav-btn" onclick="goToLive()" title="View live matches"><span class="live-nav-dot" id="live-nav-dot"></span>LIVE</button>
 <button class="ts-trigger-btn" onclick="openTeamSearch()" title="Search by team">&#128269; Team Search</button>
 <button class="data-btn export-btn" id="export-btn" onclick="exportScores()" title="Download scores as JSON backup — use this to transfer to another machine">&#8595; Backup JSON</button>
 <label class="data-btn import-btn" title="Restore scores from a JSON backup file">
@@ -2415,6 +2536,7 @@ transition:all 0.15s; cursor:default;
 
 <!-- ====== OVERVIEW TAB ====== -->
 <div id="tab-overview" class="tab-panel active">
+<div id="live-now-section"></div>
 <div id="watchlist-section"></div>
 <div id="progress-bar-wrap"></div>
 <div class="stats-grid" id="stats-grid"></div>
@@ -3434,7 +3556,7 @@ if (tab === 'bracket') {
     // If in post-animation state, keep it; otherwise re-render fresh
     if (!bracketPlayed) { renderBracket(); }
   }
-if (tab === 'overview') { renderWatchlist(); }
+if (tab === 'overview') { renderLiveNow(); renderWatchlist(); }
 if (tab === 'schedule') { schedVenue = []; schedAutoSelect(); renderSchedule(); }
 // Mini-player only visible on the Tournament tab
 const mini = document.getElementById('mini-player');
@@ -3645,6 +3767,8 @@ renderKnockout();
 updateStats();
 renderElements();
 _suppressSave = false;
+renderLiveNow();
+renderWatchlist();
 if (hadEmbedded) {
 var cnt = Object.keys(scores).filter(function(k){
 return scores[k] && scores[k].h !== null && scores[k].a !== null;
@@ -3707,6 +3831,111 @@ document.addEventListener('keydown', function(e) {
     closeTeamSearch();
   }
 });
+
+// ====== LIVE NOW =================================================================
+
+function getLiveMatches() {
+  var live = [];
+  // Check all group matches
+  groupMatches.forEach(function(m) {
+    if (isMatchLive(m.utc)) live.push({
+      id: m.id, home: m.home, away: m.away,
+      utc: m.utc, venue: m.venue,
+      stage: 'Group ' + m.group
+    });
+  });
+  // Check all KO matches
+  var koAll = [].concat(
+    koMatchDefs.r32, koMatchDefs.r16, koMatchDefs.qf,
+    koMatchDefs.sf, koMatchDefs.final, koMatchDefs.bronze
+  );
+  koAll.forEach(function(m) {
+    if (isMatchLive(m.utc)) {
+      var teams = getKoTeams ? getKoTeams(m.id) : {home:'TBD',away:'TBD'};
+      live.push({
+        id: m.id, home: teams.home, away: teams.away,
+        utc: m.utc, venue: m.venue,
+        stage: m.desc || m.id
+      });
+    }
+  });
+  return live;
+}
+
+function renderLiveNow() {
+  var section = document.getElementById('live-now-section');
+  var navBtn  = document.getElementById('live-nav-btn');
+  if (!section) return;
+
+  var liveMatches = getLiveMatches();
+
+  // Update nav button state
+  if (navBtn) {
+    if (liveMatches.length > 0) navBtn.classList.add('active');
+    else navBtn.classList.remove('active');
+  }
+
+  if (liveMatches.length === 0) { section.innerHTML = ''; return; }
+
+  var cards = '';
+  liveMatches.forEach(function(m) {
+    var s = getScore(m.id);
+    var scoreStr = (s.h !== null && s.a !== null)
+      ? s.h + '–' + s.a : '–';
+    var homeFlagHtml = (isoCodes && isoCodes[m.home])
+      ? '<img src="https://flagcdn.com/20x15/' + isoCodes[m.home] + '.png" style="width:16px;height:12px;border-radius:2px;vertical-align:middle;">'
+      : '';
+    var awayFlagHtml = (isoCodes && isoCodes[m.away])
+      ? '<img src="https://flagcdn.com/20x15/' + isoCodes[m.away] + '.png" style="width:16px;height:12px;border-radius:2px;vertical-align:middle;">'
+      : '';
+    var timeStr = formatMatchTime(m.utc);
+    cards += '<div class="live-match-card">'
+      + '<div class="live-match-stage"><span>' + m.stage + '</span>'
+      + '<span class="wl-live-badge" style="font-size:0.65rem;padding:2px 7px;"><span class="wl-live-dot"></span>LIVE</span></div>'
+      + '<div class="live-match-teams">'
+      + '<span class="live-match-team">' + homeFlagHtml + ' ' + m.home + '</span>'
+      + '<span class="live-match-score">' + scoreStr + '</span>'
+      + '<span class="live-match-team" style="flex-direction:row-reverse;">' + m.away + ' ' + awayFlagHtml + '</span>'
+      + '</div>'
+      + '<div class="live-match-footer">'
+      + '<span>&#128197; ' + timeStr + ' ' + getTZLabel() + '</span>'
+      + '<span>&#128205; ' + m.venue.replace(' Stadium','').replace('Estadio ','') + '</span>'
+      + '</div>'
+      + '</div>';
+  });
+
+  var plural = liveMatches.length === 1 ? 'match' : 'matches';
+  section.innerHTML = '<div class="live-now-wrap">'
+    + '<div class="live-now-header">'
+    + '<span class="live-now-title"><span class="live-now-dot"></span>Live Now</span>'
+    + '<span class="live-now-count">' + liveMatches.length + ' ' + plural + ' in progress</span>'
+    + '</div>'
+    + '<div class="live-now-grid">' + cards + '</div>'
+    + '</div>';
+}
+
+function goToLive() {
+  var liveMatches = getLiveMatches();
+  if (liveMatches.length === 0) {
+    showToast('No live matches right now', 'remove');
+    return;
+  }
+  // Switch to overview tab and scroll to live section
+  var overviewBtn = document.querySelector('[onclick*="overview"]');
+  if (overviewBtn) overviewBtn.click();
+  else showTab('overview', null);
+  setTimeout(function() {
+    var section = document.getElementById('live-now-section');
+    if (section && section.innerHTML) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 100);
+}
+
+// Check live status every 30 seconds
+setInterval(function() {
+  renderLiveNow();
+}, 30000);
 
 // ====== WATCHLIST / FAVOURITES ===================================================
 
@@ -3772,7 +4001,16 @@ function getCountdown(utcStr) {
 function renderWatchlist() {
   var section = document.getElementById('watchlist-section');
   if (!section) return;
-  var ids = Object.keys(watchlist);
+  var ids = Object.keys(watchlist).filter(function(id) {
+    // Suppress live matches from Watchlist — they show in Live Now section
+    var allM = {};
+    groupMatches.forEach(function(m) { allM[m.id] = m; });
+    [].concat(koMatchDefs.r32, koMatchDefs.r16, koMatchDefs.qf,
+      koMatchDefs.sf, koMatchDefs.final, koMatchDefs.bronze
+    ).forEach(function(m) { allM[m.id] = m; });
+    var match = allM[id];
+    return !match || !isMatchLive(match.utc);
+  });
   if (ids.length === 0) { section.innerHTML = ''; return; }
 
   var allMatches = {};
