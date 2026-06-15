@@ -222,13 +222,14 @@ def make_ssl_context():
     """
     Create an SSL context that tolerates worldcup26.ir's broken SSL config.
     UNEXPECTED_EOF_WHILE_READING = server closes connection abruptly during
-    handshake — disabling cert verification + using TLSv1.2 fallback fixes it.
+    handshake — disabling cert verification fixes it.
+    OP_LEGACY_SERVER_CONNECT only available in Python 3.12+, so guarded.
     """
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
-    # Allow legacy renegotiation (common cause of EOF on cheap hosting)
-    ctx.options |= ssl.OP_LEGACY_SERVER_CONNECT
+    if hasattr(ssl, 'OP_LEGACY_SERVER_CONNECT'):
+        ctx.options |= ssl.OP_LEGACY_SERVER_CONNECT
     return ctx
 
 
