@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -642,22 +639,36 @@ transition: all 0.2s;
   min-width: 0%;
 }
 .progress-stages {
+  display: flex;
+  margin-top: 6px;
+}
+.progress-seg {
+  flex: 1;
   position: relative;
-  height: 20px;
-  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 2px 0;
+}
+.progress-seg .progress-tick {
+  position: absolute;
+  right: 0;
+  top: -10px;
+  transform: none;
 }
 .progress-stage {
-  position: absolute;
-  transform: translateX(-50%);
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 1px;
+  font-size: 0.68rem;
+  letter-spacing: 0.5px;
   color: var(--muted);
   opacity: 0.6;
   text-align: center;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
-.progress-stage.done { color: var(--gold); opacity: 1; }
+.progress-stage.done  { color: var(--gold); opacity: 1; }
 .progress-stage.active { color: #60b0ff; opacity: 1; }
 
 .stat-value {
@@ -3173,7 +3184,7 @@ return sum + (s.h || 0) + (s.a || 0);
 }, 0);
 const avgGoals = playedGroup ? (totalGoals / playedGroup).toFixed(1) : '0.0';
 
-// ── Tournament progress bar ──────────────────────────────────────────────
+// ── Tournament progress bar (Option B: 6 equal segments) ────────────────
 const koAllIds = [].concat(
   koMatchDefs.r32, koMatchDefs.r16, koMatchDefs.qf,
   koMatchDefs.sf, koMatchDefs.final, koMatchDefs.bronze
@@ -3181,24 +3192,46 @@ const koAllIds = [].concat(
 const playedKo    = koAllIds.filter(id => isPlayed(id)).length;
 const totalPlayed = playedGroup + playedKo;
 const TOTAL       = 104;
-const pct         = (totalPlayed / TOTAL * 100).toFixed(1);
 
-// Stage thresholds (cumulative matches)
+// Stage definitions with actual match counts
 const stages = [
-  { label:'Group Stage', end:72  },
-  { label:'R32',         end:88  },
-  { label:'R16',         end:96  },
-  { label:'QF',          end:100 },
-  { label:'SF',          end:102 },
-  { label:'Final',       end:104 },
+  { label:'Group Stage', total:72,  ids: groupMatches.map(m => m.id) },
+  { label:'R32',         total:16,  ids: koMatchDefs.r32.map(m => m.id) },
+  { label:'R16',         total:8,   ids: koMatchDefs.r16.map(m => m.id) },
+  { label:'QF',          total:4,   ids: koMatchDefs.qf.map(m => m.id) },
+  { label:'SF',          total:2,   ids: koMatchDefs.sf.map(m => m.id) },
+  { label:'Final',       total:2,   ids: koMatchDefs.final.concat(koMatchDefs.bronze).map(m => m.id) },
 ];
-// Place each label at its proportional position on the bar
-const stagePills = stages.map(function(s, i) {
-  var prev = i === 0 ? 0 : stages[i-1].end;
-  var cls = totalPlayed >= s.end ? 'done' : (totalPlayed > prev ? 'active' : '');
-  // Position label at midpoint between previous stage end and this stage end
-  var midPct = ((prev + s.end) / 2 / 104 * 100).toFixed(1);
-  return '<span class="progress-stage ' + cls + '" style="left:' + midPct + '%">' + s.label + '</span>';
+
+// Calculate fill per segment (each segment = 1/6 of bar = 16.666%)
+const SEG = 100 / stages.length;
+var fillPct = 0;
+var activeStageIdx = -1;
+stages.forEach(function(s, i) {
+  var played = s.ids.filter(function(id) { return isPlayed(id); }).length;
+  if (played >= s.total) {
+    fillPct += SEG; // full segment
+  } else if (played > 0) {
+    fillPct += (played / s.total) * SEG; // partial segment
+    activeStageIdx = i;
+  } else if (activeStageIdx === -1) {
+    activeStageIdx = i; // first unstarted stage
+  }
+});
+
+// Build segments HTML
+var segmentsHtml = stages.map(function(s, i) {
+  var played = s.ids.filter(function(id) { return isPlayed(id); }).length;
+  var segCls = played >= s.total ? 'done' : (played > 0 ? 'active' : 'pending');
+  // Tick on right edge of each segment (except last — bar ends there)
+  var tick = i < stages.length - 1
+    ? '<div class="progress-tick ' + segCls + '"></div>' : '';
+  // Label centered in segment
+  var labelCls = segCls;
+  return '<div class="progress-seg ' + segCls + '">'
+    + tick
+    + '<span class="progress-stage ' + labelCls + '">' + s.label + '</span>'
+    + '</div>';
 }).join('');
 
 const pbWrap = document.getElementById('progress-bar-wrap');
@@ -3209,15 +3242,9 @@ if (pbWrap) {
     + '<span class="progress-count">' + totalPlayed + ' / ' + TOTAL + ' matches played</span>'
     + '</div>'
     + '<div class="progress-track">'
-    + '<div class="progress-fill" style="width:' + pct + '%"></div>'
-    + stages.map(function(s, i) {
-        var prev = i === 0 ? 0 : stages[i-1].end;
-        var tickPct = (s.end / 104 * 100).toFixed(1);
-        var tickCls = totalPlayed >= s.end ? 'done' : (totalPlayed > prev ? 'active' : 'pending');
-        return '<div class="progress-tick ' + tickCls + '" style="left:' + tickPct + '%"></div>';
-      }).join('')
+    + '<div class="progress-fill" style="width:' + fillPct.toFixed(1) + '%"></div>'
     + '</div>'
-    + '<div class="progress-stages">' + stagePills + '</div>'
+    + '<div class="progress-stages">' + segmentsHtml + '</div>'
     + '</div>';
 }
 
