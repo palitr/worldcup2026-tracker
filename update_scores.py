@@ -69,7 +69,10 @@ TEAM_MAP = {
     "Portugal":                  "Portugal",
     "DR Congo":                  "DR Congo",
     "Congo DR":                  "DR Congo",
+    "D.R. Congo":                "DR Congo",
+    "Democratic Republic of Congo": "DR Congo",
     "Democratic Republic of the Congo": "DR Congo",
+    "DRC":                       "DR Congo",
     "Uzbekistan":                "Uzbekistan",
     "Colombia":                  "Colombia",
     "England":                   "England",
@@ -220,25 +223,16 @@ def normalise_utc(s):
 
 
 def make_ssl_context():
-    """
-    Create an SSL context that tolerates worldcup26.ir's broken SSL config.
-    UNEXPECTED_EOF_WHILE_READING = server closes connection abruptly during
-    handshake — disabling cert verification fixes it.
-    OP_LEGACY_SERVER_CONNECT only available in Python 3.12+, so guarded.
-    """
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
-    if hasattr(ssl, 'OP_LEGACY_SERVER_CONNECT'):
-        ctx.options |= ssl.OP_LEGACY_SERVER_CONNECT
+    ctx.options |= ssl.OP_LEGACY_SERVER_CONNECT
     return ctx
 
 
 def fetch_games(retries=3, delay=15):
-    """Fetch with SSL workaround and longer delay between retries."""
     last_error = None
     ssl_ctx = make_ssl_context()
-
     for attempt in range(1, retries + 1):
         try:
             req = urllib.request.Request(
@@ -292,6 +286,15 @@ def build_scores(data):
                    or data.get("data") or [])
 
     print(f"  Total matches from API: {len(matches)}")
+
+    # DEBUG: print full raw JSON of first finished match to see all available fields
+    _debug_printed = False
+    for m in matches:
+        if not _debug_printed and is_finished(m):
+            print("  === DEBUG: Full raw JSON of first finished match ===")
+            print(json.dumps(m, indent=2, ensure_ascii=False))
+            print("  === END DEBUG ===")
+            _debug_printed = True
 
     for m in matches:
         if not is_finished(m):
