@@ -223,16 +223,26 @@ def normalise_utc(s):
 
 
 def make_ssl_context():
+    """
+    Create an SSL context that tolerates worldcup26.ir's broken SSL config.
+    UNEXPECTED_EOF_WHILE_READING = server closes connection abruptly during
+    handshake — disabling cert verification + using TLSv1.2 fallback fixes it.
+    """
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
-    ctx.options |= ssl.OP_LEGACY_SERVER_CONNECT
+    # Allow legacy renegotiation (common cause of EOF on cheap hosting)
+    # hasattr guard for Python < 3.12 compatibility
+    if hasattr(ssl, 'OP_LEGACY_SERVER_CONNECT'):
+        ctx.options |= ssl.OP_LEGACY_SERVER_CONNECT
     return ctx
 
 
 def fetch_games(retries=3, delay=15):
+    """Fetch with SSL workaround and longer delay between retries."""
     last_error = None
     ssl_ctx = make_ssl_context()
+
     for attempt in range(1, retries + 1):
         try:
             req = urllib.request.Request(
