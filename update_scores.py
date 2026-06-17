@@ -264,6 +264,26 @@ def fetch_games(retries=3, delay=15):
     raise last_error
 
 
+def parse_scorers(raw):
+    """
+    Parse the messy scorer string from worldcup26.ir API.
+    Input:  '{"J. Quiñones 9\'","R. Jiménez 67\'"}'  or  'null'  or  None
+    Output: ["J. Quiñones 9'", "R. Jiménez 67'"]    or  []
+    """
+    import re
+    if not raw:
+        return []
+    s = str(raw).strip()
+    if s.lower() in ('null', '{}', ''):
+        return []
+    if s.startswith('{') and s.endswith('}'):
+        s = s[1:-1]
+    if not s.strip():
+        return []
+    names = re.findall(r'"([^"]+)"', s)
+    return [n.strip() for n in names if n.strip() and n.strip().lower() != 'null']
+
+
 def map_team(name):
     if not name:
         return name
@@ -289,6 +309,7 @@ def is_finished(m):
 def build_scores(data):
     scores = {}
     pen_scores = {}
+    scorers = {}
 
     matches = data
     if isinstance(data, dict):
@@ -329,9 +350,18 @@ def build_scores(data):
             continue
 
         scores[match_id] = {"h": home_score, "a": away_score}
-        print(f"  ✅ {match_id}: {home} {home_score}–{away_score} {away}")
 
-    return scores, pen_scores
+        # Parse scorers
+        h_scorers = parse_scorers(m.get("home_scorers"))
+        a_scorers = parse_scorers(m.get("away_scorers"))
+        if h_scorers or a_scorers:
+            scorers[match_id] = {"h": h_scorers, "a": a_scorers}
+
+        print(f"  ✅ {match_id}: {home} {home_score}–{away_score} {away}"
+              + (f" | ⚽ {h_scorers}" if h_scorers else "")
+              + (f" / {a_scorers}" if a_scorers else ""))
+
+    return scores, pen_scores, scorers
 
 
 def write_heartbeat(now):
@@ -355,12 +385,13 @@ def main():
         print("heartbeat.json written — scores unchanged, will retry next run")
         return 0
 
-    scores, pen_scores = build_scores(data)
+    scores, pen_scores, scorers = build_scores(data)
 
     output = {
         "updated":   now,
         "scores":    scores,
         "penScores": pen_scores,
+        "scorers":   scorers,
     }
 
     with open("scores.json", "w") as f:
