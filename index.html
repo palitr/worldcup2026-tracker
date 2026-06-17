@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1167,6 +1169,22 @@ header { padding: 10px 20px 20px; }
   gap: 10px;
   flex-wrap: wrap;
 }
+
+/* ====== SCORER FOOTER (shared across all card types) ====== */
+.scorer-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.71rem;
+  line-height: 1.5;
+}
+.sf-home { text-align: left; flex: 1; }
+.sf-away { text-align: right; flex: 1; }
 
 /* ====== WATCHLIST / FAVOURITES ====== */
 .watchlist-wrap { margin-bottom: 24px; }
@@ -3240,12 +3258,55 @@ var bracketSoundOn = true;
 var bracketAudioCtx = null; // true during init render to prevent overwriting restored data
 const koTeams = {};
 const penScores = {}; // matchId → {h,a} penalty shootout scores // matchId -> { home: str, away: str }
+const scorers = {};   // matchId → {h: [...], a: [...]} goal scorers from API
 
 // ============================================================
 // UTILITIES
 // ============================================================
 function getScore(id) {
 return scores[id] || { h: null, a: null };
+}
+
+function getScorers(id) {
+  return scorers[id] || { h: [], a: [] };
+}
+
+// Build scorer footer HTML — shared across all card types
+// variant: 'default' | 'blue' (recent results) | 'green' (live)
+function buildScorerFooter(id, variant) {
+  var sc = getScorers(id);
+  var h = sc.h || [], a = sc.a || [];
+  if (!h.length && !a.length) return '';
+  var col = variant === 'blue'  ? 'rgba(96,160,255,0.65)'
+          : variant === 'green' ? 'rgba(45,198,83,0.7)'
+          : 'rgba(255,255,255,0.55)';
+  var minCol = variant === 'blue'  ? 'rgba(96,160,255,0.3)'
+             : variant === 'green' ? 'rgba(45,198,83,0.3)'
+             : 'rgba(255,255,255,0.28)';
+  var borderCol = variant === 'blue'  ? 'rgba(96,160,255,0.12)'
+                : variant === 'green' ? 'rgba(45,198,83,0.1)'
+                : 'rgba(255,255,255,0.06)';
+  var iconCol = variant === 'blue'  ? 'rgba(96,160,255,0.5)'
+              : variant === 'green' ? 'rgba(45,198,83,0.5)'
+              : 'rgba(255,255,255,0.35)';
+  function fmtList(arr) {
+    if (!arr.length) return '';
+    return arr.map(function(s) {
+      // Split "Name 45'" into name + minute parts
+      var parts = s.match(/^(.*?)\s+(\d[\d\+\'\s\(\)OGgp]*)$/);
+      if (parts) {
+        return '<span style="color:' + col + ';">' + parts[1] + '</span>'
+             + ' <span style="color:' + minCol + ';">' + parts[2] + '</span>';
+      }
+      return '<span style="color:' + col + ';">' + s + '</span>';
+    }).join('<span style="color:' + minCol + ';"> · </span>');
+  }
+  var hHtml = h.length ? fmtList(h) : '<span style="color:rgba(255,255,255,0.15);font-style:italic;">—</span>';
+  var aHtml = a.length ? fmtList(a) : '<span style="color:rgba(255,255,255,0.15);font-style:italic;">—</span>';
+  return '<div class="scorer-footer" style="border-top-color:' + borderCol + ';">'
+    + '<span class="sf-home"><span style="color:' + iconCol + ';">⚽</span> ' + hHtml + '</span>'
+    + '<span class="sf-away">' + aHtml + ' <span style="color:' + iconCol + ';">⚽</span></span>'
+    + '</div>';
 }
 
 function isPlayed(id) {
@@ -3411,6 +3472,11 @@ ${resultLabel}
 </div>
 <div class="match-team away">${m.away}&nbsp;${flag(m.away)}</div>
 `;
+if (s.h !== null && s.a !== null) {
+  var sfEl = document.createElement('div');
+  sfEl.innerHTML = buildScorerFooter(m.id, 'default');
+  if (sfEl.firstChild) item.appendChild(sfEl.firstChild);
+}
 gmDiv.appendChild(item);
 });
 });
@@ -3855,7 +3921,8 @@ card.innerHTML =
 + '<div class="ko-time">\u23f1 ' + formatMatchTime(m.utc) + '</div>'
 + '<div class="ko-venue">\ud83d\udccd ' + m.venue + '</div>'
 + winLabel
-+ '</div>';
++ '</div>'
++ (isPlayed(m.id) ? buildScorerFooter(m.id, 'default') : '');
 grid.appendChild(card);
 });
 }
@@ -4271,6 +4338,7 @@ function renderLiveNow() {
       + '<span>&#128197; ' + timeStr + ' ' + getTZLabel() + '</span>'
       + '<span>&#128205; ' + m.venue.replace(' Stadium','').replace('Estadio ','') + '</span>'
       + '</div>'
+      + buildScorerFooter(m.id, 'green')
       + '</div>';
   });
 
@@ -4459,6 +4527,7 @@ function renderRecentResults() {
       + '<span>&#128197; ' + timeStr + '</span>'
       + '<span>&#128205; ' + m.venue.replace(' Stadium','').replace('Estadio ','') + '</span>'
       + '</div>'
+      + buildScorerFooter(m.id, 'blue')
       + '</div>';
   });
 
@@ -4604,6 +4673,7 @@ function renderWatchlist() {
       +'</div>'
       +stateHtml
       +'<div class="wl-footer">&#128197; '+timeStr+' '+getTZLabel()+'</div>'
+      +(played ? buildScorerFooter(id, 'default') : '')
       +'</div>';
   });
 
@@ -4805,6 +4875,7 @@ function tsBuildMatchCard(id, home, away, utc, venue, highlightTeam) {
     + '</div>'
     + '<div class="ts-match-teams">' + homeHtml + '<span style="color:var(--muted);font-size:0.8rem;margin:0 2px;">vs</span>' + awayHtml + scoreHtml + '</div>'
     + (isTBD ? '<div class="ts-tbd-text">Awaiting group results</div>' : '')
+    + (played ? buildScorerFooter(id, 'default') : '')
     + '</div>';
 }
 
@@ -4837,6 +4908,12 @@ document.addEventListener('keydown', function(e) {
           if (p && p.h !== null && p.a !== null && !manualScores[id]) {
             penScores[id] = { h: p.h, a: p.a };
           }
+        });
+      }
+      if (data && data.scorers) {
+        Object.keys(data.scorers).forEach(function(id) {
+          var sc = data.scorers[id];
+          if (sc) scorers[id] = { h: sc.h || [], a: sc.a || [] };
         });
       }
       if (data && data.updated) {
@@ -7125,7 +7202,9 @@ list += '<div class="sched-card">'
 + '<div class="sched-card-foot">'
 + (isMatchLive(m.utc) ? '<span class="sched-live-badge"><span class="sched-live-dot"></span>LIVE</span>' : '<span class="sched-card-time">&#128336;&nbsp;'+m.timeStr+' '+getTZLabel()+'</span>')
 + '<span class="sched-card-venue">&#128205;&nbsp;'+m.venue+'</span>'
-+ '</div></div>';
++ '</div>'
++ (isPlayed(m.id) ? buildScorerFooter(m.id, 'default') : '')
++ '</div>';
 });
 list += '</div>';
 }
