@@ -69,6 +69,7 @@ TEAM_MAP = {
     "Portugal":                  "Portugal",
     "DR Congo":                  "DR Congo",
     "Congo DR":                  "DR Congo",
+    "Democratic Republic of the Congo": "DR Congo",
     "Uzbekistan":                "Uzbekistan",
     "Colombia":                  "Colombia",
     "England":                   "England",
