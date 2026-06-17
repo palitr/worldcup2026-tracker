@@ -1,9 +1,3 @@
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1007,6 +1001,95 @@ header { padding: 10px 20px 20px; }
   color: var(--muted);
   display: flex;
   gap: 10px;
+}
+
+/* ====== RECENT RESULTS ====== */
+.recent-results-wrap { margin-bottom: 20px; }
+.recent-results-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.recent-results-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  color: #60a0ff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.recent-results-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: #60a0ff;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+.recent-results-count {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(96,160,255,0.6);
+  letter-spacing: 1px;
+}
+.recent-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.recent-match-card {
+  background: rgba(96,160,255,0.06);
+  border: 1px solid rgba(96,160,255,0.25);
+  border-radius: 14px;
+  padding: 13px 15px;
+  transition: border-color 0.2s;
+}
+.recent-match-card:hover { border-color: rgba(96,160,255,0.45); }
+.recent-match-stage {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  color: rgba(96,160,255,0.6);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.recent-match-teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.recent-match-team { display: flex; align-items: center; gap: 5px; color: #fff; }
+.recent-match-score {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.3rem;
+  color: #60a0ff;
+  letter-spacing: 3px;
+  flex-shrink: 0;
+}
+.recent-match-pen {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  color: rgba(96,160,255,0.7);
+  text-align: center;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+.recent-match-footer {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 /* ====== WATCHLIST / FAVOURITES ====== */
@@ -2722,6 +2805,7 @@ transition:all 0.15s; cursor:default;
 <!-- ====== OVERVIEW TAB ====== -->
 <div id="tab-overview" class="tab-panel active">
 <div id="live-now-section"></div>
+<div id="recent-results-section"></div>
 <div id="watchlist-section"></div>
 <div id="progress-bar-wrap"></div>
 <div class="stats-grid" id="stats-grid"></div>
@@ -3761,7 +3845,7 @@ if (tab === 'bracket') {
     // If in post-animation state, keep it; otherwise re-render fresh
     if (!bracketPlayed) { renderBracket(); }
   }
-if (tab === 'overview') { renderLiveNow(); renderWatchlist(); }
+if (tab === 'overview') { renderLiveNow(); renderRecentResults(); renderWatchlist(); }
 if (tab === 'schedule') { schedVenue = []; schedAutoSelect(); renderSchedule(); }
 // Mini-player only visible on the Tournament tab
 const mini = document.getElementById('mini-player');
@@ -3973,6 +4057,7 @@ updateStats();
 renderElements();
 _suppressSave = false;
 renderLiveNow();
+renderRecentResults();
 renderWatchlist();
 if (hadEmbedded) {
 var cnt = Object.keys(scores).filter(function(k){
@@ -4147,7 +4232,111 @@ function goToLive() {
 // Check live status every 30 seconds
 setInterval(function() {
   renderLiveNow();
+  renderRecentResults();
 }, 30000);
+
+// ====== RECENT RESULTS ===========================================================
+
+function getRecentMatches() {
+  var now = Date.now();
+  var MATCH_DURATION = 115 * 60 * 1000; // 115 mins (same as isMatchLive)
+  var WINDOW = 24 * 60 * 60 * 1000;     // 24 hours
+  var recent = [];
+
+  // Group stage
+  groupMatches.forEach(function(m) {
+    var ms = istToUtcMs(m.utc);
+    if (!ms) return;
+    var endMs = ms + MATCH_DURATION;
+    // Finished (end time passed) but within 24 hours
+    if (now > endMs && now - endMs < WINDOW) {
+      recent.push({
+        id: m.id, home: m.home, away: m.away,
+        utc: m.utc, venue: m.venue, endMs: endMs,
+        stage: 'Group ' + m.group
+      });
+    }
+  });
+
+  // KO matches
+  var koAll = [].concat(
+    koMatchDefs.r32, koMatchDefs.r16, koMatchDefs.qf,
+    koMatchDefs.sf, koMatchDefs.final, koMatchDefs.bronze
+  );
+  koAll.forEach(function(m) {
+    var ms = istToUtcMs(m.utc);
+    if (!ms) return;
+    var endMs = ms + MATCH_DURATION;
+    if (now > endMs && now - endMs < WINDOW) {
+      var teams = getKoTeams(m.id);
+      recent.push({
+        id: m.id, home: teams.home, away: teams.away,
+        utc: m.utc, venue: m.venue, endMs: endMs,
+        stage: m.desc || m.id
+      });
+    }
+  });
+
+  // Sort most recent first
+  recent.sort(function(a, b) { return b.endMs - a.endMs; });
+  return recent;
+}
+
+function renderRecentResults() {
+  var section = document.getElementById('recent-results-section');
+  if (!section) return;
+
+  var recentMatches = getRecentMatches();
+
+  if (recentMatches.length === 0) { section.innerHTML = ''; return; }
+
+  var cards = '';
+  recentMatches.forEach(function(m) {
+    var s = getScore(m.id);
+    if (s.h === null || s.a === null) return; // skip if no score yet
+    var scoreStr = s.h + '\u2013' + s.a;
+    var pen = penScores[m.id];
+    var penHtml = (s.h === s.a && pen && pen.h !== null && pen.a !== null)
+      ? '<div class="recent-match-pen">(pen ' + Math.max(pen.h,pen.a) + '\u2013' + Math.min(pen.h,pen.a) + ')</div>'
+      : '';
+
+    var homeFlagHtml = (isoCodes && isoCodes[m.home])
+      ? '<img src="https://flagcdn.com/20x15/' + isoCodes[m.home] + '.png" style="width:16px;height:12px;border-radius:2px;vertical-align:middle;">'
+      : '';
+    var awayFlagHtml = (isoCodes && isoCodes[m.away])
+      ? '<img src="https://flagcdn.com/20x15/' + isoCodes[m.away] + '.png" style="width:16px;height:12px;border-radius:2px;vertical-align:middle;">'
+      : '';
+
+    var timeStr = formatMatchTime(m.utc);
+
+    cards += '<div class="recent-match-card">'
+      + '<div class="recent-match-stage"><span>' + m.stage + '</span>'
+      + '<span class="match-ft-badge">FT</span></div>'
+      + '<div class="recent-match-teams">'
+      + '<span class="recent-match-team">' + homeFlagHtml + ' ' + m.home + '</span>'
+      + '<span class="recent-match-score">' + scoreStr + '</span>'
+      + '<span class="recent-match-team" style="flex-direction:row-reverse;">' + m.away + ' ' + awayFlagHtml + '</span>'
+      + '</div>'
+      + penHtml
+      + '<div class="recent-match-footer">'
+      + '<span>&#128197; ' + timeStr + '</span>'
+      + '<span>&#128205; ' + m.venue.replace(' Stadium','').replace('Estadio ','') + '</span>'
+      + '</div>'
+      + '</div>';
+  });
+
+  // If all matches had no scores, hide section
+  if (!cards) { section.innerHTML = ''; return; }
+
+  var plural = recentMatches.length === 1 ? 'match' : 'matches';
+  section.innerHTML = '<div class="recent-results-wrap">'
+    + '<div class="recent-results-header">'
+    + '<span class="recent-results-title"><span class="recent-results-dot"></span>Recent Results</span>'
+    + '<span class="recent-results-count">' + recentMatches.length + ' ' + plural + ' in the last 24 hours</span>'
+    + '</div>'
+    + '<div class="recent-results-grid">' + cards + '</div>'
+    + '</div>';
+}
 
 // ====== WATCHLIST / FAVOURITES ===================================================
 
