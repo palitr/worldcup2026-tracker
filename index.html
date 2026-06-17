@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3324,10 +3326,10 @@ function buildScorerFooter(id, variant) {
       // Split "Name 45'" into name + minute parts
       var parts = s.match(/^(.*?)\s+(\d[\d\+\'\s\(\)OGgp]*)$/);
       if (parts) {
-        return '<span style="color:' + col + ';">' + parts[1] + '</span>'
-             + ' <span style="color:' + minCol + ';">' + parts[2] + '</span>';
+        return '<span style="white-space:nowrap;color:' + col + ';">' + parts[1]
+             + ' <span style="color:' + minCol + ';">' + parts[2] + '</span></span>';
       }
-      return '<span style="color:' + col + ';">' + s + '</span>';
+      return '<span style="white-space:nowrap;color:' + col + ';">' + s + '</span>';
     }).join('<span style="color:' + minCol + ';"> · </span>');
   }
   var hHtml = h.length ? fmtList(h) : '<span style="color:rgba(255,255,255,0.15);font-style:italic;">—</span>';
