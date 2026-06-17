@@ -1003,7 +1003,83 @@ header { padding: 10px 20px 20px; }
   gap: 10px;
 }
 
-/* ====== RECENT RESULTS ====== */
+/* ====== RECENT NAV BUTTON ====== */
+.recent-nav-btn {
+  background: rgba(96,160,255,0.08);
+  border: 1px solid rgba(96,160,255,0.25);
+  border-radius: 20px;
+  padding: 6px 14px;
+  color: rgba(96,160,255,0.5);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.recent-nav-btn.active {
+  background: rgba(96,160,255,0.15);
+  border-color: rgba(96,160,255,0.5);
+  color: #60a0ff;
+  box-shadow: 0 0 14px rgba(96,160,255,0.2);
+}
+.recent-nav-btn.active:hover {
+  background: rgba(96,160,255,0.25);
+  border-color: rgba(96,160,255,0.7);
+  box-shadow: 0 0 20px rgba(96,160,255,0.3);
+}
+
+/* ====== GEAR DROPDOWN ====== */
+.gear-wrap {
+  position: relative;
+  display: inline-flex;
+}
+.gear-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 6px 13px;
+  color: var(--muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.gear-btn:hover, .gear-btn.open {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.25);
+  color: var(--text);
+}
+.gear-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 9999;
+  background: #0d1220;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 8px 6px;
+  min-width: 180px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  flex-direction: column;
+  gap: 4px;
+}
+.gear-dropdown.open { display: flex; }
+.gear-dropdown .data-btn {
+  width: 100%;
+  justify-content: flex-start;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 0.85rem;
+}
+
 .recent-results-wrap { margin-bottom: 20px; }
 .recent-results-header {
   display: flex;
@@ -2454,7 +2530,7 @@ transition:all 0.15s; cursor:default;
 .pen-result { font-family:'Barlow Condensed',sans-serif; font-size:0.8em; color:var(--muted); font-weight:normal; letter-spacing:0.5px; margin-left:3px; }
 
 /* ====== DATA PERSISTENCE BAR ====== */
-.data-bar { display:flex; justify-content:space-between; align-items:center; padding:8px 20px; background:rgba(0,0,0,0.3); border-bottom:1px solid rgba(255,255,255,0.06); flex-wrap:wrap; gap:8px; position:relative; z-index:5; }
+.data-bar { display:flex; justify-content:space-between; align-items:center; padding:8px 20px; background:rgba(0,0,0,0.3); border-bottom:1px solid rgba(255,255,255,0.06); flex-wrap:wrap; gap:8px; position:relative; z-index:200; overflow:visible; }
 .save-indicator { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; color:var(--muted); letter-spacing:0.5px; transition:color 0.3s; }
 .save-indicator.saved { color:var(--green); }
 .save-indicator.restored { color:#4a9fd4; }
@@ -2468,18 +2544,9 @@ transition:all 0.15s; cursor:default;
 
 @media (max-width: 600px) {
   .data-bar-btns { flex-wrap: nowrap; gap: 6px; }
-  /* Shrink utility buttons to icon-only on mobile */
-  .data-btn.util-btn {
-    padding: 5px 9px;
-    font-size: 1rem;
-    letter-spacing: 0;
-    min-width: 0;
-    flex-shrink: 0;
-  }
-  /* Hide text labels inside utility buttons on mobile */
-  .data-btn.util-btn .btn-label { display: none; }
-  /* Shrink Team Search text slightly to fit */
   .ts-trigger-btn { padding: 6px 10px; font-size: 0.78rem; }
+  .recent-nav-btn { padding: 6px 10px; font-size: 0.78rem; }
+  .gear-dropdown { right: 0; min-width: 160px; }
 }
 .export-btn-glow { animation: exportPulse 2s ease-in-out 3; }
 @keyframes exportPulse {
@@ -2764,13 +2831,19 @@ transition:all 0.15s; cursor:default;
   </div>
 <div class="data-bar-btns">
 <button class="live-nav-btn" id="live-nav-btn" onclick="goToLive()" title="View live matches"><span class="live-nav-dot" id="live-nav-dot"></span>LIVE</button>
+<button class="recent-nav-btn" id="recent-nav-btn" onclick="goToRecent()" title="View recent results">&#128336; RECENT</button>
 <button class="ts-trigger-btn" onclick="openTeamSearch()" title="Search by team">&#128269; Team Search</button>
-<button class="data-btn export-btn util-btn" id="export-btn" onclick="exportScores()" title="Backup JSON">&#8595;<span class="btn-label"> Backup JSON</span></button>
-<label class="data-btn import-btn util-btn" title="Restore JSON">
-&#8593;<span class="btn-label"> Restore JSON</span>
+<div class="gear-wrap" id="gear-wrap">
+<button class="gear-btn" id="gear-btn" onclick="toggleGear(event)" title="Utilities">&#9881;&#65039;</button>
+<div class="gear-dropdown" id="gear-dropdown">
+<button class="data-btn export-btn" id="export-btn" onclick="exportScores();closeGear()" title="Backup JSON">&#8595; Backup JSON</button>
+<label class="data-btn import-btn" title="Restore JSON" onclick="closeGear()">
+&#8593; Restore JSON
 <input type="file" accept=".json" style="display:none" onchange="importScores(this)">
 </label>
-<button class="data-btn clear-btn util-btn" onclick="clearAllScores()" title="Clear All">&#10005;<span class="btn-label"> Clear All</span></button>
+<button class="data-btn clear-btn" onclick="clearAllScores();closeGear()" title="Clear All">&#10005; Clear All</button>
+</div>
+</div>
 </div>
 </div>
 
@@ -4059,6 +4132,11 @@ _suppressSave = false;
 renderLiveNow();
 renderRecentResults();
 renderWatchlist();
+// Sync RECENT button active state on load
+(function() {
+  var recentBtn = document.getElementById('recent-nav-btn');
+  if (recentBtn && getRecentMatches().length > 0) recentBtn.classList.add('active');
+})();
 if (hadEmbedded) {
 var cnt = Object.keys(scores).filter(function(k){
 return scores[k] && scores[k].h !== null && scores[k].a !== null;
@@ -4229,10 +4307,69 @@ function goToLive() {
   }, 150);
 }
 
+function goToRecent() {
+  var recentMatches = getRecentMatches();
+  if (recentMatches.length === 0) {
+    showToast('No results in the last 24 hours', 'remove');
+    return;
+  }
+  // Switch to overview tab
+  var overviewBtn = document.querySelector('[onclick*="overview"]');
+  if (overviewBtn) overviewBtn.click();
+  else showTab('overview', null);
+  showToast('\uD83D\uDD50 Recent results from the last 24 hours', 'add');
+  setTimeout(function() {
+    var section = document.getElementById('recent-results-section');
+    if (section) {
+      var rect = section.getBoundingClientRect();
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      window.scrollTo({ top: scrollTop + rect.top - 120, behavior: 'smooth' });
+    }
+  }, 150);
+}
+
+function toggleGear(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('gear-dropdown');
+  var btn = document.getElementById('gear-btn');
+  if (!dd || !btn) return;
+  var isOpen = dd.classList.contains('open');
+  if (isOpen) {
+    dd.classList.remove('open');
+    btn.classList.remove('open');
+  } else {
+    dd.classList.add('open');
+    btn.classList.add('open');
+    // Close on next outside click
+    setTimeout(function() {
+      document.addEventListener('click', function closeGearHandler(ev) {
+        var wrap = document.getElementById('gear-wrap');
+        if (wrap && !wrap.contains(ev.target)) {
+          closeGear();
+          document.removeEventListener('click', closeGearHandler);
+        }
+      });
+    }, 0);
+  }
+}
+
+function closeGear() {
+  var dd = document.getElementById('gear-dropdown');
+  var btn = document.getElementById('gear-btn');
+  if (dd) dd.classList.remove('open');
+  if (btn) btn.classList.remove('open');
+}
+
 // Check live status every 30 seconds
 setInterval(function() {
   renderLiveNow();
   renderRecentResults();
+  // Sync RECENT button active state
+  var recentBtn = document.getElementById('recent-nav-btn');
+  if (recentBtn) {
+    if (getRecentMatches().length > 0) recentBtn.classList.add('active');
+    else recentBtn.classList.remove('active');
+  }
 }, 30000);
 
 // ====== RECENT RESULTS ===========================================================
