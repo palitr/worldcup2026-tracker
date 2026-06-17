@@ -297,15 +297,6 @@ def build_scores(data):
 
     print(f"  Total matches from API: {len(matches)}")
 
-    # DEBUG: print full raw JSON of first finished match to see all available fields
-    _debug_printed = False
-    for m in matches:
-        if not _debug_printed and is_finished(m):
-            print("  === DEBUG: Full raw JSON of first finished match ===")
-            print(json.dumps(m, indent=2, ensure_ascii=False))
-            print("  === END DEBUG ===")
-            _debug_printed = True
-
     for m in matches:
         if not is_finished(m):
             continue
