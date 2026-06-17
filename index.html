@@ -499,6 +499,11 @@ transition: all 0.2s;
 position: relative;
 }
 
+.group-match-item .scorer-footer {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+}
+
 .group-match-item:hover { border-color: rgba(255,215,0,0.2); background: rgba(255,255,255,0.05); }
 
 .match-team {
@@ -1182,9 +1187,20 @@ header { padding: 10px 20px 20px; }
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 0.71rem;
   line-height: 1.5;
+  width: 100%;
 }
-.sf-home { text-align: left; flex: 1; }
-.sf-away { text-align: right; flex: 1; }
+.sf-home {
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+  white-space: normal;
+  word-break: break-word;
+}
+.sf-away {
+  text-align: right;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
 
 /* ====== WATCHLIST / FAVOURITES ====== */
 .watchlist-wrap { margin-bottom: 24px; }
@@ -3471,12 +3487,8 @@ placeholder="-" data-id="${m.id}" data-side="a" oninput="onScoreInput(this)">
 ${resultLabel}
 </div>
 <div class="match-team away">${m.away}&nbsp;${flag(m.away)}</div>
+${s.h !== null && s.a !== null ? buildScorerFooter(m.id, 'default') : ''}
 `;
-if (s.h !== null && s.a !== null) {
-  var sfEl = document.createElement('div');
-  sfEl.innerHTML = buildScorerFooter(m.id, 'default');
-  if (sfEl.firstChild) item.appendChild(sfEl.firstChild);
-}
 gmDiv.appendChild(item);
 });
 });
