@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -709,24 +710,6 @@ display: inline-block;
 .ko-winner-label.shown { background: rgba(45,198,83,0.15); color: #2DC653; border: 1px solid rgba(45,198,83,0.3); }
 
 /* ====== LIVE STATS ====== */
-.stats-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-gap: 16px;
-margin-bottom: 30px;
-}
-
-.stat-card {
-background: var(--card);
-border: 1px solid var(--border);
-border-radius: 14px;
-padding: 20px;
-text-align: center;
-transition: all 0.2s;
-}
-
-.stat-card:hover { border-color: rgba(255,215,0,0.3); transform: translateY(-2px); }
-
 .progress-wrap {
   margin: 0 0 24px;
   padding: 16px 20px;
@@ -813,23 +796,6 @@ transition: all 0.2s;
 }
 .progress-stage.done  { color: var(--gold); opacity: 1; }
 .progress-stage.active { color: #60b0ff; opacity: 1; }
-
-.stat-value {
-font-family: 'Bebas Neue', cursive;
-font-size: 3rem;
-color: var(--gold);
-line-height: 1;
-display: block;
-}
-
-.stat-label {
-font-family: 'Barlow Condensed', sans-serif;
-font-size: 0.8rem;
-letter-spacing: 2px;
-color: var(--muted);
-text-transform: uppercase;
-margin-top: 6px;
-}
 
 /* ====== LEGEND ====== */
 .legend-bar {
@@ -1191,7 +1157,9 @@ header { padding: 10px 20px 20px; }
   text-align: center;
   min-width: 120px;
   flex: 1;
+  transition: all 0.2s;
 }
+.stats-pill:hover { border-color: rgba(255,215,0,0.3); transform: translateY(-2px); }
 .stats-pill-val {
   font-family: 'Bebas Neue', cursive;
   font-size: 2rem;
@@ -3043,7 +3011,6 @@ transition:all 0.15s; cursor:default;
 <div id="recent-results-section"></div>
 <div id="watchlist-section"></div>
 <div id="progress-bar-wrap"></div>
-<div class="stats-grid" id="stats-grid"></div>
 <div class="legend-bar">
 <div class="legend-item"><div class="legend-dot" style="background:#2DC653;"></div> Qualified for R32 (1st/2nd place)</div>
 <div class="legend-item"><div class="legend-dot" style="background:#FFC107;"></div> Possible Best 3rd Place</div>
@@ -3771,34 +3738,6 @@ if (pbWrap) {
     + '</div>';
 }
 
-const statsEl = document.getElementById('stats-grid');
-if (!statsEl) return;
-statsEl.innerHTML = `
-<div class="stat-card">
-<span class="stat-value">${playedGroup}</span>
-<div class="stat-label">Matches Played</div>
-</div>
-<div class="stat-card">
-<span class="stat-value">${72 - playedGroup}</span>
-<div class="stat-label">Remaining (Group)</div>
-</div>
-<div class="stat-card">
-<span class="stat-value">${totalGoals}</span>
-<div class="stat-label">Total Goals</div>
-</div>
-<div class="stat-card">
-<span class="stat-value">${avgGoals}</span>
-<div class="stat-label">Goals / Match</div>
-</div>
-<div class="stat-card">
-<span class="stat-value">48</span>
-<div class="stat-label">Teams</div>
-</div>
-<div class="stat-card">
-<span class="stat-value">104</span>
-<div class="stat-label">Total Matches</div>
-</div>
-`;
 }
 
 // ============================================================
@@ -4873,6 +4812,7 @@ function renderStats() {
     // Summary pills
     + '<div class="stats-summary-pills">'
     + '<div class="stats-pill"><div class="stats-pill-val">' + matchesPlayed + '</div><div class="stats-pill-label">Matches Played</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + (104 - matchesPlayed) + '</div><div class="stats-pill-label">Remaining Matches</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + totalGoals + '</div><div class="stats-pill-label">Total Goals</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + avgGoals + '</div><div class="stats-pill-label">Goals / Match</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + cleanSheets.length + '</div><div class="stats-pill-label">Clean Sheets</div></div>'
