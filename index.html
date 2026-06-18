@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -858,30 +861,34 @@ header { padding: 10px 20px 20px; }
 /* ── Stats pills: 2-2-3 layout ── */
 .stats-summary-pills { gap: 8px; }
 .stats-pill {
-  flex: none;
-  width: calc(50% - 4px);
+  flex: none !important;
+  min-width: 0 !important;
+  width: calc(50% - 4px) !important;
   padding: 10px 8px;
+  box-sizing: border-box;
 }
 .stats-pill:nth-child(5),
 .stats-pill:nth-child(6),
 .stats-pill:nth-child(7) {
-  width: calc(33.333% - 6px);
+  width: calc(33.333% - 6px) !important;
   padding: 10px 4px;
 }
 .stats-pill-val { font-size: 2rem; }
 .stats-pill-label { font-size: 0.65rem; letter-spacing: 1px; }
 
-/* ── Golden Boot table: compact for mobile ── */
-.gb-table thead th { font-size: 0.58rem; letter-spacing: 1px; padding: 6px 6px; }
-.gb-table tbody td { font-size: 0.78rem; padding: 8px 6px; }
-.gb-rank { font-size: 0.85rem; width: 24px; }
+/* ── Golden Boot table: compact + no horizontal scroll ── */
+.gb-table-wrap { width: 100%; overflow-x: hidden; }
+.gb-table { table-layout: fixed; width: 100%; }
+.gb-table colgroup, .gb-progress-col, .gb-table thead th:last-child, .gb-table tbody td:last-child { display: none; }
+.gb-table thead th { font-size: 0.6rem; letter-spacing: 0.5px; padding: 6px 4px; }
+.gb-table tbody td { font-size: 0.78rem; padding: 8px 4px; }
+.gb-rank { font-size: 0.85rem; width: 20px; }
 .gb-goals { font-size: 1.1rem; }
-.gb-goals.g1 { font-size: 1.25rem; }
+.gb-goals.g1 { font-size: 1.2rem; }
 .gb-name { font-size: 0.8rem; }
 .gb-team { font-size: 0.65rem; }
 .gb-stat { font-size: 0.72rem; }
 .gb-mp { font-size: 0.72rem; }
-.gb-bar-wrap { min-width: 48px; gap: 4px; }
 }
 
 /* ====== LIVE NOW SECTION ====== */
@@ -1222,6 +1229,7 @@ header { padding: 10px 20px 20px; }
 }
 /* Golden Boot table */
 .gb-table { width:100%; border-collapse:collapse; font-family:'Barlow Condensed',sans-serif; }
+.gb-table-wrap { width:100%; }
 .gb-table thead tr { background:rgba(255,255,255,0.03); border-bottom:1px solid rgba(255,215,0,0.15); }
 .gb-table thead th { font-size:0.68rem; letter-spacing:2px; color:var(--muted); text-transform:uppercase; padding:8px 12px; text-align:left; font-weight:600; }
 .gb-table thead th.r { text-align:right; }
@@ -4854,14 +4862,14 @@ function renderStats() {
     // Golden Boot
     + '<div class="stats-section-title">🥇 Golden Boot — Top Scorers</div>'
     + '<div class="stats-section-sub">RANKED BY GOALS · PENALTIES SHOWN SEPARATELY · OWN GOALS EXCLUDED</div>'
-    + '<table class="gb-table"><thead><tr>'
-    + '<th style="width:36px;">#</th><th>Player</th>'
-    + '<th class="r" style="width:52px;">MP</th>'
-    + '<th class="r" style="width:60px;">Goals</th>'
-    + '<th class="r" style="width:52px;">Pen</th>'
-    + '<th class="r" style="width:52px;">NPG</th>'
-    + '<th style="width:110px;padding-left:12px;">Progress</th>'
-    + '</tr></thead><tbody>' + gbRows + '</tbody></table>'
+    + '<div class="gb-table-wrap"><table class="gb-table"><thead><tr>'
+    + '<th>#</th><th>Player</th>'
+    + '<th class="r">MP</th>'
+    + '<th class="r">Goals</th>'
+    + '<th class="r">Pen</th>'
+    + '<th class="r">NPG</th>'
+    + '<th class="gb-progress-col">Progress</th>'
+    + '</tr></thead><tbody>' + gbRows + '</tbody></table></div>'
     + '<div class="gb-legend">MP = Team Matches Played &nbsp;·&nbsp; Pen = Penalty Goals &nbsp;·&nbsp; NPG = Non-Penalty Goals &nbsp;·&nbsp; OG = Own Goals (excluded from table)</div>'
 
     // Top scoring teams
