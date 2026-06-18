@@ -1180,6 +1180,118 @@ header { padding: 10px 20px 20px; }
   flex-wrap: wrap;
 }
 
+/* ====== STATS TAB ====== */
+.stats-page { padding: 8px 4px; }
+.stats-summary-pills { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:32px; }
+.stats-pill {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 20px;
+  text-align: center;
+  min-width: 120px;
+  flex: 1;
+}
+.stats-pill-val {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2rem;
+  color: var(--gold);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.stats-pill-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.stats-section-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.3rem;
+  letter-spacing: 4px;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  margin-top: 36px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,215,0,0.15);
+}
+.stats-section-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+/* Golden Boot table */
+.gb-table { width:100%; border-collapse:collapse; font-family:'Barlow Condensed',sans-serif; }
+.gb-table thead tr { background:rgba(255,255,255,0.03); border-bottom:1px solid rgba(255,215,0,0.15); }
+.gb-table thead th { font-size:0.68rem; letter-spacing:2px; color:var(--muted); text-transform:uppercase; padding:8px 12px; text-align:left; font-weight:600; }
+.gb-table thead th.r { text-align:right; }
+.gb-table tbody tr { border-bottom:1px solid rgba(255,255,255,0.04); transition:background 0.15s; }
+.gb-table tbody tr:hover { background:rgba(255,255,255,0.03); }
+.gb-table tbody td { padding:10px 12px; font-size:0.9rem; vertical-align:middle; }
+.gb-table tbody td.r { text-align:right; }
+.gb-rank { font-family:'Bebas Neue',cursive; font-size:1rem; color:var(--muted); width:36px; text-align:center; }
+.gb-goals { font-family:'Bebas Neue',cursive; font-size:1.4rem; color:var(--gold); text-align:right; }
+.gb-goals.g1 { font-size:1.6rem; color:#FFD700; }
+.gb-goals.g2 { color:#C8D8FF; }
+.gb-goals.g3 { color:#FFB347; }
+.gb-stat { text-align:right; font-size:0.82rem; color:var(--muted); }
+.gb-stat span { color:rgba(255,255,255,0.55); }
+.gb-mp { text-align:right; font-size:0.82rem; color:var(--muted); }
+.gb-name { font-size:0.92rem; font-weight:700; color:var(--text); }
+.gb-team { font-size:0.73rem; color:var(--muted); display:flex; align-items:center; gap:5px; margin-top:2px; }
+.gb-bar-wrap { display:flex; align-items:center; gap:8px; min-width:80px; }
+.gb-bar { height:4px; border-radius:2px; background:rgba(255,255,255,0.08); flex:1; overflow:hidden; }
+.gb-bar-fill { height:100%; border-radius:2px; background:linear-gradient(90deg,var(--gold2),var(--gold)); }
+.gb-legend { font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; color:var(--muted); margin-top:10px; letter-spacing:1px; }
+/* Team stat cards */
+.stats-grid-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; }
+.stats-team-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px 16px;
+  display:flex; align-items:center; gap:12px;
+}
+.stc-rank { font-family:'Bebas Neue',cursive; font-size:1.2rem; color:var(--muted); width:24px; flex-shrink:0; text-align:center; }
+.stc-rank.r1 { color:#FFD700; } .stc-rank.r2 { color:#C0C0C0; } .stc-rank.r3 { color:#CD7F32; }
+.stc-info { flex:1; min-width:0; }
+.stc-name { font-family:'Barlow Condensed',sans-serif; font-size:0.88rem; font-weight:700; color:var(--text); display:flex; align-items:center; gap:6px; }
+.stc-sub { font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; color:var(--muted); margin-top:2px; }
+.stc-val { font-family:'Bebas Neue',cursive; font-size:1.8rem; color:var(--gold); flex-shrink:0; }
+.stc-val.green { color:var(--green); }
+/* Clean sheets */
+.stats-cs-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; }
+.stats-cs-card {
+  background:var(--card);
+  border:1px solid rgba(45,198,83,0.15);
+  border-radius:12px;
+  padding:12px 14px;
+  display:flex; align-items:center; gap:10px;
+}
+.cs-num { font-family:'Bebas Neue',cursive; font-size:1.6rem; color:var(--green); flex-shrink:0; }
+.cs-nm { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:700; color:var(--text); display:flex; align-items:center; gap:5px; }
+.cs-lbl { font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; color:rgba(45,198,83,0.5); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+/* Biggest wins */
+.stats-bw-list { display:flex; flex-direction:column; gap:8px; }
+.stats-bw-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 16px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.bw-teams { font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; font-weight:700; display:flex; align-items:center; gap:8px; flex:1; }
+.bw-score { font-family:'Bebas Neue',cursive; font-size:1.2rem; color:var(--gold); letter-spacing:3px; flex-shrink:0; }
+.bw-meta { font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; color:var(--muted); text-align:right; flex-shrink:0; }
+.bw-diff { color:rgba(255,255,255,0.28); display:block; margin-top:2px; }
+
 /* ====== SCORER FOOTER (shared across all card types) ====== */
 .scorer-footer {
   display: flex;
@@ -2906,6 +3018,7 @@ transition:all 0.15s; cursor:default;
 <button class="tab-btn" onclick="showTab('final', this)">🏆 Final</button>
 <button class="tab-btn" onclick="showTab('bracket', this)">🗺️ Bracket</button>
 <button class="tab-btn" onclick="showTab('schedule', this)">📅 Schedule</button>
+<button class="tab-btn" onclick="showTab('stats', this)">📈 Stats</button>
 <button class="tab-btn" onclick="showTab('elements', this)">✨ Tournament</button>
 
 <div class="mini-player" id="mini-player">
@@ -3007,6 +3120,10 @@ transition:all 0.15s; cursor:default;
 </div>
 
 <!-- ====== TOURNAMENT ELEMENTS ====== -->
+<div id="tab-stats" class="tab-panel">
+  <div id="stats-root"></div>
+</div>
+
 <div id="tab-elements" class="tab-panel">
 <div id="elements-root"></div>
 </div>
@@ -4014,6 +4131,7 @@ if (tab === 'bracket') {
   }
 if (tab === 'overview') { renderLiveNow(); renderRecentResults(); renderWatchlist(); }
 if (tab === 'schedule') { schedVenue = []; schedAutoSelect(); renderSchedule(); }
+if (tab === 'stats') { renderStats(); }
 // Mini-player only visible on the Tournament tab
 const mini = document.getElementById('mini-player');
 if (mini) {
@@ -4465,6 +4583,10 @@ setInterval(function() {
     if (getRecentMatches().length > 0) recentBtn.classList.add('active');
     else recentBtn.classList.remove('active');
   }
+  // Refresh stats if tab is active
+  if (document.getElementById('tab-stats') && document.getElementById('tab-stats').classList.contains('active')) {
+    renderStats();
+  }
 }, 30000);
 
 // ====== RECENT RESULTS ===========================================================
@@ -4568,6 +4690,229 @@ function renderRecentResults() {
     + '<span class="recent-results-count">' + recentMatches.length + ' ' + plural + ' in the last 24 hours</span>'
     + '</div>'
     + '<div class="recent-results-grid">' + cards + '</div>'
+    + '</div>';
+}
+
+// ====== STATS TAB ================================================================
+
+function renderStats() {
+  var root = document.getElementById('stats-root');
+  if (!root) return;
+
+  // ── Build player goal tally from scorers object ──
+  var playerGoals = {}; // key: "Name|Team" → {name, team, g, pen, npg, matches}
+  var teamGoals   = {}; // teamName → goals scored
+  var teamConc    = {}; // teamName → goals conceded
+  var teamMatches = {}; // teamName → matches played
+  var biggestWins = [];
+  var totalGoals  = 0;
+  var totalPens   = 0;
+  var totalOGs    = 0;
+  var matchesPlayed = 0;
+
+  // Helper: get team from match
+  function processMatch(matchId, home, away) {
+    var s = getScore(matchId);
+    if (s.h === null || s.a === null) return;
+    matchesPlayed++;
+    totalGoals += s.h + s.a;
+    teamGoals[home]  = (teamGoals[home]  || 0) + s.h;
+    teamGoals[away]  = (teamGoals[away]  || 0) + s.a;
+    teamConc[home]   = (teamConc[home]   || 0) + s.a;
+    teamConc[away]   = (teamConc[away]   || 0) + s.h;
+    teamMatches[home]= (teamMatches[home]|| 0) + 1;
+    teamMatches[away]= (teamMatches[away]|| 0) + 1;
+    biggestWins.push({ home:home, away:away, hs:s.h, as:s.a, diff:Math.abs(s.h-s.a), id:matchId });
+
+    // Parse scorers
+    var sc = getScorers(matchId);
+    function addScorer(nameRaw, teamName) {
+      if (!nameRaw) return;
+      var isPen = /\(p\)/i.test(nameRaw);
+      var isOG  = /\(OG\)/i.test(nameRaw);
+      if (isOG) { totalOGs++; return; }
+      if (isPen) totalPens++;
+      // Strip minute and flags from name
+      var name = nameRaw.replace(/\s+\d[\d\+\'\s\(\)OGgp]*$/, '').trim();
+      var key  = name + '|' + teamName;
+      if (!playerGoals[key]) playerGoals[key] = { name:name, team:teamName, g:0, pen:0, npg:0 };
+      playerGoals[key].g++;
+      if (isPen) playerGoals[key].pen++;
+      else playerGoals[key].npg++;
+    }
+    (sc.h || []).forEach(function(s) { addScorer(s, home); });
+    (sc.a || []).forEach(function(s) { addScorer(s, away); });
+  }
+
+  // Process all group matches
+  groupMatches.forEach(function(m) { processMatch(m.id, m.home, m.away); });
+
+  // Process KO matches
+  var koAll = [].concat(
+    koMatchDefs.r32, koMatchDefs.r16, koMatchDefs.qf,
+    koMatchDefs.sf, koMatchDefs.final, koMatchDefs.bronze || []
+  );
+  koAll.forEach(function(m) {
+    var teams = getKoTeams(m.id);
+    if (teams.home !== 'TBD' && teams.away !== 'TBD') processMatch(m.id, teams.home, teams.away);
+  });
+
+  // Sort players by goals desc, then npg desc, then matches asc
+  var players = Object.values(playerGoals).sort(function(a,b) {
+    if (b.g !== a.g) return b.g - a.g;
+    if (b.npg !== a.npg) return b.npg - a.npg;
+    return (teamMatches[a.team]||0) - (teamMatches[b.team]||0);
+  });
+
+  var maxGoals = players.length ? players[0].g : 1;
+
+  // Top scoring teams
+  var topScoring = Object.keys(teamGoals).map(function(t) {
+    return { team:t, goals:teamGoals[t], mp:teamMatches[t]||0 };
+  }).sort(function(a,b) { return b.goals - a.goals; }).slice(0,8);
+
+  // Best defences (min 1 match)
+  var bestDef = Object.keys(teamConc).map(function(t) {
+    return { team:t, conc:teamConc[t], mp:teamMatches[t]||0 };
+  }).filter(function(t) { return t.mp > 0; })
+    .sort(function(a,b) { return a.conc - b.conc; }).slice(0,8);
+
+  // Clean sheets
+  var cleanSheets = Object.keys(teamConc).filter(function(t) {
+    return teamConc[t] === 0 && (teamMatches[t]||0) > 0;
+  }).map(function(t) { return { team:t, mp:teamMatches[t]||0 }; });
+
+  // Biggest wins
+  var topWins = biggestWins.filter(function(w) { return w.diff >= 2; })
+    .sort(function(a,b) { return b.diff - a.diff; }).slice(0,5);
+
+  var avgGoals = matchesPlayed ? (totalGoals / matchesPlayed).toFixed(1) : '—';
+
+  // ── Helper: flag img ──
+  function fl(team) {
+    var iso = (isoCodes && isoCodes[team]) ? isoCodes[team] : '';
+    return iso ? '<img src="https://flagcdn.com/20x15/' + iso + '.png" style="width:16px;height:12px;border-radius:2px;vertical-align:middle;">' : '';
+  }
+
+  // ── Rank label ──
+  function rankLabel(i) {
+    if (i === 0) return '<span style="font-size:1.1rem;">🥇</span>';
+    if (i === 1) return '<span style="font-size:1rem;">🥈</span>';
+    if (i === 2) return '<span style="font-size:1rem;">🥉</span>';
+    return '<span style="color:var(--muted);">' + (i+1) + '</span>';
+  }
+
+  // ── Goals cell class ──
+  function gcls(i) { return i===0?' gb-goals g1':i===1?' gb-goals g2':i===2?' gb-goals g3':' gb-goals'; }
+
+  // ── Build Golden Boot rows ──
+  var gbRows = '';
+  var prevRank = 0, prevG = -1;
+  players.slice(0,20).forEach(function(p, i) {
+    var rank = (p.g === prevG) ? prevRank : i + 1;
+    prevRank = rank; prevG = p.g;
+    var barW = Math.round((p.g / maxGoals) * 100);
+    var dim = p.g === 1 ? ' style="opacity:0.65;"' : '';
+    gbRows += '<tr' + dim + '>'
+      + '<td class="gb-rank">' + rankLabel(rank-1) + '</td>'
+      + '<td><div class="gb-name">' + p.name + '</div>'
+      + '<div class="gb-team">' + fl(p.team) + ' ' + p.team + '</div></td>'
+      + '<td class="gb-mp r">' + (teamMatches[p.team]||0) + '</td>'
+      + '<td class="' + gcls(rank-1).trim() + ' r">' + p.g + '</td>'
+      + '<td class="gb-stat r">' + p.pen + '</td>'
+      + '<td class="gb-stat r"><span>' + p.npg + '</span></td>'
+      + '<td><div class="gb-bar-wrap"><div class="gb-bar"><div class="gb-bar-fill" style="width:' + barW + '%"></div></div></div></td>'
+      + '</tr>';
+  });
+  if (!gbRows) gbRows = '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px;">No scorer data yet</td></tr>';
+
+  // ── Build team cards ──
+  function teamCards(arr, valKey, valCls) {
+    return arr.map(function(t, i) {
+      var rk = i < 3 ? ' r'+(i+1) : '';
+      return '<div class="stats-team-card">'
+        + '<div class="stc-rank' + rk + '">' + (i+1) + '</div>'
+        + '<div class="stc-info"><div class="stc-name">' + fl(t.team) + ' ' + t.team + '</div>'
+        + '<div class="stc-sub">' + t.mp + ' match' + (t.mp!==1?'es':'') + ' played</div></div>'
+        + '<div class="stc-val' + (valCls?' '+valCls:'') + '">' + t[valKey] + '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  // ── Clean sheet cards ──
+  var csCards = cleanSheets.length
+    ? cleanSheets.map(function(t) {
+        return '<div class="stats-cs-card">'
+          + '<div class="cs-num">1</div>'
+          + '<div><div class="cs-nm">' + fl(t.team) + ' ' + t.team + '</div>'
+          + '<div class="cs-lbl">Clean Sheet</div></div>'
+          + '</div>';
+      }).join('')
+    : '<div style="color:var(--muted);font-family:\'Barlow Condensed\',sans-serif;font-size:0.85rem;">No clean sheets yet</div>';
+
+  // ── Biggest wins ──
+  var bwCards = topWins.length
+    ? topWins.map(function(w) {
+        var stage = '';
+        for (var j=0; j<groupMatches.length; j++) {
+          if (groupMatches[j].id === w.id) { stage = 'Group ' + groupMatches[j].group; break; }
+        }
+        return '<div class="stats-bw-card">'
+          + '<div class="bw-teams">' + fl(w.home) + ' ' + w.home
+          + ' <span style="color:var(--muted);font-size:0.8rem;">vs</span> '
+          + fl(w.away) + ' ' + w.away + '</div>'
+          + '<div class="bw-score">' + w.hs + '–' + w.as + '</div>'
+          + '<div class="bw-meta">' + stage + '<span class="bw-diff">+' + w.diff + ' GD</span></div>'
+          + '</div>';
+      }).join('')
+    : '<div style="color:var(--muted);font-family:\'Barlow Condensed\',sans-serif;font-size:0.85rem;">No results yet</div>';
+
+  // ── Render ──
+  root.innerHTML = '<div class="stats-page">'
+
+    // Summary pills
+    + '<div class="stats-summary-pills">'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + matchesPlayed + '</div><div class="stats-pill-label">Matches Played</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + totalGoals + '</div><div class="stats-pill-label">Total Goals</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + avgGoals + '</div><div class="stats-pill-label">Goals / Match</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + cleanSheets.length + '</div><div class="stats-pill-label">Clean Sheets</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + totalOGs + '</div><div class="stats-pill-label">Own Goals</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + totalPens + '</div><div class="stats-pill-label">Penalties</div></div>'
+    + '</div>'
+
+    // Golden Boot
+    + '<div class="stats-section-title">🥇 Golden Boot — Top Scorers</div>'
+    + '<div class="stats-section-sub">RANKED BY GOALS · PENALTIES SHOWN SEPARATELY · OWN GOALS EXCLUDED</div>'
+    + '<table class="gb-table"><thead><tr>'
+    + '<th style="width:36px;">#</th><th>Player</th>'
+    + '<th class="r" style="width:52px;">MP</th>'
+    + '<th class="r" style="width:60px;">Goals</th>'
+    + '<th class="r" style="width:52px;">Pen</th>'
+    + '<th class="r" style="width:52px;">NPG</th>'
+    + '<th style="width:110px;padding-left:12px;">Progress</th>'
+    + '</tr></thead><tbody>' + gbRows + '</tbody></table>'
+    + '<div class="gb-legend">MP = Team Matches Played &nbsp;·&nbsp; Pen = Penalty Goals &nbsp;·&nbsp; NPG = Non-Penalty Goals &nbsp;·&nbsp; OG = Own Goals (excluded from table)</div>'
+
+    // Top scoring teams
+    + '<div class="stats-section-title">⚽ Top Scoring Teams</div>'
+    + '<div class="stats-section-sub">GOALS SCORED</div>'
+    + '<div class="stats-grid-cards">' + teamCards(topScoring, 'goals', '') + '</div>'
+
+    // Best defences
+    + '<div class="stats-section-title">🛡️ Best Defences</div>'
+    + '<div class="stats-section-sub">FEWEST GOALS CONCEDED</div>'
+    + '<div class="stats-grid-cards">' + teamCards(bestDef, 'conc', 'green') + '</div>'
+
+    // Clean sheets
+    + '<div class="stats-section-title">🧤 Clean Sheets</div>'
+    + '<div class="stats-section-sub">TEAMS WITH ZERO GOALS CONCEDED</div>'
+    + '<div class="stats-cs-grid">' + csCards + '</div>'
+
+    // Biggest wins
+    + '<div class="stats-section-title">💥 Biggest Wins</div>'
+    + '<div class="stats-section-sub">LARGEST MARGIN OF VICTORY (MIN. 2 GOALS)</div>'
+    + '<div class="stats-bw-list">' + bwCards + '</div>'
+
     + '</div>';
 }
 
