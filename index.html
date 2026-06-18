@@ -859,18 +859,23 @@ h1 { font-size: 2.8rem; }
 header { padding: 10px 20px 20px; }
 
 /* ── Stats pills: 2-2-3 layout ── */
-.stats-summary-pills { gap: 8px; }
+.stats-summary-pills {
+  display: grid !important;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
 .stats-pill {
   flex: none !important;
   min-width: 0 !important;
-  width: calc(50% - 4px) !important;
+  width: 100% !important;
+  grid-column: span 3;
   padding: 10px 8px;
   box-sizing: border-box;
 }
 .stats-pill:nth-child(5),
 .stats-pill:nth-child(6),
 .stats-pill:nth-child(7) {
-  width: calc(33.333% - 6px) !important;
+  grid-column: span 2;
   padding: 10px 4px;
 }
 .stats-pill-val { font-size: 2rem; }
