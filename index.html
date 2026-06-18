@@ -1256,6 +1256,21 @@ header { padding: 10px 20px 20px; }
 .gb-bar { height:4px; border-radius:2px; background:rgba(255,255,255,0.08); flex:1; overflow:hidden; }
 .gb-bar-fill { height:100%; border-radius:2px; background:linear-gradient(90deg,var(--gold2),var(--gold)); }
 .gb-legend { font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; color:var(--muted); margin-top:10px; letter-spacing:1px; }
+.gb-extra-hidden { display: none; }
+.gb-expand-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.gb-expand-btn:hover { border-color: rgba(255,215,0,0.4); color: var(--gold); }
 /* Team stat cards */
 .stats-grid-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; }
 .stats-team-card {
@@ -4785,27 +4800,37 @@ function renderStats() {
     return '<span style="color:var(--muted);">' + (i+1) + '</span>';
   }
 
-  // ── Goals cell class ──
-  function gcls(i) { return i===0?' gb-goals g1':i===1?' gb-goals g2':i===2?' gb-goals g3':' gb-goals'; }
+  // ── Goals cell class — based on RANK not position ── (defined below with GB rows)
+
+  // ── Goals cell class — based on RANK not position ──
+  function gcls(rank) {
+    if (rank === 1) return ' gb-goals g1';
+    if (rank === 2) return ' gb-goals g2';
+    if (rank === 3) return ' gb-goals g3';
+    return ' gb-goals';
+  }
 
   // ── Build Golden Boot rows ──
   var gbRows = '';
+  var gbRowsExtra = '';
   var prevRank = 0, prevG = -1;
   players.slice(0,20).forEach(function(p, i) {
     var rank = (p.g === prevG) ? prevRank : i + 1;
     prevRank = rank; prevG = p.g;
     var barW = Math.round((p.g / maxGoals) * 100);
     var dim = p.g === 1 ? ' style="opacity:0.65;"' : '';
-    gbRows += '<tr' + dim + '>'
+    var row = '<tr' + dim + '>'
       + '<td class="gb-rank">' + rankLabel(rank-1) + '</td>'
       + '<td><div class="gb-name">' + p.name + '</div>'
       + '<div class="gb-team">' + fl(p.team) + ' ' + p.team + '</div></td>'
       + '<td class="gb-mp r">' + (teamMatches[p.team]||0) + '</td>'
-      + '<td class="' + gcls(rank-1).trim() + ' r">' + p.g + '</td>'
+      + '<td class="' + gcls(rank).trim() + ' r">' + p.g + '</td>'
       + '<td class="gb-stat r">' + p.pen + '</td>'
       + '<td class="gb-stat r"><span>' + p.npg + '</span></td>'
       + '<td><div class="gb-bar-wrap"><div class="gb-bar"><div class="gb-bar-fill" style="width:' + barW + '%"></div></div></div></td>'
       + '</tr>';
+    if (i < 10) gbRows += row;
+    else gbRowsExtra += row;
   });
   if (!gbRows) gbRows = '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px;">No scorer data yet</td></tr>';
 
@@ -4874,7 +4899,10 @@ function renderStats() {
     + '<th class="r">Pen</th>'
     + '<th class="r">NPG</th>'
     + '<th class="gb-progress-col">Progress</th>'
-    + '</tr></thead><tbody>' + gbRows + '</tbody></table></div>'
+    + '</tr></thead><tbody>' + gbRows + '</tbody>'
+    + (gbRowsExtra ? '<tbody id="gb-extra-rows" class="gb-extra-hidden">' + gbRowsExtra + '</tbody>' : '')
+    + '</table></div>'
+    + (gbRowsExtra ? '<div style="text-align:center;margin:10px 0 4px;"><button class="gb-expand-btn" id="gb-expand-btn" onclick="(function(){var b=document.getElementById(\'gb-expand-btn\'),t=document.getElementById(\'gb-extra-rows\');var hidden=t.classList.toggle(\'gb-extra-hidden\');b.textContent=hidden?\'Show More ▾\':\'Show Less ▴\';})()">' + 'Show More ▾' + '</button></div>' : '')
     + '<div class="gb-legend">MP = Team Matches Played &nbsp;·&nbsp; Pen = Penalty Goals &nbsp;·&nbsp; NPG = Non-Penalty Goals &nbsp;·&nbsp; OG = Own Goals (excluded from table)</div>'
 
     // Top scoring teams
