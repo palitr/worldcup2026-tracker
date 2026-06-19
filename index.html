@@ -25,6 +25,22 @@
 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FIFA World Cup 2026 — Interactive Fixture Tracker</title>
+
+<!-- OpenGraph / Social Sharing -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://palitr.github.io/worldcup2026-tracker/">
+<meta property="og:title" content="FIFA World Cup 2026 — Live Tracker">
+<meta property="og:description" content="Live scores, group standings, bracket, stats & Golden Boot for all 104 matches. Auto-updated. USA · Canada · Mexico.">
+<meta property="og:image" content="https://palitr.github.io/worldcup2026-tracker/og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FIFA World Cup 2026 — Live Tracker">
+<meta name="twitter:description" content="Live scores, group standings, bracket, stats & Golden Boot for all 104 matches. Auto-updated.">
+<meta name="twitter:image" content="https://palitr.github.io/worldcup2026-tracker/og-preview.png">
+<!-- General -->
+<meta name="description" content="Live scores, group standings, bracket, stats & Golden Boot for all 104 matches of FIFA World Cup 2026. Auto-updated every few minutes.">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -852,11 +868,11 @@ vertical-align: middle;
 /* ====== RESPONSIVE ====== */
 @media (max-width: 600px) {
 .save-indicator { display: none; }
-.save-info-wrap { display: none; }
+.save-info-wrap { display: none !important; }
 .data-bar { justify-content: center; padding: 7px 12px; }
 .data-bar-btns { justify-content: center; gap: 6px; }
 .btn-full-label { display: none; }
-.mobile-info-btn { display: flex !important; }
+.mobile-info-btn { display: none !important; }
 .groups-grid { grid-template-columns: 1fr; }
 .ko-matches-grid { grid-template-columns: 1fr; }
 .nav-tabs { gap: 6px; }
@@ -3129,9 +3145,6 @@ transition:all 0.15s; cursor:default;
     </div>
   </div>
 <div class="data-bar-btns">
-<button class="save-info-btn mobile-info-btn" id="save-info-btn-mobile" aria-label="How saving works" onclick="toggleSaveInfo(event)" style="display:none;">
-  <span class="save-info-icon">i</span>
-</button>
 <button class="live-nav-btn" id="live-nav-btn" onclick="goToLive()" title="View live matches"><span class="live-nav-dot" id="live-nav-dot"></span>LIVE</button>
 <button class="recent-nav-btn" id="recent-nav-btn" onclick="goToRecent()" title="View recent results">&#128336; RECENT</button>
 <button class="ts-trigger-btn" onclick="openTeamSearch()" title="Search by team">&#128269; <span class="btn-full-label">Team Search</span></button>
