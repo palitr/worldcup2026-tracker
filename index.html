@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -848,8 +851,12 @@ vertical-align: middle;
 
 /* ====== RESPONSIVE ====== */
 @media (max-width: 600px) {
-.save-indicator { max-width: 150px; font-size: 0.72rem; }
+.save-indicator { display: none; }
+.save-info-wrap { display: none; }
+.data-bar { justify-content: center; padding: 7px 12px; }
+.data-bar-btns { justify-content: center; gap: 6px; }
 .btn-full-label { display: none; }
+.mobile-info-btn { display: flex !important; }
 .groups-grid { grid-template-columns: 1fr; }
 .ko-matches-grid { grid-template-columns: 1fr; }
 .nav-tabs { gap: 6px; }
@@ -3100,6 +3107,10 @@ transition:all 0.15s; cursor:default;
       <span class="save-info-icon">i</span>
     </button>
     <div class="save-info-tooltip" id="save-info-tooltip">
+      <div id="mobile-update-info" style="display:none;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(100,170,255,0.15);font-family:'Barlow Condensed',sans-serif;font-size:12px;color:#60b0ff;line-height:1.5;">
+        <span id="mobile-update-text">🔄 Checking for updates...</span><br>
+        <span style="color:rgba(100,170,255,0.7);">🕐 All times shown in your local timezone</span>
+      </div>
       <h4>HOW SAVING WORKS</h4>
       <ul>
         <li><span class="si">&#x2705;</span> Match scores update automatically after full time</li>
@@ -3118,6 +3129,9 @@ transition:all 0.15s; cursor:default;
     </div>
   </div>
 <div class="data-bar-btns">
+<button class="save-info-btn mobile-info-btn" id="save-info-btn-mobile" aria-label="How saving works" onclick="toggleSaveInfo(event)" style="display:none;">
+  <span class="save-info-icon">i</span>
+</button>
 <button class="live-nav-btn" id="live-nav-btn" onclick="goToLive()" title="View live matches"><span class="live-nav-dot" id="live-nav-dot"></span>LIVE</button>
 <button class="recent-nav-btn" id="recent-nav-btn" onclick="goToRecent()" title="View recent results">&#128336; RECENT</button>
 <button class="ts-trigger-btn" onclick="openTeamSearch()" title="Search by team">&#128269; <span class="btn-full-label">Team Search</span></button>
@@ -5538,6 +5552,13 @@ document.addEventListener('keydown', function(e) {
           var fullText = '🔄 Scores last updated: ' + fmt.format(d) + ' ' + getTZLabel();
           var shortText = '🔄 Updated ' + shortFmt.format(d) + ' ' + getTZLabel();
           updateSaveIndicator(isMobile ? shortText : fullText, 'restored');
+          // Update mobile tooltip info
+          var mobileInfo = document.getElementById('mobile-update-info');
+          var mobileText = document.getElementById('mobile-update-text');
+          if (mobileInfo && mobileText) {
+            mobileText.textContent = '🔄 Last updated: ' + fmt.format(d) + ' ' + getTZLabel();
+            mobileInfo.style.display = 'block';
+          }
         }
         buildTicker();
       }
