@@ -851,6 +851,7 @@ vertical-align: middle;
 
 /* ====== RESPONSIVE ====== */
 @media (max-width: 600px) {
+.save-indicator { max-width: 130px; font-size: 0.72rem; }
 .groups-grid { grid-template-columns: 1fr; }
 .ko-matches-grid { grid-template-columns: 1fr; }
 .nav-tabs { gap: 6px; }
@@ -895,6 +896,19 @@ header { padding: 10px 20px 20px; }
 .gb-stat { font-size: 0.72rem; }
 .gb-mp { font-size: 0.72rem; }
 }
+
+/* ====== LIVE TICKER ====== */
+.ticker-strip { background:rgba(0,0,0,0.3); border-bottom:1px solid rgba(255,255,255,0.06); height:38px; overflow:hidden; display:flex; align-items:center; position:relative; z-index:199; }
+.ticker-track { display:flex; align-items:center; white-space:nowrap; will-change:transform; }
+.ticker-track.animating { animation: tickerMove linear infinite; }
+@keyframes tickerMove { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+.ticker-item { font-family:'Barlow Condensed',sans-serif; font-size:14px; letter-spacing:0.6px; padding:0 22px; border-right:0.5px solid rgba(255,255,255,0.12); display:inline-flex; align-items:center; gap:6px; }
+.ti-live { color:#ff4444; font-weight:700; }
+.ti-ft { color:rgba(255,255,255,0.95); }
+.ti-score { color:#FFD700; font-weight:700; font-size:15px; }
+.ti-min { color:rgba(255,80,80,0.9); font-size:12px; }
+.ti-up { color:rgba(100,190,255,0.95); }
+.ti-upt { color:rgba(100,190,255,0.8); font-size:12px; }
 
 /* ====== WELCOME POPUP ====== */
 #welcome-overlay {
@@ -2762,11 +2776,11 @@ transition:all 0.15s; cursor:default;
 .pen-result { font-family:'Barlow Condensed',sans-serif; font-size:0.8em; color:var(--muted); font-weight:normal; letter-spacing:0.5px; margin-left:3px; }
 
 /* ====== DATA PERSISTENCE BAR ====== */
-.data-bar { display:flex; justify-content:space-between; align-items:center; padding:8px 20px; background:rgba(0,0,0,0.3); border-bottom:1px solid rgba(255,255,255,0.06); flex-wrap:wrap; gap:8px; position:relative; z-index:200; overflow:visible; }
-.save-indicator { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; color:var(--muted); letter-spacing:0.5px; transition:color 0.3s; }
+.data-bar { display:flex; justify-content:space-between; align-items:center; padding:8px 20px; background:rgba(0,0,0,0.3); border-bottom:1px solid rgba(255,255,255,0.06); flex-wrap:nowrap; gap:8px; position:relative; z-index:200; overflow:visible; }
+.save-indicator { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; color:var(--muted); letter-spacing:0.5px; transition:color 0.3s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:340px; }
 .save-indicator.saved { color:var(--green); }
 .save-indicator.restored { color:#4a9fd4; }
-.data-bar-btns { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.data-bar-btns { display:flex; gap:8px; align-items:center; flex-wrap:nowrap; flex-shrink:0; }
 .data-btn { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; letter-spacing:1px; padding:5px 13px; border-radius:20px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.05); color:var(--text); cursor:pointer; transition:all 0.2s; display:inline-flex; align-items:center; gap:5px; }
 .data-btn:hover { background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.22); }
 .export-btn:hover { border-color:rgba(45,198,83,0.45); color:var(--green); }
@@ -3087,7 +3101,6 @@ transition:all 0.15s; cursor:default;
     <button class="save-info-btn" id="save-info-btn" aria-label="How saving works" onclick="toggleSaveInfo(event)">
       <span class="save-info-icon">i</span>
     </button>
-    <span id="tz-label" style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;color:rgba(100,170,255,0.7);letter-spacing:0.5px;white-space:nowrap;">All times in local time</span>
     <div class="save-info-tooltip" id="save-info-tooltip">
       <h4>HOW SAVING WORKS</h4>
       <ul>
@@ -3122,6 +3135,10 @@ transition:all 0.15s; cursor:default;
 </div>
 </div>
 </div>
+</div>
+
+<div class="ticker-strip" id="ticker-strip">
+  <div class="ticker-track" id="ticker-track"></div>
 </div>
 
 <nav class="nav-tabs">
@@ -4384,6 +4401,106 @@ function getTZLabel() {
   } catch(e) { return 'local'; }
 }
 
+// ============================================================
+// LIVE TICKER
+// ============================================================
+function buildTicker() {
+  var track = document.getElementById('ticker-track');
+  var strip = document.getElementById('ticker-strip');
+  if (!track || !strip) return;
+  var items = [];
+  var now = Date.now();
+
+  // Flatten all matches — group stage + KO stages
+  var koFlat = [];
+  if (typeof koMatchDefs !== 'undefined') {
+    ['r32','r16','qf','sf','final'].forEach(function(stage) {
+      if (koMatchDefs[stage]) koMatchDefs[stage].forEach(function(m) {
+        koFlat.push({ id:m.id, home:m.slotA||m.desc||'TBD', away:m.slotB||'TBD', utc:m.utc });
+      });
+    });
+  }
+  var allMatches = groupMatches.concat(koFlat);
+
+  // 1. LIVE matches
+  allMatches.forEach(function(m) {
+    var s = scores[m.id];
+    if (!s || s.h === null || s.a === null) return;
+    var kickUtc = new Date(m.utc).getTime();
+    var elapsed = (now - kickUtc) / 60000;
+    if (elapsed >= 0 && elapsed < 115 && !s.ft) {
+      var min = Math.min(Math.floor(elapsed), 90);
+      items.push({ type:'live', home:m.home, away:m.away, hs:s.h, as:s.a, min:min });
+    }
+  });
+
+  // 2. Recent FT results (last 24h)
+  allMatches.forEach(function(m) {
+    var s = scores[m.id];
+    if (!s || s.h === null || s.a === null) return;
+    var kickUtc = new Date(m.utc).getTime();
+    var elapsed = (now - kickUtc) / 60000;
+    if (elapsed >= 90 && elapsed <= 1440) {
+      items.push({ type:'ft', home:m.home, away:m.away, hs:s.h, as:s.a });
+    }
+  });
+
+  var hasLiveOrRecent = items.length > 0;
+
+  // 3. Upcoming matches — group stage only for readable team names
+  var upcoming = groupMatches.filter(function(m) {
+    var s = scores[m.id];
+    var kickUtc = new Date(m.utc).getTime();
+    return kickUtc > now && (!s || (s.h === null && s.a === null));
+  }).sort(function(a,b){ return new Date(a.utc)-new Date(b.utc); });
+
+  var upCount = hasLiveOrRecent ? 3 : 5;
+  upcoming.slice(0, upCount).forEach(function(m) {
+    var diff = (new Date(m.utc).getTime() - now) / 60000;
+    var timeStr;
+    if (diff < 60) timeStr = 'in ' + Math.round(diff) + 'm';
+    else if (diff < 1440) timeStr = 'in ' + Math.round(diff/60) + 'h';
+    else timeStr = 'in ' + Math.round(diff/1440) + 'd';
+    items.push({ type:'up', home:m.home, away:m.away, time:timeStr });
+  });
+
+  if (!items.length) {
+    strip.style.display = 'none';
+    return;
+  }
+  strip.style.display = 'flex';
+
+  function renderItem(it) {
+    if (it.type === 'live') {
+      return '<span class="ticker-item"><span class="ti-live">🔴 LIVE</span>'
+        + '<span class="ti-ft">' + it.home + ' vs ' + it.away + '</span>'
+        + '<span class="ti-score">' + it.hs + '–' + it.as + '</span>'
+        + '<span class="ti-min">' + it.min + "'</span></span>";
+    } else if (it.type === 'ft') {
+      return '<span class="ticker-item"><span style="color:#2DC653;">⚽ FT</span>'
+        + '<span class="ti-ft">' + it.home + ' ' + it.hs + '–' + it.as + ' ' + it.away + '</span></span>';
+    } else {
+      return '<span class="ticker-item"><span class="ti-up">⏳</span>'
+        + '<span class="ti-ft">' + it.home + ' vs ' + it.away + '</span>'
+        + '<span class="ti-upt">' + it.time + '</span></span>';
+    }
+  }
+
+  var html = items.map(renderItem).join('');
+  track.innerHTML = html + html;
+
+  // Remove old animation, recalculate duration based on content width
+  track.classList.remove('animating');
+  track.style.animationDuration = '';
+  requestAnimationFrame(function() {
+    var fullW = track.scrollWidth / 2;
+    var speed = 60;
+    var dur = Math.max(10, fullW / speed);
+    track.style.animationDuration = dur + 's';
+    track.classList.add('animating');
+  });
+}
+
 function dismissWelcome() {
   document.getElementById('welcome-overlay').classList.add('hidden');
   localStorage.setItem('fifa2026_welcomed', '1');
@@ -4395,9 +4512,8 @@ if (!localStorage.getItem('fifa2026_welcomed')) {
   document.getElementById('welcome-overlay').classList.remove('hidden');
 }
 
-// Update timezone label
-var tzLbl = document.getElementById('tz-label');
-if (tzLbl) tzLbl.textContent = 'All times in ' + getTZLabel();
+// Build live ticker
+buildTicker();
 
 // Update tournament date range header based on user's local timezone
 var dateRangeEl = document.getElementById('tournament-date-range');
@@ -5419,6 +5535,7 @@ document.addEventListener('keydown', function(e) {
         if (liveCount > 0) {
           updateSaveIndicator('🔄 Scores last updated: ' + fmt.format(d) + ' ' + getTZLabel(), 'restored');
         }
+        buildTicker();
       }
     });
 })();
