@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-20T18:01:00Z",
+  "updated": "2026-06-20T18:19:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -130,7 +130,7 @@
       "a": 1
     },
     "F3": {
-      "h": 2,
+      "h": 4,
       "a": 0
     }
   },
@@ -398,7 +398,9 @@
     "F3": {
       "h": [
         "Brian Brobbey 5'",
-        "Brian Brobbey 17'"
+        "Brian Brobbey 17'",
+        "Kvdi Khakpv 47'",
+        "Kvdi Khakpv 54'"
       ],
       "a": []
     }
