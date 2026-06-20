@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-20T01:11:00Z",
+  "updated": "2026-06-20T01:24:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -114,7 +114,7 @@
       "a": 1
     },
     "C4": {
-      "h": 2,
+      "h": 3,
       "a": 0
     },
     "C3": {
@@ -363,7 +363,8 @@
     "C4": {
       "h": [
         "Matheus Cunha 23'",
-        "Matheus Cunha 36'"
+        "Matheus Cunha 36'",
+        "Vin\u00edcius J\u00fanior 45+3'"
       ],
       "a": []
     },
