@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-21T23:02:00Z",
+  "updated": "2026-06-21T23:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -155,7 +155,7 @@
     },
     "G4": {
       "h": 2,
-      "a": 1
+      "a": 2
     }
   },
   "penScores": {},
@@ -464,7 +464,8 @@
         "Agust\u00edn Canobbio 45+6'"
       ],
       "a": [
-        "Kevin Pina 21'"
+        "Kevin Pina 21'",
+        "Hliv Varla 61'"
       ]
     }
   }
