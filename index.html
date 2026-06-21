@@ -24,6 +24,9 @@
   ============================================================
 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FFD700">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>FIFA World Cup 2026 — Interactive Fixture Tracker</title>
 
 <!-- OpenGraph / Social Sharing -->
@@ -8177,6 +8180,17 @@ fetch('scores.json?v=' + Date.now())
     <div class="ts-body" id="ts-body"></div>
   </div>
 </div>
+
+<script>
+// Register Service Worker for PWA support
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js', { scope: '/worldcup2026-tracker/' })
+      .then(function(reg) { console.log('[PWA] Service worker registered:', reg.scope); })
+      .catch(function(err) { console.log('[PWA] Service worker registration failed:', err); });
+  });
+}
+</script>
 
 </body>
 </html>
