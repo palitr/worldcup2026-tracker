@@ -3568,6 +3568,75 @@ const koTeams = {};
 const penScores = {}; // matchId → {h,a} penalty shootout scores // matchId -> { home: str, away: str }
 const scorers = {};   // matchId → {h: [...], a: [...]} goal scorers from API
 
+// ── Global scorer alias table — maps garbled/abbreviated API names to canonical names ──
+const SCORER_ALIASES = {
+  // Vinícius Júnior (Brazil)
+  'V. Júnior':'Vinícius Júnior','V.Júnior':'Vinícius Júnior',
+  'V. Junior':'Vinícius Júnior','V.Junior':'Vinícius Júnior',
+  'Vinicius Junior':'Vinícius Júnior','Vinicius Jr':'Vinícius Júnior',
+  'Vinícius Junior':'Vinícius Júnior',
+  // Deniz Undav (Germany)
+  'Dniz Avndav':'Deniz Undav','D. Undav':'Deniz Undav','Dniz Undav':'Deniz Undav',
+  // Cody Gakpo (Netherlands)
+  'Kvdi Khakpv':'Cody Gakpo','Kvdi Gakpv':'Cody Gakpo',
+  // Crysencio Summerville (Netherlands)
+  'C. Summerville':'Crysencio Summerville',
+  // Ismail Saibari (Morocco)
+  'Asmaail Saibari':'Ismail Saibari','I. Saibari':'Ismail Saibari','Amir Saibari':'Ismail Saibari',
+  // Rubén Vargas (Switzerland)
+  'Rvbn Vargas':'Rubén Vargas','Rbn Vargas':'Rubén Vargas',
+  // Johan Manzambi (Switzerland)
+  'Jvhan Mnzambi':'Johan Manzambi','Jvhan Manzambi':'Johan Manzambi',
+  // Armin Hodžić (Bosnia)
+  'Armin Mhmich':'Armin Hodžić','Armin Hmich':'Armin Hodžić',
+  // Cameron Burgess (USA)
+  'Kamrvn Bargs':'Cameron Burgess','Kamern Burgess':'Cameron Burgess',
+  // Cyle Larin (Canada)
+  'Kail Larin':'Cyle Larin','C. Larin':'Cyle Larin',
+  // Romano Schmid (Austria)
+  'Rvmanv Ashmid':'Romano Schmid','Romano Ashmid':'Romano Schmid',
+  // Yazan Al-Arab (Jordan)
+  'Izn Alarb':'Yazan Al-Arab','Izn Al-Arab':'Yazan Al-Arab',
+  // Ali Olwan (Jordan)
+  'Ali Avlvan':'Ali Olwan','Ali Avlvn':'Ali Olwan',
+  // Michal Sadílek (Czechia)
+  'mikhal Sadilk':'Michal Sadílek','\u202bmikhal Sadilk':'Michal Sadílek','Mikhal Sadilk':'Michal Sadílek',
+  // Ayase Ueda (Japan)
+  'Aiash Ivida':'Ayase Ueda','Aiash Ueda':'Ayase Ueda',
+  // Caleb Yirenkyi (Ghana)
+  'Kalb Iirnki':'Caleb Yirenkyi','Kalb Yirnki':'Caleb Yirenkyi',
+  // Daniel Muñoz (Colombia)
+  'Dnil Mvnvz':'Daniel Muñoz','Dnil Munoz':'Daniel Muñoz',
+  // Luis Díaz (Colombia)
+  'Lviiz Diaz':'Luis Díaz','Luis Diaz':'Luis Díaz',
+  // Jhaminton Campaz (Colombia)
+  'Khamintvn Kampaz':'Jhaminton Campaz','Khaminton Kampaz':'Jhaminton Campaz',
+  // Abbosbek Fayzullayev (Uzbekistan)
+  'Abas Bk Fiz Allh Af':'Abbosbek Fayzullayev',
+  // Common abbreviations
+  'K. Mbappé':'Kylian Mbappé','H. Kane':'Harry Kane','H.Kane':'Harry Kane',
+  'J. Bellingham':'Jude Bellingham','M. Rashford':'Marcus Rashford',
+  'B. Barcola':'Bradley Barcola','F. Balogun':'Folarin Balogun',
+  'G. Reyna':'Giovanni Reyna','J. Neves':'João Neves',
+  'J. McGinn':'John McGinn','A. Diallo':'Abdallah Diallo','I. Mbaye':'Ibrahima Mbaye',
+};
+
+// ── Normalize a raw scorer entry (strips garbling, applies alias) ──
+function normalizeScorer(raw) {
+  if (!raw) return raw;
+  // Strip RTL/LTR unicode marks
+  var name = raw.replace(/[\u200f\u200e\u202b\u202a]/g, '').trim();
+  // Strip minute + flags suffix to get just the name
+  var nameOnly = name.replace(/\s+\d[\d\+\'\s\(\)OGgp]*$/, '').trim();
+  // Look up in alias table
+  if (SCORER_ALIASES[nameOnly]) {
+    // Return the original string with the name part replaced
+    return raw.replace(nameOnly, SCORER_ALIASES[nameOnly]);
+  }
+  // Strip RTL marks from the full raw string too
+  return raw.replace(/[\u200f\u200e\u202b\u202a]/g, '').trim();
+}
+
 // ============================================================
 // UTILITIES
 // ============================================================
@@ -4940,69 +5009,6 @@ function renderStats() {
   var root = document.getElementById('stats-root');
   if (!root) return;
 
-  // ── Scorer alias table — maps garbled/abbreviated API names to canonical names ──
-  var SCORER_ALIASES = {
-    // Vinícius Júnior (Brazil) — abbreviation + accent variants
-    'V. Júnior':'Vinícius Júnior','V.Júnior':'Vinícius Júnior',
-    'V. Junior':'Vinícius Júnior','V.Junior':'Vinícius Júnior',
-    'Vinicius Junior':'Vinícius Júnior','Vinicius Jr':'Vinícius Júnior',
-    'Vinícius Junior':'Vinícius Júnior',
-    // Deniz Undav (Germany) — garbled + abbreviated
-    'Dniz Avndav':'Deniz Undav','D. Undav':'Deniz Undav','Dniz Undav':'Deniz Undav',
-    // Cody Gakpo (Netherlands) — garbled
-    'Kvdi Khakpv':'Cody Gakpo','Kvdi Gakpv':'Cody Gakpo',
-    // Crysencio Summerville (Netherlands) — abbreviated
-    'C. Summerville':'Crysencio Summerville',
-    // Ismail Saibari (Morocco) — garbled + abbreviated
-    'Asmaail Saibari':'Ismail Saibari','I. Saibari':'Ismail Saibari',
-    'Amir Saibari':'Ismail Saibari',
-    // Rubén Vargas (Switzerland) — garbled
-    'Rvbn Vargas':'Rubén Vargas','Rbn Vargas':'Rubén Vargas',
-    // Johan Manzambi (Switzerland) — garbled
-    'Jvhan Mnzambi':'Johan Manzambi','Jvhan Manzambi':'Johan Manzambi',
-    // Armin Hodžić (Bosnia) — garbled
-    'Armin Mhmich':'Armin Hodžić','Armin Hmich':'Armin Hodžić',
-    // Cameron Burgess (USA) — garbled
-    'Kamrvn Bargs':'Cameron Burgess','Kamern Burgess':'Cameron Burgess',
-    // Cyle Larin (Canada) — garbled + abbreviated
-    'Kail Larin':'Cyle Larin','C. Larin':'Cyle Larin','Cyle Larin':'Cyle Larin',
-    // Romano Schmid (Austria) — garbled
-    'Rvmanv Ashmid':'Romano Schmid','Romano Ashmid':'Romano Schmid',
-    // Yazan Al-Arab (Jordan) — garbled
-    'Izn Alarb':'Yazan Al-Arab','Izn Al-Arab':'Yazan Al-Arab',
-    // Ali Olwan (Jordan) — garbled
-    'Ali Avlvan':'Ali Olwan','Ali Avlvn':'Ali Olwan',
-    // Michal Sadílek (Czechia) — garbled + RTL unicode mark
-    'mikhal Sadilk':'Michal Sadílek','\u202bmikhal Sadilk':'Michal Sadílek',
-    'Mikhal Sadilk':'Michal Sadílek',
-    // Ayase Ueda (Japan) — garbled
-    'Aiash Ivida':'Ayase Ueda','Aiash Ueda':'Ayase Ueda',
-    // Caleb Yirenkyi (Ghana) — garbled
-    'Kalb Iirnki':'Caleb Yirenkyi','Kalb Yirnki':'Caleb Yirenkyi',
-    // Daniel Muñoz (Colombia) — garbled
-    'Dnil Mvnvz':'Daniel Muñoz','Dnil Munoz':'Daniel Muñoz',
-    // Luis Díaz (Colombia) — garbled + accent
-    'Lviiz Diaz':'Luis Díaz','Luis Diaz':'Luis Díaz',
-    // Jhaminton Campaz (Colombia) — garbled
-    'Khamintvn Kampaz':'Jhaminton Campaz','Khaminton Kampaz':'Jhaminton Campaz',
-    // Abbosbek Fayzullayev (Uzbekistan) — severely garbled
-    'Abas Bk Fiz Allh Af':'Abbosbek Fayzullayev',
-    // K. Mbappé minute format variant
-    'K. Mbappé':'Kylian Mbappé',
-    // Common abbreviation expansions that may vary
-    'H. Kane':'Harry Kane','H.Kane':'Harry Kane',
-    'J. Bellingham':'Jude Bellingham',
-    'M. Rashford':'Marcus Rashford',
-    'K. Mbappé':'Kylian Mbappé',
-    'B. Barcola':'Bradley Barcola',
-    'F. Balogun':'Folarin Balogun',
-    'G. Reyna':'Giovanni Reyna',
-    'J. Neves':'João Neves',
-    'J. McGinn':'John McGinn',
-    'A. Diallo':'Abdallah Diallo',
-    'I. Mbaye':'Ibrahima Mbaye',
-  };
-
   // ── Levenshtein distance for fuzzy matching ──
   function levenshtein(a, b) {
     var m = a.length, n = b.length;
@@ -5019,17 +5025,6 @@ function renderStats() {
       }
     }
     return dp[m][n];
-  }
-
-  // ── Normalize a raw scorer name ──
-  function normalizeScorer(raw) {
-    // Strip RTL/LTR unicode marks
-    var name = raw.replace(/[\u200f\u200e\u202b\u202a]/g, '').trim();
-    // Check alias table (case-sensitive first, then trimmed)
-    if (SCORER_ALIASES[name]) return SCORER_ALIASES[name];
-    var nameTrimmed = name.replace(/\s+/g, ' ').trim();
-    if (SCORER_ALIASES[nameTrimmed]) return SCORER_ALIASES[nameTrimmed];
-    return nameTrimmed;
   }
 
   // ── Build player goal tally from scorers object ──
@@ -5065,10 +5060,9 @@ function renderStats() {
       var isOG  = /\(OG\)/i.test(nameRaw);
       if (isOG) { totalOGs++; return; }
       if (isPen) totalPens++;
-      // Strip minute and flags from name
+      // Strip minute and flags from name — already normalized at load time
       var stripped = nameRaw.replace(/\s+\d[\d\+\'\s\(\)OGgp]*$/, '').trim();
-      // Normalize via alias table
-      var name = normalizeScorer(stripped);
+      var name = stripped.replace(/[\u200f\u200e\u202b\u202a]/g, '').trim();
       var key  = name + '|' + teamName;
       if (!playerGoals[key]) playerGoals[key] = { name:name, team:teamName, g:0, pen:0, npg:0 };
       playerGoals[key].g++;
@@ -5665,7 +5659,10 @@ document.addEventListener('keydown', function(e) {
       if (data && data.scorers) {
         Object.keys(data.scorers).forEach(function(id) {
           var sc = data.scorers[id];
-          if (sc) scorers[id] = { h: sc.h || [], a: sc.a || [] };
+          if (sc) scorers[id] = {
+            h: (sc.h || []).map(normalizeScorer),
+            a: (sc.a || []).map(normalizeScorer)
+          };
         });
       }
       if (data && data.updated) {
