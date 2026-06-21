@@ -1,0 +1,26 @@
+{
+  "name": "FIFA World Cup 2026 Tracker",
+  "short_name": "WC2026",
+  "description": "Live scores, standings, bracket & stats for all 104 matches of FIFA World Cup 2026",
+  "start_url": "/worldcup2026-tracker/",
+  "scope": "/worldcup2026-tracker/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0e1a",
+  "theme_color": "#FFD700",
+  "categories": ["sports", "news"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
