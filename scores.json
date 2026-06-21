@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-21T04:31:00Z",
+  "updated": "2026-06-21T05:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -143,7 +143,7 @@
     },
     "F4": {
       "h": 0,
-      "a": 1
+      "a": 2
     }
   },
   "penScores": {},
@@ -431,7 +431,8 @@
     "F4": {
       "h": [],
       "a": [
-        "Daichi Kamada 4'"
+        "Daichi Kamada 4'",
+        "Aiash Ivida 31'"
       ]
     }
   }
