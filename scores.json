@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-21T20:22:00Z",
+  "updated": "2026-06-21T20:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -144,6 +144,14 @@
     "F4": {
       "h": 0,
       "a": 4
+    },
+    "G3": {
+      "h": 0,
+      "a": 0
+    },
+    "H3": {
+      "h": 4,
+      "a": 0
     }
   },
   "penScores": {},
@@ -436,6 +444,15 @@
         "Junya It\u014d 69'",
         "Aiash Ivida 83'"
       ]
+    },
+    "H3": {
+      "h": [
+        "Lamine Yamal 10'",
+        "Mikel Oyarzabal 21'",
+        "Mikel Oyarzabal 24'",
+        "Hassan Mohamed Altmbkti 49'"
+      ],
+      "a": []
     }
   }
 }
