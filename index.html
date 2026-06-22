@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3200,7 +3203,6 @@ transition:all 0.15s; cursor:default;
 <div id="live-now-section"></div>
 <div id="recent-results-section"></div>
 <div id="watchlist-section"></div>
-<div id="progress-bar-wrap"></div>
 <div class="legend-bar">
 <div class="legend-item"><div class="legend-dot" style="background:#2DC653;"></div> Qualified for R32 (1st/2nd place)</div>
 <div class="legend-item"><div class="legend-dot" style="background:#FFC107;"></div> Possible Best 3rd Place</div>
@@ -3278,6 +3280,7 @@ transition:all 0.15s; cursor:default;
 
 <!-- ====== TOURNAMENT ELEMENTS ====== -->
 <div id="tab-stats" class="tab-panel">
+  <div id="progress-bar-wrap"></div>
   <div id="stats-root"></div>
 </div>
 
@@ -4329,7 +4332,7 @@ if (tab === 'bracket') {
   }
 if (tab === 'overview') { renderLiveNow(); renderRecentResults(); renderWatchlist(); }
 if (tab === 'schedule') { schedVenue = []; schedAutoSelect(); renderSchedule(); }
-if (tab === 'stats') { renderStats(); }
+if (tab === 'stats') { updateOverviewStandings(); renderStats(); }
 // Mini-player only visible on the Tournament tab
 const mini = document.getElementById('mini-player');
 if (mini) {
