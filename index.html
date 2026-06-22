@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -883,25 +880,25 @@ vertical-align: middle;
 h1 { font-size: 2.8rem; }
 header { padding: 10px 20px 20px; }
 
-/* ── Stats pills: 2-2-3 layout ── */
+/* ── Stats pills: 3-3 layout (6 pills, 2 rows) ── */
 .stats-summary-pills {
   display: grid !important;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
 .stats-pill {
   flex: none !important;
   min-width: 0 !important;
   width: 100% !important;
-  grid-column: span 3;
+  grid-column: span 1;
   padding: 10px 8px;
   box-sizing: border-box;
 }
 .stats-pill:nth-child(5),
 .stats-pill:nth-child(6),
 .stats-pill:nth-child(7) {
-  grid-column: span 2;
-  padding: 10px 4px;
+  grid-column: span 1;
+  padding: 10px 8px;
 }
 .stats-pill-val { font-size: 2rem; }
 .stats-pill-label { font-size: 0.65rem; letter-spacing: 1px; }
@@ -1267,7 +1264,7 @@ header { padding: 10px 20px 20px; }
 
 /* ====== STATS TAB ====== */
 .stats-page { padding: 8px 4px; }
-.stats-summary-pills { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:32px; }
+.stats-summary-pills { display:flex; flex-wrap:nowrap; gap:10px; margin-bottom:32px; }
 .stats-pill {
   background: var(--card2);
   border: 1px solid var(--border);
@@ -3625,16 +3622,16 @@ const SCORER_ALIASES = {
 function normalizeScorer(raw) {
   if (!raw) return raw;
   // Strip RTL/LTR unicode marks
-  var name = raw.replace(/[\u200f\u200e\u202b\u202a]/g, '').trim();
-  // Strip minute + flags suffix to get just the name
-  var nameOnly = name.replace(/\s+\d[\d\+\'\s\(\)OGgp]*$/, '').trim();
+  var cleaned = raw.replace(/[\u200f\u200e\u202b\u202a]/g, '').trim();
+  // Strip minute + flags — split on first whitespace followed by a digit
+  // This handles all apostrophe variants (', ', U+2019 etc.)
+  var nameOnly = cleaned.split(/\s+(?=\d)/)[0].trim();
   // Look up in alias table
   if (SCORER_ALIASES[nameOnly]) {
-    // Return the original string with the name part replaced
-    return raw.replace(nameOnly, SCORER_ALIASES[nameOnly]);
+    // Replace only the name portion, preserving minute and flags
+    return cleaned.replace(nameOnly, SCORER_ALIASES[nameOnly]);
   }
-  // Strip RTL marks from the full raw string too
-  return raw.replace(/[\u200f\u200e\u202b\u202a]/g, '').trim();
+  return cleaned;
 }
 
 // ============================================================
@@ -5034,9 +5031,8 @@ function renderStats() {
   var teamMatches = {}; // teamName → matches played
   var biggestWins = [];
   var totalGoals  = 0;
-  var totalPens   = 0;
-  var totalOGs    = 0;
   var matchesPlayed = 0;
+  var hatTricks   = 0; // players with 3+ goals in a single match
 
   // Helper: get team from match
   function processMatch(matchId, home, away) {
@@ -5052,25 +5048,30 @@ function renderStats() {
     teamMatches[away]= (teamMatches[away]|| 0) + 1;
     biggestWins.push({ home:home, away:away, hs:s.h, as:s.a, diff:Math.abs(s.h-s.a), id:matchId });
 
-    // Parse scorers
+    // Parse scorers — count hat-tricks per match
     var sc = getScorers(matchId);
+    var matchGoals = {}; // name → goals in this match only
     function addScorer(nameRaw, teamName) {
       if (!nameRaw) return;
-      var isPen = /\(p\)/i.test(nameRaw);
-      var isOG  = /\(OG\)/i.test(nameRaw);
-      if (isOG) { totalOGs++; return; }
-      if (isPen) totalPens++;
-      // Strip minute and flags from name — already normalized at load time
-      var stripped = nameRaw.replace(/\s+\d[\d\+\'\s\(\)OGgp]*$/, '').trim();
+      var isOG = /\(OG\)/i.test(nameRaw);
+      if (isOG) return;
+      var stripped = nameRaw.split(/\s+(?=\d)/)[0].trim();
       var name = stripped.replace(/[\u200f\u200e\u202b\u202a]/g, '').trim();
       var key  = name + '|' + teamName;
       if (!playerGoals[key]) playerGoals[key] = { name:name, team:teamName, g:0, pen:0, npg:0 };
+      var isPen = /\(p\)/i.test(nameRaw);
       playerGoals[key].g++;
       if (isPen) playerGoals[key].pen++;
       else playerGoals[key].npg++;
+      // Track per-match goals for hat-trick detection
+      matchGoals[key] = (matchGoals[key] || 0) + 1;
     }
     (sc.h || []).forEach(function(s) { addScorer(s, home); });
     (sc.a || []).forEach(function(s) { addScorer(s, away); });
+    // Count hat-tricks in this match
+    Object.keys(matchGoals).forEach(function(k) {
+      if (matchGoals[k] >= 3) hatTricks++;
+    });
   }
 
   // Process all group matches
@@ -5247,8 +5248,7 @@ function renderStats() {
     + '<div class="stats-pill"><div class="stats-pill-val">' + totalGoals + '</div><div class="stats-pill-label">Total Goals</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + avgGoals + '</div><div class="stats-pill-label">Goals / Match</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + cleanSheets.length + '</div><div class="stats-pill-label">Clean Sheets</div></div>'
-    + '<div class="stats-pill"><div class="stats-pill-val">' + totalOGs + '</div><div class="stats-pill-label">Own Goals</div></div>'
-    + '<div class="stats-pill"><div class="stats-pill-val">' + totalPens + '</div><div class="stats-pill-label">Penalties</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + hatTricks + '</div><div class="stats-pill-label">Hat-tricks</div></div>'
     + '</div>'
 
     // Golden Boot
