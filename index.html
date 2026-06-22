@@ -5727,14 +5727,23 @@ document.addEventListener('keydown', function(e) {
           var shortFmt = new Intl.DateTimeFormat('en-GB', {
             timeZone: userTZ, hour:'numeric', minute:'2-digit', hour12:true
           });
-          var fullText = '🔄 Scores last updated: ' + fmt.format(d) + ' ' + getTZLabel();
-          var shortText = '🔄 Updated ' + shortFmt.format(d) + ' ' + getTZLabel();
-          updateSaveIndicator(isMobile ? shortText : fullText, 'restored');
+          var minutesSinceUpdate = (Date.now() - d.getTime()) / 60000;
+          var isStale = minutesSinceUpdate > 75;
+          var fullText = isStale
+            ? '⚠️ Scores may be outdated · last updated: ' + fmt.format(d) + ' ' + getTZLabel()
+            : '🔄 Scores last updated: ' + fmt.format(d) + ' ' + getTZLabel();
+          var shortText = isStale
+            ? '⚠️ Scores may be outdated'
+            : '🔄 Updated ' + shortFmt.format(d) + ' ' + getTZLabel();
+          updateSaveIndicator(isMobile ? shortText : fullText, isStale ? 'warning' : 'restored');
           // Update mobile tooltip info
           var mobileInfo = document.getElementById('mobile-update-info');
           var mobileText = document.getElementById('mobile-update-text');
           if (mobileInfo && mobileText) {
-            mobileText.textContent = '🔄 Last updated: ' + fmt.format(d) + ' ' + getTZLabel();
+            mobileText.textContent = isStale
+              ? '⚠️ Scores may be outdated · last updated: ' + fmt.format(d) + ' ' + getTZLabel()
+              : '🔄 Last updated: ' + fmt.format(d) + ' ' + getTZLabel();
+            mobileText.style.color = isStale ? '#FFC107' : '';
             mobileInfo.style.display = 'block';
           }
         }
