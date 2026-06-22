@@ -1,6 +1,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -347,6 +349,20 @@ color: var(--dark);
 border-color: var(--gold);
 font-weight: 700;
 box-shadow: 0 0 20px rgba(255,215,0,0.3);
+}
+
+.nav-tabs-wrap { position: relative; }
+.nav-tabs-wrap::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 32px;
+  background: linear-gradient(to right, transparent, rgba(10,14,26,0.95));
+  pointer-events: none;
+  display: none;
+}
+@media (max-width: 600px) {
+  .nav-tabs-wrap::after { display: block; }
 }
 
 /* ====== MAIN CONTENT ====== */
@@ -879,8 +895,18 @@ vertical-align: middle;
 .mobile-info-btn { display: none !important; }
 .groups-grid { grid-template-columns: 1fr; }
 .ko-matches-grid { grid-template-columns: 1fr; }
-.nav-tabs { gap: 6px; }
-.tab-btn { padding: 8px 12px; font-size: 0.82rem; }
+/* ── Horizontal scroll tab bar ── */
+.nav-tabs {
+  flex-wrap: nowrap !important;
+  overflow-x: auto;
+  justify-content: flex-start !important;
+  padding: 10px 12px !important;
+  gap: 6px !important;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+.tab-btn { padding: 8px 12px; font-size: 0.82rem; flex-shrink: 0; }
 h1 { font-size: 2.8rem; }
 header { padding: 10px 20px 20px; }
 
@@ -3170,6 +3196,7 @@ transition:all 0.15s; cursor:default;
   <div class="ticker-track" id="ticker-track"></div>
 </div>
 
+<div class="nav-tabs-wrap">
 <nav class="nav-tabs">
 <button class="tab-btn active" onclick="showTab('overview', this)">📊 Overview</button>
 <button class="tab-btn" onclick="showTab('groups', this)">🟢 Group Stage</button>
@@ -3196,6 +3223,7 @@ transition:all 0.15s; cursor:default;
 <a class="mini-player-link" href="https://www.youtube.com/watch?v=EzY11_-8a4w" target="_blank">▶ YouTube</a>
 </div>
 </nav>
+</div>
 
 <div class="content">
 
@@ -4325,7 +4353,13 @@ document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'
 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
 const panel = document.getElementById('tab-' + tab);
 if (panel) panel.classList.add('active');
-if (btn) btn.classList.add('active');
+if (btn) {
+  btn.classList.add('active');
+  // Scroll active tab into view on mobile horizontal scroll bar
+  if (window.innerWidth <= 600) {
+    setTimeout(function() { btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); }, 50);
+  }
+}
 // Tab-specific renders
 if (tab === 'bracket') {
     // If in post-animation state, keep it; otherwise re-render fresh
