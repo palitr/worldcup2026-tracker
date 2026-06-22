@@ -1,5 +1,5 @@
 // FIFA World Cup 2026 Tracker — Service Worker
-const CACHE_NAME = 'wc2026-v1';
+const CACHE_NAME = 'wc2026-v2';
 const SCORES_URL = 'scores.json';
 
 // Assets to pre-cache on install
