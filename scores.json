@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T17:31:00Z",
+  "updated": "2026-06-23T17:34:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -179,7 +179,7 @@
     },
     "K3": {
       "h": 2,
-      "a": 1
+      "a": 0
     }
   },
   "penScores": {},
@@ -542,9 +542,7 @@
         "Cristiano Ronaldo 6'",
         "Nvnv Mndz 17'"
       ],
-      "a": [
-        "Aziz Jan Ganivf 29'"
-      ]
+      "a": []
     }
   }
 }
