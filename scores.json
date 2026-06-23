@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T01:01:00Z",
+  "updated": "2026-06-23T01:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -166,8 +166,8 @@
       "a": 0
     },
     "I3": {
-      "h": 1,
-      "a": 0
+      "h": 3,
+      "a": 1
     },
     "J3": {
       "h": 2,
@@ -504,9 +504,13 @@
     },
     "I3": {
       "h": [
-        "Markvs Hlmgrn Pdrsn 43'"
+        "Markvs Hlmgrn Pdrsn 43'",
+        "Erling Haaland 48'",
+        "Erling Haaland 58'"
       ],
-      "a": []
+      "a": [
+        "Isma\u00efla Sarr 53'"
+      ]
     },
     "J3": {
       "h": [
