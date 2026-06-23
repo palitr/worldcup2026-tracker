@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T00:31:00Z",
+  "updated": "2026-06-23T01:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -166,7 +166,7 @@
       "a": 0
     },
     "I3": {
-      "h": 0,
+      "h": 1,
       "a": 0
     },
     "J3": {
@@ -499,6 +499,12 @@
         "Kylian Mbapp\u00e9 14'",
         "Kylian Mbapp\u00e9 54'",
         "Ousmane Demb\u00e9l\u00e9 66'"
+      ],
+      "a": []
+    },
+    "I3": {
+      "h": [
+        "Markvs Hlmgrn Pdrsn 43'"
       ],
       "a": []
     },
