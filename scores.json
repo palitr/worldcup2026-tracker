@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T17:34:00Z",
+  "updated": "2026-06-23T18:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -178,7 +178,7 @@
       "a": 2
     },
     "K3": {
-      "h": 2,
+      "h": 3,
       "a": 0
     }
   },
@@ -540,7 +540,8 @@
     "K3": {
       "h": [
         "Cristiano Ronaldo 6'",
-        "Nvnv Mndz 17'"
+        "Nvnv Mndz 17'",
+        "Cristiano Ronaldo 39'"
       ],
       "a": []
     }
