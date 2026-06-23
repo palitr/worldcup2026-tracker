@@ -2,7 +2,6 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5971,6 +5970,9 @@ function makeElbow(x1, y1, x2, y2, side) {
 function renderBracket() {
   var container = document.getElementById('bracket-svg-container');
   if (!container) { console.error('[BRACKET] bracket-svg-container NOT FOUND'); return; }
+
+  // Always refresh koTeams before drawing so R32 teams from group stage are current
+  renderKnockout();
 
   var svg = buildBracketSVG();
   container.innerHTML = '';
