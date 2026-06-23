@@ -3562,24 +3562,24 @@ function getFlagUrl(team) {
 
 var BRACKET_TREE = {
   left: [
-    // Branch A → R16_1 → QF1 → SF1
-    { r32: ['R32_1','R32_2'], r16: 'R16_1', qf: 'QF1', sf: 'SF1' },
-    // Branch B → R16_2 → QF1 → SF1
-    { r32: ['R32_3','R32_4'], r16: 'R16_2', qf: 'QF1', sf: 'SF1' },
-    // Branch C → R16_3 → QF2 → SF1
-    { r32: ['R32_5','R32_6'], r16: 'R16_3', qf: 'QF2', sf: 'SF1' },
-    // Branch D → R16_4 → QF2 → SF1
+    // Branch A → R16_1 (W R32_1 vs W R32_4) → QF1 → SF1
+    { r32: ['R32_1','R32_4'], r16: 'R16_1', qf: 'QF1', sf: 'SF1' },
+    // Branch B → R16_2 (W R32_3 vs W R32_6) → QF1 → SF1
+    { r32: ['R32_3','R32_6'], r16: 'R16_2', qf: 'QF1', sf: 'SF1' },
+    // Branch C → R16_3 (W R32_2 vs W R32_5) → QF2 → SF1
+    { r32: ['R32_2','R32_5'], r16: 'R16_3', qf: 'QF2', sf: 'SF1' },
+    // Branch D → R16_4 (W R32_7 vs W R32_8) → QF2 → SF1
     { r32: ['R32_7','R32_8'], r16: 'R16_4', qf: 'QF2', sf: 'SF1' },
   ],
   right: [
-    // Branch E → R16_5 → QF3 → SF2
-    { r32: ['R32_9','R32_10'],  r16: 'R16_5', qf: 'QF3', sf: 'SF2' },
-    // Branch F → R16_6 → QF3 → SF2
-    { r32: ['R32_11','R32_12'], r16: 'R16_6', qf: 'QF3', sf: 'SF2' },
-    // Branch G → R16_7 → QF4 → SF2
-    { r32: ['R32_13','R32_14'], r16: 'R16_7', qf: 'QF4', sf: 'SF2' },
-    // Branch H → R16_8 → QF4 → SF2
-    { r32: ['R32_15','R32_16'], r16: 'R16_8', qf: 'QF4', sf: 'SF2' },
+    // Branch E → R16_5 (W R32_14 vs W R32_12) → QF3 → SF2
+    { r32: ['R32_14','R32_12'], r16: 'R16_5', qf: 'QF3', sf: 'SF2' },
+    // Branch F → R16_6 (W R32_10 vs W R32_9) → QF3 → SF2
+    { r32: ['R32_10','R32_9'],  r16: 'R16_6', qf: 'QF3', sf: 'SF2' },
+    // Branch G → R16_7 (W R32_13 vs W R32_11) → QF4 → SF2
+    { r32: ['R32_13','R32_11'], r16: 'R16_7', qf: 'QF4', sf: 'SF2' },
+    // Branch H → R16_8 (W R32_16 vs W R32_15) → QF4 → SF2
+    { r32: ['R32_16','R32_15'], r16: 'R16_8', qf: 'QF4', sf: 'SF2' },
   ]
 };
 // ============================================================
@@ -6025,16 +6025,24 @@ function renderBracket() {
   // Map: which destination flag does each source match winner go to?
   // destInfo[srcMatchId] = { destMatchId, fi } (fi=0 home slot, fi=1 away slot)
   var destInfo = {
-    // R32 → R16 (left side, branches 0-7 map to R32_1..R32_8)
-    'R32_1': {id:'R16_1', fi:0}, 'R32_2': {id:'R16_1', fi:1},
-    'R32_3': {id:'R16_2', fi:0}, 'R32_4': {id:'R16_2', fi:1},
-    'R32_5': {id:'R16_3', fi:0}, 'R32_6': {id:'R16_3', fi:1},
+    // R32 → R16 (left side) — based on corrected R16 pairings
+    // R16_1: W R32_1 vs W R32_4
+    'R32_1': {id:'R16_1', fi:0}, 'R32_4': {id:'R16_1', fi:1},
+    // R16_2: W R32_3 vs W R32_6
+    'R32_3': {id:'R16_2', fi:0}, 'R32_6': {id:'R16_2', fi:1},
+    // R16_3: W R32_2 vs W R32_5
+    'R32_2': {id:'R16_3', fi:0}, 'R32_5': {id:'R16_3', fi:1},
+    // R16_4: W R32_7 vs W R32_8
     'R32_7': {id:'R16_4', fi:0}, 'R32_8': {id:'R16_4', fi:1},
-    // R32 → R16 (right side)
-    'R32_9':  {id:'R16_5', fi:0}, 'R32_10': {id:'R16_5', fi:1},
-    'R32_11': {id:'R16_6', fi:0}, 'R32_12': {id:'R16_6', fi:1},
-    'R32_13': {id:'R16_7', fi:0}, 'R32_14': {id:'R16_7', fi:1},
-    'R32_15': {id:'R16_8', fi:0}, 'R32_16': {id:'R16_8', fi:1},
+    // R32 → R16 (right side) — based on corrected R16 pairings
+    // R16_5: W R32_14 vs W R32_12
+    'R32_14': {id:'R16_5', fi:0}, 'R32_12': {id:'R16_5', fi:1},
+    // R16_6: W R32_10 vs W R32_9
+    'R32_10': {id:'R16_6', fi:0}, 'R32_9':  {id:'R16_6', fi:1},
+    // R16_7: W R32_13 vs W R32_11
+    'R32_13': {id:'R16_7', fi:0}, 'R32_11': {id:'R16_7', fi:1},
+    // R16_8: W R32_16 vs W R32_15
+    'R32_16': {id:'R16_8', fi:0}, 'R32_15': {id:'R16_8', fi:1},
     // R16 → QF (left)
     'R16_1': {id:'QF1', fi:0}, 'R16_2': {id:'QF1', fi:1},
     'R16_3': {id:'QF2', fi:0}, 'R16_4': {id:'QF2', fi:1},
@@ -6426,10 +6434,10 @@ function setupNextRoundKoTeams(completedRnd, nextRnd) {
     return (koTeams[matchId] && koTeams[matchId].home) || 'TBD';
   }
   if (nextRnd === 'r16') {
-    [['R16_1','R32_1','R32_2'],['R16_2','R32_3','R32_4'],
-     ['R16_3','R32_5','R32_6'],['R16_4','R32_7','R32_8'],
-     ['R16_5','R32_9','R32_10'],['R16_6','R32_11','R32_12'],
-     ['R16_7','R32_13','R32_14'],['R16_8','R32_15','R32_16']].forEach(function(t) {
+    [['R16_1','R32_1','R32_4'],['R16_2','R32_3','R32_6'],
+     ['R16_3','R32_2','R32_5'],['R16_4','R32_7','R32_8'],
+     ['R16_5','R32_14','R32_12'],['R16_6','R32_10','R32_9'],
+     ['R16_7','R32_13','R32_11'],['R16_8','R32_16','R32_15']].forEach(function(t) {
       koTeams[t[0]] = { home: actualWinner(t[1]), away: actualWinner(t[2]) };
     });
   } else if (nextRnd === 'qf') {
@@ -6611,14 +6619,14 @@ function getRoundLabel(matchId) {
 function getDestination(matchId) {
   // Returns {id: destMatchId, fi: 0|1} — which slot (home=0, away=1) the winner fills
   var map = {
-    'R32_1':{id:'R16_1',fi:0}, 'R32_2':{id:'R16_1',fi:1},
-    'R32_3':{id:'R16_2',fi:0}, 'R32_4':{id:'R16_2',fi:1},
-    'R32_5':{id:'R16_3',fi:0}, 'R32_6':{id:'R16_3',fi:1},
+    'R32_1':{id:'R16_1',fi:0}, 'R32_4':{id:'R16_1',fi:1},
+    'R32_3':{id:'R16_2',fi:0}, 'R32_6':{id:'R16_2',fi:1},
+    'R32_2':{id:'R16_3',fi:0}, 'R32_5':{id:'R16_3',fi:1},
     'R32_7':{id:'R16_4',fi:0}, 'R32_8':{id:'R16_4',fi:1},
-    'R32_9':{id:'R16_5',fi:0}, 'R32_10':{id:'R16_5',fi:1},
-    'R32_11':{id:'R16_6',fi:0},'R32_12':{id:'R16_6',fi:1},
-    'R32_13':{id:'R16_7',fi:0},'R32_14':{id:'R16_7',fi:1},
-    'R32_15':{id:'R16_8',fi:0},'R32_16':{id:'R16_8',fi:1},
+    'R32_14':{id:'R16_5',fi:0},'R32_12':{id:'R16_5',fi:1},
+    'R32_10':{id:'R16_6',fi:0},'R32_9':{id:'R16_6',fi:1},
+    'R32_13':{id:'R16_7',fi:0},'R32_11':{id:'R16_7',fi:1},
+    'R32_16':{id:'R16_8',fi:0},'R32_15':{id:'R16_8',fi:1},
     'R16_1':{id:'QF1',fi:0},'R16_2':{id:'QF1',fi:1},
     'R16_3':{id:'QF2',fi:0},'R16_4':{id:'QF2',fi:1},
     'R16_5':{id:'QF3',fi:0},'R16_6':{id:'QF3',fi:1},
