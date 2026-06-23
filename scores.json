@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T04:37:00Z",
+  "updated": "2026-06-23T05:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -175,7 +175,7 @@
     },
     "J4": {
       "h": 1,
-      "a": 1
+      "a": 2
     }
   },
   "penScores": {},
@@ -529,7 +529,8 @@
         "Al Rashdan 36'"
       ],
       "a": [
-        "Nzir Bnbvali 69'"
+        "Nzir Bnbvali 69'",
+        "Amine Gouiri 82'"
       ]
     }
   }
