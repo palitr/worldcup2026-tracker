@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T19:38:00Z",
+  "updated": "2026-06-24T20:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -111,7 +111,7 @@
     },
     "B6": {
       "h": 2,
-      "a": 0
+      "a": 1
     },
     "A1": {
       "h": 2,
@@ -440,7 +440,9 @@
         "Karim Alaibgvvich 29'",
         "Hsin Sltan Albrik 34'"
       ],
-      "a": []
+      "a": [
+        "Hassan Al-Haydos 42'"
+      ]
     },
     "C1": {
       "h": [
