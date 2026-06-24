@@ -1,165 +1,25 @@
 {
-  "updated": "2026-06-24T13:01:00Z",
+  "updated": "2026-06-24T13:31:00Z",
   "scores": {
-    "A1": {
-      "h": 2,
-      "a": 0
-    },
-    "A2": {
-      "h": 2,
-      "a": 1
-    },
-    "B1": {
-      "h": 1,
-      "a": 1
-    },
-    "D1": {
-      "h": 4,
-      "a": 1
-    },
-    "C2": {
-      "h": 0,
-      "a": 1
-    },
     "D2": {
       "h": 2,
       "a": 0
     },
-    "C1": {
-      "h": 1,
-      "a": 1
-    },
     "B2": {
       "h": 1,
-      "a": 1
-    },
-    "E2": {
-      "h": 1,
-      "a": 0
-    },
-    "E1": {
-      "h": 7,
-      "a": 1
-    },
-    "F1": {
-      "h": 2,
-      "a": 2
-    },
-    "F2": {
-      "h": 5,
-      "a": 1
-    },
-    "H2": {
-      "h": 2,
-      "a": 2
-    },
-    "H1": {
-      "h": 0,
-      "a": 0
-    },
-    "G1": {
-      "h": 1,
-      "a": 1
-    },
-    "G2": {
-      "h": 1,
-      "a": 1
-    },
-    "I1": {
-      "h": 3,
-      "a": 1
-    },
-    "I2": {
-      "h": 1,
-      "a": 4
-    },
-    "J1": {
-      "h": 3,
-      "a": 0
-    },
-    "J2": {
-      "h": 3,
-      "a": 1
-    },
-    "K1": {
-      "h": 1,
-      "a": 1
-    },
-    "L1": {
-      "h": 4,
-      "a": 2
-    },
-    "K2": {
-      "h": 1,
-      "a": 3
-    },
-    "L2": {
-      "h": 1,
-      "a": 0
-    },
-    "A4": {
-      "h": 1,
-      "a": 0
-    },
-    "B3": {
-      "h": 4,
-      "a": 1
-    },
-    "B4": {
-      "h": 6,
-      "a": 0
-    },
-    "A3": {
-      "h": 1,
-      "a": 1
-    },
-    "C4": {
-      "h": 3,
-      "a": 0
-    },
-    "C3": {
-      "h": 0,
       "a": 1
     },
     "D3": {
       "h": 2,
       "a": 0
     },
-    "D4": {
-      "h": 0,
-      "a": 1
-    },
     "E3": {
       "h": 2,
       "a": 1
     },
-    "E4": {
-      "h": 0,
-      "a": 0
-    },
     "F3": {
       "h": 5,
       "a": 1
-    },
-    "F4": {
-      "h": 0,
-      "a": 4
-    },
-    "G3": {
-      "h": 0,
-      "a": 0
-    },
-    "H6": {
-      "h": 1,
-      "a": 3
-    },
-    "H3": {
-      "h": 4,
-      "a": 0
-    },
-    "G4": {
-      "h": 2,
-      "a": 2
     },
     "I4": {
       "h": 3,
@@ -169,8 +29,16 @@
       "h": 3,
       "a": 2
     },
-    "J3": {
-      "h": 2,
+    "C2": {
+      "h": 0,
+      "a": 1
+    },
+    "L1": {
+      "h": 4,
+      "a": 2
+    },
+    "H3": {
+      "h": 4,
       "a": 0
     },
     "J4": {
@@ -185,65 +53,155 @@
       "h": 0,
       "a": 1
     },
+    "A2": {
+      "h": 2,
+      "a": 1
+    },
+    "D1": {
+      "h": 4,
+      "a": 1
+    },
+    "I1": {
+      "h": 3,
+      "a": 1
+    },
+    "I2": {
+      "h": 1,
+      "a": 4
+    },
+    "K1": {
+      "h": 1,
+      "a": 1
+    },
+    "G3": {
+      "h": 0,
+      "a": 0
+    },
+    "E2": {
+      "h": 1,
+      "a": 0
+    },
+    "E1": {
+      "h": 7,
+      "a": 1
+    },
+    "F2": {
+      "h": 5,
+      "a": 1
+    },
+    "A4": {
+      "h": 1,
+      "a": 0
+    },
+    "B4": {
+      "h": 6,
+      "a": 0
+    },
+    "C3": {
+      "h": 0,
+      "a": 1
+    },
+    "D4": {
+      "h": 0,
+      "a": 1
+    },
+    "J3": {
+      "h": 2,
+      "a": 0
+    },
+    "A1": {
+      "h": 2,
+      "a": 0
+    },
+    "C1": {
+      "h": 1,
+      "a": 1
+    },
+    "F1": {
+      "h": 2,
+      "a": 2
+    },
+    "B3": {
+      "h": 4,
+      "a": 1
+    },
+    "C4": {
+      "h": 3,
+      "a": 0
+    },
+    "F4": {
+      "h": 0,
+      "a": 4
+    },
+    "H6": {
+      "h": 1,
+      "a": 3
+    },
+    "G4": {
+      "h": 2,
+      "a": 2
+    },
     "K4": {
       "h": 1,
       "a": 0
     },
+    "H1": {
+      "h": 0,
+      "a": 0
+    },
+    "G2": {
+      "h": 1,
+      "a": 1
+    },
+    "J2": {
+      "h": 3,
+      "a": 1
+    },
+    "K2": {
+      "h": 1,
+      "a": 3
+    },
+    "B1": {
+      "h": 1,
+      "a": 1
+    },
+    "H2": {
+      "h": 2,
+      "a": 2
+    },
+    "J1": {
+      "h": 3,
+      "a": 0
+    },
+    "L2": {
+      "h": 1,
+      "a": 0
+    },
+    "A3": {
+      "h": 1,
+      "a": 1
+    },
     "L3": {
+      "h": 0,
+      "a": 0
+    },
+    "G1": {
+      "h": 1,
+      "a": 1
+    },
+    "E4": {
       "h": 0,
       "a": 0
     }
   },
   "penScores": {},
   "scorers": {
-    "A2": {
-      "h": [
-        "I.B. Hwang 67'",
-        "H.G. Oh 80'"
-      ],
-      "a": [
-        "L. Krej\u010d\u00ed 59'"
-      ]
-    },
-    "B1": {
-      "h": [
-        "C. Larin 11'"
-      ],
-      "a": [
-        "Jovo Luki\u0107 21'"
-      ]
-    },
-    "D1": {
-      "h": [
-        "D. Bobadilla 7'(OG)",
-        "F. Balogun 31'",
-        "F. Balogun 45'+5'",
-        "G. Reyna 90'+8'"
-      ],
-      "a": [
-        "Maur\u00edcio 73'"
-      ]
-    },
-    "C2": {
-      "h": [],
-      "a": [
-        "J. McGinn 28'"
-      ]
-    },
     "D2": {
       "h": [
         "Nestory Irankunda 27'",
         "C. Metcalfe 75'"
       ],
       "a": []
-    },
-    "C1": {
-      "h": [
-        "V. J\u00fanior 32'"
-      ],
-      "a": [
-        "I. Saibari 21'"
-      ]
     },
     "B2": {
       "h": [
@@ -253,207 +211,12 @@
         "Breel Embolo 17' (p)"
       ]
     },
-    "E2": {
-      "h": [
-        "A. Diallo 90'"
-      ],
-      "a": []
-    },
-    "E1": {
-      "h": [
-        "Felix Nmecha 7'",
-        "N. Schlotterbeck 38'",
-        "K. Havertz 45'+5'(p)",
-        "J. Musiala 47'",
-        "N. Brown 68'",
-        "D. Undav 78'",
-        "K. Havertz 88'"
-      ],
-      "a": [
-        "L. Comenencia 21'"
-      ]
-    },
-    "F1": {
-      "h": [
-        "Virgil van Dijk 51'",
-        "C. Summerville 64'"
-      ],
-      "a": [
-        "K. Nakamura 57'",
-        "K. Ogawa 89'"
-      ]
-    },
-    "F2": {
-      "h": [
-        "Y.Ayari 7'",
-        "A. Isak 30'",
-        "V. Gy\u00f6keres 59'",
-        "M. Svanberg 84'",
-        "Y.Ayari 90'+6'"
-      ],
-      "a": [
-        "O. Rekik 43'"
-      ]
-    },
-    "H2": {
-      "h": [
-        "Ramin Rezaiian 32'",
-        "Mohammad Mohebi 64'"
-      ],
-      "a": [
-        "Elijah Just 7'",
-        "Elijah Just 54'"
-      ]
-    },
-    "G1": {
-      "h": [
-        "Mohamed Hany 66'"
-      ],
-      "a": [
-        "Emam Ashour 20'"
-      ]
-    },
-    "G2": {
-      "h": [
-        "Abdulelah Al-Amri 41'"
-      ],
-      "a": [
-        "Maximiliano Ara\u00fajo 80'"
-      ]
-    },
-    "I1": {
-      "h": [
-        "K. Mbapp\u00e9 66'",
-        "B. Barcola 82'",
-        "K. Mbapp\u00e9 90+6'"
-      ],
-      "a": [
-        "I. Mbaye 90+5'"
-      ]
-    },
-    "I2": {
-      "h": [
-        "Aymen Hussein 39'"
-      ],
-      "a": [
-        "Erling Haaland 29'",
-        "Erling Haaland 43'",
-        "Leo \u00d8stig\u00e5rd 76'",
-        "Aymen Hussein 90+7'"
-      ]
-    },
-    "J1": {
-      "h": [
-        "Lionel Messi 17'",
-        "Lionel Messi 60'",
-        "Lionel Messi 76'"
-      ],
-      "a": []
-    },
-    "J2": {
-      "h": [
-        "Rvmanv Ashmid 21'",
-        "Izn Alarb 76'"
-      ],
-      "a": [
-        "Ali Avlvan 50'"
-      ]
-    },
-    "K1": {
-      "h": [
-        "J. Neves 6'"
-      ],
-      "a": [
-        "Y. Wissa 45+5'"
-      ]
-    },
-    "L1": {
-      "h": [
-        "H. Kane 12'(p)",
-        "H. Kane 42'",
-        "J. Bellingham 47'",
-        "M. Rashford 85'"
-      ],
-      "a": [
-        "M. Baturina 36'",
-        "P. Musa 45+5'"
-      ]
-    },
-    "K2": {
-      "h": [
-        "Abas Bk Fiz Allh Af 60'"
-      ],
-      "a": [
-        "Dnil Mvnvz 40'",
-        "Lviiz Diaz 65'",
-        "Khamintvn Kampaz 90+9'"
-      ]
-    },
-    "L2": {
-      "h": [
-        "Kalb Iirnki 90+5'"
-      ],
-      "a": []
-    },
-    "A4": {
-      "h": [
-        "Luis Romo 50'"
-      ],
-      "a": []
-    },
-    "B3": {
-      "h": [
-        "Jvhan Mnzambi 74'",
-        "Rvbn Vargas 84'",
-        "Jvhan Mnzambi 90'"
-      ],
-      "a": [
-        "Armin Mhmich 90+3'"
-      ]
-    },
-    "B4": {
-      "h": [
-        "Kail Larin 16'",
-        "Jonathan David 29'",
-        "Jonathan David 45+3'",
-        "Nathan Saliba 64'",
-        "Mohamed Almnai 75'",
-        "Jonathan David 90+2'"
-      ],
-      "a": []
-    },
-    "A3": {
-      "h": [
-        "\u202bmikhal Sadilk 6'"
-      ],
-      "a": []
-    },
-    "C4": {
-      "h": [
-        "Matheus Cunha 23'",
-        "Matheus Cunha 36'",
-        "Vin\u00edcius J\u00fanior 45+3'"
-      ],
-      "a": []
-    },
-    "C3": {
-      "h": [],
-      "a": [
-        "Asmaail Saibari 2'"
-      ]
-    },
     "D3": {
       "h": [
         "Kamrvn Bargs 11'",
         "Alex Freeman 43'"
       ],
       "a": []
-    },
-    "D4": {
-      "h": [],
-      "a": [
-        "Mat\u00edas Galarza 2'"
-      ]
     },
     "E3": {
       "h": [
@@ -476,44 +239,6 @@
         "Anthony Elanga 59'"
       ]
     },
-    "F4": {
-      "h": [],
-      "a": [
-        "Daichi Kamada 4'",
-        "Aiash Ivida 31'",
-        "Junya It\u014d 69'",
-        "Aiash Ivida 83'"
-      ]
-    },
-    "H6": {
-      "h": [
-        "Fin Svrman 15'"
-      ],
-      "a": [
-        "Mostafa Ziko 58'",
-        "Mohamed Salah 67'",
-        "Mahmoud Hassan Trezeguet 82'"
-      ]
-    },
-    "H3": {
-      "h": [
-        "Lamine Yamal 10'",
-        "Mikel Oyarzabal 21'",
-        "Mikel Oyarzabal 24'",
-        "Hassan Mohamed Altmbkti 49'"
-      ],
-      "a": []
-    },
-    "G4": {
-      "h": [
-        "Maximiliano Ara\u00fajo 44'",
-        "Agust\u00edn Canobbio 45+6'"
-      ],
-      "a": [
-        "Kevin Pina 21'",
-        "Hliv Varla 61'"
-      ]
-    },
     "I4": {
       "h": [
         "Kylian Mbapp\u00e9 14'",
@@ -533,10 +258,30 @@
         "Isma\u00efla Sarr 90+3'"
       ]
     },
-    "J3": {
+    "C2": {
+      "h": [],
+      "a": [
+        "J. McGinn 28'"
+      ]
+    },
+    "L1": {
       "h": [
-        "Lionel Messi 38'",
-        "Lionel Messi 90+5'"
+        "H. Kane 12'(p)",
+        "H. Kane 42'",
+        "J. Bellingham 47'",
+        "M. Rashford 85'"
+      ],
+      "a": [
+        "M. Baturina 36'",
+        "P. Musa 45+5'"
+      ]
+    },
+    "H3": {
+      "h": [
+        "Lamine Yamal 10'",
+        "Mikel Oyarzabal 21'",
+        "Mikel Oyarzabal 24'",
+        "Hassan Mohamed Altmbkti 49'"
       ],
       "a": []
     },
@@ -565,11 +310,266 @@
         "Ante Budimir 54'"
       ]
     },
+    "A2": {
+      "h": [
+        "I.B. Hwang 67'",
+        "H.G. Oh 80'"
+      ],
+      "a": [
+        "L. Krej\u010d\u00ed 59'"
+      ]
+    },
+    "D1": {
+      "h": [
+        "D. Bobadilla 7'(OG)",
+        "F. Balogun 31'",
+        "F. Balogun 45'+5'",
+        "G. Reyna 90'+8'"
+      ],
+      "a": [
+        "Maur\u00edcio 73'"
+      ]
+    },
+    "I1": {
+      "h": [
+        "K. Mbapp\u00e9 66'",
+        "B. Barcola 82'",
+        "K. Mbapp\u00e9 90+6'"
+      ],
+      "a": [
+        "I. Mbaye 90+5'"
+      ]
+    },
+    "I2": {
+      "h": [
+        "Aymen Hussein 39'"
+      ],
+      "a": [
+        "Erling Haaland 29'",
+        "Erling Haaland 43'",
+        "Leo \u00d8stig\u00e5rd 76'",
+        "Aymen Hussein 90+7'"
+      ]
+    },
+    "K1": {
+      "h": [
+        "J. Neves 6'"
+      ],
+      "a": [
+        "Y. Wissa 45+5'"
+      ]
+    },
+    "E2": {
+      "h": [
+        "A. Diallo 90'"
+      ],
+      "a": []
+    },
+    "E1": {
+      "h": [
+        "Felix Nmecha 7'",
+        "N. Schlotterbeck 38'",
+        "K. Havertz 45'+5'(p)",
+        "J. Musiala 47'",
+        "N. Brown 68'",
+        "D. Undav 78'",
+        "K. Havertz 88'"
+      ],
+      "a": [
+        "L. Comenencia 21'"
+      ]
+    },
+    "F2": {
+      "h": [
+        "Y.Ayari 7'",
+        "A. Isak 30'",
+        "V. Gy\u00f6keres 59'",
+        "M. Svanberg 84'",
+        "Y.Ayari 90'+6'"
+      ],
+      "a": [
+        "O. Rekik 43'"
+      ]
+    },
+    "A4": {
+      "h": [
+        "Luis Romo 50'"
+      ],
+      "a": []
+    },
+    "B4": {
+      "h": [
+        "Kail Larin 16'",
+        "Jonathan David 29'",
+        "Jonathan David 45+3'",
+        "Nathan Saliba 64'",
+        "Mohamed Almnai 75'",
+        "Jonathan David 90+2'"
+      ],
+      "a": []
+    },
+    "C3": {
+      "h": [],
+      "a": [
+        "Asmaail Saibari 2'"
+      ]
+    },
+    "D4": {
+      "h": [],
+      "a": [
+        "Mat\u00edas Galarza 2'"
+      ]
+    },
+    "J3": {
+      "h": [
+        "Lionel Messi 38'",
+        "Lionel Messi 90+5'"
+      ],
+      "a": []
+    },
+    "C1": {
+      "h": [
+        "V. J\u00fanior 32'"
+      ],
+      "a": [
+        "I. Saibari 21'"
+      ]
+    },
+    "F1": {
+      "h": [
+        "Virgil van Dijk 51'",
+        "C. Summerville 64'"
+      ],
+      "a": [
+        "K. Nakamura 57'",
+        "K. Ogawa 89'"
+      ]
+    },
+    "B3": {
+      "h": [
+        "Jvhan Mnzambi 74'",
+        "Rvbn Vargas 84'",
+        "Jvhan Mnzambi 90'"
+      ],
+      "a": [
+        "Armin Mhmich 90+3'"
+      ]
+    },
+    "C4": {
+      "h": [
+        "Matheus Cunha 23'",
+        "Matheus Cunha 36'",
+        "Vin\u00edcius J\u00fanior 45+3'"
+      ],
+      "a": []
+    },
+    "F4": {
+      "h": [],
+      "a": [
+        "Daichi Kamada 4'",
+        "Aiash Ivida 31'",
+        "Junya It\u014d 69'",
+        "Aiash Ivida 83'"
+      ]
+    },
+    "H6": {
+      "h": [
+        "Fin Svrman 15'"
+      ],
+      "a": [
+        "Mostafa Ziko 58'",
+        "Mohamed Salah 67'",
+        "Mahmoud Hassan Trezeguet 82'"
+      ]
+    },
+    "G4": {
+      "h": [
+        "Maximiliano Ara\u00fajo 44'",
+        "Agust\u00edn Canobbio 45+6'"
+      ],
+      "a": [
+        "Kevin Pina 21'",
+        "Hliv Varla 61'"
+      ]
+    },
     "K4": {
       "h": [
         "Dnil Mvnvz 76'"
       ],
       "a": []
+    },
+    "G2": {
+      "h": [
+        "Abdulelah Al-Amri 41'"
+      ],
+      "a": [
+        "Maximiliano Ara\u00fajo 80'"
+      ]
+    },
+    "J2": {
+      "h": [
+        "Rvmanv Ashmid 21'",
+        "Izn Alarb 76'"
+      ],
+      "a": [
+        "Ali Avlvan 50'"
+      ]
+    },
+    "K2": {
+      "h": [
+        "Abas Bk Fiz Allh Af 60'"
+      ],
+      "a": [
+        "Dnil Mvnvz 40'",
+        "Lviiz Diaz 65'",
+        "Khamintvn Kampaz 90+9'"
+      ]
+    },
+    "B1": {
+      "h": [
+        "C. Larin 11'"
+      ],
+      "a": [
+        "Jovo Luki\u0107 21'"
+      ]
+    },
+    "H2": {
+      "h": [
+        "Ramin Rezaiian 32'",
+        "Mohammad Mohebi 64'"
+      ],
+      "a": [
+        "Elijah Just 7'",
+        "Elijah Just 54'"
+      ]
+    },
+    "J1": {
+      "h": [
+        "Lionel Messi 17'",
+        "Lionel Messi 60'",
+        "Lionel Messi 76'"
+      ],
+      "a": []
+    },
+    "L2": {
+      "h": [
+        "Kalb Iirnki 90+5'"
+      ],
+      "a": []
+    },
+    "A3": {
+      "h": [
+        "\u202bmikhal Sadilk 6'"
+      ],
+      "a": []
+    },
+    "G1": {
+      "h": [
+        "Mohamed Hany 66'"
+      ],
+      "a": [
+        "Emam Ashour 20'"
+      ]
     }
   }
 }
