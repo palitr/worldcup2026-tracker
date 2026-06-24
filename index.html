@@ -2,6 +2,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -4363,7 +4364,8 @@ if (btn) {
 }
 // Tab-specific renders
 if (tab === 'bracket') {
-    // If in post-animation state, keep it; otherwise re-render fresh
+    // Populate koTeams from group qualifiers before drawing bracket
+    renderKnockout();
     if (!bracketPlayed) { renderBracket(); }
   }
 if (tab === 'overview') { renderLiveNow(); renderRecentResults(); renderWatchlist(); }
@@ -5970,9 +5972,6 @@ function makeElbow(x1, y1, x2, y2, side) {
 function renderBracket() {
   var container = document.getElementById('bracket-svg-container');
   if (!container) { console.error('[BRACKET] bracket-svg-container NOT FOUND'); return; }
-
-  // Always refresh koTeams before drawing so R32 teams from group stage are current
-  renderKnockout();
 
   var svg = buildBracketSVG();
   container.innerHTML = '';
