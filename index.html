@@ -367,6 +367,15 @@ box-shadow: 0 0 20px rgba(255,215,0,0.3);
   .nav-tabs-wrap::after { display: block; }
 }
 
+/* ── More Stats pills: 1 row on desktop ── */
+.ms-summary-pills {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.ms-summary-pills .stats-pill { flex: 1; }
+
 /* ====== MAIN CONTENT ====== */
 .content {
 position: relative;
@@ -911,8 +920,13 @@ vertical-align: middle;
 .tab-btn { padding: 8px 12px; font-size: 0.82rem; flex: none; flex-shrink: 0; }
 h1 { font-size: 2.8rem; }
 header { padding: 10px 20px 20px; }
-
-/* ── Stats pills: 3-3 layout (6 pills, 2 rows) ── */
+/* ── More Stats pills: 2x4 on mobile ── */
+.ms-summary-pills {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.ms-summary-pills .stats-pill { flex: none !important; }
 .stats-summary-pills {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr);
@@ -3314,6 +3328,7 @@ transition:all 0.15s; cursor:default;
 <div id="tab-morestats" class="tab-panel">
   <div id="morestats-root"></div>
 </div>
+<div id="tab-stats" class="tab-panel">
   <div id="progress-bar-wrap"></div>
   <div id="stats-root"></div>
 </div>
@@ -5349,6 +5364,22 @@ function renderMoreStats() {
   var hatTricks = af.hat_tricks || 0;
   var playerCount = Object.keys(players).length;
 
+  // Calculate matches played, remaining and clean sheets from worldcup26.ir scores
+  var matchesPlayed = 0;
+  var cleanSheets = 0;
+  var allMatchIds = groupMatches.map(function(m) { return m.id; });
+  var koFlat = [];
+  ['r32','r16','qf','sf','final','bronze'].forEach(function(stage) {
+    if (koMatchDefs[stage]) koMatchDefs[stage].forEach(function(m) { koFlat.push(m.id); });
+  });
+  allMatchIds.concat(koFlat).forEach(function(id) {
+    var s = getScore(id);
+    if (s.h !== null && s.a !== null) {
+      matchesPlayed++;
+      if (s.h === 0 || s.a === 0) cleanSheets++;
+    }
+  });
+
   // No data yet
   if (!playerCount) {
     root.innerHTML = '<div class="stats-page">'
@@ -5414,14 +5445,16 @@ function renderMoreStats() {
     + 'color:var(--muted);background:var(--card);border:1px solid var(--border);'
     + 'padding:3px 10px;border-radius:10px;">⚡ Powered by API-Football</span></div>'
 
-    // Summary pills
-    + '<div class="stats-summary-pills">'
+    // Summary pills — 8 pills: 1 row desktop, 2x4 mobile
+    + '<div class="ms-summary-pills">'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + matchesPlayed + '</div><div class="stats-pill-label">Matches Played</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + (104 - matchesPlayed) + '</div><div class="stats-pill-label">Remaining</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + totalGoals + '</div><div class="stats-pill-label">Total Goals</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + avgGoals + '</div><div class="stats-pill-label">Goals / Match</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + cleanSheets + '</div><div class="stats-pill-label">Clean Sheets</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + hatTricks + '</div><div class="stats-pill-label">Hat-tricks</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + totalPen + '</div><div class="stats-pill-label">Penalties</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + totalOG + '</div><div class="stats-pill-label">Own Goals</div></div>'
-    + '<div class="stats-pill"><div class="stats-pill-val">' + playerCount + '</div><div class="stats-pill-label">Scorers</div></div>'
     + '</div>'
 
     // Golden Boot
