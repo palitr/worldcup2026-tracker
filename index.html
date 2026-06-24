@@ -3210,6 +3210,7 @@ transition:all 0.15s; cursor:default;
 <button class="tab-btn" onclick="showTab('bracket', this)">🗺️ Bracket</button>
 <button class="tab-btn" onclick="showTab('schedule', this)">📅 Schedule</button>
 <button class="tab-btn" onclick="showTab('stats', this)">📈 Stats</button>
+<button class="tab-btn" onclick="showTab('morestats', this)">🔬 More Stats</button>
 <button class="tab-btn" onclick="showTab('elements', this)">✨ Tournament</button>
 
 <div class="mini-player" id="mini-player">
@@ -3310,7 +3311,9 @@ transition:all 0.15s; cursor:default;
 </div>
 
 <!-- ====== TOURNAMENT ELEMENTS ====== -->
-<div id="tab-stats" class="tab-panel">
+<div id="tab-morestats" class="tab-panel">
+  <div id="morestats-root"></div>
+</div>
   <div id="progress-bar-wrap"></div>
   <div id="stats-root"></div>
 </div>
@@ -4371,6 +4374,7 @@ if (tab === 'bracket') {
 if (tab === 'overview') { renderLiveNow(); renderRecentResults(); renderWatchlist(); }
 if (tab === 'schedule') { schedVenue = []; schedAutoSelect(); renderSchedule(); }
 if (tab === 'stats') { updateOverviewStandings(); renderStats(); }
+if (tab === 'morestats') { renderMoreStats(); }
 // Mini-player only visible on the Tournament tab
 const mini = document.getElementById('mini-player');
 if (mini) {
@@ -5331,6 +5335,120 @@ function renderStats() {
     + '</div>';
 }
 
+// ====== MORE STATS (API-Football powered) =====================================
+
+function renderMoreStats() {
+  var root = document.getElementById('morestats-root');
+  if (!root) return;
+
+  // Read af_stats from the loaded scores data
+  var af = window._afStats || {};
+  var players = af.players || {};
+  var totalOG  = af.total_og  || 0;
+  var totalPen = af.total_pen || 0;
+  var hatTricks = af.hat_tricks || 0;
+  var playerCount = Object.keys(players).length;
+
+  // No data yet
+  if (!playerCount) {
+    root.innerHTML = '<div class="stats-page">'
+      + '<div style="text-align:center;padding:60px 20px;font-family:\'Barlow Condensed\',sans-serif;">'
+      + '<div style="font-size:2.5rem;margin-bottom:12px;">🔬</div>'
+      + '<div style="font-size:1.1rem;color:var(--gold);letter-spacing:2px;margin-bottom:8px;">MORE STATS</div>'
+      + '<div style="color:var(--muted);font-size:0.9rem;">Powered by API-Football · Data loads after matches complete</div>'
+      + '</div></div>';
+    return;
+  }
+
+  // Sort players by goals desc, then npg desc
+  var sorted = Object.values(players).sort(function(a, b) {
+    return b.goals - a.goals || b.npg - a.npg;
+  });
+
+  // Total goals from af data
+  var totalGoals = sorted.reduce(function(s, p) { return s + p.goals; }, 0) + totalOG;
+  var matchesWithGoals = Math.max(1, af.fetched_ids ? af.fetched_ids.length : 1);
+  var avgGoals = (totalGoals / matchesWithGoals).toFixed(1);
+
+  // Flag helper (reuse existing if available)
+  var fl = (typeof flagEmoji === 'function') ? flagEmoji : function() { return ''; };
+
+  // Golden Boot rows
+  function gbRow(p, rank, idx) {
+    var rankClass = rank === 1 ? 'g1' : rank === 2 ? 'g2' : rank === 3 ? 'g3' : '';
+    var rankBadge = rank <= 3
+      ? ['🥇','🥈','🥉'][rank-1]
+      : '<span class="gb-rank">' + rank + '</span>';
+    var pct = Math.round((p.goals / Math.max(1, sorted[0].goals)) * 100);
+    return '<tr>'
+      + '<td>' + rankBadge + '</td>'
+      + '<td><div class="gb-name">' + p.name + '</div>'
+      + '<div class="gb-team">' + fl(p.team) + ' ' + p.team + '</div></td>'
+      + '<td class="r gb-mp">' + (p.mp || '—') + '</td>'
+      + '<td class="r"><span class="gb-goals ' + rankClass + '">' + p.goals + '</span></td>'
+      + '<td class="r gb-stat">' + (p.pen || 0) + '</td>'
+      + '<td class="r gb-stat">' + (p.npg || 0) + '</td>'
+      + '<td class="gb-progress-col"><div class="gb-bar-bg"><div class="gb-bar-fill" style="width:' + pct + '%"></div></div></td>'
+      + '</tr>';
+  }
+
+  var top10 = sorted.slice(0, 10);
+  var rest  = sorted.slice(10);
+  var gbRows = '';
+  var rank = 1;
+  top10.forEach(function(p, i) {
+    if (i > 0 && p.goals < top10[i-1].goals) rank = i + 1;
+    gbRows += gbRow(p, rank, i);
+  });
+  var gbExtra = '';
+  rest.forEach(function(p, i) {
+    var r = 10 + i + 1;
+    gbExtra += gbRow(p, r, 10 + i);
+  });
+
+  root.innerHTML = '<div class="stats-page">'
+
+    // Source badge
+    + '<div style="text-align:right;margin-bottom:12px;">'
+    + '<span style="font-family:\'Barlow Condensed\',sans-serif;font-size:0.75rem;letter-spacing:1px;'
+    + 'color:var(--muted);background:var(--card);border:1px solid var(--border);'
+    + 'padding:3px 10px;border-radius:10px;">⚡ Powered by API-Football</span></div>'
+
+    // Summary pills
+    + '<div class="stats-summary-pills">'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + totalGoals + '</div><div class="stats-pill-label">Total Goals</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + avgGoals + '</div><div class="stats-pill-label">Goals / Match</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + hatTricks + '</div><div class="stats-pill-label">Hat-tricks</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + totalPen + '</div><div class="stats-pill-label">Penalties</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + totalOG + '</div><div class="stats-pill-label">Own Goals</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + playerCount + '</div><div class="stats-pill-label">Scorers</div></div>'
+    + '</div>'
+
+    // Golden Boot
+    + '<div class="stats-section-title">🥇 Golden Boot — Top Scorers</div>'
+    + '<div class="stats-section-sub">RANKED BY GOALS · PENALTIES SHOWN SEPARATELY · OWN GOALS EXCLUDED · SOURCE: API-FOOTBALL</div>'
+    + '<div class="gb-table-wrap"><table class="gb-table"><thead><tr>'
+    + '<th>#</th><th>Player</th>'
+    + '<th class="r">MP</th>'
+    + '<th class="r">Goals</th>'
+    + '<th class="r">Pen</th>'
+    + '<th class="r">NPG</th>'
+    + '<th class="gb-progress-col">Progress</th>'
+    + '</tr></thead><tbody>' + gbRows + '</tbody>'
+    + (gbExtra ? '<tbody id="ms-extra-rows" class="gb-extra-hidden">' + gbExtra + '</tbody>' : '')
+    + '</table></div>'
+    + (gbExtra ? '<div style="text-align:center;margin:10px 0 4px;">'
+      + '<button class="gb-expand-btn" id="ms-expand-btn" onclick="(function(){'
+      + 'var b=document.getElementById(\'ms-expand-btn\'),'
+      + 't=document.getElementById(\'ms-extra-rows\');'
+      + 'var hidden=t.classList.toggle(\'gb-extra-hidden\');'
+      + 'b.textContent=hidden?\'Show More ▾\':\'Show Less ▴\';})()">'
+      + 'Show More ▾</button></div>' : '')
+    + '<div class="gb-legend">MP = Matches Scored In &nbsp;·&nbsp; Pen = Penalty Goals &nbsp;·&nbsp; NPG = Non-Penalty Goals</div>'
+
+    + '</div>';
+}
+
 // ====== WATCHLIST / FAVOURITES ===================================================
 
 function showToast(msg, type) {
@@ -5709,6 +5827,10 @@ document.addEventListener('keydown', function(e) {
       if (data && data.updated) {
         console.log('[Scores] Loaded live scores updated at ' + data.updated);
         window._liveScoresUpdatedAt = data.updated;
+      }
+      if (data && data.af_stats) {
+        window._afStats = data.af_stats;
+        console.log('[Scores] Loaded AF stats — ' + Object.keys(data.af_stats.players || {}).length + ' players');
       }
     })
     .catch(function() {
