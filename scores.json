@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T20:31:00Z",
+  "updated": "2026-06-24T20:48:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -110,7 +110,7 @@
       "a": 0
     },
     "B6": {
-      "h": 2,
+      "h": 3,
       "a": 1
     },
     "A1": {
@@ -199,7 +199,7 @@
     },
     "B5": {
       "h": 2,
-      "a": 0
+      "a": 1
     }
   },
   "penScores": {},
@@ -438,7 +438,8 @@
     "B6": {
       "h": [
         "Karim Alaibgvvich 29'",
-        "Hsin Sltan Albrik 34'"
+        "Abvnad 34'",
+        "Armin Mhmich 80'"
       ],
       "a": [
         "Hassan Al-Haydos 42'"
@@ -593,7 +594,9 @@
         "Rub\u00e9n Vargas 46'",
         "Jvhan Mnzambi 57'"
       ],
-      "a": []
+      "a": [
+        "Prvmis Divid 76'"
+      ]
     }
   },
   "af_stats": {}
