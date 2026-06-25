@@ -375,19 +375,22 @@ box-shadow: 0 0 20px rgba(255,215,0,0.3);
 /* ====== MORE STATS — EXTENDED SECTIONS ====== */
 /* Block 1: When Goals Happen */
 .ms-half-split { display:flex; background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:4px; }
-.ms-half-block { flex:1; display:flex; flex-direction:column; align-items:center; padding:18px 12px; }
+.ms-half-block { flex:1; display:flex; flex-direction:column; align-items:center; padding:18px 12px; transition:all 0.2s; cursor:default; }
+.ms-half-block:hover { background:rgba(255,215,0,0.05); transform:translateY(-2px); }
 .ms-half-divider { width:1px; background:var(--border); flex-shrink:0; }
 .ms-half-val { font-family:'Bebas Neue',cursive; font-size:2.8rem; color:var(--gold); line-height:1; }
 .ms-half-label { font-family:'Barlow Condensed',sans-serif; font-size:0.62rem; letter-spacing:2px; color:var(--muted); margin-top:4px; }
 .ms-half-pct { font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; color:var(--text); margin-top:2px; }
 .ms-period-chart { display:flex; flex-direction:column; gap:7px; }
-.ms-period-row { display:flex; align-items:center; gap:10px; }
+.ms-period-row { display:flex; align-items:center; gap:10px; transition:transform 0.2s; cursor:default; }
+.ms-period-row:hover { transform:translateX(4px); }
+.ms-period-row:hover .ms-period-count { color:var(--text); }
 .ms-period-label { font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--muted); width:38px; text-align:right; flex-shrink:0; }
 .ms-period-bar-wrap { flex:1; background:rgba(255,255,255,0.05); border-radius:3px; height:16px; overflow:hidden; }
 .ms-period-bar { height:100%; border-radius:3px; background:linear-gradient(90deg,var(--gold2),var(--gold)); transition:width 0.5s ease; min-width:2px; }
-.ms-period-bar.special { background:linear-gradient(90deg,#b8860b,#FFB347); }
+.ms-period-bar.special { background:linear-gradient(90deg,#c0392b,#ff6348); }
 .ms-period-count { font-family:'Bebas Neue',cursive; font-size:0.95rem; color:var(--gold); width:22px; text-align:right; flex-shrink:0; }
-.ms-period-count.special { color:#FFB347; }
+.ms-period-count.special { color:#ff6348; }
 .ms-late-list { display:flex; flex-direction:column; gap:6px; }
 .ms-late-row { display:flex; align-items:center; gap:10px; padding:8px 12px; background:var(--card); border:1px solid var(--border); border-radius:8px; }
 .ms-late-row:hover { border-color:rgba(255,215,0,0.3); }
@@ -409,8 +412,10 @@ box-shadow: 0 0 20px rgba(255,215,0,0.3);
 .ms-result.won  { background:rgba(0,200,80,0.15); color:var(--green); }
 .ms-result.drew { background:rgba(255,215,0,0.12); color:var(--gold); }
 .ms-result.lost { background:rgba(255,80,80,0.15); color:#ff6060; }
-.ms-md-chart { display:flex; align-items:flex-end; gap:5px; height:100px; padding-bottom:22px; position:relative; }
-.ms-md-col { display:flex; flex-direction:column; align-items:center; justify-content:flex-end; flex:1; height:100%; position:relative; }
+.ms-md-chart { display:flex; align-items:flex-end; gap:5px; height:160px; padding-bottom:22px; position:relative; }
+.ms-md-col { display:flex; flex-direction:column; align-items:center; justify-content:flex-end; flex:1; height:100%; position:relative; transition:transform 0.2s; cursor:default; }
+.ms-md-col:hover { transform:translateY(-4px); }
+.ms-md-col:hover .ms-md-bar { filter:brightness(1.3); }
 .ms-md-count { font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; color:var(--muted); position:absolute; top:0; }
 .ms-md-bar { width:80%; background:linear-gradient(0deg,var(--gold2),var(--gold)); border-radius:3px 3px 0 0; min-height:4px; }
 .ms-md-label { position:absolute; bottom:-18px; font-family:'Barlow Condensed',sans-serif; font-size:0.58rem; color:var(--muted); text-align:center; width:100%; }
@@ -433,7 +438,8 @@ box-shadow: 0 0 20px rgba(255,215,0,0.3);
 .ms-oms-score { color:var(--text); }
 /* Block 4: Team & Group Insights */
 .ms-scoreline-grid { display:flex; flex-wrap:wrap; gap:8px; }
-.ms-scoreline-badge { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:8px 14px; text-align:center; min-width:64px; }
+.ms-scoreline-badge { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:8px 14px; text-align:center; min-width:64px; transition:all 0.2s; cursor:default; }
+.ms-scoreline-badge:hover { border-color:rgba(255,215,0,0.3); transform:translateY(-2px); }
 .ms-scoreline-badge.top { border-color:var(--gold); background:rgba(255,215,0,0.08); }
 .ms-sl-score { font-family:'Bebas Neue',cursive; font-size:1.4rem; color:var(--gold); }
 .ms-sl-count { font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; color:var(--muted); letter-spacing:1px; }
@@ -5646,17 +5652,21 @@ function renderMoreStats() {
       + '</div></div>';
   }
   var comebackHtml = '<div class="ms-drama-grid">'
-    + '<div class="ms-drama-col"><div class="ms-drama-col-title">📈 Came From Behind</div>'
-    + (comebackWins.length ? comebackWins.map(function(c){return msComeback(c,'comeback');}).join('') : '<div class="ms-empty">None yet</div>')
+    + '<div class="ms-drama-col"><div class="ms-drama-col-title">📈 Came From Behind and Won</div>'
+    + (comebackWins.filter(function(c){return c.result==='won';}).length
+        ? comebackWins.filter(function(c){return c.result==='won';}).map(function(c){return msComeback(c,'comeback');}).join('')
+        : '<div class="ms-empty">None yet</div>')
     + '</div>'
-    + '<div class="ms-drama-col"><div class="ms-drama-col-title">📉 Threw Away Lead</div>'
-    + (threwLeads.length ? threwLeads.map(function(c){return msComeback(c,'threw');}).join('') : '<div class="ms-empty">None yet</div>')
+    + '<div class="ms-drama-col"><div class="ms-drama-col-title">📉 Threw Away Lead and Lost</div>'
+    + (threwLeads.filter(function(c){return c.outcome==='lost';}).length
+        ? threwLeads.filter(function(c){return c.outcome==='lost';}).map(function(c){return msComeback(c,'threw');}).join('')
+        : '<div class="ms-empty">None yet</div>')
     + '</div></div>';
 
   var maxMd = matchdayGoals.length ? Math.max.apply(null, matchdayGoals.map(function(m){return m.goals;})) : 1;
   var mdChartHtml = '<div class="ms-md-chart">'
     + matchdayGoals.map(function(md) {
-        var barH = Math.max(4, Math.round(md.goals / maxMd * 70));
+        var barH = Math.max(4, Math.round(md.goals / maxMd * 120));
         var lbl = md.round.replace('Matchday ','MD').replace('Round of 32','R32')
           .replace('Round of 16','R16').replace('Quarter-final','QF')
           .replace('Semi-final','SF').replace('Final','FNL').replace('Third place','3rd');
@@ -5684,7 +5694,7 @@ function renderMoreStats() {
       g.player, g.team, 'vs ' + g.opponent, g.minute + '\'');
   }).join('') || '<div class="ms-empty">No data yet</div>';
 
-  var streaksHtml = scoringStreaks.map(function(s, i) {
+  var streaksHtml = scoringStreaks.slice(0,10).map(function(s, i) {
     return msIndRow('<span class="ms-num">'+(i+1)+'</span>',
       s.name, s.team, s.goals + ' goals in tournament',
       s.streak + (s.streak>1?' matches':' match') + ' in a row');
