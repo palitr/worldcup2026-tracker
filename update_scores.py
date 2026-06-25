@@ -405,6 +405,13 @@ def build_scores(data):
 
         match_id = MATCH_MAP.get((home, away))
 
+        # Try reversed order — some sources swap home/away
+        if not match_id:
+            rev_id = MATCH_MAP.get((away, home))
+            if rev_id:
+                match_id = rev_id
+                home_score, away_score = away_score, home_score
+
         if not match_id and mtype.startswith("knockout"):
             utc_raw = (m.get("local_date") or m.get("utc") or
                        m.get("datetime") or "")
@@ -889,6 +896,13 @@ def build_scores(data):
         mtype = str(m.get("type") or "").lower()
 
         match_id = MATCH_MAP.get((home, away))
+
+        # Try reversed order — some sources swap home/away
+        if not match_id:
+            rev_id = MATCH_MAP.get((away, home))
+            if rev_id:
+                match_id = rev_id
+                home_score, away_score = away_score, home_score
 
         if not match_id and mtype.startswith("knockout"):
             utc_raw = (m.get("local_date") or m.get("utc") or
