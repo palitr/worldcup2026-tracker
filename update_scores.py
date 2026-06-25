@@ -270,11 +270,12 @@ def fetch_openfootball():
 def build_openfootball_stats(data):
     """
     Build More Stats from openfootball/worldcup.json.
-    Parses scorer names, penalty flags, hat-tricks.
-    Own goals are excluded entirely.
+    Parses scorer names, penalty flags, own goals, hat-tricks.
+    Own goals excluded from player Golden Boot but counted in total_og.
     """
     players    = {}
     total_pen  = 0
+    total_og   = 0
     hat_tricks = 0
 
     for m in data.get("matches", []):
@@ -295,8 +296,12 @@ def build_openfootball_stats(data):
                 is_pen = bool(goal.get("penalty"))
                 is_og  = bool(goal.get("owngoal"))
 
-                if not name or is_og:
-                    continue  # skip own goals entirely
+                if is_og:
+                    total_og += 1
+                    continue  # skip own goals from player tally
+
+                if not name:
+                    continue
 
                 if is_pen:
                     total_pen += 1
@@ -328,11 +333,12 @@ def build_openfootball_stats(data):
                 hat_tricks += 1
 
     print(f"  [openfootball] {len(players)} scorers, "
-          f"{total_pen} penalties, {hat_tricks} hat-tricks")
+          f"{total_pen} penalties, {total_og} own goals, {hat_tricks} hat-tricks")
 
     return {
         "players":    players,
         "total_pen":  total_pen,
+        "total_og":   total_og,
         "hat_tricks": hat_tricks,
     }
 
@@ -762,11 +768,12 @@ def fetch_openfootball():
 def build_openfootball_stats(data):
     """
     Build More Stats from openfootball/worldcup.json.
-    Parses scorer names, penalty flags, hat-tricks.
-    Own goals are excluded entirely.
+    Parses scorer names, penalty flags, own goals, hat-tricks.
+    Own goals excluded from player Golden Boot but counted in total_og.
     """
     players    = {}
     total_pen  = 0
+    total_og   = 0
     hat_tricks = 0
 
     for m in data.get("matches", []):
@@ -787,8 +794,12 @@ def build_openfootball_stats(data):
                 is_pen = bool(goal.get("penalty"))
                 is_og  = bool(goal.get("owngoal"))
 
-                if not name or is_og:
-                    continue  # skip own goals entirely
+                if is_og:
+                    total_og += 1
+                    continue  # skip own goals from player tally
+
+                if not name:
+                    continue
 
                 if is_pen:
                     total_pen += 1
@@ -820,11 +831,12 @@ def build_openfootball_stats(data):
                 hat_tricks += 1
 
     print(f"  [openfootball] {len(players)} scorers, "
-          f"{total_pen} penalties, {hat_tricks} hat-tricks")
+          f"{total_pen} penalties, {total_og} own goals, {hat_tricks} hat-tricks")
 
     return {
         "players":    players,
         "total_pen":  total_pen,
+        "total_og":   total_og,
         "hat_tricks": hat_tricks,
     }
 
