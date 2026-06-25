@@ -19,8 +19,6 @@ jobs:
         with:
           python-version: '3.11'
       - name: Fetch latest scores
-        env:
-          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python update_scores.py
       - name: Commit scores.json if changed
         run: |
