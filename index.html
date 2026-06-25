@@ -3,6 +3,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -920,7 +922,7 @@ vertical-align: middle;
 .tab-btn { padding: 8px 12px; font-size: 0.82rem; flex: none; flex-shrink: 0; }
 h1 { font-size: 2.8rem; }
 header { padding: 10px 20px 20px; }
-/* ── More Stats pills: 2x4 on mobile ── */
+/* ── More Stats pills: 4-col grid on mobile (7 pills = 4+3) ── */
 .ms-summary-pills {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr);
@@ -5325,7 +5327,7 @@ function renderStats() {
     + (gbRowsExtra ? '<tbody id="gb-extra-rows" class="gb-extra-hidden">' + gbRowsExtra + '</tbody>' : '')
     + '</table></div>'
     + (gbRowsExtra ? '<div style="text-align:center;margin:10px 0 4px;"><button class="gb-expand-btn" id="gb-expand-btn" onclick="(function(){var b=document.getElementById(\'gb-expand-btn\'),t=document.getElementById(\'gb-extra-rows\');var hidden=t.classList.toggle(\'gb-extra-hidden\');b.textContent=hidden?\'Show More ▾\':\'Show Less ▴\';})()">' + 'Show More ▾' + '</button></div>' : '')
-    + '<div class="gb-legend">MP = Team Matches Played &nbsp;·&nbsp; Pen = Penalty Goals &nbsp;·&nbsp; NPG = Non-Penalty Goals &nbsp;·&nbsp; OG = Own Goals (excluded from table)</div>'
+    + '<div class="gb-legend">MP = Team Matches Played &nbsp;·&nbsp; Pen = Penalty Goals &nbsp;·&nbsp; NPG = Non-Penalty Goals</div>'
 
     // Top scoring teams
     + '<div class="stats-section-title">⚽ Top Scoring Teams</div>'
@@ -5350,7 +5352,7 @@ function renderStats() {
     + '</div>';
 }
 
-// ====== MORE STATS (API-Football powered) =====================================
+// ====== MORE STATS (openfootball powered) =====================================
 
 function renderMoreStats() {
   var root = document.getElementById('morestats-root');
@@ -5359,8 +5361,7 @@ function renderMoreStats() {
   // Read af_stats from the loaded scores data
   var af = window._afStats || {};
   var players = af.players || {};
-  var totalOG  = af.total_og  || 0;
-  var totalPen = af.total_pen || 0;
+  var totalPen  = af.total_pen  || 0;
   var hatTricks = af.hat_tricks || 0;
   var playerCount = Object.keys(players).length;
 
@@ -5386,7 +5387,7 @@ function renderMoreStats() {
       + '<div style="text-align:center;padding:60px 20px;font-family:\'Barlow Condensed\',sans-serif;">'
       + '<div style="font-size:2.5rem;margin-bottom:12px;">🔬</div>'
       + '<div style="font-size:1.1rem;color:var(--gold);letter-spacing:2px;margin-bottom:8px;">MORE STATS</div>'
-      + '<div style="color:var(--muted);font-size:0.9rem;">Powered by API-Football · Data loads after matches complete</div>'
+      + '<div style="color:var(--muted);font-size:0.9rem;">Powered by openfootball · Data loads after matches complete</div>'
       + '</div></div>';
     return;
   }
@@ -5397,9 +5398,8 @@ function renderMoreStats() {
   });
 
   // Total goals from af data
-  var totalGoals = sorted.reduce(function(s, p) { return s + p.goals; }, 0) + totalOG;
-  var matchesWithGoals = Math.max(1, af.fetched_ids ? af.fetched_ids.length : 1);
-  var avgGoals = (totalGoals / matchesWithGoals).toFixed(1);
+  var totalGoals = sorted.reduce(function(s, p) { return s + p.goals; }, 0);
+  var avgGoals = (matchesPlayed > 0 ? totalGoals / matchesPlayed : 0).toFixed(1);
 
   // Flag helper (reuse existing if available)
   var fl = (typeof flagEmoji === 'function') ? flagEmoji : function() { return ''; };
@@ -5443,9 +5443,9 @@ function renderMoreStats() {
     + '<div style="text-align:right;margin-bottom:12px;">'
     + '<span style="font-family:\'Barlow Condensed\',sans-serif;font-size:0.75rem;letter-spacing:1px;'
     + 'color:var(--muted);background:var(--card);border:1px solid var(--border);'
-    + 'padding:3px 10px;border-radius:10px;">⚡ Powered by API-Football</span></div>'
+    + 'padding:3px 10px;border-radius:10px;">⚡ Powered by openfootball</span></div>'
 
-    // Summary pills — 8 pills: 1 row desktop, 2x4 mobile
+    // Summary pills — 7 pills: 1 row desktop, 4+3 mobile
     + '<div class="ms-summary-pills">'
     + '<div class="stats-pill"><div class="stats-pill-val">' + matchesPlayed + '</div><div class="stats-pill-label">Matches Played</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + (104 - matchesPlayed) + '</div><div class="stats-pill-label">Remaining</div></div>'
@@ -5454,12 +5454,11 @@ function renderMoreStats() {
     + '<div class="stats-pill"><div class="stats-pill-val">' + cleanSheets + '</div><div class="stats-pill-label">Clean Sheets</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + hatTricks + '</div><div class="stats-pill-label">Hat-tricks</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + totalPen + '</div><div class="stats-pill-label">Penalties</div></div>'
-    + '<div class="stats-pill"><div class="stats-pill-val">' + totalOG + '</div><div class="stats-pill-label">Own Goals</div></div>'
     + '</div>'
 
     // Golden Boot
     + '<div class="stats-section-title">🥇 Golden Boot — Top Scorers</div>'
-    + '<div class="stats-section-sub">RANKED BY GOALS · PENALTIES SHOWN SEPARATELY · OWN GOALS EXCLUDED · SOURCE: API-FOOTBALL</div>'
+    + '<div class="stats-section-sub">RANKED BY GOALS · PENALTIES SHOWN SEPARATELY · OWN GOALS EXCLUDED · SOURCE: OPENFOOTBALL</div>'
     + '<div class="gb-table-wrap"><table class="gb-table"><thead><tr>'
     + '<th>#</th><th>Player</th>'
     + '<th class="r">MP</th>'
