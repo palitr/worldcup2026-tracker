@@ -444,6 +444,10 @@ box-shadow: 0 0 20px rgba(255,215,0,0.3);
 .ms-gt-player { font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; font-weight:600; flex:1; min-width:0; display:flex; align-items:center; gap:5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .ms-gt-goals { font-family:'Bebas Neue',cursive; font-size:0.95rem; color:var(--gold); flex-shrink:0; }
 .ms-empty { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; color:var(--muted); padding:6px 0; }
+/* Breathing room after each subsection content block */
+.ms-period-chart, .ms-late-list, .ms-drama-grid, .ms-md-chart,
+.ms-individual-list, .ms-oms-list, .ms-scoreline-grid, .ms-group-top,
+.ms-half-split { margin-bottom: 8px; }
 /* Mobile overrides */
 @media (max-width:600px) {
   .ms-drama-grid { grid-template-columns:1fr; }
@@ -5817,32 +5821,32 @@ function renderMoreStats() {
     + '<div class="stats-section-title">⏱ When Goals Happen</div>'
     + '<div class="stats-section-sub">1ST HALF VS 2ND HALF SPLIT</div>'
     + halfSplitHtml
-    + '<div class="stats-section-sub" style="margin:18px 0 8px;">GOALS BY 15-MINUTE PERIOD</div>'
+    + '<div class="stats-section-sub" style="margin:32px 0 12px;">GOALS BY 15-MINUTE PERIOD</div>'
     + periodChartHtml
-    + '<div class="stats-section-sub" style="margin:18px 0 8px;">⚡ LATEST GOALS (90+ MINUTE)</div>'
+    + '<div class="stats-section-sub" style="margin:32px 0 12px;">⚡ LATEST GOALS (90+ MINUTE)</div>'
     + '<div class="ms-late-list">' + lateGoalsHtml + '</div>'
 
     // ── Block 2: Drama & Momentum ───────────────────────────────────────
     + '<div class="stats-section-title">🎭 Drama & Momentum</div>'
     + '<div class="stats-section-sub">COMEBACK WINS · LEADS THROWN AWAY</div>'
     + comebackHtml
-    + '<div class="stats-section-sub" style="margin:18px 0 8px;">GOALS PER MATCHDAY</div>'
+    + '<div class="stats-section-sub" style="margin:32px 0 12px;">GOALS PER MATCHDAY</div>'
     + mdChartHtml
 
     // ── Block 3: Individual Brilliance ──────────────────────────────────
     + '<div class="stats-section-title">⭐ Individual Brilliance</div>'
     + '<div class="stats-section-sub">FASTEST GOALS</div>'
     + '<div class="ms-individual-list">' + fastestHtml + '</div>'
-    + '<div class="stats-section-sub" style="margin:16px 0 8px;">SCORING STREAKS</div>'
+    + '<div class="stats-section-sub" style="margin:32px 0 12px;">SCORING STREAKS</div>'
     + '<div class="ms-individual-list">' + streaksHtml + '</div>'
-    + '<div class="stats-section-sub" style="margin:16px 0 8px;">ONE-MAN SHOWS — SOLO WIN</div>'
+    + '<div class="stats-section-sub" style="margin:32px 0 12px;">ONE-MAN SHOWS — SOLO WIN</div>'
     + '<div class="ms-oms-list">' + omsHtml + '</div>'
 
     // ── Block 4: Team & Group Insights ──────────────────────────────────
     + '<div class="stats-section-title">🏆 Team & Group Insights</div>'
     + '<div class="stats-section-sub">MOST COMMON SCORELINES</div>'
     + scorelineHtml
-    + '<div class="stats-section-sub" style="margin:16px 0 8px;">TOP SCORER PER GROUP</div>'
+    + '<div class="stats-section-sub" style="margin:32px 0 12px;">TOP SCORER PER GROUP</div>'
     + groupTopHtml
 
     + '</div>';
