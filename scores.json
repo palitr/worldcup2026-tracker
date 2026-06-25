@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-25T20:37:00Z",
+  "updated": "2026-06-25T20:45:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -1540,6 +1540,597 @@
     },
     "total_pen": 6,
     "total_og": 11,
-    "hat_tricks": 2
+    "hat_tricks": 2,
+    "goals_by_period": {
+      "0-15": 16,
+      "16-30": 21,
+      "31-45": 22,
+      "45+": 9,
+      "46-60": 24,
+      "61-75": 19,
+      "76-90": 25,
+      "90+": 14
+    },
+    "ht_goals": 72,
+    "sh_goals": 89,
+    "comeback_wins": [
+      {
+        "team": "South Africa",
+        "opponent": "Czech Republic",
+        "ht": "0-1",
+        "ft": "1-1",
+        "result": "drew"
+      },
+      {
+        "team": "Canada",
+        "opponent": "Bosnia & Herzegovina",
+        "ht": "0-1",
+        "ft": "1-1",
+        "result": "drew"
+      },
+      {
+        "team": "Qatar",
+        "opponent": "Switzerland",
+        "ht": "0-1",
+        "ft": "1-1",
+        "result": "drew"
+      },
+      {
+        "team": "Germany",
+        "opponent": "Ivory Coast",
+        "ht": "0-1",
+        "ft": "2-1",
+        "result": "won"
+      },
+      {
+        "team": "Belgium",
+        "opponent": "Egypt",
+        "ht": "0-1",
+        "ft": "1-1",
+        "result": "drew"
+      },
+      {
+        "team": "Egypt",
+        "opponent": "New Zealand",
+        "ht": "0-1",
+        "ft": "3-1",
+        "result": "won"
+      },
+      {
+        "team": "Uruguay",
+        "opponent": "Saudi Arabia",
+        "ht": "0-1",
+        "ft": "1-1",
+        "result": "drew"
+      },
+      {
+        "team": "Cape Verde",
+        "opponent": "Uruguay",
+        "ht": "1-2",
+        "ft": "2-2",
+        "result": "drew"
+      },
+      {
+        "team": "Algeria",
+        "opponent": "Jordan",
+        "ht": "0-1",
+        "ft": "2-1",
+        "result": "won"
+      }
+    ],
+    "threw_leads": [
+      {
+        "team": "Czech Republic",
+        "opponent": "South Africa",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
+      },
+      {
+        "team": "Bosnia & Herzegovina",
+        "opponent": "Canada",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
+      },
+      {
+        "team": "Switzerland",
+        "opponent": "Qatar",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
+      },
+      {
+        "team": "Ivory Coast",
+        "opponent": "Germany",
+        "ht": "1-0",
+        "ft": "1-2",
+        "outcome": "lost"
+      },
+      {
+        "team": "Egypt",
+        "opponent": "Belgium",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
+      },
+      {
+        "team": "New Zealand",
+        "opponent": "Egypt",
+        "ht": "1-0",
+        "ft": "1-3",
+        "outcome": "lost"
+      },
+      {
+        "team": "Saudi Arabia",
+        "opponent": "Uruguay",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
+      },
+      {
+        "team": "Uruguay",
+        "opponent": "Cape Verde",
+        "ht": "2-1",
+        "ft": "2-2",
+        "outcome": "drew"
+      },
+      {
+        "team": "Jordan",
+        "opponent": "Algeria",
+        "ht": "1-0",
+        "ft": "1-2",
+        "outcome": "lost"
+      }
+    ],
+    "late_goals": [
+      {
+        "player": "Marko Arnautovic",
+        "team": "Austria",
+        "minute": "90+12",
+        "sort_val": 90.12,
+        "opponent": "Jordan"
+      },
+      {
+        "player": "J\u00e1minton Campaz",
+        "team": "Colombia",
+        "minute": "90+9",
+        "sort_val": 90.09,
+        "opponent": "Uzbekistan"
+      },
+      {
+        "player": "Giovanni Reyna",
+        "team": "USA",
+        "minute": "90+8",
+        "sort_val": 90.08,
+        "opponent": "Paraguay"
+      },
+      {
+        "player": "Granit Xhaka",
+        "team": "Switzerland",
+        "minute": "90+7",
+        "sort_val": 90.07,
+        "opponent": "Bosnia & Herzegovina"
+      },
+      {
+        "player": "Yasin Ayari",
+        "team": "Sweden",
+        "minute": "90+6",
+        "sort_val": 90.06,
+        "opponent": "Tunisia"
+      },
+      {
+        "player": "Kylian Mbapp\u00e9",
+        "team": "France",
+        "minute": "90+6",
+        "sort_val": 90.06,
+        "opponent": "Senegal"
+      },
+      {
+        "player": "Ibrahim Mbaye",
+        "team": "Senegal",
+        "minute": "90+5",
+        "sort_val": 90.05,
+        "opponent": "France"
+      },
+      {
+        "player": "Lionel Messi",
+        "team": "Argentina",
+        "minute": "90+5",
+        "sort_val": 90.05,
+        "opponent": "Austria"
+      },
+      {
+        "player": "Caleb Yirenkyi",
+        "team": "Ghana",
+        "minute": "90+5",
+        "sort_val": 90.05,
+        "opponent": "Panama"
+      },
+      {
+        "player": "\u00c1lvaro Fidalgo",
+        "team": "Mexico",
+        "minute": "90+4",
+        "sort_val": 90.04,
+        "opponent": "Czech Republic"
+      }
+    ],
+    "fastest_goals": [
+      {
+        "player": "Ismael Saibari",
+        "team": "Morocco",
+        "minute": "2",
+        "sort_val": 2.0,
+        "opponent": "Scotland"
+      },
+      {
+        "player": "Mat\u00edas Galarza",
+        "team": "Paraguay",
+        "minute": "2",
+        "sort_val": 2.0,
+        "opponent": "Turkey"
+      },
+      {
+        "player": "Daichi Kamada",
+        "team": "Japan",
+        "minute": "4",
+        "sort_val": 4.0,
+        "opponent": "Tunisia"
+      },
+      {
+        "player": "Brian Brobbey",
+        "team": "Netherlands",
+        "minute": "5",
+        "sort_val": 5.0,
+        "opponent": "Sweden"
+      },
+      {
+        "player": "Michal Sad\u00edlek",
+        "team": "Czech Republic",
+        "minute": "6",
+        "sort_val": 6.0,
+        "opponent": "South Africa"
+      }
+    ],
+    "scoring_streaks": [
+      {
+        "name": "Vin\u00edcius J\u00fanior",
+        "team": "Brazil",
+        "streak": 3,
+        "goals": 4
+      },
+      {
+        "name": "Ismael Saibari",
+        "team": "Morocco",
+        "streak": 3,
+        "goals": 3
+      },
+      {
+        "name": "Lionel Messi",
+        "team": "Argentina",
+        "streak": 2,
+        "goals": 5
+      },
+      {
+        "name": "Kylian Mbapp\u00e9",
+        "team": "France",
+        "streak": 2,
+        "goals": 4
+      },
+      {
+        "name": "Erling Haaland",
+        "team": "Norway",
+        "streak": 2,
+        "goals": 4
+      },
+      {
+        "name": "Johan Manzambi",
+        "team": "Switzerland",
+        "streak": 2,
+        "goals": 3
+      },
+      {
+        "name": "Matheus Cunha",
+        "team": "Brazil",
+        "streak": 2,
+        "goals": 3
+      },
+      {
+        "name": "Deniz Undav",
+        "team": "Germany",
+        "streak": 2,
+        "goals": 3
+      },
+      {
+        "name": "Cyle Larin",
+        "team": "Canada",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Rub\u00e9n Vargas",
+        "team": "Switzerland",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Ermin Mahmic",
+        "team": "Bosnia & Herzegovina",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Crysencio Summerville",
+        "team": "Netherlands",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Daichi Kamada",
+        "team": "Japan",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Maxi Ara\u00fajo",
+        "team": "Uruguay",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Daniel Mu\u00f1oz",
+        "team": "Colombia",
+        "streak": 2,
+        "goals": 2
+      }
+    ],
+    "one_man_shows": [
+      {
+        "player": "Luis Romo",
+        "team": "Mexico",
+        "goals": 1,
+        "opponent": "South Korea",
+        "score": "1-0"
+      },
+      {
+        "player": "Thapelo Maseko",
+        "team": "South Africa",
+        "goals": 1,
+        "opponent": "South Korea",
+        "score": "1-0"
+      },
+      {
+        "player": "John McGinn",
+        "team": "Scotland",
+        "goals": 1,
+        "opponent": "Haiti",
+        "score": "1-0"
+      },
+      {
+        "player": "Ismael Saibari",
+        "team": "Morocco",
+        "goals": 1,
+        "opponent": "Scotland",
+        "score": "1-0"
+      },
+      {
+        "player": "Mat\u00edas Galarza",
+        "team": "Paraguay",
+        "goals": 1,
+        "opponent": "Turkey",
+        "score": "1-0"
+      },
+      {
+        "player": "Amad Diallo",
+        "team": "Ivory Coast",
+        "goals": 1,
+        "opponent": "Ecuador",
+        "score": "1-0"
+      },
+      {
+        "player": "Deniz Undav",
+        "team": "Germany",
+        "goals": 2,
+        "opponent": "Ivory Coast",
+        "score": "2-1"
+      },
+      {
+        "player": "Lionel Messi",
+        "team": "Argentina",
+        "goals": 3,
+        "opponent": "Algeria",
+        "score": "3-0"
+      },
+      {
+        "player": "Lionel Messi",
+        "team": "Argentina",
+        "goals": 2,
+        "opponent": "Austria",
+        "score": "2-0"
+      },
+      {
+        "player": "Daniel Mu\u00f1oz",
+        "team": "Colombia",
+        "goals": 1,
+        "opponent": "DR Congo",
+        "score": "1-0"
+      },
+      {
+        "player": "Caleb Yirenkyi",
+        "team": "Ghana",
+        "goals": 1,
+        "opponent": "Panama",
+        "score": "1-0"
+      },
+      {
+        "player": "Ante Budimir",
+        "team": "Croatia",
+        "goals": 1,
+        "opponent": "Panama",
+        "score": "1-0"
+      }
+    ],
+    "matchday_goals": [
+      {
+        "round": "Matchday 1",
+        "goals": 5
+      },
+      {
+        "round": "Matchday 2",
+        "goals": 7
+      },
+      {
+        "round": "Matchday 3",
+        "goals": 7
+      },
+      {
+        "round": "Matchday 4",
+        "goals": 19
+      },
+      {
+        "round": "Matchday 5",
+        "goals": 8
+      },
+      {
+        "round": "Matchday 6",
+        "goals": 16
+      },
+      {
+        "round": "Matchday 7",
+        "goals": 13
+      },
+      {
+        "round": "Matchday 8",
+        "goals": 14
+      },
+      {
+        "round": "Matchday 9",
+        "goals": 7
+      },
+      {
+        "round": "Matchday 10",
+        "goals": 13
+      },
+      {
+        "round": "Matchday 11",
+        "goals": 12
+      },
+      {
+        "round": "Matchday 12",
+        "goals": 13
+      },
+      {
+        "round": "Matchday 13",
+        "goals": 7
+      },
+      {
+        "round": "Matchday 14",
+        "goals": 20
+      }
+    ],
+    "scoreline_freq": [
+      {
+        "score": "1-0",
+        "count": 9
+      },
+      {
+        "score": "1-1",
+        "count": 7
+      },
+      {
+        "score": "3-0",
+        "count": 5
+      },
+      {
+        "score": "3-1",
+        "count": 5
+      },
+      {
+        "score": "2-0",
+        "count": 4
+      },
+      {
+        "score": "2-1",
+        "count": 4
+      },
+      {
+        "score": "0-0",
+        "count": 4
+      },
+      {
+        "score": "4-1",
+        "count": 3
+      },
+      {
+        "score": "2-2",
+        "count": 3
+      },
+      {
+        "score": "4-2",
+        "count": 2
+      }
+    ],
+    "group_top_scorers": {
+      "A": {
+        "name": "Juli\u00e1n Qui\u00f1ones",
+        "team": "Mexico",
+        "goals": 2
+      },
+      "B": {
+        "name": "Johan Manzambi",
+        "team": "Switzerland",
+        "goals": 3
+      },
+      "C": {
+        "name": "Vin\u00edcius J\u00fanior",
+        "team": "Brazil",
+        "goals": 4
+      },
+      "D": {
+        "name": "Folarin Balogun",
+        "team": "USA",
+        "goals": 2
+      },
+      "E": {
+        "name": "Deniz Undav",
+        "team": "Germany",
+        "goals": 3
+      },
+      "F": {
+        "name": "Crysencio Summerville",
+        "team": "Netherlands",
+        "goals": 2
+      },
+      "G": {
+        "name": "Elijah Just",
+        "team": "New Zealand",
+        "goals": 2
+      },
+      "H": {
+        "name": "Maxi Ara\u00fajo",
+        "team": "Uruguay",
+        "goals": 2
+      },
+      "I": {
+        "name": "Kylian Mbapp\u00e9",
+        "team": "France",
+        "goals": 4
+      },
+      "J": {
+        "name": "Lionel Messi",
+        "team": "Argentina",
+        "goals": 5
+      },
+      "K": {
+        "name": "Daniel Mu\u00f1oz",
+        "team": "Colombia",
+        "goals": 2
+      },
+      "L": {
+        "name": "Harry Kane",
+        "team": "England",
+        "goals": 2
+      }
+    }
   }
 }
