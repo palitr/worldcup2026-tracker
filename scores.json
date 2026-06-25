@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-25T12:31:00Z",
+  "updated": "2026-06-25T12:57:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -637,5 +637,11 @@
       ]
     }
   },
-  "af_stats": {}
+  "af_stats": {
+    "fetched_ids": [],
+    "players": {},
+    "total_og": 0,
+    "total_pen": 0,
+    "hat_tricks": 0
+  }
 }
