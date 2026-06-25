@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T23:31:00Z",
+  "updated": "2026-06-25T00:00:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -78,7 +78,7 @@
       "a": 0
     },
     "C6": {
-      "h": 2,
+      "h": 4,
       "a": 2
     },
     "E2": {
@@ -378,7 +378,9 @@
     "C6": {
       "h": [
         "Achraf Hakimi 39'",
-        "Asmaail Saibari 45+1'"
+        "Asmaail Saibari 45+1'",
+        "Svfian Rhimi 78'",
+        "Gessime Yassine 89'"
       ],
       "a": [
         "Yassine Bounou 10'",
