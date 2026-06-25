@@ -2,22 +2,19 @@
 update_scores.py
 FIFA World Cup 2026 — Live Score Updater
 Fetches results from worldcup26.ir (all tabs)
-Fetches goal events from API-Football (More Stats tab only)
+Fetches scorer/penalty data from openfootball (More Stats tab only)
 © 2026 Rajarshi Palit
 """
 
 import json
-import os
 import time
 import ssl
 import urllib.request
 import urllib.error
 from datetime import datetime, timezone
 
-API_URL    = "https://worldcup26.ir/get/games"
-AF_API_URL = "https://v3.football.api-sports.io"
-AF_LEAGUE  = 1
-AF_SEASON  = 2026
+API_URL = "https://worldcup26.ir/get/games"
+OFB_URL = "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json"
 
 # ── Team name mapping ─────────────────────────────────────────────────────
 TEAM_MAP = {
@@ -260,19 +257,84 @@ def fetch_games(retries=3, delay=15):
     raise last_error
 
 
-def fetch_af(path, params, api_key):
-    """Fetch from API-Football v3."""
-    query = "&".join(f"{k}={v}" for k, v in params.items())
-    url = f"{AF_API_URL}/{path}?{query}"
+def fetch_openfootball():
+    """Fetch WC2026 scorer data from openfootball/worldcup.json (no API key needed)."""
     req = urllib.request.Request(
-        url,
-        headers={
-            "x-rapidapi-key": api_key,
-            "x-rapidapi-host": "v3.football.api-sports.io",
-        }
+        OFB_URL,
+        headers={"User-Agent": "Mozilla/5.0"}
     )
     with urllib.request.urlopen(req, timeout=20) as resp:
         return json.loads(resp.read().decode())
+
+
+def build_openfootball_stats(data):
+    """
+    Build More Stats from openfootball/worldcup.json.
+    Parses scorer names, penalty flags, hat-tricks.
+    Own goals are excluded entirely.
+    """
+    players    = {}
+    total_pen  = 0
+    hat_tricks = 0
+
+    for m in data.get("matches", []):
+        if not m.get("score", {}).get("ft"):
+            continue  # match not yet played
+
+        team1 = m.get("team1", "")
+        team2 = m.get("team2", "")
+
+        match_goals = {}  # key → goals in this match (for hat-trick detection)
+
+        for side_goals, team in [
+            (m.get("goals1") or [], team1),
+            (m.get("goals2") or [], team2),
+        ]:
+            for goal in side_goals:
+                name   = (goal.get("name") or "").strip()
+                is_pen = bool(goal.get("penalty"))
+                is_og  = bool(goal.get("owngoal"))
+
+                if not name or is_og:
+                    continue  # skip own goals entirely
+
+                if is_pen:
+                    total_pen += 1
+
+                key = f"{name}|{team}"
+                if key not in players:
+                    players[key] = {
+                        "name":  name,
+                        "team":  team,
+                        "goals": 0,
+                        "pen":   0,
+                        "npg":   0,
+                        "mp":    0,
+                    }
+
+                players[key]["goals"] += 1
+                if is_pen:
+                    players[key]["pen"] += 1
+                else:
+                    players[key]["npg"] += 1
+
+                match_goals[key] = match_goals.get(key, 0) + 1
+
+        # Update matches played + detect hat-tricks
+        for key, count in match_goals.items():
+            if key in players:
+                players[key]["mp"] += 1
+            if count >= 3:
+                hat_tricks += 1
+
+    print(f"  [openfootball] {len(players)} scorers, "
+          f"{total_pen} penalties, {hat_tricks} hat-tricks")
+
+    return {
+        "players":    players,
+        "total_pen":  total_pen,
+        "hat_tricks": hat_tricks,
+    }
 
 
 def parse_scorers(raw):
@@ -369,143 +431,12 @@ def build_scores(data):
     return scores, pen_scores, scorers
 
 
-def build_af_stats(api_key, existing_af):
-    """
-    Fetch goal events from API-Football for all completed WC2026 matches.
-    Only fetches fixture IDs not already processed.
-    Returns updated af_stats dict.
-    """
-    # Preserve existing data — only add new fixtures
-    af = existing_af if existing_af else {
-        "fetched_ids": [],
-        "players": {},
-        "total_og": 0,
-        "total_pen": 0,
-        "hat_tricks": 0,
-    }
-
-    try:
-        # Step 1 — get all completed fixtures (1 API call)
-        print("  [API-Football] Fetching completed fixtures...")
-        resp = fetch_af("fixtures", {
-            "league": AF_LEAGUE,
-            "season": AF_SEASON,
-            "status": "FT"
-        }, api_key)
-
-        all_fixtures = resp.get("response", [])
-        fetched_ids  = set(af.get("fetched_ids", []))
-        new_fixtures = [
-            f for f in all_fixtures
-            if f["fixture"]["id"] not in fetched_ids
-        ]
-        print(f"  [API-Football] {len(all_fixtures)} completed, "
-              f"{len(new_fixtures)} new to fetch")
-
-        if not new_fixtures:
-            print("  [API-Football] No new fixtures — skipping")
-            return af
-
-        # Step 2 — fetch events for each new fixture (1 call each)
-        for fix in new_fixtures:
-            fid  = fix["fixture"]["id"]
-            home = fix["teams"]["home"]["name"]
-            away = fix["teams"]["away"]["name"]
-            try:
-                ev_resp = fetch_af("fixtures/events", {
-                    "fixture": fid,
-                    "type": "Goal"
-                }, api_key)
-
-                events = ev_resp.get("response", [])
-
-                # Count goals per player in this match (for hat-trick detection)
-                match_goals = {}
-
-                for ev in events:
-                    detail     = ev.get("detail", "")
-                    player     = ev.get("player", {}).get("name", "")
-                    team_name  = ev.get("team", {}).get("name", "")
-
-                    # Skip missed penalties
-                    if detail == "Missed Penalty":
-                        continue
-
-                    is_og  = (detail == "Own Goal")
-                    is_pen = (detail == "Penalty")
-
-                    if is_og:
-                        af["total_og"] = af.get("total_og", 0) + 1
-                        # OG credited to opposing team — skip player tally
-                        continue
-
-                    if not player:
-                        continue
-
-                    key = f"{player}|{team_name}"
-                    if key not in af["players"]:
-                        af["players"][key] = {
-                            "name":  player,
-                            "team":  team_name,
-                            "goals": 0,
-                            "pen":   0,
-                            "npg":   0,
-                            "mp":    0,
-                        }
-
-                    af["players"][key]["goals"] += 1
-                    if is_pen:
-                        af["players"][key]["pen"] += 1
-                        af["total_pen"] = af.get("total_pen", 0) + 1
-                    else:
-                        af["players"][key]["npg"] += 1
-
-                    # Track per-match goals for hat-trick detection
-                    match_goals[key] = match_goals.get(key, 0) + 1
-
-                # Update matches played for each scorer in this game
-                for key in match_goals:
-                    if key in af["players"]:
-                        af["players"][key]["mp"] = \
-                            af["players"][key].get("mp", 0) + 1
-                    # Hat-trick check
-                    if match_goals[key] >= 3:
-                        af["hat_tricks"] = af.get("hat_tricks", 0) + 1
-
-                af.setdefault("fetched_ids", [])
-                af["fetched_ids"].append(fid)
-                print(f"  [API-Football] ✅ {home} vs {away} "
-                      f"({len(events)} goal events)")
-
-                # Small delay to be respectful to the API
-                time.sleep(0.5)
-
-            except Exception as e:
-                print(f"  [API-Football] ⚠️  Failed fixture {fid} "
-                      f"({home} vs {away}): {e}")
-                continue
-
-    except Exception as e:
-        print(f"  [API-Football] ⚠️  Failed: {e}")
-
-    return af
-
-
 def write_heartbeat(now):
     try:
         with open("heartbeat.json", "w") as f:
             json.dump({"updated": now}, f)
     except Exception as e:
         print(f"⚠️  heartbeat write failed: {e}")
-
-
-def load_existing_scores():
-    """Load existing scores.json to preserve af_stats across runs."""
-    try:
-        with open("scores.json", "r") as f:
-            return json.load(f)
-    except Exception:
-        return {}
 
 
 def main():
@@ -524,17 +455,14 @@ def main():
 
     scores, pen_scores, scorers = build_scores(data)
 
-    # ── Step 2: API-Football (More Stats tab only) ────────────────────────
-    api_key = os.environ.get("API_FOOTBALL_KEY", "")
-    existing = load_existing_scores()
-    existing_af = existing.get("af_stats", None)
-
-    if api_key:
-        print(f"[{now}] Fetching goal events from API-Football...")
-        af_stats = build_af_stats(api_key, existing_af)
-    else:
-        print("  [API-Football] No API key found — skipping")
-        af_stats = existing_af or {}
+    # ── Step 2: openfootball (More Stats tab — free, no API key) ─────────
+    af_stats = {}
+    try:
+        print(f"[{now}] Fetching scorer data from openfootball...")
+        ofb_data = fetch_openfootball()
+        af_stats = build_openfootball_stats(ofb_data)
+    except Exception as e:
+        print(f"  [openfootball] ⚠️  Failed: {e}")
 
     # ── Write scores.json ─────────────────────────────────────────────────
     output = {
@@ -549,7 +477,7 @@ def main():
         json.dump(output, f, indent=2)
 
     print(f"✅ scores.json written — {len(scores)} results, "
-          f"{len(af_stats.get('players', {}))} AF players")
+          f"{len(af_stats.get('players', {}))} OFB scorers")
     return 0
 
 
