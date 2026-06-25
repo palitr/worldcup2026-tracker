@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5363,6 +5355,7 @@ function renderMoreStats() {
   var af = window._afStats || {};
   var players = af.players || {};
   var totalPen  = af.total_pen  || 0;
+  var totalOG   = af.total_og   || 0;
   var hatTricks = af.hat_tricks || 0;
   var playerCount = Object.keys(players).length;
 
@@ -5513,7 +5506,7 @@ function renderMoreStats() {
       + '<td class="r"><span class="gb-goals ' + rankClass + '">' + p.goals + '</span></td>'
       + '<td class="r gb-stat">' + (p.pen || 0) + '</td>'
       + '<td class="r gb-stat">' + (p.npg || 0) + '</td>'
-      + '<td class="gb-progress-col"><div class="gb-bar-bg"><div class="gb-bar-fill" style="width:' + pct + '%"></div></div></td>'
+      + '<td class="gb-progress-col"><div class="gb-bar-wrap"><div class="gb-bar"><div class="gb-bar-fill" style="width:' + pct + '%"></div></div></div></td>'
       + '</tr>';
   }
 
@@ -5551,6 +5544,7 @@ function renderMoreStats() {
     + '<div class="stats-pill"><div class="stats-pill-val">' + cleanSheets + '</div><div class="stats-pill-label">Clean Sheets</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + hatTricks + '</div><div class="stats-pill-label">Hat-tricks</div></div>'
     + '<div class="stats-pill"><div class="stats-pill-val">' + totalPen + '</div><div class="stats-pill-label">Penalties</div></div>'
+    + '<div class="stats-pill"><div class="stats-pill-val">' + totalOG + '</div><div class="stats-pill-label">Own Goals</div></div>'
     + '</div>'
 
     // Golden Boot
