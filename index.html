@@ -5,6 +5,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5365,20 +5366,33 @@ function renderMoreStats() {
   var hatTricks = af.hat_tricks || 0;
   var playerCount = Object.keys(players).length;
 
-  // Calculate matches played, remaining and clean sheets from worldcup26.ir scores
+  // ── Build match/team stats from worldcup26.ir scores ──────────────────
   var matchesPlayed = 0;
-  var cleanSheets = 0;
-  var allMatchIds = groupMatches.map(function(m) { return m.id; });
-  var koFlat = [];
-  ['r32','r16','qf','sf','final','bronze'].forEach(function(stage) {
-    if (koMatchDefs[stage]) koMatchDefs[stage].forEach(function(m) { koFlat.push(m.id); });
-  });
-  allMatchIds.concat(koFlat).forEach(function(id) {
-    var s = getScore(id);
-    if (s.h !== null && s.a !== null) {
-      matchesPlayed++;
-      if (s.h === 0 || s.a === 0) cleanSheets++;
-    }
+  var cleanSheets   = 0;
+  var teamGoals     = {};
+  var teamConc      = {};
+  var teamMatches   = {};
+  var biggestWins   = [];
+
+  function msProcessMatch(matchId, home, away) {
+    var s = getScore(matchId);
+    if (s.h === null || s.a === null) return;
+    matchesPlayed++;
+    teamGoals[home]   = (teamGoals[home]   || 0) + s.h;
+    teamGoals[away]   = (teamGoals[away]   || 0) + s.a;
+    teamConc[home]    = (teamConc[home]    || 0) + s.a;
+    teamConc[away]    = (teamConc[away]    || 0) + s.h;
+    teamMatches[home] = (teamMatches[home] || 0) + 1;
+    teamMatches[away] = (teamMatches[away] || 0) + 1;
+    if (s.h === 0 || s.a === 0) cleanSheets++;
+    biggestWins.push({ home:home, away:away, hs:s.h, as:s.a, diff:Math.abs(s.h-s.a), id:matchId });
+  }
+  groupMatches.forEach(function(m) { msProcessMatch(m.id, m.home, m.away); });
+  var msKoAll = [].concat(koMatchDefs.r32, koMatchDefs.r16, koMatchDefs.qf,
+    koMatchDefs.sf, koMatchDefs.final, koMatchDefs.bronze || []);
+  msKoAll.forEach(function(m) {
+    var teams = getKoTeams(m.id);
+    if (teams.home !== 'TBD' && teams.away !== 'TBD') msProcessMatch(m.id, teams.home, teams.away);
   });
 
   // No data yet
@@ -5397,12 +5411,92 @@ function renderMoreStats() {
     return b.goals - a.goals || b.npg - a.npg;
   });
 
-  // Total goals from af data
-  var totalGoals = sorted.reduce(function(s, p) { return s + p.goals; }, 0);
+  // Total goals from worldcup26.ir (accurate, includes OGs)
+  var totalGoals = Object.values(teamGoals).reduce(function(s,v) { return s+v; }, 0);
   var avgGoals = (matchesPlayed > 0 ? totalGoals / matchesPlayed : 0).toFixed(1);
 
-  // Flag helper (reuse existing if available)
-  var fl = (typeof flagEmoji === 'function') ? flagEmoji : function() { return ''; };
+  // Top scoring teams (top 8)
+  var msTopScoring = Object.keys(teamGoals).map(function(t) {
+    return { team:t, goals:teamGoals[t], mp:teamMatches[t]||0 };
+  }).sort(function(a,b) { return b.goals - a.goals; }).slice(0,8);
+
+  // Best defences (top 8)
+  var msBestDef = Object.keys(teamConc).map(function(t) {
+    return { team:t, conc:teamConc[t], mp:teamMatches[t]||0 };
+  }).filter(function(t) { return t.mp > 0; })
+    .sort(function(a,b) { return a.conc - b.conc; }).slice(0,8);
+
+  // Biggest wins (min 2 goal diff, top 5)
+  var msTopWins = biggestWins.filter(function(w) { return w.diff >= 2; })
+    .sort(function(a,b) { return b.diff - a.diff; }).slice(0,5);
+
+  // ── Tournament progress bar ────────────────────────────────────────────
+  var msStages = [
+    { label:'Group Stage', total:72,  ids: groupMatches.map(function(m){return m.id;}) },
+    { label:'R32',         total:16,  ids: koMatchDefs.r32.map(function(m){return m.id;}) },
+    { label:'R16',         total:8,   ids: koMatchDefs.r16.map(function(m){return m.id;}) },
+    { label:'QF',          total:4,   ids: koMatchDefs.qf.map(function(m){return m.id;}) },
+    { label:'SF',          total:2,   ids: koMatchDefs.sf.map(function(m){return m.id;}) },
+    { label:'Final',       total:2,   ids: koMatchDefs.final.concat(koMatchDefs.bronze||[]).map(function(m){return m.id;}) },
+  ];
+  var MS_SEG = 100 / msStages.length;
+  var msFillPct = 0;
+  msStages.forEach(function(s) {
+    var played = s.ids.filter(function(id){ return isPlayed(id); }).length;
+    if (played >= s.total) msFillPct += MS_SEG;
+    else if (played > 0)   msFillPct += (played / s.total) * MS_SEG;
+  });
+  var msSegmentsHtml = msStages.map(function(s, i) {
+    var played = s.ids.filter(function(id){ return isPlayed(id); }).length;
+    var segCls = played >= s.total ? 'done' : (played > 0 ? 'active' : 'pending');
+    var tick = i < msStages.length - 1 ? '<div class="progress-tick ' + segCls + '"></div>' : '';
+    return '<div class="progress-seg ' + segCls + '">' + tick
+      + '<span class="progress-stage ' + segCls + '">' + s.label + '</span></div>';
+  }).join('');
+  var msProgressHtml = '<div class="progress-wrap">'
+    + '<div class="progress-header">'
+    + '<span class="progress-title">Tournament Progress</span>'
+    + '<span class="progress-count">' + matchesPlayed + ' / 104 matches played</span>'
+    + '</div>'
+    + '<div class="progress-track"><div class="progress-fill" style="width:' + msFillPct.toFixed(1) + '%"></div></div>'
+    + '<div class="progress-stages">' + msSegmentsHtml + '</div>'
+    + '</div>';
+
+  // Flag helper
+  function fl(team) {
+    var iso = (isoCodes && isoCodes[team]) ? isoCodes[team] : '';
+    return iso ? '<img src="https://flagcdn.com/20x15/' + iso + '.png" style="width:16px;height:12px;border-radius:2px;vertical-align:middle;">' : '';
+  }
+
+  // Team cards helper
+  function msTeamCards(arr, valKey, valCls) {
+    return arr.map(function(t, i) {
+      var rk = i < 3 ? ' r'+(i+1) : '';
+      return '<div class="stats-team-card">'
+        + '<div class="stc-rank' + rk + '">' + (i+1) + '</div>'
+        + '<div class="stc-info"><div class="stc-name">' + fl(t.team) + ' ' + t.team + '</div>'
+        + '<div class="stc-sub">' + t.mp + ' match' + (t.mp!==1?'es':'') + ' played</div></div>'
+        + '<div class="stc-val' + (valCls?' '+valCls:'') + '">' + t[valKey] + '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  // Biggest wins cards
+  var msBwCards = msTopWins.length
+    ? msTopWins.map(function(w) {
+        var stage = '';
+        for (var j=0; j<groupMatches.length; j++) {
+          if (groupMatches[j].id === w.id) { stage = 'Group ' + groupMatches[j].group; break; }
+        }
+        return '<div class="stats-bw-card">'
+          + '<div class="bw-teams">' + fl(w.home) + ' ' + w.home
+          + ' <span style="color:var(--muted);font-size:0.8rem;">vs</span> '
+          + fl(w.away) + ' ' + w.away + '</div>'
+          + '<div class="bw-score">' + w.hs + '–' + w.as + '</div>'
+          + '<div class="bw-meta">' + stage + '<span class="bw-diff">+' + w.diff + ' GD</span></div>'
+          + '</div>';
+      }).join('')
+    : '<div style="color:var(--muted);font-family:\'Barlow Condensed\',sans-serif;font-size:0.85rem;">No results yet</div>';
 
   // Golden Boot rows
   function gbRow(p, rank, idx) {
@@ -5424,7 +5518,7 @@ function renderMoreStats() {
   }
 
   var top10 = sorted.slice(0, 10);
-  var rest  = sorted.slice(10);
+  var rest  = sorted.slice(10, 20);
   var gbRows = '';
   var rank = 1;
   top10.forEach(function(p, i) {
@@ -5438,6 +5532,9 @@ function renderMoreStats() {
   });
 
   root.innerHTML = '<div class="stats-page">'
+
+    // Tournament progress
+    + msProgressHtml
 
     // Source badge
     + '<div style="text-align:right;margin-bottom:12px;">'
@@ -5477,6 +5574,21 @@ function renderMoreStats() {
       + 'b.textContent=hidden?\'Show More ▾\':\'Show Less ▴\';})()">'
       + 'Show More ▾</button></div>' : '')
     + '<div class="gb-legend">MP = Matches Scored In &nbsp;·&nbsp; Pen = Penalty Goals &nbsp;·&nbsp; NPG = Non-Penalty Goals</div>'
+
+    // Top scoring teams
+    + '<div class="stats-section-title">⚽ Top Scoring Teams</div>'
+    + '<div class="stats-section-sub">GOALS SCORED</div>'
+    + '<div class="stats-grid-cards">' + msTeamCards(msTopScoring, 'goals', '') + '</div>'
+
+    // Best defences
+    + '<div class="stats-section-title">🛡️ Best Defences</div>'
+    + '<div class="stats-section-sub">FEWEST GOALS CONCEDED</div>'
+    + '<div class="stats-grid-cards">' + msTeamCards(msBestDef, 'conc', 'green') + '</div>'
+
+    // Biggest wins
+    + '<div class="stats-section-title">💥 Biggest Wins</div>'
+    + '<div class="stats-section-sub">LARGEST MARGIN OF VICTORY (MIN. 2 GOALS)</div>'
+    + '<div class="stats-bw-list">' + msBwCards + '</div>'
 
     + '</div>';
 }
