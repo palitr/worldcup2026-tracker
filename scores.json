@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T21:03:00Z",
+  "updated": "2026-06-26T22:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -1504,10 +1504,10 @@
       "Ousmane Demb\u00e9l\u00e9|France": {
         "name": "Ousmane Demb\u00e9l\u00e9",
         "team": "France",
-        "goals": 1,
+        "goals": 4,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 4,
+        "mp": 2
       },
       "Marcus Holmgren Pedersen|Norway": {
         "name": "Marcus Holmgren Pedersen",
@@ -1520,9 +1520,49 @@
       "Isma\u00efla Sarr|Senegal": {
         "name": "Isma\u00efla Sarr",
         "team": "Senegal",
+        "goals": 3,
+        "pen": 0,
+        "npg": 3,
+        "mp": 2
+      },
+      "Thelo Aasgaard|Norway": {
+        "name": "Thelo Aasgaard",
+        "team": "Norway",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "D\u00e9sir\u00e9 Dou\u00e9|France": {
+        "name": "D\u00e9sir\u00e9 Dou\u00e9",
+        "team": "France",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Habib Diarra|Senegal": {
+        "name": "Habib Diarra",
+        "team": "Senegal",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Pape Gueye|Senegal": {
+        "name": "Pape Gueye",
+        "team": "Senegal",
         "goals": 2,
         "pen": 0,
         "npg": 2,
+        "mp": 1
+      },
+      "Iliman Ndiaye|Senegal": {
+        "name": "Iliman Ndiaye",
+        "team": "Senegal",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
         "mp": 1
       },
       "Lionel Messi|Argentina": {
@@ -1712,19 +1752,19 @@
     },
     "total_pen": 6,
     "total_og": 12,
-    "hat_tricks": 2,
+    "hat_tricks": 3,
     "goals_by_period": {
-      "0-15": 22,
-      "16-30": 21,
-      "31-45": 23,
+      "0-15": 24,
+      "16-30": 23,
+      "31-45": 24,
       "45+": 9,
-      "46-60": 27,
-      "61-75": 22,
-      "76-90": 26,
-      "90+": 15
+      "46-60": 29,
+      "61-75": 23,
+      "76-90": 27,
+      "90+": 16
     },
-    "ht_goals": 80,
-    "sh_goals": 97,
+    "ht_goals": 85,
+    "sh_goals": 102,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -1996,6 +2036,12 @@
         "goals": 4
       },
       {
+        "name": "Ousmane Demb\u00e9l\u00e9",
+        "team": "France",
+        "streak": 2,
+        "goals": 4
+      },
+      {
         "name": "Johan Manzambi",
         "team": "Switzerland",
         "streak": 2,
@@ -2016,6 +2062,12 @@
       {
         "name": "Brian Brobbey",
         "team": "Netherlands",
+        "streak": 2,
+        "goals": 3
+      },
+      {
+        "name": "Isma\u00efla Sarr",
+        "team": "Senegal",
         "streak": 2,
         "goals": 3
       },
@@ -2221,6 +2273,10 @@
       {
         "round": "Matchday 15",
         "goals": 16
+      },
+      {
+        "round": "Matchday 16",
+        "goals": 10
       }
     ],
     "scoreline_freq": [
@@ -2254,7 +2310,7 @@
       },
       {
         "score": "4-1",
-        "count": 3
+        "count": 4
       },
       {
         "score": "2-2",
