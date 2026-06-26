@@ -454,12 +454,17 @@ box-shadow: 0 0 20px rgba(255,215,0,0.3);
 .ms-period-chart, .ms-late-list, .ms-drama-grid, .ms-md-chart,
 .ms-individual-list, .ms-oms-list, .ms-scoreline-grid, .ms-group-top,
 .ms-half-split { margin-bottom: 8px; }
+/* Individual Brilliance 3-column desktop layout */
+.ms-individual-cols { display:flex; gap:16px; align-items:flex-start; }
+.ms-individual-col { flex:1; min-width:0; }
+
 /* Mobile overrides */
 @media (max-width:600px) {
   .ms-drama-grid { grid-template-columns:1fr; }
   .ms-late-opp { display:none; }
   .ms-ind-val { min-width:60px; font-size:0.88rem; }
   .ms-group-top { grid-template-columns:1fr 1fr; }
+  .ms-individual-cols { flex-direction:column; }
 }
 
 /* ====== MAIN CONTENT ====== */
@@ -5663,17 +5668,40 @@ function renderMoreStats() {
         : '<div class="ms-empty">None yet</div>')
     + '</div></div>';
 
-  var maxMd = matchdayGoals.length ? Math.max.apply(null, matchdayGoals.map(function(m){return m.goals;})) : 1;
+  // 8-stage avg goals chart — computed from worldcup26.ir scores directly
+  var msGrps = ['A','B','C','D','E','F','G','H','I','J','K','L'];
+  var msMD1 = [], msMD2 = [], msMD3 = [];
+  msGrps.forEach(function(g) {
+    msMD1.push(g+'1', g+'2');
+    msMD2.push(g+'3', g+'4');
+    msMD3.push(g+'5', g+'6');
+  });
+  function msMdAvg(ids) {
+    var tot = 0, played = 0;
+    ids.forEach(function(id) {
+      var s = getScore(id);
+      if (s.h !== null && s.a !== null) { tot += s.h + s.a; played++; }
+    });
+    return { avg: played > 0 ? (tot / played).toFixed(1) : null, played: played };
+  }
+  var ms8Stages = [
+    { label:'MD1',   d: msMdAvg(msMD1) },
+    { label:'MD2',   d: msMdAvg(msMD2) },
+    { label:'MD3',   d: msMdAvg(msMD3) },
+    { label:'R32',   d: msMdAvg(koMatchDefs.r32.map(function(m){return m.id;})) },
+    { label:'R16',   d: msMdAvg(koMatchDefs.r16.map(function(m){return m.id;})) },
+    { label:'QF',    d: msMdAvg(koMatchDefs.qf.map(function(m){return m.id;})) },
+    { label:'SF',    d: msMdAvg(koMatchDefs.sf.map(function(m){return m.id;})) },
+    { label:'Final', d: msMdAvg(koMatchDefs.final.concat(koMatchDefs.bronze||[]).map(function(m){return m.id;})) },
+  ];
+  var maxMd8 = Math.max.apply(null, ms8Stages.map(function(s){ return s.d.avg ? parseFloat(s.d.avg) : 0; })) || 1;
   var mdChartHtml = '<div class="ms-md-chart">'
-    + matchdayGoals.map(function(md) {
-        var barH = Math.max(4, Math.round(md.goals / maxMd * 120));
-        var lbl = md.round.replace('Matchday ','MD').replace('Round of 32','R32')
-          .replace('Round of 16','R16').replace('Quarter-final','QF')
-          .replace('Semi-final','SF').replace('Final','FNL').replace('Third place','3rd');
+    + ms8Stages.map(function(s) {
+        var barH = s.d.avg ? Math.max(4, Math.round(parseFloat(s.d.avg) / maxMd8 * 120)) : 0;
         return '<div class="ms-md-col">'
-          + '<div class="ms-md-count">' + md.goals + '</div>'
-          + '<div class="ms-md-bar" style="height:' + barH + 'px"></div>'
-          + '<div class="ms-md-label">' + lbl + '</div>'
+          + '<div class="ms-md-count">' + (s.d.avg !== null ? s.d.avg : '') + '</div>'
+          + '<div class="ms-md-bar" style="height:' + barH + 'px' + (barH===0?';opacity:0':'') + '"></div>'
+          + '<div class="ms-md-label">' + s.label + '</div>'
           + '</div>';
       }).join('')
     + '</div>';
@@ -5840,17 +5868,25 @@ function renderMoreStats() {
     + '<div class="stats-section-title">🎭 Drama & Momentum</div>'
     + '<div class="stats-section-sub">COMEBACK WINS · LEADS THROWN AWAY</div>'
     + comebackHtml
-    + '<div class="stats-section-sub" style="margin:32px 0 12px;">GOALS PER MATCHDAY</div>'
+    + '<div class="stats-section-sub" style="margin:32px 0 12px;">AVG GOALS PER MATCH BY STAGE</div>'
     + mdChartHtml
 
     // ── Block 3: Individual Brilliance ──────────────────────────────────
     + '<div class="stats-section-title">⭐ Individual Brilliance</div>'
-    + '<div class="stats-section-sub">FASTEST GOALS</div>'
+    + '<div class="ms-individual-cols">'
+    + '<div class="ms-individual-col">'
+    + '<div class="stats-section-sub" style="margin:0 0 12px;">FASTEST GOALS</div>'
     + '<div class="ms-individual-list">' + fastestHtml + '</div>'
-    + '<div class="stats-section-sub" style="margin:32px 0 12px;">SCORING STREAKS</div>'
+    + '</div>'
+    + '<div class="ms-individual-col">'
+    + '<div class="stats-section-sub" style="margin:0 0 12px;">SCORING STREAKS</div>'
     + '<div class="ms-individual-list">' + streaksHtml + '</div>'
-    + '<div class="stats-section-sub" style="margin:32px 0 12px;">ONE-MAN SHOWS — SOLO WIN</div>'
+    + '</div>'
+    + '<div class="ms-individual-col">'
+    + '<div class="stats-section-sub" style="margin:0 0 12px;">ONE-MAN SHOWS — SOLO WIN</div>'
     + '<div class="ms-oms-list">' + omsHtml + '</div>'
+    + '</div>'
+    + '</div>'
 
     // ── Block 4: Team & Group Insights ──────────────────────────────────
     + '<div class="stats-section-title">🏆 Team & Group Insights</div>'
