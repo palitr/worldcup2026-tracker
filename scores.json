@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T04:01:00Z",
+  "updated": "2026-06-26T04:31:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -138,7 +138,7 @@
       "a": 1
     },
     "D5": {
-      "h": 2,
+      "h": 3,
       "a": 2
     },
     "A1": {
@@ -540,7 +540,8 @@
     "D5": {
       "h": [
         "Arda G\u00fcler 10'",
-        "Baris Alpr Ailmaz 31'"
+        "Baris Alpr Ailmaz 31'",
+        "Kan Aihan 90+8'"
       ],
       "a": [
         "Auston Trusty 3'",
@@ -1018,6 +1019,46 @@
       "Mat\u00edas Galarza|Paraguay": {
         "name": "Mat\u00edas Galarza",
         "team": "Paraguay",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Arda G\u00fcler|Turkey": {
+        "name": "Arda G\u00fcler",
+        "team": "Turkey",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Baris Alper Yilmaz|Turkey": {
+        "name": "Baris Alper Yilmaz",
+        "team": "Turkey",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Kaan Ayhan|Turkey": {
+        "name": "Kaan Ayhan",
+        "team": "Turkey",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Auston Trusty|USA": {
+        "name": "Auston Trusty",
+        "team": "USA",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Sebastian Berhalter|USA": {
+        "name": "Sebastian Berhalter",
+        "team": "USA",
         "goals": 1,
         "pen": 0,
         "npg": 1,
@@ -1644,17 +1685,17 @@
     "total_og": 12,
     "hat_tricks": 2,
     "goals_by_period": {
-      "0-15": 20,
+      "0-15": 22,
       "16-30": 21,
-      "31-45": 22,
+      "31-45": 23,
       "45+": 9,
-      "46-60": 26,
+      "46-60": 27,
       "61-75": 22,
       "76-90": 26,
-      "90+": 14
+      "90+": 15
     },
-    "ht_goals": 77,
-    "sh_goals": 95,
+    "ht_goals": 80,
+    "sh_goals": 97,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -1808,6 +1849,13 @@
         "opponent": "Paraguay"
       },
       {
+        "player": "Kaan Ayhan",
+        "team": "Turkey",
+        "minute": "90+8",
+        "sort_val": 90.08,
+        "opponent": "USA"
+      },
+      {
         "player": "Granit Xhaka",
         "team": "Switzerland",
         "minute": "90+7",
@@ -1848,13 +1896,6 @@
         "minute": "90+5",
         "sort_val": 90.05,
         "opponent": "Panama"
-      },
-      {
-        "player": "\u00c1lvaro Fidalgo",
-        "team": "Mexico",
-        "minute": "90+4",
-        "sort_val": 90.04,
-        "opponent": "Czech Republic"
       }
     ],
     "fastest_goals": [
@@ -1880,18 +1921,18 @@
         "opponent": "Ecuador"
       },
       {
+        "player": "Auston Trusty",
+        "team": "USA",
+        "minute": "3",
+        "sort_val": 3.0,
+        "opponent": "Turkey"
+      },
+      {
         "player": "Daichi Kamada",
         "team": "Japan",
         "minute": "4",
         "sort_val": 4.0,
         "opponent": "Tunisia"
-      },
-      {
-        "player": "Brian Brobbey",
-        "team": "Netherlands",
-        "minute": "5",
-        "sort_val": 5.0,
-        "opponent": "Sweden"
       }
     ],
     "scoring_streaks": [
@@ -2150,7 +2191,7 @@
       },
       {
         "round": "Matchday 15",
-        "goals": 11
+        "goals": 16
       }
     ],
     "scoreline_freq": [
@@ -2180,7 +2221,7 @@
       },
       {
         "score": "0-0",
-        "count": 4
+        "count": 5
       },
       {
         "score": "4-1",
