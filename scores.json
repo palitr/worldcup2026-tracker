@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T03:01:00Z",
+  "updated": "2026-06-26T03:31:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -139,7 +139,7 @@
     },
     "D5": {
       "h": 2,
-      "a": 1
+      "a": 2
     },
     "A1": {
       "h": 2,
@@ -543,7 +543,8 @@
         "Avrkvn Kvkchv 31'"
       ],
       "a": [
-        "Auston Trusty 3'"
+        "Auston Trusty 3'",
+        "Sebastian Berhalter 49'"
       ]
     },
     "C1": {
