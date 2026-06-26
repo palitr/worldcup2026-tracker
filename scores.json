@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T00:31:00Z",
+  "updated": "2026-06-26T01:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -1184,10 +1184,10 @@
       "Brian Brobbey|Netherlands": {
         "name": "Brian Brobbey",
         "team": "Netherlands",
-        "goals": 2,
+        "goals": 3,
         "pen": 0,
-        "npg": 2,
-        "mp": 1
+        "npg": 3,
+        "mp": 2
       },
       "Cody Gakpo|Netherlands": {
         "name": "Cody Gakpo",
@@ -1216,6 +1216,22 @@
       "Junya Ito|Japan": {
         "name": "Junya Ito",
         "team": "Japan",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Hazem Mastouri|Tunisia": {
+        "name": "Hazem Mastouri",
+        "team": "Tunisia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Jan Paul van Hecke|Netherlands": {
+        "name": "Jan Paul van Hecke",
+        "team": "Netherlands",
         "goals": 1,
         "pen": 0,
         "npg": 1,
@@ -1599,20 +1615,20 @@
       }
     },
     "total_pen": 6,
-    "total_og": 11,
+    "total_og": 12,
     "hat_tricks": 2,
     "goals_by_period": {
-      "0-15": 19,
+      "0-15": 20,
       "16-30": 21,
       "31-45": 22,
       "45+": 9,
-      "46-60": 24,
-      "61-75": 20,
+      "46-60": 25,
+      "61-75": 21,
       "76-90": 26,
       "90+": 14
     },
-    "ht_goals": 75,
-    "sh_goals": 91,
+    "ht_goals": 77,
+    "sh_goals": 93,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -1902,6 +1918,12 @@
         "goals": 3
       },
       {
+        "name": "Brian Brobbey",
+        "team": "Netherlands",
+        "streak": 2,
+        "goals": 3
+      },
+      {
         "name": "Cyle Larin",
         "team": "Canada",
         "streak": 2,
@@ -2096,7 +2118,7 @@
       },
       {
         "round": "Matchday 15",
-        "goals": 5
+        "goals": 9
       }
     ],
     "scoreline_freq": [
@@ -2109,6 +2131,10 @@
         "count": 7
       },
       {
+        "score": "3-1",
+        "count": 6
+      },
+      {
         "score": "2-0",
         "count": 5
       },
@@ -2118,10 +2144,6 @@
       },
       {
         "score": "3-0",
-        "count": 5
-      },
-      {
-        "score": "3-1",
         "count": 5
       },
       {
@@ -2168,9 +2190,9 @@
         "goals": 3
       },
       "F": {
-        "name": "Crysencio Summerville",
+        "name": "Brian Brobbey",
         "team": "Netherlands",
-        "goals": 2
+        "goals": 3
       },
       "G": {
         "name": "Elijah Just",
