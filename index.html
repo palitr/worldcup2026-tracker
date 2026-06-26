@@ -456,8 +456,12 @@ box-shadow: 0 0 20px rgba(255,215,0,0.3);
 .ms-individual-list, .ms-oms-list, .ms-scoreline-grid, .ms-group-top,
 .ms-half-split { margin-bottom: 8px; }
 /* Individual Brilliance 3-column desktop layout */
-.ms-individual-cols { display:flex; gap:16px; align-items:flex-start; }
-.ms-individual-col { flex:1; min-width:0; }
+.ms-individual-cols { display:flex; gap:16px; align-items:stretch; }
+.ms-individual-col { flex:1; min-width:0; display:flex; flex-direction:column; }
+.ms-individual-col .ms-individual-list,
+.ms-individual-col .ms-oms-list { flex:1; display:flex; flex-direction:column; }
+.ms-individual-col .ms-individual-row,
+.ms-individual-col .ms-oms-card { flex:1; }
 
 /* Mobile overrides */
 @media (max-width:600px) {
@@ -5723,13 +5727,13 @@ function renderMoreStats() {
       g.player, g.team, 'vs ' + g.opponent, g.minute + '\'');
   }).join('') || '<div class="ms-empty">No data yet</div>';
 
-  var streaksHtml = scoringStreaks.slice(0,10).map(function(s, i) {
+  var streaksHtml = scoringStreaks.slice(0,5).map(function(s, i) {
     return msIndRow('<span class="ms-num">'+(i+1)+'</span>',
       s.name, s.team, s.goals + ' goals in tournament',
       s.streak + (s.streak>1?' matches':' match') + ' in a row');
   }).join('') || '<div class="ms-empty">No scoring streaks yet</div>';
 
-  var omsHtml = oneManShows.slice().sort(function(a,b){return b.goals-a.goals;}).slice(0,10)
+  var omsHtml = oneManShows.slice().sort(function(a,b){return b.goals-a.goals;}).slice(0,5)
     .map(function(o) {
       return '<div class="ms-oms-card">'
         + '<div class="ms-oms-player">' + fl(o.team) + ' ' + o.player + '</div>'
