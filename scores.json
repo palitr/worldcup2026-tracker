@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T01:01:00Z",
+  "updated": "2026-06-26T01:31:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -1200,10 +1200,10 @@
       "Anthony Elanga|Sweden": {
         "name": "Anthony Elanga",
         "team": "Sweden",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Ayase Ueda|Japan": {
         "name": "Ayase Ueda",
@@ -1215,6 +1215,14 @@
       },
       "Junya Ito|Japan": {
         "name": "Junya Ito",
+        "team": "Japan",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Daizen Maeda|Japan": {
+        "name": "Daizen Maeda",
         "team": "Japan",
         "goals": 1,
         "pen": 0,
@@ -1622,13 +1630,13 @@
       "16-30": 21,
       "31-45": 22,
       "45+": 9,
-      "46-60": 25,
-      "61-75": 21,
+      "46-60": 26,
+      "61-75": 22,
       "76-90": 26,
       "90+": 14
     },
     "ht_goals": 77,
-    "sh_goals": 93,
+    "sh_goals": 95,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -1954,6 +1962,12 @@
         "goals": 2
       },
       {
+        "name": "Anthony Elanga",
+        "team": "Sweden",
+        "streak": 2,
+        "goals": 2
+      },
+      {
         "name": "Maxi Ara\u00fajo",
         "team": "Uruguay",
         "streak": 2,
@@ -2118,7 +2132,7 @@
       },
       {
         "round": "Matchday 15",
-        "goals": 9
+        "goals": 11
       }
     ],
     "scoreline_freq": [
@@ -2128,7 +2142,7 @@
       },
       {
         "score": "1-1",
-        "count": 7
+        "count": 8
       },
       {
         "score": "3-1",
