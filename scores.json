@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T02:01:00Z",
+  "updated": "2026-06-27T02:31:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -1467,6 +1467,14 @@
         "npg": 1,
         "mp": 1
       },
+      "\u00c1lex Baena|Spain": {
+        "name": "\u00c1lex Baena",
+        "team": "Spain",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
       "Kylian Mbapp\u00e9|France": {
         "name": "Kylian Mbapp\u00e9",
         "team": "France",
@@ -1770,14 +1778,14 @@
     "goals_by_period": {
       "0-15": 24,
       "16-30": 23,
-      "31-45": 24,
+      "31-45": 25,
       "45+": 9,
       "46-60": 29,
       "61-75": 23,
       "76-90": 27,
       "90+": 16
     },
-    "ht_goals": 85,
+    "ht_goals": 86,
     "sh_goals": 102,
     "comeback_wins": [
       {
@@ -2192,6 +2200,13 @@
         "score": "2-0"
       },
       {
+        "player": "\u00c1lex Baena",
+        "team": "Spain",
+        "goals": 1,
+        "opponent": "Uruguay",
+        "score": "1-0"
+      },
+      {
         "player": "Lionel Messi",
         "team": "Argentina",
         "goals": 3,
@@ -2290,13 +2305,13 @@
       },
       {
         "round": "Matchday 16",
-        "goals": 10
+        "goals": 11
       }
     ],
     "scoreline_freq": [
       {
         "score": "1-0",
-        "count": 9
+        "count": 10
       },
       {
         "score": "1-1",
@@ -2304,6 +2319,10 @@
       },
       {
         "score": "3-1",
+        "count": 6
+      },
+      {
+        "score": "0-0",
         "count": 6
       },
       {
@@ -2316,10 +2335,6 @@
       },
       {
         "score": "3-0",
-        "count": 5
-      },
-      {
-        "score": "0-0",
         "count": 5
       },
       {
