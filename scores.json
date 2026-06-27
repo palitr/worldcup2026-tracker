@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T04:01:00Z",
+  "updated": "2026-06-27T05:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -262,8 +262,8 @@
       "a": 0
     },
     "G6": {
-      "h": 0,
-      "a": 1
+      "h": 1,
+      "a": 5
     }
   },
   "penScores": {},
@@ -777,9 +777,15 @@
       ]
     },
     "G6": {
-      "h": [],
+      "h": [
+        "Ali Jast 84'"
+      ],
       "a": [
-        "Leandro Trossard 28'"
+        "Leandro Trossard 28'",
+        "Leandro Trossard 50'",
+        "Kevin De Bruyne 66'",
+        "Romelu Lukaku 86'",
+        "Alexis Saelemaekers 90+4'"
       ]
     }
   },
