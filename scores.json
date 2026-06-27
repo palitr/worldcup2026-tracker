@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T22:58:00Z",
+  "updated": "2026-06-27T23:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -1810,18 +1810,18 @@
       "Harry Kane|England": {
         "name": "Harry Kane",
         "team": "England",
-        "goals": 2,
+        "goals": 3,
         "pen": 1,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Jude Bellingham|England": {
         "name": "Jude Bellingham",
         "team": "England",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Marcus Rashford|England": {
         "name": "Marcus Rashford",
@@ -1873,12 +1873,12 @@
       "31-45": 25,
       "45+": 9,
       "46-60": 30,
-      "61-75": 24,
+      "61-75": 26,
       "76-90": 29,
       "90+": 17
     },
     "ht_goals": 89,
-    "sh_goals": 107,
+    "sh_goals": 109,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2398,6 +2398,10 @@
       {
         "round": "Matchday 16",
         "goals": 19
+      },
+      {
+        "round": "Matchday 17",
+        "goals": 2
       }
     ],
     "scoreline_freq": [
@@ -2410,16 +2414,16 @@
         "count": 9
       },
       {
+        "score": "2-0",
+        "count": 6
+      },
+      {
         "score": "3-1",
         "count": 6
       },
       {
         "score": "0-0",
         "count": 6
-      },
-      {
-        "score": "2-0",
-        "count": 5
       },
       {
         "score": "2-1",
@@ -2501,7 +2505,7 @@
       "L": {
         "name": "Harry Kane",
         "team": "England",
-        "goals": 2
+        "goals": 3
       }
     }
   }
