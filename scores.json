@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T05:01:00Z",
+  "updated": "2026-06-27T06:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -1386,10 +1386,10 @@
       "Ramin Rezaeian|Iran": {
         "name": "Ramin Rezaeian",
         "team": "Iran",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Mohammad Mohebbi|Iran": {
         "name": "Mohammad Mohebbi",
@@ -1402,10 +1402,10 @@
       "Elijah Just|New Zealand": {
         "name": "Elijah Just",
         "team": "New Zealand",
-        "goals": 2,
+        "goals": 3,
         "pen": 0,
-        "npg": 2,
-        "mp": 1
+        "npg": 3,
+        "mp": 2
       },
       "Finn Surman|New Zealand": {
         "name": "Finn Surman",
@@ -1434,6 +1434,46 @@
       "Tr\u00e9z\u00e9guet|Egypt": {
         "name": "Tr\u00e9z\u00e9guet",
         "team": "Egypt",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Mahmoud Saber|Egypt": {
+        "name": "Mahmoud Saber",
+        "team": "Egypt",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Leandro Trossard|Belgium": {
+        "name": "Leandro Trossard",
+        "team": "Belgium",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
+      },
+      "Kevin De Bruyne|Belgium": {
+        "name": "Kevin De Bruyne",
+        "team": "Belgium",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Romelu Lukaku|Belgium": {
+        "name": "Romelu Lukaku",
+        "team": "Belgium",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Alexis Saelemaekers|Belgium": {
+        "name": "Alexis Saelemaekers",
+        "team": "Belgium",
         "goals": 1,
         "pen": 0,
         "npg": 1,
@@ -1804,17 +1844,17 @@
     "total_og": 12,
     "hat_tricks": 3,
     "goals_by_period": {
-      "0-15": 24,
-      "16-30": 23,
+      "0-15": 26,
+      "16-30": 24,
       "31-45": 25,
       "45+": 9,
-      "46-60": 29,
-      "61-75": 23,
-      "76-90": 27,
-      "90+": 16
+      "46-60": 30,
+      "61-75": 24,
+      "76-90": 29,
+      "90+": 17
     },
-    "ht_goals": 86,
-    "sh_goals": 102,
+    "ht_goals": 89,
+    "sh_goals": 107,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2333,7 +2373,7 @@
       },
       {
         "round": "Matchday 16",
-        "goals": 11
+        "goals": 19
       }
     ],
     "scoreline_freq": [
@@ -2343,7 +2383,7 @@
       },
       {
         "score": "1-1",
-        "count": 8
+        "count": 9
       },
       {
         "score": "3-1",
@@ -2374,8 +2414,8 @@
         "count": 3
       },
       {
-        "score": "4-2",
-        "count": 2
+        "score": "5-1",
+        "count": 3
       }
     ],
     "group_top_scorers": {
@@ -2412,7 +2452,7 @@
       "G": {
         "name": "Elijah Just",
         "team": "New Zealand",
-        "goals": 2
+        "goals": 3
       },
       "H": {
         "name": "Maxi Ara\u00fajo",
