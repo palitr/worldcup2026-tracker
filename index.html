@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3637,8 +3638,8 @@ qf: [
 { id:'QF4', utc:'2026-07-12T01:00:00Z', venue:'Kansas City Stadium', desc:'QF4', slotA:'W R16_7', slotB:'W R16_8' },
 ],
 sf: [
-{ id:'SF1', utc:'2026-07-14T19:00:00Z', venue:'Dallas Stadium', desc:'SF1', slotA:'W QF1', slotB:'W QF2' },
-{ id:'SF2', utc:'2026-07-15T19:00:00Z', venue:'Atlanta Stadium', desc:'SF2', slotA:'W QF3', slotB:'W QF4' },
+{ id:'SF1', utc:'2026-07-14T19:00:00Z', venue:'Dallas Stadium', desc:'SF1', slotA:'W QF1', slotB:'W QF3' },
+{ id:'SF2', utc:'2026-07-15T19:00:00Z', venue:'Atlanta Stadium', desc:'SF2', slotA:'W QF2', slotB:'W QF4' },
 ],
 final: [
 { id:'FINAL', utc:'2026-07-19T19:00:00Z', venue:'New York NJ Stadium', desc:'FINAL', slotA:'W SF1', slotB:'W SF2' },
@@ -3675,20 +3676,20 @@ function getFlagUrl(team) {
 
 var BRACKET_TREE = {
   left: [
-    // Branch A → R16_1 (W R32_1 vs W R32_4) → QF1 → SF1
-    { r32: ['R32_1','R32_4'], r16: 'R16_1', qf: 'QF1', sf: 'SF1' },
     // Branch B → R16_2 (W R32_3 vs W R32_6) → QF1 → SF1
     { r32: ['R32_3','R32_6'], r16: 'R16_2', qf: 'QF1', sf: 'SF1' },
-    // Branch C → R16_3 (W R32_2 vs W R32_5) → QF2 → SF1
-    { r32: ['R32_2','R32_5'], r16: 'R16_3', qf: 'QF2', sf: 'SF1' },
-    // Branch D → R16_4 (W R32_7 vs W R32_8) → QF2 → SF1
-    { r32: ['R32_7','R32_8'], r16: 'R16_4', qf: 'QF2', sf: 'SF1' },
+    // Branch A → R16_1 (W R32_1 vs W R32_4) → QF1 → SF1
+    { r32: ['R32_1','R32_4'], r16: 'R16_1', qf: 'QF1', sf: 'SF1' },
+    // Branch E → R16_5 (W R32_14 vs W R32_12) → QF3 → SF1
+    { r32: ['R32_14','R32_12'], r16: 'R16_5', qf: 'QF3', sf: 'SF1' },
+    // Branch F → R16_6 (W R32_10 vs W R32_9) → QF3 → SF1
+    { r32: ['R32_10','R32_9'],  r16: 'R16_6', qf: 'QF3', sf: 'SF1' },
   ],
   right: [
-    // Branch E → R16_5 (W R32_14 vs W R32_12) → QF3 → SF2
-    { r32: ['R32_14','R32_12'], r16: 'R16_5', qf: 'QF3', sf: 'SF2' },
-    // Branch F → R16_6 (W R32_10 vs W R32_9) → QF3 → SF2
-    { r32: ['R32_10','R32_9'],  r16: 'R16_6', qf: 'QF3', sf: 'SF2' },
+    // Branch C → R16_3 (W R32_2 vs W R32_5) → QF2 → SF2
+    { r32: ['R32_2','R32_5'], r16: 'R16_3', qf: 'QF2', sf: 'SF2' },
+    // Branch D → R16_4 (W R32_7 vs W R32_8) → QF2 → SF2
+    { r32: ['R32_7','R32_8'], r16: 'R16_4', qf: 'QF2', sf: 'SF2' },
     // Branch G → R16_7 (W R32_13 vs W R32_11) → QF4 → SF2
     { r32: ['R32_13','R32_11'], r16: 'R16_7', qf: 'QF4', sf: 'SF2' },
     // Branch H → R16_8 (W R32_16 vs W R32_15) → QF4 → SF2
@@ -3723,8 +3724,6 @@ const SCORER_ALIASES = {
   'Dniz Avndav':'Deniz Undav','D. Undav':'Deniz Undav','Dniz Undav':'Deniz Undav',
   // Cody Gakpo (Netherlands)
   'Kvdi Khakpv':'Cody Gakpo','Kvdi Gakpv':'Cody Gakpo',
-  // Elijah Just (New Zealand)
-  'Ali Jast':'Elijah Just',
   // Crysencio Summerville (Netherlands)
   'C. Summerville':'Crysencio Summerville',
   // Jan Paul van Hecke (Netherlands)
@@ -3793,10 +3792,6 @@ const SCORER_ALIASES = {
   'Hassan Mohamed Altmbkti':'Hassan Al-Tambakti',
   // Mohammad Al Manai OG (Qatar)
   'Mohamed Almnai':'Mohammad Al Manai','Mohamed Al Manai':'Mohammad Al Manai',
-  // Harry Kane (England)
-  'Hri Kin':'Harry Kane',
-  // Jude Bellingham (England)
-  'Jvd Blingham':'Jude Bellingham',  
   // Common abbreviations
   'K. Mbappé':'Kylian Mbappé','H. Kane':'Harry Kane','H.Kane':'Harry Kane',
   'J. Bellingham':'Jude Bellingham','M. Rashford':'Marcus Rashford',
@@ -4232,9 +4227,19 @@ return 'TBD';
 // BEST 3RD-PLACE BRACKET ASSIGNMENT
 // ============================================================
 // FIFA 2026: 8 best 3rd-place teams from 12 groups advance.
+// FIFA official 3rd-place assignment table
+// Maps sorted 8 qualifying group letters → {R32_slot: group} assignment
+// Add more combinations here as they are encountered in future tournaments
+const FIFA_THIRD_TABLE = {
+  'BDEFIJKL': { // WC2026 actual qualifying groups
+    'R32_3':'D', 'R32_6':'F', 'R32_7':'E', 'R32_8':'K',
+    'R32_9':'I', 'R32_10':'B', 'R32_15':'L', 'R32_16':'J'
+  }
+};
+
 // Each R32 slot has a set of eligible groups; we rank all 12
 // third-place teams and assign the best available to each slot
-// using a greedy most-specific-first algorithm.
+// using the FIFA official assignment table
 const BEST_THIRD_SLOTS = {
 'R32_3':  ['A','B','C','D','F'],
 'R32_6':  ['C','D','F','G','H'],
@@ -4272,24 +4277,42 @@ return b.gf - a.gf;
 // Best 8 advance
 const advancing = thirds.slice(0, 8);
 
-// Greedy assignment — process most-specific slots first (fewest eligible groups)
-const slotEntries = Object.entries(BEST_THIRD_SLOTS)
-.sort(function(a, b) { return a[1].length - b[1].length; });
+// Build group→team lookup
+const groupTeam = {};
+advancing.forEach(function(t) { groupTeam[t.group] = t.team; });
+
+// Key: sorted advancing group letters
+const key = advancing.map(function(t) { return t.group; }).sort().join('');
 
 const assignments = {};
-const usedGroups = {};
 
-slotEntries.forEach(function(entry) {
-const matchId = entry[0], eligible = entry[1];
-for (var i = 0; i < advancing.length; i++) {
-var t = advancing[i];
-if (eligible.indexOf(t.group) !== -1 && !usedGroups[t.group]) {
-assignments[matchId] = t.team;
-usedGroups[t.group] = true;
-break;
+if (FIFA_THIRD_TABLE[key]) {
+  // Use official FIFA assignment table
+  const groupMap = FIFA_THIRD_TABLE[key];
+  Object.keys(groupMap).forEach(function(slot) {
+    var grp = groupMap[slot];
+    if (groupTeam[grp]) assignments[slot] = groupTeam[grp];
+  });
+} else {
+  // Fallback: most-constrained-first greedy (for unknown combinations)
+  const slotEntries = Object.entries(BEST_THIRD_SLOTS).sort(function(a, b) {
+    var aCount = a[1].filter(function(g) { return groupTeam[g]; }).length;
+    var bCount = b[1].filter(function(g) { return groupTeam[g]; }).length;
+    return aCount - bCount;
+  });
+  const usedGroups = {};
+  slotEntries.forEach(function(entry) {
+    const matchId = entry[0], eligible = entry[1];
+    for (var i = 0; i < advancing.length; i++) {
+      var t = advancing[i];
+      if (eligible.indexOf(t.group) !== -1 && !usedGroups[t.group]) {
+        assignments[matchId] = t.team;
+        usedGroups[t.group] = true;
+        break;
+      }
+    }
+  });
 }
-}
-});
 
 return assignments;
 }
@@ -6665,10 +6688,10 @@ function renderBracket() {
     // R16 → QF (right)
     'R16_5': {id:'QF3', fi:0}, 'R16_6': {id:'QF3', fi:1},
     'R16_7': {id:'QF4', fi:0}, 'R16_8': {id:'QF4', fi:1},
-    // QF → SF (left)
-    'QF1': {id:'SF1', fi:0}, 'QF2': {id:'SF1', fi:1},
-    // QF → SF (right)
-    'QF3': {id:'SF2', fi:0}, 'QF4': {id:'SF2', fi:1},
+    // QF → SF (left: QF1+QF3 → SF1)
+    'QF1': {id:'SF1', fi:0}, 'QF3': {id:'SF1', fi:1},
+    // QF → SF (right: QF2+QF4 → SF2)
+    'QF2': {id:'SF2', fi:0}, 'QF4': {id:'SF2', fi:1},
     // SF → Final
     'SF1': {id:'FINAL', fi:0}, 'SF2': {id:'FINAL', fi:1},
   };
@@ -6758,7 +6781,7 @@ function renderBracket() {
     });
 
     // ── QF ──────────────────────────────────────────────────────────────
-    var qfids = isLeft ? ['QF1','QF2'] : ['QF3','QF4'];
+    var qfids = isLeft ? ['QF1','QF3'] : ['QF2','QF4'];
     qfids.forEach(function(qfid, qi) {
       drawMatch(qfid, 2, qi, Xrnd.qf, 'qf', side, Xrnd.sf, 1, 0);
     });
