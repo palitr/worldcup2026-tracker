@@ -650,7 +650,8 @@ def build_scores(data):
                 match_id = rev_id
                 home_score, away_score = away_score, home_score
 
-        if not match_id and mtype.startswith("knockout"):
+        KO_TYPES = {"knockout", "r32", "r16", "qf", "quarterfinal", "sf", "semifinal", "final"}
+        if not match_id and (mtype.startswith("knockout") or any(mtype.startswith(t) for t in KO_TYPES)):
             utc_raw = (m.get("local_date") or m.get("utc") or
                        m.get("datetime") or "")
             utc_norm = normalise_utc(utc_raw)
