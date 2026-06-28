@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T04:01:00Z",
+  "updated": "2026-06-28T04:31:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -1728,10 +1728,10 @@
       "Lionel Messi|Argentina": {
         "name": "Lionel Messi",
         "team": "Argentina",
-        "goals": 5,
+        "goals": 6,
         "pen": 0,
-        "npg": 5,
-        "mp": 2
+        "npg": 6,
+        "mp": 3
       },
       "Romano Schmid|Austria": {
         "name": "Romano Schmid",
@@ -1744,10 +1744,10 @@
       "Marko Arnautovic|Austria": {
         "name": "Marko Arnautovic",
         "team": "Austria",
-        "goals": 1,
+        "goals": 2,
         "pen": 1,
-        "npg": 0,
-        "mp": 1
+        "npg": 1,
+        "mp": 2
       },
       "Ali Olwan|Jordan": {
         "name": "Ali Olwan",
@@ -1779,6 +1779,62 @@
         "goals": 1,
         "pen": 0,
         "npg": 1,
+        "mp": 1
+      },
+      "Rafik Belghali|Algeria": {
+        "name": "Rafik Belghali",
+        "team": "Algeria",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Riyad Mahrez|Algeria": {
+        "name": "Riyad Mahrez",
+        "team": "Algeria",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
+      },
+      "Marcel Sabitzer|Austria": {
+        "name": "Marcel Sabitzer",
+        "team": "Austria",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Sasa Kalajdzic|Austria": {
+        "name": "Sasa Kalajdzic",
+        "team": "Austria",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Mousa Al-Tamari|Jordan": {
+        "name": "Mousa Al-Tamari",
+        "team": "Jordan",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Giovani Lo Celso|Argentina": {
+        "name": "Giovani Lo Celso",
+        "team": "Argentina",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Lautaro Mart\u00ednez|Argentina": {
+        "name": "Lautaro Mart\u00ednez",
+        "team": "Argentina",
+        "goals": 1,
+        "pen": 1,
+        "npg": 0,
         "mp": 1
       },
       "Jo\u00e3o Neves|Portugal": {
@@ -1950,21 +2006,21 @@
         "mp": 1
       }
     },
-    "total_pen": 7,
+    "total_pen": 8,
     "total_og": 12,
     "hat_tricks": 3,
     "goals_by_period": {
       "0-15": 27,
-      "16-30": 24,
-      "31-45": 26,
+      "16-30": 26,
+      "31-45": 28,
       "45+": 9,
-      "46-60": 30,
+      "46-60": 33,
       "61-75": 28,
-      "76-90": 31,
-      "90+": 18
+      "76-90": 32,
+      "90+": 20
     },
-    "ht_goals": 91,
-    "sh_goals": 114,
+    "ht_goals": 95,
+    "sh_goals": 120,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2160,6 +2216,13 @@
         "opponent": "Senegal"
       },
       {
+        "player": "Sasa Kalajdzic",
+        "team": "Austria",
+        "minute": "90+6",
+        "sort_val": 90.06,
+        "opponent": "Algeria"
+      },
+      {
         "player": "Ibrahim Mbaye",
         "team": "Senegal",
         "minute": "90+5",
@@ -2172,13 +2235,6 @@
         "minute": "90+5",
         "sort_val": 90.05,
         "opponent": "Austria"
-      },
-      {
-        "player": "Caleb Yirenkyi",
-        "team": "Ghana",
-        "minute": "90+5",
-        "sort_val": 90.05,
-        "opponent": "Panama"
       }
     ],
     "fastest_goals": [
@@ -2220,6 +2276,12 @@
     ],
     "scoring_streaks": [
       {
+        "name": "Lionel Messi",
+        "team": "Argentina",
+        "streak": 3,
+        "goals": 6
+      },
+      {
         "name": "Vin\u00edcius J\u00fanior",
         "team": "Brazil",
         "streak": 3,
@@ -2230,12 +2292,6 @@
         "team": "Morocco",
         "streak": 3,
         "goals": 3
-      },
-      {
-        "name": "Lionel Messi",
-        "team": "Argentina",
-        "streak": 2,
-        "goals": 5
       },
       {
         "name": "Kylian Mbapp\u00e9",
@@ -2501,7 +2557,7 @@
       },
       {
         "round": "Matchday 17",
-        "goals": 9
+        "goals": 19
       }
     ],
     "scoreline_freq": [
@@ -2515,7 +2571,7 @@
       },
       {
         "score": "3-1",
-        "count": 7
+        "count": 8
       },
       {
         "score": "0-0",
@@ -2595,7 +2651,7 @@
       "J": {
         "name": "Lionel Messi",
         "team": "Argentina",
-        "goals": 5
+        "goals": 6
       },
       "K": {
         "name": "Yoane Wissa",
