@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T03:01:00Z",
+  "updated": "2026-06-28T03:31:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -170,7 +170,7 @@
       "a": 1
     },
     "J6": {
-      "h": 0,
+      "h": 1,
       "a": 2
     },
     "A1": {
@@ -266,8 +266,8 @@
       "a": 1
     },
     "J5": {
-      "h": 1,
-      "a": 1
+      "h": 2,
+      "a": 2
     },
     "G1": {
       "h": 1,
@@ -648,7 +648,9 @@
       ]
     },
     "J6": {
-      "h": [],
+      "h": [
+        "Mvsi Altmari 55'"
+      ],
       "a": [
         "Jivani Lv Slsv 19'"
       ]
@@ -816,10 +818,12 @@
     },
     "J5": {
       "h": [
-        "Rafik Blghali 45'"
+        "Rafik Blghali 45'",
+        "Riyad Mahrez 60'"
       ],
       "a": [
-        "Marko Arnautovi\u0107 28'"
+        "Marko Arnautovi\u0107 28'",
+        "Marcel Sabitzer 55'"
       ]
     },
     "G1": {
