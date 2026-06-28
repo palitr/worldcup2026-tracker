@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T03:31:00Z",
+  "updated": "2026-06-28T04:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -171,7 +171,7 @@
     },
     "J6": {
       "h": 1,
-      "a": 2
+      "a": 3
     },
     "A1": {
       "h": 2,
@@ -266,8 +266,8 @@
       "a": 1
     },
     "J5": {
-      "h": 2,
-      "a": 2
+      "h": 3,
+      "a": 3
     },
     "G1": {
       "h": 1,
@@ -652,7 +652,8 @@
         "Mvsi Altmari 55'"
       ],
       "a": [
-        "Jivani Lv Slsv 19'"
+        "Jivani Lv Slsv 19'",
+        "Lionel Messi 80'"
       ]
     },
     "C1": {
@@ -819,11 +820,13 @@
     "J5": {
       "h": [
         "Rafik Blghali 45'",
-        "Riyad Mahrez 60'"
+        "Riyad Mahrez 60'",
+        "Riyad Mahrez 90+3'"
       ],
       "a": [
         "Marko Arnautovi\u0107 28'",
-        "Marcel Sabitzer 55'"
+        "Marcel Sabitzer 55'",
+        "Sa\u0161a Kalajd\u017ei\u0107 90+6'"
       ]
     },
     "G1": {
