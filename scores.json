@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T01:31:00Z",
+  "updated": "2026-06-28T02:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -1763,10 +1763,10 @@
       "Yoane Wissa|DR Congo": {
         "name": "Yoane Wissa",
         "team": "DR Congo",
-        "goals": 1,
-        "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "goals": 3,
+        "pen": 1,
+        "npg": 2,
+        "mp": 2
       },
       "Abbosbek Fayzullaev|Uzbekistan": {
         "name": "Abbosbek Fayzullaev",
@@ -1819,6 +1819,22 @@
       "Rafael Le\u00e3o|Portugal": {
         "name": "Rafael Le\u00e3o",
         "team": "Portugal",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Fiston Mayele|DR Congo": {
+        "name": "Fiston Mayele",
+        "team": "DR Congo",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Eldor Shomurodov|Uzbekistan": {
+        "name": "Eldor Shomurodov",
+        "team": "Uzbekistan",
         "goals": 1,
         "pen": 0,
         "npg": 1,
@@ -1905,21 +1921,21 @@
         "mp": 1
       }
     },
-    "total_pen": 6,
+    "total_pen": 7,
     "total_og": 12,
     "hat_tricks": 3,
     "goals_by_period": {
-      "0-15": 26,
+      "0-15": 27,
       "16-30": 24,
       "31-45": 26,
       "45+": 9,
       "46-60": 30,
-      "61-75": 27,
-      "76-90": 30,
-      "90+": 17
+      "61-75": 28,
+      "76-90": 31,
+      "90+": 18
     },
-    "ht_goals": 90,
-    "sh_goals": 111,
+    "ht_goals": 91,
+    "sh_goals": 114,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -1982,6 +1998,13 @@
         "opponent": "Jordan",
         "ht": "0-1",
         "ft": "2-1",
+        "result": "won"
+      },
+      {
+        "team": "DR Congo",
+        "opponent": "Uzbekistan",
+        "ht": "0-1",
+        "ft": "3-1",
         "result": "won"
       }
     ],
@@ -2047,6 +2070,13 @@
         "opponent": "Algeria",
         "ht": "1-0",
         "ft": "1-2",
+        "outcome": "lost"
+      },
+      {
+        "team": "Uzbekistan",
+        "opponent": "DR Congo",
+        "ht": "1-0",
+        "ft": "1-3",
         "outcome": "lost"
       }
     ],
@@ -2442,7 +2472,7 @@
       },
       {
         "round": "Matchday 17",
-        "goals": 5
+        "goals": 9
       }
     ],
     "scoreline_freq": [
@@ -2455,19 +2485,19 @@
         "count": 9
       },
       {
+        "score": "3-1",
+        "count": 7
+      },
+      {
+        "score": "0-0",
+        "count": 7
+      },
+      {
         "score": "2-0",
         "count": 6
       },
       {
         "score": "2-1",
-        "count": 6
-      },
-      {
-        "score": "3-1",
-        "count": 6
-      },
-      {
-        "score": "0-0",
         "count": 6
       },
       {
@@ -2539,9 +2569,9 @@
         "goals": 5
       },
       "K": {
-        "name": "Daniel Mu\u00f1oz",
-        "team": "Colombia",
-        "goals": 2
+        "name": "Yoane Wissa",
+        "team": "DR Congo",
+        "goals": 3
       },
       "L": {
         "name": "Harry Kane",
