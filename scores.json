@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T20:58:00Z",
+  "updated": "2026-06-28T21:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -2015,6 +2015,14 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Stephan Eust\u00e1quio|Canada": {
+        "name": "Stephan Eust\u00e1quio",
+        "team": "Canada",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 8,
@@ -2028,10 +2036,10 @@
       "46-60": 33,
       "61-75": 28,
       "76-90": 32,
-      "90+": 20
+      "90+": 21
     },
     "ht_goals": 95,
-    "sh_goals": 120,
+    "sh_goals": 121,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2499,6 +2507,13 @@
         "goals": 1,
         "opponent": "Panama",
         "score": "1-0"
+      },
+      {
+        "player": "Stephan Eust\u00e1quio",
+        "team": "Canada",
+        "goals": 1,
+        "opponent": "South Africa",
+        "score": "1-0"
       }
     ],
     "matchday_goals": [
@@ -2569,12 +2584,16 @@
       {
         "round": "Matchday 17",
         "goals": 19
+      },
+      {
+        "round": "Round of 32",
+        "goals": 1
       }
     ],
     "scoreline_freq": [
       {
         "score": "1-0",
-        "count": 10
+        "count": 11
       },
       {
         "score": "1-1",
