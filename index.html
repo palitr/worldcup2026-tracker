@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -4760,11 +4761,18 @@ function buildTicker() {
   var now = Date.now();
 
   // Flatten all matches — group stage + KO stages
+  // Use koTeams (resolved names) where available, fall back to slotA/B
   var koFlat = [];
   if (typeof koMatchDefs !== 'undefined') {
     ['r32','r16','qf','sf','final'].forEach(function(stage) {
       if (koMatchDefs[stage]) koMatchDefs[stage].forEach(function(m) {
-        koFlat.push({ id:m.id, home:m.slotA||m.desc||'TBD', away:m.slotB||'TBD', utc:m.utc });
+        var kt = (typeof koTeams !== 'undefined' && koTeams[m.id]) ? koTeams[m.id] : null;
+        koFlat.push({
+          id:   m.id,
+          home: (kt && kt.home && kt.home !== 'TBD') ? kt.home : (m.slotA || 'TBD'),
+          away: (kt && kt.away && kt.away !== 'TBD') ? kt.away : (m.slotB || 'TBD'),
+          utc:  m.utc
+        });
       });
     });
   }
@@ -4795,8 +4803,8 @@ function buildTicker() {
 
   var hasLiveOrRecent = items.length > 0;
 
-  // 3. Upcoming matches — group stage only for readable team names
-  var upcoming = groupMatches.filter(function(m) {
+  // 3. Upcoming matches — all stages with resolved team names
+  var upcoming = allMatches.filter(function(m) {
     var s = scores[m.id];
     var kickUtc = new Date(m.utc).getTime();
     return kickUtc > now && (!s || (s.h === null && s.a === null));
