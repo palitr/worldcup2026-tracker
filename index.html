@@ -3196,6 +3196,33 @@ transition:all 0.15s; cursor:default;
     pointer-events: none;
     z-index: 10;
   }
+/* ── WC2026 in History ───────────────────────────────────────────────── */
+.hist-chart-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; }
+.hist-chart-scroll::-webkit-scrollbar { height:4px; }
+.hist-chart-scroll::-webkit-scrollbar-track { background:transparent; }
+.hist-chart-scroll::-webkit-scrollbar-thumb { background:rgba(255,215,0,0.2); border-radius:2px; }
+.hist-legend { display:flex; gap:16px; flex-wrap:wrap; margin:8px 0 16px; }
+.hist-legend-item { display:flex; align-items:center; gap:7px; font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; letter-spacing:1.5px; color:var(--muted); }
+.hist-legend-swatch { width:22px; height:8px; border-radius:2px; flex-shrink:0; }
+.hist-legend-tick { width:20px; height:2px; background:rgba(255,255,255,0.7); flex-shrink:0; }
+.hist-gauge-row { display:flex; gap:12px; margin:20px 0; flex-wrap:wrap; }
+.hist-gauge-card { flex:1; min-width:220px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px 14px; }
+.hist-gauge-title { font-family:'Barlow Condensed',sans-serif; font-size:0.63rem; letter-spacing:2px; color:var(--muted); margin-bottom:14px; }
+.hist-era-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:16px 0 24px; }
+@media(max-width:700px) { .hist-era-cards { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:430px) { .hist-era-cards { grid-template-columns:1fr; } }
+.hist-era-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+.hist-era-card-name { font-family:'Bebas Neue',cursive; font-size:0.95rem; letter-spacing:3px; margin-bottom:2px; }
+.hist-era-card-years { font-family:'Barlow Condensed',sans-serif; font-size:0.64rem; color:var(--muted); letter-spacing:1.5px; margin-bottom:8px; }
+.hist-era-card-body { font-family:'Barlow',sans-serif; font-size:0.8rem; color:rgba(232,234,240,0.72); line-height:1.55; }
+.hist-var-grid { display:flex; flex-direction:column; gap:10px; }
+.hist-var-row { display:flex; align-items:center; gap:12px; }
+.hist-var-era-lbl { font-family:'Barlow Condensed',sans-serif; font-size:0.74rem; letter-spacing:1.2px; color:var(--muted); width:190px; flex-shrink:0; line-height:1.3; }
+.hist-var-bar-bg { flex:1; height:38px; background:rgba(255,255,255,0.05); border-radius:6px; overflow:hidden; position:relative; }
+.hist-var-bar-fill { height:100%; border-radius:6px; display:flex; align-items:center; padding-left:12px; transition:width 0.6s ease; }
+.hist-var-bar-text { font-family:'Bebas Neue',cursive; font-size:1.05rem; letter-spacing:2px; color:#fff; white-space:nowrap; }
+.hist-var-val { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; width:56px; text-align:right; flex-shrink:0; font-weight:600; }
+@media(max-width:600px) { .hist-var-era-lbl { width:130px; font-size:0.66rem; } }
 </style>
 </head>
 <body>
@@ -3792,6 +3819,12 @@ const SCORER_ALIASES = {
   'Hassan Mohamed Altmbkti':'Hassan Al-Tambakti',
   // Mohammad Al Manai OG (Qatar)
   'Mohamed Almnai':'Mohammad Al Manai','Mohamed Al Manai':'Mohammad Al Manai',
+  // Harry Kane (England)
+  'Hri Kin':'Harry Kane',
+  // Jude Bellingham (England)
+  'Jvd Blingham':'Jude Bellingham',
+  // Giovani Lo Celso (Argentina)
+  'Jivani Lv Slsv':'Giovani Lo Celso',
   // Common abbreviations
   'K. Mbappé':'Kylian Mbappé','H. Kane':'Harry Kane','H.Kane':'Harry Kane',
   'J. Bellingham':'Jude Bellingham','M. Rashford':'Marcus Rashford',
@@ -5965,7 +5998,232 @@ function renderMoreStats() {
     + '<div class="stats-section-sub" style="margin:32px 0 12px;">TOP SCORER PER GROUP</div>'
     + groupTopHtml
 
+    + '<div id="wc-history-root"></div>'
     + '</div>';
+
+  renderHistorySection();
+}
+
+// ====== WC2026 IN HISTORY ====================================================
+
+function renderHistorySection() {
+  var container = document.getElementById('wc-history-root');
+  if (!container) return;
+
+  // ── Historical data (all 22 WCs 1930-2022) ─────────────────────────────
+  var HIST = [
+    {y:1930, gpm:3.89, cs:36.1, g3:72.2, pen:0.06},
+    {y:1934, gpm:4.12, cs:23.5, g3:64.7, pen:0.18},
+    {y:1938, gpm:4.67, cs:27.8, g3:72.2, pen:0.17},
+    {y:1950, gpm:4.00, cs:34.1, g3:68.2, pen:0.14},
+    {y:1954, gpm:5.38, cs:13.5, g3:88.5, pen:0.27},
+    {y:1958, gpm:3.60, cs:27.1, g3:68.6, pen:0.20},
+    {y:1962, gpm:2.78, cs:31.3, g3:46.9, pen:0.25},
+    {y:1966, gpm:2.78, cs:34.4, g3:46.9, pen:0.25},
+    {y:1970, gpm:2.97, cs:29.7, g3:56.3, pen:0.16},
+    {y:1974, gpm:2.55, cs:35.5, g3:52.6, pen:0.16},
+    {y:1978, gpm:2.68, cs:27.6, g3:52.6, pen:0.32},
+    {y:1982, gpm:2.81, cs:31.7, g3:55.8, pen:0.15},
+    {y:1986, gpm:2.54, cs:29.8, g3:48.1, pen:0.23},
+    {y:1990, gpm:2.21, cs:40.4, g3:34.6, pen:0.25},
+    {y:1994, gpm:2.71, cs:26.9, g3:50.0, pen:0.29},
+    {y:1998, gpm:2.67, cs:33.6, g3:56.3, pen:0.27},
+    {y:2002, gpm:2.52, cs:27.3, g3:51.6, pen:0.20},
+    {y:2006, gpm:2.30, cs:31.3, g3:43.8, pen:0.20},
+    {y:2010, gpm:2.27, cs:30.5, g3:45.3, pen:0.14},
+    {y:2014, gpm:2.67, cs:24.2, g3:56.3, pen:0.19},
+    {y:2018, gpm:2.64, cs:28.1, g3:57.8, pen:0.34},
+    {y:2022, gpm:2.69, cs:22.7, g3:53.1, pen:0.27}
+  ];
+
+  // ── Compute WC2026 live stats ───────────────────────────────────────────
+  var af = window._afStats || {};
+  var totalPen26 = af.total_pen || 0;
+  var m26=0, g26=0, csTeams26=0, g3p26=0;
+  function hpm(id) {
+    var s = getScore(id);
+    if (s.h===null||s.a===null) return;
+    m26++; g26+=s.h+s.a;
+    if(s.h===0) csTeams26++;
+    if(s.a===0) csTeams26++;
+    if(s.h+s.a>=3) g3p26++;
+  }
+  groupMatches.forEach(function(m){ hpm(m.id); });
+  var koAll=[].concat(koMatchDefs.r32,koMatchDefs.r16,koMatchDefs.qf,
+    koMatchDefs.sf,koMatchDefs.final,koMatchDefs.bronze||[]);
+  koAll.forEach(function(m){ hpm(m.id); });
+
+  var wc26 = m26>0 ? {
+    gpm: g26/m26,
+    cs:  (csTeams26/(m26*2))*100,
+    g3:  (g3p26/m26)*100,
+    ppm: totalPen26/m26,
+    n:   m26
+  } : null;
+
+  // ── Era definitions ─────────────────────────────────────────────────────
+  var ERAS=[
+    {name:'Wild West',            years:'1930–1954', col:'#e07840', ri:[0,4],
+     desc:'No tactics, no substitutions. Goalkeepers had no protection. Teams scored freely and conceded freely. The 1954 tournament (5.38 goals/match) remains the highest-scoring in history and likely always will.'},
+    {name:'Defensive Revolution', years:'1958–1978', col:'#4a9e6b', ri:[5,10],
+     desc:'Catenaccio swept from Italy across Europe. Just Fontaine\'s 13-goal record in 1958 was the last gasp of free-scoring football. Goals per match fell by nearly a third over these six tournaments.'},
+    {name:'Dark Ages',            years:'1982–1994', col:'#5a70c8', ri:[11,14],
+     desc:'1990: the lowest-scoring World Cup ever at 2.21 goals/match. So dire that FIFA changed the backpass rule and moved to 3 points for a win specifically to force more attacking play.'},
+    {name:'Modern Game',          years:'1998–2014', col:'#b89040', ri:[15,19],
+     desc:'The 32-team format, high pressing, and balanced squads. The 2014 Brazil tournament produced 171 goals including a 7-1 semi-final. GPM stabilised around 2.5–2.7 and has held there ever since.'},
+    {name:'VAR Era',              years:'2018–2022', col:'#9a50c8', ri:[20,21],
+     desc:'VAR arrived and in-play penalty counts spiked to a record 22 in 2018. Yet goals per match barely moved, suggesting VAR redistributed goals (more pens, fewer dodgy refereeing denials) rather than inflating them.'}
+  ];
+
+  // ── SVG: Goals Through the Ages ─────────────────────────────────────────
+  var svgW=770, svgH=295;
+  var cL=42, cT=20, cH=192, cBase=cT+cH;
+  var bW=23, bG=5, xGap=18, maxGPM=6.0;
+
+  function bx(i){ return i<22 ? cL+i*(bW+bG) : cL+22*(bW+bG)+xGap; }
+  function bh(v){ return Math.max(2,(v/maxGPM)*cH); }
+  function by(v){ return cBase-bh(v); }
+
+  var svg='<svg viewBox="0 0 '+svgW+' '+svgH+'" style="display:block;min-width:680px;width:100%;" xmlns="http://www.w3.org/2000/svg">';
+  svg+='<defs><linearGradient id="hg26" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFD700"/><stop offset="100%" stop-color="#FFA500"/></linearGradient></defs>';
+
+  // Era shading bands
+  ERAS.forEach(function(e){
+    var x1=bx(e.ri[0]), x2=bx(e.ri[1])+bW;
+    svg+='<rect x="'+x1+'" y="'+cT+'" width="'+(x2-x1)+'" height="'+cH+'" fill="'+e.col+'" opacity="0.08" rx="3"/>';
+    var mx=(x1+x2)/2;
+    svg+='<text x="'+mx+'" y="15" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="7" letter-spacing="1" fill="'+e.col+'" opacity="0.65">'+e.name.toUpperCase()+'</text>';
+  });
+
+  // Y grid lines
+  [1,2,3,4,5].forEach(function(v){
+    var gy=cBase-(v/maxGPM)*cH;
+    svg+='<line x1="'+cL+'" y1="'+gy+'" x2="'+(svgW-8)+'" y2="'+gy+'" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>';
+    svg+='<text x="'+(cL-4)+'" y="'+(gy+4)+'" text-anchor="end" font-family="Barlow Condensed,sans-serif" font-size="8" fill="rgba(122,128,153,0.7)">'+v+'</text>';
+  });
+
+  // Baseline
+  svg+='<line x1="'+cL+'" y1="'+cBase+'" x2="'+(svgW-8)+'" y2="'+cBase+'" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>';
+
+  // Historical bars
+  HIST.forEach(function(d,i){
+    var x=bx(i), bhi=bh(d.gpm), byi=by(d.gpm);
+    var eraIdx=ERAS.findIndex(function(e){ return i>=e.ri[0]&&i<=e.ri[1]; });
+    var bc=eraIdx>=0?ERAS[eraIdx].col:'#7a8099';
+    svg+='<rect x="'+x+'" y="'+byi+'" width="'+bW+'" height="'+bhi+'" fill="'+bc+'" opacity="0.65" rx="2"/>';
+    // CS tick mark
+    var ty=cBase-(d.cs/100)*cH;
+    svg+='<line x1="'+x+'" y1="'+ty+'" x2="'+(x+bW)+'" y2="'+ty+'" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>';
+    // Year label (rotated)
+    var lx=x+bW/2, ly=cBase+5;
+    svg+='<text transform="rotate(-65,'+lx+','+ly+')" x="'+lx+'" y="'+ly+'" text-anchor="end" font-family="Barlow Condensed,sans-serif" font-size="8" fill="rgba(122,128,153,0.8)">'+d.y+'</text>';
+  });
+
+  // WC2026 bar (gold)
+  var x26=bx(22);
+  if(wc26){
+    var bhi26=bh(wc26.gpm), byi26=by(wc26.gpm);
+    svg+='<rect x="'+x26+'" y="'+byi26+'" width="'+bW+'" height="'+bhi26+'" fill="url(#hg26)" rx="2"/>';
+    svg+='<text x="'+(x26+bW/2)+'" y="'+(byi26-5)+'" text-anchor="middle" font-family="Bebas Neue,cursive" font-size="10" fill="#FFD700">'+wc26.gpm.toFixed(2)+'</text>';
+    var ty26=cBase-(wc26.cs/100)*cH;
+    svg+='<line x1="'+x26+'" y1="'+ty26+'" x2="'+(x26+bW)+'" y2="'+ty26+'" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>';
+  } else {
+    svg+='<rect x="'+x26+'" y="'+(cBase-4)+'" width="'+bW+'" height="4" fill="rgba(255,215,0,0.3)" rx="2"/>';
+  }
+  var lx26=x26+bW/2, ly26=cBase+5;
+  svg+='<text transform="rotate(-65,'+lx26+','+ly26+')" x="'+lx26+'" y="'+ly26+'" text-anchor="end" font-family="Barlow Condensed,sans-serif" font-size="8" font-weight="bold" fill="#FFD700">2026</text>';
+
+  svg+='</svg>';
+
+  // ── Gauges ─────────────────────────────────────────────────────────────
+  function buildGauge(val, label, lo, hi, avg, unit) {
+    var p = val!=null ? Math.min(1,Math.max(0,(val-lo)/(hi-lo))) : null;
+    var ap = (avg-lo)/(hi-lo);
+    var gHtml='<div class="hist-gauge-card"><div class="hist-gauge-title">'+label+'</div>';
+    gHtml+='<svg viewBox="0 0 220 52" style="display:block;width:100%;max-width:260px;" xmlns="http://www.w3.org/2000/svg">';
+    gHtml+='<defs><linearGradient id="ggr_'+unit+'" x1="0" x2="1"><stop offset="0%" stop-color="#5a70c8"/><stop offset="50%" stop-color="#c8a040"/><stop offset="100%" stop-color="#e07840"/></linearGradient></defs>';
+    gHtml+='<rect x="16" y="20" width="188" height="8" rx="4" fill="url(#ggr_'+unit+')" opacity="0.35"/>';
+    // avg tick
+    var ax=16+ap*188;
+    gHtml+='<rect x="'+(ax-0.75)+'" y="16" width="1.5" height="16" fill="rgba(255,255,255,0.35)"/>';
+    gHtml+='<text x="'+ax+'" y="12" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="6.5" fill="rgba(255,255,255,0.35)">AVG</text>';
+    if(p!=null){
+      var nx=16+p*188;
+      gHtml+='<rect x="'+(nx-1.5)+'" y="15" width="3" height="18" rx="1.5" fill="#FFD700"/>';
+      gHtml+='<text x="'+nx+'" y="46" text-anchor="middle" font-family="Bebas Neue,cursive" font-size="12" fill="#FFD700">'+val.toFixed(val<10?1:0)+(unit==='%'?'%':'')+'</text>';
+    } else {
+      gHtml+='<text x="110" y="44" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="9" fill="rgba(122,128,153,0.6)">IN PROGRESS</text>';
+    }
+    gHtml+='<text x="16" y="46" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="7" fill="rgba(122,128,153,0.55)">'+lo.toFixed(lo<10?1:0)+(unit==='%'?'%':'')+'</text>';
+    gHtml+='<text x="204" y="46" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="7" fill="rgba(122,128,153,0.55)">'+hi.toFixed(hi<10?1:0)+(unit==='%'?'%':'')+'</text>';
+    gHtml+='</svg></div>';
+    return gHtml;
+  }
+
+  // ── VAR Effect bars ─────────────────────────────────────────────────────
+  var ERA_PEN=[
+    {lbl:'Wild West  1930–54',          pen:0.164, col:'#e07840'},
+    {lbl:'Def. Revolution  1958–78',    pen:0.223, col:'#4a9e6b'},
+    {lbl:'Dark Ages  1982–94',          pen:0.230, col:'#5a70c8'},
+    {lbl:'Modern Game  1998–2014',      pen:0.200, col:'#b89040'},
+    {lbl:'VAR Era  2018–22',            pen:0.305, col:'#9a50c8', highlight:true},
+    {lbl:'WC2026  (live)',              pen:wc26?wc26.ppm:null, col:'#FFD700', live:true}
+  ];
+  var penMax=0.36;
+  var varHtml='<div class="hist-var-grid">';
+  ERA_PEN.forEach(function(ep){
+    var pct=ep.pen!=null?Math.min(1,ep.pen/penMax):0;
+    var pw=Math.round(pct*100);
+    var op=ep.live?'1':(ep.highlight?'0.85':'0.55');
+    varHtml+='<div class="hist-var-row">';
+    varHtml+='<div class="hist-var-era-lbl">'+ep.lbl+'</div>';
+    varHtml+='<div class="hist-var-bar-bg"><div class="hist-var-bar-fill" style="width:'+pw+'%;background:'+ep.col+';opacity:'+op+'">';
+    if(ep.pen!=null&&pct>0.12) varHtml+='<span class="hist-var-bar-text">'+ep.pen.toFixed(2)+'</span>';
+    varHtml+='</div></div>';
+    varHtml+='<div class="hist-var-val" style="color:'+ep.col+'">'+(ep.pen!=null?ep.pen.toFixed(2):'–')+'/m</div>';
+    varHtml+='</div>';
+  });
+  varHtml+='</div>';
+
+  // ── Era description cards ──────────────────────────────────────────────
+  var eraCardsHtml='<div class="hist-era-cards">';
+  ERAS.forEach(function(e){
+    eraCardsHtml+='<div class="hist-era-card">'
+      +'<div class="hist-era-card-name" style="color:'+e.col+'">'+e.name+'</div>'
+      +'<div class="hist-era-card-years">'+e.years+'</div>'
+      +'<div class="hist-era-card-body">'+e.desc+'</div>'
+      +'</div>';
+  });
+  eraCardsHtml+='</div>';
+
+  // ── Assemble ───────────────────────────────────────────────────────────
+  container.innerHTML=
+    '<div class="stats-section-title">⏳ WC2026 in History</div>'
+    +'<div class="stats-section-sub" style="margin-bottom:18px;">92 YEARS · 23 TOURNAMENTS · HOW DOES WC2026 COMPARE</div>'
+
+    // Chart
+    +'<div class="stats-section-sub">GOALS PER MATCH 1930–2026 · BAR HEIGHT = GPM · WHITE TICK = CLEAN SHEET RATE</div>'
+    +'<div class="hist-legend">'
+    +'<div class="hist-legend-item"><div class="hist-legend-swatch" style="background:#e07840;opacity:0.7"></div>Bar height = Goals / Match</div>'
+    +'<div class="hist-legend-item"><div class="hist-legend-tick"></div>White tick = Clean Sheet Rate</div>'
+    +'<div class="hist-legend-item"><div class="hist-legend-swatch" style="background:#FFD700"></div>Gold bar = WC2026 (live)</div>'
+    +'</div>'
+    +'<div class="hist-chart-scroll">'+svg+'</div>'
+
+    // Gauges
+    +'<div class="hist-gauge-row">'
+    +buildGauge(wc26?wc26.g3:null,'3+ GOAL MATCHES — WC2026 VS HISTORY',34.6,88.5,56.5,'%')
+    +buildGauge(wc26?wc26.gpm:null,'GOALS PER MATCH — WC2026 VS HISTORY',2.21,5.38,2.82,'gpm')
+    +'</div>'
+
+    // Era descriptions
+    +'<div class="stats-section-sub" style="margin-top:4px;">THE ERAS OF WORLD CUP FOOTBALL</div>'
+    +eraCardsHtml
+
+    // VAR Effect
+    +'<div class="stats-section-title" style="margin-top:36px;">⚖️ The VAR Effect</div>'
+    +'<div class="stats-section-sub" style="margin-bottom:18px;">IN-PLAY PENALTIES PER MATCH — BY ERA — BEFORE & AFTER VAR</div>'
+    +varHtml;
 }
 
 // ====== WATCHLIST / FAVOURITES ===================================================
