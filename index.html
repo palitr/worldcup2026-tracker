@@ -3245,13 +3245,13 @@ transition:all 0.15s; cursor:default;
 .hist-era-card-body { font-family:'Barlow',sans-serif; font-size:0.8rem; color:rgba(232,234,240,0.72); line-height:1.55; }
 /* VAR bars */
 .hist-var-grid { display:flex; flex-direction:column; gap:10px; }
-.hist-var-row { display:flex; align-items:center; gap:12px; }
-.hist-var-era-lbl { font-family:'Barlow Condensed',sans-serif; font-size:0.74rem; letter-spacing:1.2px; color:var(--muted); width:190px; flex-shrink:0; line-height:1.3; }
+.hist-var-row { display:flex; align-items:center; gap:8px; }
 .hist-var-bar-bg { flex:1; height:38px; background:rgba(255,255,255,0.05); border-radius:6px; overflow:hidden; position:relative; }
-.hist-var-bar-fill { height:100%; border-radius:6px; display:flex; align-items:center; padding-left:12px; transition:width 0.6s ease; }
-.hist-var-bar-text { font-family:'Bebas Neue',cursive; font-size:1.05rem; letter-spacing:2px; color:#fff; white-space:nowrap; }
-.hist-var-val { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; width:56px; text-align:right; flex-shrink:0; font-weight:600; }
-@media(max-width:600px) { .hist-var-era-lbl { width:130px; font-size:0.66rem; } }
+.hist-var-bar-fill { height:100%; border-radius:6px; display:flex; align-items:center; padding-left:12px; gap:10px; transition:width 0.6s ease; }
+.hist-var-bar-text { font-family:'Bebas Neue',cursive; font-size:1.05rem; letter-spacing:2px; color:#fff; white-space:nowrap; flex-shrink:0; }
+.hist-var-era-name { font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; letter-spacing:1.2px; color:rgba(255,255,255,0.85); white-space:nowrap; margin-left:auto; padding-right:10px; flex-shrink:0; }
+.hist-var-era-name-out { position:absolute; right:8px; top:50%; transform:translateY(-50%); font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; letter-spacing:1.2px; white-space:nowrap; }
+.hist-var-val { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; width:44px; text-align:right; flex-shrink:0; font-weight:600; }
 </style>
 </head>
 <body>
@@ -3369,13 +3369,13 @@ transition:all 0.15s; cursor:default;
 <button class="tab-btn active" onclick="showTab('overview', this)">📊 Overview</button>
 <button class="tab-btn" onclick="showTab('schedule', this)">📅 Schedule</button>
 <button class="tab-btn" onclick="showTab('morestats', this)">📈 Stats</button>
+<button class="tab-btn" onclick="showTab('bracket', this)">🗺️ Bracket</button>
 <button class="tab-btn" onclick="showTab('groups', this)">🟢 Group Stage</button>
 <button class="tab-btn" onclick="showTab('r32', this)">⚡ Round of 32</button>
 <button class="tab-btn" onclick="showTab('r16', this)">🔥 Round of 16</button>
 <button class="tab-btn" onclick="showTab('qf', this)">💥 Quarterfinals</button>
 <button class="tab-btn" onclick="showTab('sf', this)">🌟 Semifinals</button>
 <button class="tab-btn" onclick="showTab('final', this)">🏆 Final</button>
-<button class="tab-btn" onclick="showTab('bracket', this)">🗺️ Bracket</button>
 <button class="tab-btn" onclick="showTab('stats', this)" style="display:none;">📈 Stats (Legacy)</button>
 <button class="tab-btn" onclick="showTab('elements', this)">✨ Tournament</button>
 
@@ -6300,12 +6300,12 @@ function renderHistorySection() {
 
   // ── VAR Effect bars ─────────────────────────────────────────────────────
   var ERA_PEN=[
-    {lbl:'Wild West  1930–54',          pen:0.164, col:'#e07840'},
-    {lbl:'Def. Revolution  1958–78',    pen:0.223, col:'#4a9e6b'},
-    {lbl:'Dark Ages  1982–94',          pen:0.230, col:'#5a70c8'},
-    {lbl:'Modern Game  1998–2014',      pen:0.200, col:'#b89040'},
-    {lbl:'VAR Era  2018–22',            pen:0.305, col:'#9a50c8', highlight:true},
-    {lbl:'WC2026  (live)',              pen:wc26?wc26.ppm:null, col:'#FFD700', live:true}
+    {lbl:'Wild West',          years:'1930–54',  pen:0.164, col:'#e07840'},
+    {lbl:'Def. Revolution',    years:'1958–78',  pen:0.223, col:'#4a9e6b'},
+    {lbl:'Dark Ages',          years:'1982–94',  pen:0.230, col:'#5a70c8'},
+    {lbl:'Modern Game',        years:'1998–2014',pen:0.200, col:'#b89040'},
+    {lbl:'VAR Era',            years:'2018–22',  pen:0.305, col:'#9a50c8', highlight:true},
+    {lbl:'WC2026',             years:'live',     pen:wc26?wc26.ppm:null, col:'#FFD700', live:true}
   ];
   var penMax=0.36;
   var varHtml='<div class="hist-var-grid">';
@@ -6313,11 +6313,22 @@ function renderHistorySection() {
     var pct=ep.pen!=null?Math.min(1,ep.pen/penMax):0;
     var pw=Math.round(pct*100);
     var op=ep.live?'1':(ep.highlight?'0.85':'0.55');
+    // Era name overlaid inside bar, right-aligned, only if bar is wide enough
+    var nameInBar = pct > 0.35
+      ? '<span class="hist-var-era-name">'+ep.lbl+' <span style="opacity:0.6;font-size:0.75em;">'+ep.years+'</span></span>'
+      : '';
+    // If bar too short, put name outside to the right (after bar, before value)
+    var nameOutside = pct <= 0.35
+      ? '<div class="hist-var-era-name-out" style="color:'+ep.col+'">'+ep.lbl+' <span style="opacity:0.55;font-size:0.8em;">'+ep.years+'</span></div>'
+      : '';
     varHtml+='<div class="hist-var-row">';
-    varHtml+='<div class="hist-var-era-lbl">'+ep.lbl+'</div>';
-    varHtml+='<div class="hist-var-bar-bg"><div class="hist-var-bar-fill" style="width:'+pw+'%;background:'+ep.col+';opacity:'+op+'">';
+    varHtml+='<div class="hist-var-bar-bg" style="position:relative;">';
+    varHtml+='<div class="hist-var-bar-fill" style="width:'+pw+'%;background:'+ep.col+';opacity:'+op+'">';
     if(ep.pen!=null&&pct>0.12) varHtml+='<span class="hist-var-bar-text">'+ep.pen.toFixed(2)+'</span>';
-    varHtml+='</div></div>';
+    varHtml+=nameInBar;
+    varHtml+='</div>';
+    varHtml+=nameOutside;
+    varHtml+='</div>';
     varHtml+='<div class="hist-var-val" style="color:'+ep.col+'">'+(ep.pen!=null?ep.pen.toFixed(2):'–')+'/m</div>';
     varHtml+='</div>';
   });
