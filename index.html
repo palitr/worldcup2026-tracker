@@ -3085,6 +3085,11 @@ transition:all 0.15s; cursor:default;
     display: block;
     aspect-ratio: 1000 / 700;
   }
+  @media (max-width: 600px) {
+    #bracket-svg-container svg {
+      aspect-ratio: 1000 / 1200;
+    }
+  }
   #bracket-svg [id^="flag-"]:hover {
     cursor: pointer;
   }
@@ -6771,7 +6776,20 @@ function renderBracket() {
   var container = document.getElementById('bracket-svg-container');
   if (!container) { console.error('[BRACKET] bracket-svg-container NOT FOUND'); return; }
 
+  // ── Mobile: use taller viewBox so flags are bigger ──────────────────
+  var isMobileBracket = window.innerWidth <= 600;
+  var _VH = VH, _FLAG_R = FLAG_R, _FLAG_R_SF = FLAG_R_SF, _FLAG_R_QF = FLAG_R_QF, _FLAG_R_FINAL = FLAG_R_FINAL;
+  if (isMobileBracket) {
+    VH = 1200; FLAG_R = 26; FLAG_R_SF = 30; FLAG_R_QF = 28; FLAG_R_FINAL = 40;
+  }
+
   var svg = buildBracketSVG();
+
+  // Restore globals immediately after SVG is built
+  if (isMobileBracket) {
+    VH = _VH; FLAG_R = _FLAG_R; FLAG_R_SF = _FLAG_R_SF; FLAG_R_QF = _FLAG_R_QF; FLAG_R_FINAL = _FLAG_R_FINAL;
+  }
+
   container.innerHTML = '';
   container.appendChild(svg);
 
@@ -6781,7 +6799,8 @@ function renderBracket() {
 
   // ── Layout constants ──────────────────────────────────────────────────
   var TOP_PAD  = 24;
-  var usableH  = VH - TOP_PAD;
+  var usableVH = isMobileBracket ? 1200 : VH;
+  var usableH  = usableVH - TOP_PAD;
 
   // Spread: half-distance between the 2 flags in a match slot
   var SPREAD = {
