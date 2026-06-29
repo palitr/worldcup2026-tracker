@@ -3251,8 +3251,21 @@ transition:all 0.15s; cursor:default;
 .hist-var-bar-fill { height:100%; border-radius:6px; display:flex; align-items:center; padding-left:12px; transition:width 0.6s ease; flex-shrink:0; }
 .hist-var-bar-text { font-family:'Bebas Neue',cursive; font-size:1.05rem; letter-spacing:2px; color:#fff; white-space:nowrap; }
 .hist-var-era-name { position:absolute; right:10px; font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; letter-spacing:1.2px; color:rgba(210,215,240,0.9); white-space:nowrap; pointer-events:none; }
-.hist-var-val { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; width:44px; text-align:right; flex-shrink:0; font-weight:600; }
 @media(max-width:600px) { .hist-var-year-lbl { width:52px; font-size:0.65rem; } .hist-var-era-name { font-size:0.65rem; right:6px; } }
+/* mobile collapsible era cards */
+.hist-eras-toggle { display:none; }
+@media(max-width:700px) {
+  .hist-eras-toggle { display:flex; align-items:center; justify-content:space-between; cursor:pointer; margin-top:36px; padding:4px 0; user-select:none; }
+  .hist-eras-toggle .toggle-arrow { font-size:0.75rem; transition:transform 0.25s; color:var(--muted); }
+  .hist-eras-toggle.open .toggle-arrow { transform:rotate(180deg); }
+  .hist-era-cards { margin-top:10px; }
+  .hist-era-cards.collapsed { display:none; }
+  .hist-eras-header-desktop { display:none; }
+}
+@media(min-width:701px) {
+  .hist-eras-header-desktop { display:block; }
+  .hist-eras-toggle { display:none; }
+}
 </style>
 </head>
 <body>
@@ -3465,7 +3478,7 @@ transition:all 0.15s; cursor:default;
         <span id="anim-speed-label">3x</span>
       </div>
       <button class="anim-sound-btn on" id="anim-sound-btn" onclick="bracketToggleSound()">&#x1F50A; SOUND ON</button>
-      <span class="anim-status" id="anim-status">Ready — enter scores to animate</span>
+      <span class="anim-status" id="anim-status">Ready — press Play to animate</span>
     </div>
     <div id="bracket-svg-container"></div>
   </div>
@@ -6319,11 +6332,10 @@ function renderHistorySection() {
     varHtml+='<div class="hist-var-year-lbl">'+ep.years+'</div>';
     varHtml+='<div class="hist-var-bar-bg">';
     varHtml+='<div class="hist-var-bar-fill" style="width:'+pw+'%;background:'+ep.col+';opacity:'+op+'">';
-    if(ep.pen!=null&&pct>0.12) varHtml+='<span class="hist-var-bar-text">'+ep.pen.toFixed(2)+'</span>';
+    if(ep.pen!=null&&pct>0.12) varHtml+='<span class="hist-var-bar-text">'+ep.pen.toFixed(2)+'/m</span>';
     varHtml+='</div>';
     varHtml+='<span class="hist-var-era-name" style="color:'+nameCol+'">'+ep.lbl+'</span>';
     varHtml+='</div>';
-    varHtml+='<div class="hist-var-val" style="color:'+ep.col+'">'+(ep.pen!=null?ep.pen.toFixed(2):'–')+'/m</div>';
     varHtml+='</div>';
   });
   varHtml+='</div>';
@@ -6381,9 +6393,13 @@ function renderHistorySection() {
     +'<div class="stats-section-sub" style="margin-bottom:18px;">IN-PLAY PENALTIES PER MATCH — BY ERA — BEFORE & AFTER VAR</div>'
     +varHtml
 
-    // Era descriptions — AFTER VAR
-    +'<div class="stats-section-sub" style="margin-top:36px;">THE ERAS OF WORLD CUP FOOTBALL</div>'
-    +eraCardsHtml;
+    // Era descriptions — desktop header always visible, mobile toggle
+    +'<div class="hist-eras-header-desktop"><div class="stats-section-sub" style="margin-top:36px;">THE ERAS OF WORLD CUP FOOTBALL</div></div>'
+    +'<div class="hist-eras-toggle" onclick="var c=this.nextElementSibling;c.classList.toggle(\'collapsed\');this.classList.toggle(\'open\')">'
+    +'<span class="stats-section-sub" style="margin:0;">THE ERAS OF WORLD CUP FOOTBALL</span>'
+    +'<span class="toggle-arrow">▼</span>'
+    +'</div>'
+    +eraCardsHtml.replace('<div class="hist-era-cards">', '<div class="hist-era-cards collapsed">');
 }
 
 // ====== WATCHLIST / FAVOURITES ===================================================
@@ -7535,7 +7551,7 @@ function bracketPlayOrReset() {
     var animG = document.getElementById('anim-group');
     if (animG) { while (animG.firstChild) animG.removeChild(animG.firstChild); }
     stopConfetti();
-    var _s=document.getElementById('anim-status'); _s.className='anim-status'; _s.textContent='Ready — enter scores to animate';
+    var _s=document.getElementById('anim-status'); _s.className='anim-status'; _s.textContent='Ready — press Play to animate';
     renderBracket();
     return;
   }
