@@ -6779,8 +6779,10 @@ function renderBracket() {
   // ── Mobile: use taller viewBox so flags are bigger ──────────────────
   var isMobileBracket = window.innerWidth <= 600;
   var _VH = VH, _FLAG_R = FLAG_R, _FLAG_R_SF = FLAG_R_SF, _FLAG_R_QF = FLAG_R_QF, _FLAG_R_FINAL = FLAG_R_FINAL;
+  var _Xr32 = X.r32; // save original R32 x-offset
   if (isMobileBracket) {
     VH = 1200; FLAG_R = 26; FLAG_R_SF = 30; FLAG_R_QF = 28; FLAG_R_FINAL = 40;
+    X.r32 = 32; // push R32 flags inward so they aren't clipped
   }
 
   var svg = buildBracketSVG();
@@ -6791,9 +6793,15 @@ function renderBracket() {
   var _fRQF  = FLAG_R_QF;
   var _fRFIN = FLAG_R_FINAL;
 
+  // Store in bracket-scope var so animation functions (updateWinnerDestSlot etc) use correct sizes
+  window._bracketFlagR   = _fR;
+  window._bracketFlagRQF = _fRQF;
+  window._bracketFlagRSF = _fRSF;
+
   // Restore globals immediately after SVG is built
   if (isMobileBracket) {
     VH = _VH; FLAG_R = _FLAG_R; FLAG_R_SF = _FLAG_R_SF; FLAG_R_QF = _FLAG_R_QF; FLAG_R_FINAL = _FLAG_R_FINAL;
+    X.r32 = _Xr32;
   }
 
   container.innerHTML = '';
@@ -7384,7 +7392,7 @@ function updateWinnerDestSlot(item) {
     if (item.matchId === 'BRONZE' && item.winner) {
       var bg = document.getElementById('flag-BRONZE');
       if (bg) {
-        updateFlagNode(bg, item.winner, FLAG_R_SF);
+        updateFlagNode(bg, item.winner, window._bracketFlagRSF || FLAG_R_SF);
         bg.setAttribute('opacity','1');
       }
     }
@@ -7395,12 +7403,14 @@ function updateWinnerDestSlot(item) {
   var flagId = 'flag-' + destMatchId + (fi === 0 ? '-h' : '-a');
   var flagEl = document.getElementById(flagId);
   if (!flagEl || !item.winner) return;
-  // Determine radius for destination round
-  // FINAL uses FLAG_R_SF to keep finalist flags same size throughout
-  var destR = destMatchId.startsWith('R16')   ? FLAG_R_QF :
-              destMatchId.startsWith('QF')    ? FLAG_R_QF :
-              destMatchId.startsWith('SF')    ? FLAG_R_SF  :
-              destMatchId === 'FINAL'         ? FLAG_R_SF  : FLAG_R;
+  // Determine radius for destination round — use bracket-stored mobile radii if available
+  var bR   = window._bracketFlagR   || FLAG_R;
+  var bRQF = window._bracketFlagRQF || FLAG_R_QF;
+  var bRSF = window._bracketFlagRSF || FLAG_R_SF;
+  var destR = destMatchId.startsWith('R16')   ? bRQF :
+              destMatchId.startsWith('QF')    ? bRQF :
+              destMatchId.startsWith('SF')    ? bRSF  :
+              destMatchId === 'FINAL'         ? bRSF  : bR;
   // Update the destination flag to show the winner
   updateFlagNode(flagEl, item.winner, destR);
   flagEl.setAttribute('opacity', '1');
@@ -7421,8 +7431,11 @@ function updateRoundFlags(round) {
     'Final': ['FINAL']
   };
   var ids = roundMap[round] || [];
-  var radMap = {'R16':FLAG_R_QF,'QF':FLAG_R_QF,'SF':FLAG_R_SF,'Final':FLAG_R_FINAL};
-  var rad = radMap[round] || FLAG_R_QF;
+  var bR2   = window._bracketFlagR   || FLAG_R;
+  var bRQF2 = window._bracketFlagRQF || FLAG_R_QF;
+  var bRSF2 = window._bracketFlagRSF || FLAG_R_SF;
+  var radMap = {'R16':bRQF2,'QF':bRQF2,'SF':bRSF2,'Final':bRSF2};
+  var rad = radMap[round] || bRQF2;
   ids.forEach(function(matchId) {
     var t = getKoTeams(matchId);
     var fh = document.getElementById('flag-'+matchId+'-h');
@@ -7812,7 +7825,7 @@ function bracketReset() {
   var btn = document.getElementById('anim-play-btn');
   btn.innerHTML = '&#8635; RESET';
   btn.disabled = false;
-  var _s=document.getElementById('anim-status'); _s.className='anim-status status-done'; _s.textContent='Click Reset to refresh Bracket';
+  var _s=document.getElementById('anim-status'); _s.className='anim-status status-done'; _s.textContent='Animation complete — click Reset to refresh bracket';
 }
 
 // ── Champion celebration ───────────────────────────────────────────────────
