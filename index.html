@@ -6785,6 +6785,12 @@ function renderBracket() {
 
   var svg = buildBracketSVG();
 
+  // Capture mobile-scaled radii into locals before restoring globals
+  var _fR    = FLAG_R;
+  var _fRSF  = FLAG_R_SF;
+  var _fRQF  = FLAG_R_QF;
+  var _fRFIN = FLAG_R_FINAL;
+
   // Restore globals immediately after SVG is built
   if (isMobileBracket) {
     VH = _VH; FLAG_R = _FLAG_R; FLAG_R_SF = _FLAG_R_SF; FLAG_R_QF = _FLAG_R_QF; FLAG_R_FINAL = _FLAG_R_FINAL;
@@ -6804,17 +6810,17 @@ function renderBracket() {
 
   // Spread: half-distance between the 2 flags in a match slot
   var SPREAD = {
-    r32: FLAG_R * 1.2,
-    r16: FLAG_R_QF * 1.5,
-    qf:  FLAG_R_QF * 2.1,
-    sf:  FLAG_R_SF * 2.5
+    r32: _fR * 1.2,
+    r16: _fRQF * 1.5,
+    qf:  _fRQF * 2.1,
+    sf:  _fRSF * 2.5
   };
 
   var FRAD = {
-    r32: FLAG_R,
-    r16: FLAG_R_QF,
-    qf:  FLAG_R_QF,
-    sf:  FLAG_R_SF
+    r32: _fR,
+    r16: _fRQF,
+    qf:  _fRQF,
+    sf:  _fRSF
   };
 
   // Slot centre Y for a given round and match index
@@ -6984,7 +6990,7 @@ function renderBracket() {
 
   // X positions for finalists (flanking centre)
   // Finalists sit exactly on the SF bracket stub end line
-  var sfStubEnd = X.sf + FLAG_R_SF + 12;          // x=447
+  var sfStubEnd = X.sf + _fRSF + 12;          // x=447
   var finXh = sfStubEnd;                           // left finalist on SF left stub
   var finXa = mirrorX(sfStubEnd);                  // right finalist on SF right stub
 
@@ -7101,8 +7107,8 @@ function renderBracket() {
   var ftScore = getScore('FINAL');
   var ftHome = (ftScore.h !== null) ? (ft.home||'TBD') : 'TBD';
   var ftAway = (ftScore.h !== null) ? (ft.away||'TBD') : 'TBD';
-  flagsG.appendChild(makeFlagNode(ftHome, finXh, vsY, FLAG_R_SF, 1, 'flag-FINAL-h'));
-  flagsG.appendChild(makeFlagNode(ftAway, finXa, vsY, FLAG_R_SF, 1, 'flag-FINAL-a'));
+  flagsG.appendChild(makeFlagNode(ftHome, finXh, vsY, _fRSF, 1, 'flag-FINAL-h'));
+  flagsG.appendChild(makeFlagNode(ftAway, finXa, vsY, _fRSF, 1, 'flag-FINAL-a'));
 
   // VS text between the two flags
   var vsText = document.createElementNS('http://www.w3.org/2000/svg','text');
@@ -7118,12 +7124,12 @@ function renderBracket() {
   labelsG.appendChild(vsText);
 
   // Horizontal lines: each finalist flag → VS centre
-  linesG.appendChild(makeLine(finXh + FLAG_R_SF + 2, vsY, X.final - 14, vsY));
-  linesG.appendChild(makeLine(finXa - FLAG_R_SF - 2, vsY, X.final + 14, vsY));
+  linesG.appendChild(makeLine(finXh + _fRSF + 2, vsY, X.final - 14, vsY));
+  linesG.appendChild(makeLine(finXa - _fRSF - 2, vsY, X.final + 14, vsY));
 
   // SF stubs → finalist flags
-  // Left: SF stub (x=420) → left finalist outer edge (x=400-FLAG_R_SF)
-  // Right: SF stub (x=580) → right finalist outer edge (x=560+FLAG_R_SF)
+  // Left: SF stub (x=420) → left finalist outer edge (x=400-_fRSF)
+  // Right: SF stub (x=580) → right finalist outer edge (x=560+_fRSF)
   // Lines connect SF bracket midpoint to finalist flag centre (flag circle covers endpoint)
   linesG.appendChild(makeLine(X.sf + 12, sfCentre, finXh, vsY));
   linesG.appendChild(makeLine(mirrorX(X.sf) - 12, sfCentre, finXa, vsY));
@@ -7160,7 +7166,7 @@ function renderBracket() {
   linesG.appendChild(dashLine('M'+bronzeXc+','+bronzeConnY+' L'+bronzeXc+','+bronzeFlagY));
 
   // 3RD PLACE label below flag (emoji + text as separate elements for cross-browser reliability)
-  var bLblY = bronzeFlagY + FLAG_R_SF + 14;
+  var bLblY = bronzeFlagY + _fRSF + 14;
   var bEmoji = document.createElementNS('http://www.w3.org/2000/svg','text');
   bEmoji.setAttribute('x', bronzeXc - 32);
   bEmoji.setAttribute('y', bLblY);
@@ -7180,7 +7186,7 @@ function renderBracket() {
   labelsG.appendChild(bLbl);
 
   // Single centred bronze flag placeholder
-  flagsG.appendChild(makeFlagNode('TBD', bronzeXc, bronzeFlagY, FLAG_R_SF, 0.35, 'flag-BRONZE'));
+  flagsG.appendChild(makeFlagNode('TBD', bronzeXc, bronzeFlagY, _fRSF, 0.35, 'flag-BRONZE'));
 
 
   // ── Round labels ──────────────────────────────────────────────────────
@@ -7806,7 +7812,7 @@ function bracketReset() {
   var btn = document.getElementById('anim-play-btn');
   btn.innerHTML = '&#8635; RESET';
   btn.disabled = false;
-  var _s=document.getElementById('anim-status'); _s.className='anim-status status-done'; _s.textContent='Animation complete — click Reset to refresh bracket';
+  var _s=document.getElementById('anim-status'); _s.className='anim-status status-done'; _s.textContent='Click Reset to refresh Bracket';
 }
 
 // ── Champion celebration ───────────────────────────────────────────────────
