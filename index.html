@@ -4947,6 +4947,26 @@ hadEmbedded = true;
 }
 // Priority 2: localStorage
 var hadStorage = !hadEmbedded && loadFromStorage();
+
+// ── Score count-up animation (Overview, first load only) ──────────────────
+function animateScores() {
+  var digits = document.querySelectorAll('.score-digit[data-val]');
+  if (!digits.length) return;
+  digits.forEach(function(el) {
+    var target = parseInt(el.getAttribute('data-val'), 10);
+    if (isNaN(target) || target === 0) { el.textContent = target || 0; return; }
+    var duration = 320;
+    var steps = Math.max(target, 6);
+    var interval = duration / steps;
+    var current = 0;
+    var timer = setInterval(function() {
+      current++;
+      el.textContent = current;
+      if (current >= target) { el.textContent = target; clearInterval(timer); }
+    }, interval);
+  });
+}
+
 _suppressSave = true;
 renderGroups();
 renderKnockout();
@@ -4956,6 +4976,8 @@ _suppressSave = false;
 renderLiveNow();
 renderRecentResults();
 renderWatchlist();
+// Count-up animation on first load only
+setTimeout(animateScores, 80);
 // Sync RECENT button active state on load
 (function() {
   var recentBtn = document.getElementById('recent-nav-btn');
@@ -5075,7 +5097,10 @@ function renderLiveNow() {
   liveMatches.forEach(function(m) {
     var s = getScore(m.id);
     var scoreStr = (s.h !== null && s.a !== null)
-      ? s.h + '–' + s.a : '–';
+      ? '<span class="score-digit" data-val="' + s.h + '">0</span>'
+        + '–'
+        + '<span class="score-digit" data-val="' + s.a + '">0</span>'
+      : '–';
     var homeFlagHtml = (isoCodes && isoCodes[m.home])
       ? '<img src="https://flagcdn.com/20x15/' + isoCodes[m.home] + '.png" style="width:16px;height:12px;border-radius:2px;vertical-align:middle;">'
       : '';
@@ -5260,7 +5285,9 @@ function renderRecentResults() {
   recentMatches.forEach(function(m) {
     var s = getScore(m.id);
     if (s.h === null || s.a === null) return; // skip if no score yet
-    var scoreStr = s.h + '\u2013' + s.a;
+    var scoreStr = '<span class="score-digit" data-val="' + s.h + '">0</span>'
+      + '\u2013'
+      + '<span class="score-digit" data-val="' + s.a + '">0</span>';
     var pen = penScores[m.id];
     var penHtml = (s.h === s.a && pen && pen.h !== null && pen.a !== null)
       ? '<div class="recent-match-pen">(pen ' + Math.max(pen.h,pen.a) + '\u2013' + Math.min(pen.h,pen.a) + ')</div>'
