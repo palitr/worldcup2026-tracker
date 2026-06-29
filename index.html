@@ -3545,7 +3545,23 @@ var confettiParticles = [];
 // ============================================================
 // Data loaded from data.js
 
-// ── Normalize a raw scorer entry (strips garbling, applies alias) ──
+// ============================================================
+// STATE
+// ============================================================
+const scores = {};        // matchId -> { h: number|null, a: number|null }
+var _suppressSave = false;
+var manualScores = {};    // tracks which match IDs were entered by the user manually
+var watchlist = {};       // starred match IDs
+var STORAGE_WATCHLIST = 'fifa2026_watchlist';
+var _postClearMsg = null; // save indicator message to show after clear
+var bracketAnimating = false;
+var bracketSoundOn = true;
+var bracketAudioCtx = null;
+const koTeams  = {};
+const penScores = {};     // matchId → {h,a} penalty shootout scores
+const scorers  = {};      // matchId → {h: [...], a: [...]} goal scorers from API
+
+
 function normalizeScorer(raw) {
   if (!raw) return raw;
   // Strip RTL/LTR unicode marks
