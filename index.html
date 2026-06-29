@@ -6780,9 +6780,11 @@ function renderBracket() {
   var isMobileBracket = window.innerWidth <= 600;
   var _VH = VH, _FLAG_R = FLAG_R, _FLAG_R_SF = FLAG_R_SF, _FLAG_R_QF = FLAG_R_QF, _FLAG_R_FINAL = FLAG_R_FINAL;
   var _Xr32 = X.r32; // save original R32 x-offset
+  var _Xr16 = X.r16; // save original R16 x-offset
   if (isMobileBracket) {
     VH = 1200; FLAG_R = 26; FLAG_R_SF = 30; FLAG_R_QF = 28; FLAG_R_FINAL = 40;
-    X.r32 = 32; // push R32 flags inward so they aren't clipped
+    X.r32 = 40;  // push R32 flags well inside — flag extends to x=14, clear of edge
+    X.r16 = 185; // shorten R16 slightly to keep connector reasonable
   }
 
   var svg = buildBracketSVG();
@@ -6802,6 +6804,7 @@ function renderBracket() {
   if (isMobileBracket) {
     VH = _VH; FLAG_R = _FLAG_R; FLAG_R_SF = _FLAG_R_SF; FLAG_R_QF = _FLAG_R_QF; FLAG_R_FINAL = _FLAG_R_FINAL;
     X.r32 = _Xr32;
+    X.r16 = _Xr16;
   }
 
   container.innerHTML = '';
