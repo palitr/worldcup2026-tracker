@@ -20,7 +20,7 @@ const isoCodes = {
 
 function flag(t){
   const iso = isoCodes[t];
-  if (!iso) return '\u{1F3F3}\uFE0F';
+  if (!iso) return '\uD83C\uDFF3\uFE0F';
   return '<img src="https://flagcdn.com/20x15/'+iso+'.png" width="20" height="15" alt="'+t+'" style="border-radius:2px;vertical-align:middle;display:inline-block;flex-shrink:0;">';
 }
 
@@ -188,6 +188,12 @@ var flagCodes = {
   'England':'gb-eng','Croatia':'hr','Panama':'pa','Ghana':'gh',
   'TBD':'','Best 3rd':''
 };
+
+function getFlagUrl(team) {
+  var code = flagCodes[team];
+  if (!code) return '';
+  return 'https://hatscripts.github.io/circle-flags/flags/' + code + '.svg';
+}
 
 var BRACKET_TREE = {
   left: [
