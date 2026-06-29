@@ -3085,15 +3085,6 @@ transition:all 0.15s; cursor:default;
     display: block;
     aspect-ratio: 1000 / 700;
   }
-  @media (max-width: 600px) {
-    #bracket-svg-container {
-      padding: 10px 4px 20px;
-    }
-    #bracket-svg-container svg {
-      aspect-ratio: 1060 / 1200;
-      overflow: visible;
-    }
-  }
   #bracket-svg [id^="flag-"]:hover {
     cursor: pointer;
   }
@@ -6780,40 +6771,7 @@ function renderBracket() {
   var container = document.getElementById('bracket-svg-container');
   if (!container) { console.error('[BRACKET] bracket-svg-container NOT FOUND'); return; }
 
-  // ── Mobile: use taller viewBox so flags are bigger ──────────────────
-  var isMobileBracket = window.innerWidth <= 600;
-  var _VW = VW, _HALF = HALF;
-  var _VH = VH, _FLAG_R = FLAG_R, _FLAG_R_SF = FLAG_R_SF, _FLAG_R_QF = FLAG_R_QF, _FLAG_R_FINAL = FLAG_R_FINAL;
-  var _Xr32 = X.r32; // save original R32 x-offset
-  var _Xr16 = X.r16; // save original R16 x-offset
-  if (isMobileBracket) {
-    VW = 1060; HALF = VW / 2; // wider viewBox gives left/right breathing room
-    VH = 1200; FLAG_R = 26; FLAG_R_SF = 30; FLAG_R_QF = 28; FLAG_R_FINAL = 40;
-    X.r32 = 50;  // push R32 flags well inside
-    X.r16 = 215; // keep R16 in similar relative position within wider viewBox
-  }
-
   var svg = buildBracketSVG();
-
-  // Capture mobile-scaled radii into locals before restoring globals
-  var _fR    = FLAG_R;
-  var _fRSF  = FLAG_R_SF;
-  var _fRQF  = FLAG_R_QF;
-  var _fRFIN = FLAG_R_FINAL;
-
-  // Store in bracket-scope var so animation functions (updateWinnerDestSlot etc) use correct sizes
-  window._bracketFlagR   = _fR;
-  window._bracketFlagRQF = _fRQF;
-  window._bracketFlagRSF = _fRSF;
-
-  // Restore globals immediately after SVG is built
-  if (isMobileBracket) {
-    VW = _VW; HALF = _HALF;
-    VH = _VH; FLAG_R = _FLAG_R; FLAG_R_SF = _FLAG_R_SF; FLAG_R_QF = _FLAG_R_QF; FLAG_R_FINAL = _FLAG_R_FINAL;
-    X.r32 = _Xr32;
-    X.r16 = _Xr16;
-  }
-
   container.innerHTML = '';
   container.appendChild(svg);
 
@@ -6823,22 +6781,21 @@ function renderBracket() {
 
   // ── Layout constants ──────────────────────────────────────────────────
   var TOP_PAD  = 24;
-  var usableVH = isMobileBracket ? 1200 : VH;
-  var usableH  = usableVH - TOP_PAD;
+  var usableH  = VH - TOP_PAD;
 
   // Spread: half-distance between the 2 flags in a match slot
   var SPREAD = {
-    r32: _fR * 1.2,
-    r16: _fRQF * 1.5,
-    qf:  _fRQF * 2.1,
-    sf:  _fRSF * 2.5
+    r32: FLAG_R * 1.2,
+    r16: FLAG_R_QF * 1.5,
+    qf:  FLAG_R_QF * 2.1,
+    sf:  FLAG_R_SF * 2.5
   };
 
   var FRAD = {
-    r32: _fR,
-    r16: _fRQF,
-    qf:  _fRQF,
-    sf:  _fRSF
+    r32: FLAG_R,
+    r16: FLAG_R_QF,
+    qf:  FLAG_R_QF,
+    sf:  FLAG_R_SF
   };
 
   // Slot centre Y for a given round and match index
@@ -7008,7 +6965,7 @@ function renderBracket() {
 
   // X positions for finalists (flanking centre)
   // Finalists sit exactly on the SF bracket stub end line
-  var sfStubEnd = X.sf + _fRSF + 12;          // x=447
+  var sfStubEnd = X.sf + FLAG_R_SF + 12;          // x=447
   var finXh = sfStubEnd;                           // left finalist on SF left stub
   var finXa = mirrorX(sfStubEnd);                  // right finalist on SF right stub
 
@@ -7125,8 +7082,8 @@ function renderBracket() {
   var ftScore = getScore('FINAL');
   var ftHome = (ftScore.h !== null) ? (ft.home||'TBD') : 'TBD';
   var ftAway = (ftScore.h !== null) ? (ft.away||'TBD') : 'TBD';
-  flagsG.appendChild(makeFlagNode(ftHome, finXh, vsY, _fRSF, 1, 'flag-FINAL-h'));
-  flagsG.appendChild(makeFlagNode(ftAway, finXa, vsY, _fRSF, 1, 'flag-FINAL-a'));
+  flagsG.appendChild(makeFlagNode(ftHome, finXh, vsY, FLAG_R_SF, 1, 'flag-FINAL-h'));
+  flagsG.appendChild(makeFlagNode(ftAway, finXa, vsY, FLAG_R_SF, 1, 'flag-FINAL-a'));
 
   // VS text between the two flags
   var vsText = document.createElementNS('http://www.w3.org/2000/svg','text');
@@ -7142,12 +7099,12 @@ function renderBracket() {
   labelsG.appendChild(vsText);
 
   // Horizontal lines: each finalist flag → VS centre
-  linesG.appendChild(makeLine(finXh + _fRSF + 2, vsY, X.final - 14, vsY));
-  linesG.appendChild(makeLine(finXa - _fRSF - 2, vsY, X.final + 14, vsY));
+  linesG.appendChild(makeLine(finXh + FLAG_R_SF + 2, vsY, X.final - 14, vsY));
+  linesG.appendChild(makeLine(finXa - FLAG_R_SF - 2, vsY, X.final + 14, vsY));
 
   // SF stubs → finalist flags
-  // Left: SF stub (x=420) → left finalist outer edge (x=400-_fRSF)
-  // Right: SF stub (x=580) → right finalist outer edge (x=560+_fRSF)
+  // Left: SF stub (x=420) → left finalist outer edge (x=400-FLAG_R_SF)
+  // Right: SF stub (x=580) → right finalist outer edge (x=560+FLAG_R_SF)
   // Lines connect SF bracket midpoint to finalist flag centre (flag circle covers endpoint)
   linesG.appendChild(makeLine(X.sf + 12, sfCentre, finXh, vsY));
   linesG.appendChild(makeLine(mirrorX(X.sf) - 12, sfCentre, finXa, vsY));
@@ -7184,7 +7141,7 @@ function renderBracket() {
   linesG.appendChild(dashLine('M'+bronzeXc+','+bronzeConnY+' L'+bronzeXc+','+bronzeFlagY));
 
   // 3RD PLACE label below flag (emoji + text as separate elements for cross-browser reliability)
-  var bLblY = bronzeFlagY + _fRSF + 14;
+  var bLblY = bronzeFlagY + FLAG_R_SF + 14;
   var bEmoji = document.createElementNS('http://www.w3.org/2000/svg','text');
   bEmoji.setAttribute('x', bronzeXc - 32);
   bEmoji.setAttribute('y', bLblY);
@@ -7204,7 +7161,7 @@ function renderBracket() {
   labelsG.appendChild(bLbl);
 
   // Single centred bronze flag placeholder
-  flagsG.appendChild(makeFlagNode('TBD', bronzeXc, bronzeFlagY, _fRSF, 0.35, 'flag-BRONZE'));
+  flagsG.appendChild(makeFlagNode('TBD', bronzeXc, bronzeFlagY, FLAG_R_SF, 0.35, 'flag-BRONZE'));
 
 
   // ── Round labels ──────────────────────────────────────────────────────
@@ -7402,7 +7359,7 @@ function updateWinnerDestSlot(item) {
     if (item.matchId === 'BRONZE' && item.winner) {
       var bg = document.getElementById('flag-BRONZE');
       if (bg) {
-        updateFlagNode(bg, item.winner, window._bracketFlagRSF || FLAG_R_SF);
+        updateFlagNode(bg, item.winner, FLAG_R_SF);
         bg.setAttribute('opacity','1');
       }
     }
@@ -7413,14 +7370,12 @@ function updateWinnerDestSlot(item) {
   var flagId = 'flag-' + destMatchId + (fi === 0 ? '-h' : '-a');
   var flagEl = document.getElementById(flagId);
   if (!flagEl || !item.winner) return;
-  // Determine radius for destination round — use bracket-stored mobile radii if available
-  var bR   = window._bracketFlagR   || FLAG_R;
-  var bRQF = window._bracketFlagRQF || FLAG_R_QF;
-  var bRSF = window._bracketFlagRSF || FLAG_R_SF;
-  var destR = destMatchId.startsWith('R16')   ? bRQF :
-              destMatchId.startsWith('QF')    ? bRQF :
-              destMatchId.startsWith('SF')    ? bRSF  :
-              destMatchId === 'FINAL'         ? bRSF  : bR;
+  // Determine radius for destination round
+  // FINAL uses FLAG_R_SF to keep finalist flags same size throughout
+  var destR = destMatchId.startsWith('R16')   ? FLAG_R_QF :
+              destMatchId.startsWith('QF')    ? FLAG_R_QF :
+              destMatchId.startsWith('SF')    ? FLAG_R_SF  :
+              destMatchId === 'FINAL'         ? FLAG_R_SF  : FLAG_R;
   // Update the destination flag to show the winner
   updateFlagNode(flagEl, item.winner, destR);
   flagEl.setAttribute('opacity', '1');
@@ -7441,11 +7396,8 @@ function updateRoundFlags(round) {
     'Final': ['FINAL']
   };
   var ids = roundMap[round] || [];
-  var bR2   = window._bracketFlagR   || FLAG_R;
-  var bRQF2 = window._bracketFlagRQF || FLAG_R_QF;
-  var bRSF2 = window._bracketFlagRSF || FLAG_R_SF;
-  var radMap = {'R16':bRQF2,'QF':bRQF2,'SF':bRSF2,'Final':bRSF2};
-  var rad = radMap[round] || bRQF2;
+  var radMap = {'R16':FLAG_R_QF,'QF':FLAG_R_QF,'SF':FLAG_R_SF,'Final':FLAG_R_FINAL};
+  var rad = radMap[round] || FLAG_R_QF;
   ids.forEach(function(matchId) {
     var t = getKoTeams(matchId);
     var fh = document.getElementById('flag-'+matchId+'-h');
@@ -7835,7 +7787,7 @@ function bracketReset() {
   var btn = document.getElementById('anim-play-btn');
   btn.innerHTML = '&#8635; RESET';
   btn.disabled = false;
-  var _s=document.getElementById('anim-status'); _s.className='anim-status status-done'; _s.textContent='Click Reset to refresh Bracket';
+  var _s=document.getElementById('anim-status'); _s.className='anim-status status-done'; _s.textContent='Animation complete — click Reset to refresh bracket';
 }
 
 // ── Champion celebration ───────────────────────────────────────────────────
