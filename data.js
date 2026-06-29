@@ -18,6 +18,12 @@ const isoCodes = {
 'TBD':'un'
 };
 
+function flag(t){
+  const iso = isoCodes[t];
+  if (!iso) return '\u{1F3F3}\uFE0F';
+  return '<img src="https://flagcdn.com/20x15/'+iso+'.png" width="20" height="15" alt="'+t+'" style="border-radius:2px;vertical-align:middle;display:inline-block;flex-shrink:0;">';
+}
+
 const groups = {
 A:{ name:'Group A', teams:['Mexico','South Korea','South Africa','Czechia'] },
 B:{ name:'Group B', teams:['Canada','Switzerland','Qatar','Bosnia-Herzegovina'] },
