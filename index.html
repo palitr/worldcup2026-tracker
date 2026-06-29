@@ -3247,12 +3247,12 @@ transition:all 0.15s; cursor:default;
 .hist-var-grid { display:flex; flex-direction:column; gap:10px; }
 .hist-var-row { display:flex; align-items:center; gap:8px; }
 .hist-var-year-lbl { font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; letter-spacing:1px; color:rgba(200,205,230,0.85); width:72px; flex-shrink:0; text-align:right; }
-.hist-var-bar-bg { flex:1; height:38px; background:rgba(255,255,255,0.05); border-radius:6px; overflow:hidden; position:relative; }
-.hist-var-bar-fill { height:100%; border-radius:6px; display:flex; align-items:center; padding-left:12px; gap:10px; transition:width 0.6s ease; }
-.hist-var-bar-text { font-family:'Bebas Neue',cursive; font-size:1.05rem; letter-spacing:2px; color:#fff; white-space:nowrap; flex-shrink:0; }
-.hist-var-era-name { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; letter-spacing:1.2px; color:rgba(210,215,240,0.9); white-space:nowrap; width:120px; flex-shrink:0; text-align:right; }
+.hist-var-bar-bg { flex:1; height:38px; background:rgba(255,255,255,0.05); border-radius:6px; overflow:hidden; position:relative; display:flex; align-items:center; }
+.hist-var-bar-fill { height:100%; border-radius:6px; display:flex; align-items:center; padding-left:12px; transition:width 0.6s ease; flex-shrink:0; }
+.hist-var-bar-text { font-family:'Bebas Neue',cursive; font-size:1.05rem; letter-spacing:2px; color:#fff; white-space:nowrap; }
+.hist-var-era-name { position:absolute; right:10px; font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; letter-spacing:1.2px; color:rgba(210,215,240,0.9); white-space:nowrap; pointer-events:none; }
 .hist-var-val { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; width:44px; text-align:right; flex-shrink:0; font-weight:600; }
-@media(max-width:600px) { .hist-var-year-lbl { width:52px; font-size:0.65rem; } .hist-var-era-name { width:80px; font-size:0.68rem; } }
+@media(max-width:600px) { .hist-var-year-lbl { width:52px; font-size:0.65rem; } .hist-var-era-name { font-size:0.65rem; right:6px; } }
 </style>
 </head>
 <body>
@@ -6316,11 +6316,13 @@ function renderHistorySection() {
     var op=ep.live?'1':(ep.highlight?'0.85':'0.55');
     var nameCol=ep.live?ep.col:'rgba(210,215,240,0.9)';
     varHtml+='<div class="hist-var-row">';
-    varHtml+='<div class="hist-var-year-lbl" style="color:rgba(200,205,230,0.85)">'+ep.years+'</div>';
-    varHtml+='<div class="hist-var-bar-bg"><div class="hist-var-bar-fill" style="width:'+pw+'%;background:'+ep.col+';opacity:'+op+'">';
+    varHtml+='<div class="hist-var-year-lbl">'+ep.years+'</div>';
+    varHtml+='<div class="hist-var-bar-bg">';
+    varHtml+='<div class="hist-var-bar-fill" style="width:'+pw+'%;background:'+ep.col+';opacity:'+op+'">';
     if(ep.pen!=null&&pct>0.12) varHtml+='<span class="hist-var-bar-text">'+ep.pen.toFixed(2)+'</span>';
-    varHtml+='</div></div>';
-    varHtml+='<div class="hist-var-era-name" style="color:'+nameCol+'">'+ep.lbl+'</div>';
+    varHtml+='</div>';
+    varHtml+='<span class="hist-var-era-name" style="color:'+nameCol+'">'+ep.lbl+'</span>';
+    varHtml+='</div>';
     varHtml+='<div class="hist-var-val" style="color:'+ep.col+'">'+(ep.pen!=null?ep.pen.toFixed(2):'–')+'/m</div>';
     varHtml+='</div>';
   });
