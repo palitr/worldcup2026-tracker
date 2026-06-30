@@ -741,7 +741,12 @@ def build_scores(data):
             print(f"  ⚠️  Unmatched: {home} vs {away} [type={mtype}]")
             continue
 
-        scores[match_id] = {"h": home_score, "a": away_score}
+        scores[match_id] = {
+            "h": home_score,
+            "a": away_score,
+            "finished": str(m.get("finished") or "").upper() == "TRUE",
+            "min": str(m.get("time_elapsed") or "").strip() or None
+        }
 
         # ── Penalty shootout scores ──────────────────────────────────────
         pen_h_raw, pen_a_raw = extract_penalty_scores(m)
