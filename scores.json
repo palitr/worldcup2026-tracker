@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T21:46:00Z",
+  "updated": "2026-06-30T21:53:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -332,7 +332,7 @@
       "min": "finished"
     },
     "R32_6": {
-      "h": 0,
+      "h": 1,
       "a": 0,
       "finished": false,
       "min": "live"
