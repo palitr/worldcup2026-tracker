@@ -6566,6 +6566,12 @@ document.addEventListener('keydown', function(e) {
     })
     .finally(function() {
       init();
+      // Re-render Overview cards now that real scores have loaded —
+      // otherwise Live Now / Recent Results stay empty until the user
+      // manually switches tabs (scores.json fetch is async, so the very
+      // first renderLiveNow()/renderRecentResults() call ran with no data).
+      renderLiveNow();
+      renderRecentResults();
       if (window._liveScoresUpdatedAt && Object.keys(manualScores).length === 0) {
         var d = new Date(window._liveScoresUpdatedAt);
         var fmt = new Intl.DateTimeFormat('en-GB', {
@@ -6762,7 +6768,8 @@ function makeFlagNode(team, x, y, r, opacity, id, labelSide) {
     img.setAttribute('href', url);
     img.setAttribute('x', -r); img.setAttribute('y', -r);
     img.setAttribute('width', r*2); img.setAttribute('height', r*2);
-    img.setAttribute('clip-path', 'url(#cp-'+(r===BL.FLAG_R_FINAL?'final':r===BL.FLAG_R_SF?'sf':r===BL.FLAG_R_QF?'qf':'r32')+')');
+    var _BL2 = window._bracketLayout || { FLAG_R: FLAG_R, FLAG_R_QF: FLAG_R_QF, FLAG_R_SF: FLAG_R_SF, FLAG_R_FINAL: FLAG_R_FINAL };
+    img.setAttribute('clip-path', 'url(#cp-'+(r===_BL2.FLAG_R_FINAL?'final':r===_BL2.FLAG_R_SF?'sf':r===_BL2.FLAG_R_QF?'qf':'r32')+')');
     g.appendChild(img);
   } else {
     // TBD - just question mark
