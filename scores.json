@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T03:31:00Z",
+  "updated": "2026-06-30T04:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -1440,10 +1440,10 @@
       "Cody Gakpo|Netherlands": {
         "name": "Cody Gakpo",
         "team": "Netherlands",
-        "goals": 2,
+        "goals": 3,
         "pen": 0,
-        "npg": 2,
-        "mp": 1
+        "npg": 3,
+        "mp": 2
       },
       "Anthony Elanga|Sweden": {
         "name": "Anthony Elanga",
@@ -2069,6 +2069,14 @@
         "npg": 1,
         "mp": 1
       },
+      "Issa Diop|Morocco": {
+        "name": "Issa Diop",
+        "team": "Morocco",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
       "Casemiro|Brazil": {
         "name": "Casemiro",
         "team": "Brazil",
@@ -2103,12 +2111,12 @@
       "31-45": 29,
       "45+": 9,
       "46-60": 35,
-      "61-75": 28,
+      "61-75": 29,
       "76-90": 32,
-      "90+": 22
+      "90+": 23
     },
     "ht_goals": 97,
-    "sh_goals": 124,
+    "sh_goals": 126,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2684,17 +2692,17 @@
       },
       {
         "round": "Round of 32",
-        "goals": 6
+        "goals": 8
       }
     ],
     "scoreline_freq": [
       {
-        "score": "1-0",
+        "score": "1-1",
         "count": 11
       },
       {
-        "score": "1-1",
-        "count": 10
+        "score": "1-0",
+        "count": 11
       },
       {
         "score": "3-1",
