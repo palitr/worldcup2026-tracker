@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T19:01:00Z",
+  "updated": "2026-06-30T19:15:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -1334,10 +1334,10 @@
       "Amad Diallo|Ivory Coast": {
         "name": "Amad Diallo",
         "team": "Ivory Coast",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Franck Kessi\u00e9|Ivory Coast": {
         "name": "Franck Kessi\u00e9",
@@ -1718,10 +1718,10 @@
       "Erling Haaland|Norway": {
         "name": "Erling Haaland",
         "team": "Norway",
-        "goals": 4,
+        "goals": 5,
         "pen": 0,
-        "npg": 4,
-        "mp": 2
+        "npg": 5,
+        "mp": 3
       },
       "Leo \u00d8stigard|Norway": {
         "name": "Leo \u00d8stigard",
@@ -2122,6 +2122,14 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Antonio Nusa|Norway": {
+        "name": "Antonio Nusa",
+        "team": "Norway",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 8,
@@ -2130,15 +2138,15 @@
     "goals_by_period": {
       "0-15": 27,
       "16-30": 27,
-      "31-45": 29,
+      "31-45": 30,
       "45+": 9,
       "46-60": 35,
-      "61-75": 29,
-      "76-90": 32,
+      "61-75": 30,
+      "76-90": 33,
       "90+": 23
     },
-    "ht_goals": 97,
-    "sh_goals": 126,
+    "ht_goals": 98,
+    "sh_goals": 128,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2440,14 +2448,14 @@
         "goals": 3
       },
       {
-        "name": "Kylian Mbapp\u00e9",
-        "team": "France",
-        "streak": 2,
-        "goals": 4
-      },
-      {
         "name": "Erling Haaland",
         "team": "Norway",
+        "streak": 2,
+        "goals": 5
+      },
+      {
+        "name": "Kylian Mbapp\u00e9",
+        "team": "France",
         "streak": 2,
         "goals": 4
       },
@@ -2714,7 +2722,7 @@
       },
       {
         "round": "Round of 32",
-        "goals": 8
+        "goals": 11
       }
     ],
     "scoreline_freq": [
@@ -2727,12 +2735,12 @@
         "count": 11
       },
       {
-        "score": "3-1",
+        "score": "2-1",
         "count": 8
       },
       {
-        "score": "2-1",
-        "count": 7
+        "score": "3-1",
+        "count": 8
       },
       {
         "score": "0-0",
