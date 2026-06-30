@@ -6682,6 +6682,14 @@ function sfY() {
 // X positions (left side, mirrored for right)
 // X declared at top of script
 
+var _heroTrophyDataUrl = null;
+function getHeroTrophyDataUrl() {
+  if (_heroTrophyDataUrl) return _heroTrophyDataUrl;
+  var heroImg = document.querySelector('.trophy-icon');
+  _heroTrophyDataUrl = heroImg ? heroImg.getAttribute('src') : '';
+  return _heroTrophyDataUrl;
+}
+
 function mirrorX(x) {
   var bl = window._bracketLayout;
   var vw = bl ? bl.VW : VW;
@@ -7078,13 +7086,15 @@ function renderBracket() {
   // ── Trophy (below CHAMPION text) ─────────────────────────────────────
   var trophyG = document.createElementNS('http://www.w3.org/2000/svg','g');
   trophyG.setAttribute('transform', 'translate('+BL.X.final+','+trophyY+')');
-  var trophyText = document.createElementNS('http://www.w3.org/2000/svg','text');
-  trophyText.setAttribute('text-anchor','middle');
-  trophyText.setAttribute('dominant-baseline','central');
-  trophyText.setAttribute('font-size','54');
-  trophyText.setAttribute('id','trophy-emoji');
-  trophyText.textContent = String.fromCodePoint(0x1F3C6);
-  trophyG.appendChild(trophyText);
+  var trophySize = 56;
+  var trophyImg = document.createElementNS('http://www.w3.org/2000/svg','image');
+  trophyImg.setAttribute('id','trophy-emoji');
+  trophyImg.setAttribute('x', -trophySize/2);
+  trophyImg.setAttribute('y', -trophySize/2);
+  trophyImg.setAttribute('width', trophySize);
+  trophyImg.setAttribute('height', trophySize);
+  trophyImg.setAttribute('href', getHeroTrophyDataUrl());
+  trophyG.appendChild(trophyImg);
   flagsG.appendChild(trophyG);
 
   // ── Champion waving flag (below trophy) ─────────────────────────────
@@ -7887,7 +7897,7 @@ function bracketReset() {
   var btn = document.getElementById('anim-play-btn');
   btn.innerHTML = '&#8635; RESET';
   btn.disabled = false;
-  var _s=document.getElementById('anim-status'); _s.className='anim-status status-done'; _s.textContent='Animation complete — click Reset to refresh bracket';
+  var _s=document.getElementById('anim-status'); _s.className='anim-status status-done'; _s.textContent='Click Reset to refresh Bracket';
 }
 
 // ── Champion celebration ───────────────────────────────────────────────────
