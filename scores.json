@@ -1,317 +1,473 @@
 {
-  "updated": "2026-06-30T21:31:00Z",
+  "updated": "2026-06-30T21:46:00Z",
   "scores": {
     "D2": {
       "h": 2,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "B2": {
       "h": 1,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "D3": {
       "h": 2,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "E3": {
       "h": 2,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "F3": {
       "h": 5,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "I4": {
       "h": 3,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "I3": {
       "h": 3,
-      "a": 2
+      "a": 2,
+      "finished": true,
+      "min": "finished"
     },
     "F5": {
       "h": 1,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "C2": {
       "h": 0,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "L1": {
       "h": 4,
-      "a": 2
+      "a": 2,
+      "finished": true,
+      "min": "finished"
     },
     "H3": {
       "h": 4,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "J4": {
       "h": 1,
-      "a": 2
+      "a": 2,
+      "finished": true,
+      "min": "finished"
     },
     "K3": {
       "h": 5,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "L4": {
       "h": 0,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "A6": {
       "h": 3,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "F6": {
       "h": 1,
-      "a": 3
+      "a": 3,
+      "finished": true,
+      "min": "finished"
     },
     "I6": {
       "h": 5,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "L5": {
       "h": 0,
-      "a": 2
+      "a": 2,
+      "finished": true,
+      "min": "finished"
     },
     "K6": {
       "h": 3,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "A2": {
       "h": 2,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "D1": {
       "h": 4,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "I1": {
       "h": 3,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "I2": {
       "h": 1,
-      "a": 4
+      "a": 4,
+      "finished": true,
+      "min": "finished"
     },
     "K1": {
       "h": 1,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "Finished"
     },
     "G3": {
       "h": 0,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "C6": {
       "h": 4,
-      "a": 2
+      "a": 2,
+      "finished": true,
+      "min": "finished"
     },
     "A5": {
       "h": 1,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "E2": {
       "h": 1,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "E1": {
       "h": 7,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "F2": {
       "h": 5,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "A4": {
       "h": 1,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "B4": {
       "h": 6,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "C3": {
       "h": 0,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "D4": {
       "h": 0,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "J3": {
       "h": 2,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "C5": {
       "h": 0,
-      "a": 3
+      "a": 3,
+      "finished": true,
+      "min": "finished"
     },
     "B6": {
       "h": 3,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "D5": {
       "h": 3,
-      "a": 2
+      "a": 2,
+      "finished": true,
+      "min": "finished"
     },
     "I5": {
       "h": 1,
-      "a": 4
+      "a": 4,
+      "finished": true,
+      "min": "finished"
     },
     "G5": {
       "h": 1,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "H4": {
       "h": 0,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "H5": {
       "h": 0,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "J6": {
       "h": 1,
-      "a": 3
+      "a": 3,
+      "finished": true,
+      "min": "finished"
     },
     "R32_2": {
       "h": 2,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "A1": {
       "h": 2,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "C1": {
       "h": 1,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "F1": {
       "h": 2,
-      "a": 2
+      "a": 2,
+      "finished": true,
+      "min": "finished"
     },
     "B3": {
       "h": 4,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "C4": {
       "h": 3,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "F4": {
       "h": 0,
-      "a": 4
+      "a": 4,
+      "finished": true,
+      "min": "finished"
     },
     "H6": {
       "h": 1,
-      "a": 3
+      "a": 3,
+      "finished": true,
+      "min": "finished"
     },
     "G4": {
       "h": 2,
-      "a": 2
+      "a": 2,
+      "finished": true,
+      "min": "finished"
     },
     "K4": {
       "h": 1,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "K5": {
       "h": 0,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "R32_1": {
       "h": 0,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "R32_6": {
       "h": 0,
-      "a": 0
+      "a": 0,
+      "finished": false,
+      "min": "live"
     },
     "H1": {
       "h": 0,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "G2": {
       "h": 1,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "J2": {
       "h": 3,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "K2": {
       "h": 1,
-      "a": 3
+      "a": 3,
+      "finished": true,
+      "min": "finished"
     },
     "B1": {
       "h": 1,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "H2": {
       "h": 2,
-      "a": 2
+      "a": 2,
+      "finished": true,
+      "min": "finished"
     },
     "J1": {
       "h": 3,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "L2": {
       "h": 1,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "A3": {
       "h": 1,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "L3": {
       "h": 0,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "E6": {
       "h": 0,
-      "a": 2
+      "a": 2,
+      "finished": true,
+      "min": "finished"
     },
     "E5": {
       "h": 2,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "L6": {
       "h": 2,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "J5": {
       "h": 3,
-      "a": 3
+      "a": 3,
+      "finished": true,
+      "min": "finished"
     },
     "R32_3": {
       "h": 1,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "G1": {
       "h": 1,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "E4": {
       "h": 0,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "B5": {
       "h": 2,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "D6": {
       "h": 0,
-      "a": 0
+      "a": 0,
+      "finished": true,
+      "min": "finished"
     },
     "G6": {
       "h": 1,
-      "a": 5
+      "a": 5,
+      "finished": true,
+      "min": "finished"
     },
     "R32_4": {
       "h": 1,
-      "a": 1
+      "a": 1,
+      "finished": true,
+      "min": "finished"
     },
     "R32_5": {
       "h": 1,
-      "a": 2
+      "a": 2,
+      "finished": true,
+      "min": "finished"
     }
   },
   "penScores": {
@@ -775,6 +931,12 @@
       "a": [
         "Astfan Avstakviv 90+2'"
       ]
+    },
+    "R32_6": {
+      "h": [
+        "Kylian Mbapp\u00e9 45'"
+      ],
+      "a": []
     },
     "G2": {
       "h": [
