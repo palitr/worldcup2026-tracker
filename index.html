@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1390,12 +1391,36 @@ header { padding: 10px 20px 20px; }
 }
 .recent-match-pen {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.7rem;
-  color: rgba(96,160,255,0.7);
-  text-align: center;
-  margin-bottom: 4px;
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 2px 0 6px;
   letter-spacing: 0.5px;
+  flex-wrap: wrap;
 }
+.recent-match-pen-score {
+  background: rgba(255,193,7,0.12);
+  color: #FFC107;
+  border: 1px solid rgba(255,193,7,0.3);
+  border-radius: 4px;
+  padding: 1px 7px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.recent-match-pen-adv {
+  background: rgba(45,198,83,0.15);
+  color: #2DC653;
+  border: 1px solid rgba(45,198,83,0.3);
+  border-radius: 4px;
+  padding: 1px 7px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+}
+.recent-match-pen-adv img { width: 14px; height: 11px; border-radius: 1px; }
 .recent-match-footer {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 0.72rem;
@@ -4985,9 +5010,17 @@ function renderRecentResults() {
       + '\u2013'
       + '<span class="score-digit" data-val="' + s.a + '">' + (window._scoresAnimated ? s.a : 0) + '</span>';
     var pen = penScores[m.id];
-    var penHtml = (s.h === s.a && pen && pen.h !== null && pen.a !== null)
-      ? '<div class="recent-match-pen">(pen ' + Math.max(pen.h,pen.a) + '\u2013' + Math.min(pen.h,pen.a) + ')</div>'
-      : '';
+    var penHtml = '';
+    if (s.h === s.a && pen && pen.h !== null && pen.a !== null && pen.h !== pen.a) {
+      var penWinner = pen.h > pen.a ? m.home : m.away;
+      var penWinnerFlag = (isoCodes && isoCodes[penWinner])
+        ? '<img src="https://flagcdn.com/20x15/' + isoCodes[penWinner] + '.png" alt="' + penWinner + '">'
+        : '';
+      penHtml = '<div class="recent-match-pen">'
+        + '<span class="recent-match-pen-score">PEN ' + Math.max(pen.h,pen.a) + '\u2013' + Math.min(pen.h,pen.a) + '</span>'
+        + '<span class="recent-match-pen-adv">\u2713 ' + penWinnerFlag + ' ' + penWinner + ' advances</span>'
+        + '</div>';
+    }
 
     var homeFlagHtml = (isoCodes && isoCodes[m.home])
       ? '<img src="https://flagcdn.com/20x15/' + isoCodes[m.home] + '.png" style="width:16px;height:12px;border-radius:2px;vertical-align:middle;">'
