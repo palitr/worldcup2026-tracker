@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T06:31:00Z",
+  "updated": "2026-06-30T06:44:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -914,6 +914,1899 @@
       "a": [
         "Issa Diop 90+1'"
       ]
+    }
+  },
+  "af_stats": {
+    "players": {
+      "Juli\u00e1n Qui\u00f1ones|Mexico": {
+        "name": "Juli\u00e1n Qui\u00f1ones",
+        "team": "Mexico",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 2
+      },
+      "Ra\u00fal Jim\u00e9nez|Mexico": {
+        "name": "Ra\u00fal Jim\u00e9nez",
+        "team": "Mexico",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Hwang In-Beom|South Korea": {
+        "name": "Hwang In-Beom",
+        "team": "South Korea",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Oh Hyeon-Gyu|South Korea": {
+        "name": "Oh Hyeon-Gyu",
+        "team": "South Korea",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Ladislav Krejc\u00ed|Czech Republic": {
+        "name": "Ladislav Krejc\u00ed",
+        "team": "Czech Republic",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Michal Sad\u00edlek|Czech Republic": {
+        "name": "Michal Sad\u00edlek",
+        "team": "Czech Republic",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Teboho Mokoena|South Africa": {
+        "name": "Teboho Mokoena",
+        "team": "South Africa",
+        "goals": 1,
+        "pen": 1,
+        "npg": 0,
+        "mp": 1
+      },
+      "Luis Romo|Mexico": {
+        "name": "Luis Romo",
+        "team": "Mexico",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Mateo Ch\u00e1vez|Mexico": {
+        "name": "Mateo Ch\u00e1vez",
+        "team": "Mexico",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "\u00c1lvaro Fidalgo|Mexico": {
+        "name": "\u00c1lvaro Fidalgo",
+        "team": "Mexico",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Thapelo Maseko|South Africa": {
+        "name": "Thapelo Maseko",
+        "team": "South Africa",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Cyle Larin|Canada": {
+        "name": "Cyle Larin",
+        "team": "Canada",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 2
+      },
+      "Jovo Luki\u0107|Bosnia & Herzegovina": {
+        "name": "Jovo Luki\u0107",
+        "team": "Bosnia & Herzegovina",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Breel Embolo|Switzerland": {
+        "name": "Breel Embolo",
+        "team": "Switzerland",
+        "goals": 1,
+        "pen": 1,
+        "npg": 0,
+        "mp": 1
+      },
+      "Johan Manzambi|Switzerland": {
+        "name": "Johan Manzambi",
+        "team": "Switzerland",
+        "goals": 3,
+        "pen": 0,
+        "npg": 3,
+        "mp": 2
+      },
+      "Rub\u00e9n Vargas|Switzerland": {
+        "name": "Rub\u00e9n Vargas",
+        "team": "Switzerland",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 2
+      },
+      "Granit Xhaka|Switzerland": {
+        "name": "Granit Xhaka",
+        "team": "Switzerland",
+        "goals": 1,
+        "pen": 1,
+        "npg": 0,
+        "mp": 1
+      },
+      "Ermin Mahmic|Bosnia & Herzegovina": {
+        "name": "Ermin Mahmic",
+        "team": "Bosnia & Herzegovina",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 2
+      },
+      "Jonathan David|Canada": {
+        "name": "Jonathan David",
+        "team": "Canada",
+        "goals": 3,
+        "pen": 0,
+        "npg": 3,
+        "mp": 1
+      },
+      "Nathan Saliba|Canada": {
+        "name": "Nathan Saliba",
+        "team": "Canada",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Promise David|Canada": {
+        "name": "Promise David",
+        "team": "Canada",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Kerim Alajbegovic|Bosnia & Herzegovina": {
+        "name": "Kerim Alajbegovic",
+        "team": "Bosnia & Herzegovina",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Hassan Al-Haydos|Qatar": {
+        "name": "Hassan Al-Haydos",
+        "team": "Qatar",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Vin\u00edcius J\u00fanior|Brazil": {
+        "name": "Vin\u00edcius J\u00fanior",
+        "team": "Brazil",
+        "goals": 4,
+        "pen": 0,
+        "npg": 4,
+        "mp": 3
+      },
+      "Ismael Saibari|Morocco": {
+        "name": "Ismael Saibari",
+        "team": "Morocco",
+        "goals": 3,
+        "pen": 0,
+        "npg": 3,
+        "mp": 3
+      },
+      "John McGinn|Scotland": {
+        "name": "John McGinn",
+        "team": "Scotland",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Matheus Cunha|Brazil": {
+        "name": "Matheus Cunha",
+        "team": "Brazil",
+        "goals": 3,
+        "pen": 0,
+        "npg": 3,
+        "mp": 2
+      },
+      "Achraf Hakimi|Morocco": {
+        "name": "Achraf Hakimi",
+        "team": "Morocco",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Soufiane Rahimi|Morocco": {
+        "name": "Soufiane Rahimi",
+        "team": "Morocco",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Gessime Yassine|Morocco": {
+        "name": "Gessime Yassine",
+        "team": "Morocco",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Wilson Isidor|Haiti": {
+        "name": "Wilson Isidor",
+        "team": "Haiti",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Folarin Balogun|USA": {
+        "name": "Folarin Balogun",
+        "team": "USA",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
+      },
+      "Giovanni Reyna|USA": {
+        "name": "Giovanni Reyna",
+        "team": "USA",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Mauricio|Paraguay": {
+        "name": "Mauricio",
+        "team": "Paraguay",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Nestory Irankunda|Australia": {
+        "name": "Nestory Irankunda",
+        "team": "Australia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Connor Metcalfe|Australia": {
+        "name": "Connor Metcalfe",
+        "team": "Australia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Alex Freeman|USA": {
+        "name": "Alex Freeman",
+        "team": "USA",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Mat\u00edas Galarza|Paraguay": {
+        "name": "Mat\u00edas Galarza",
+        "team": "Paraguay",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Arda G\u00fcler|Turkey": {
+        "name": "Arda G\u00fcler",
+        "team": "Turkey",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Baris Alper Yilmaz|Turkey": {
+        "name": "Baris Alper Yilmaz",
+        "team": "Turkey",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Kaan Ayhan|Turkey": {
+        "name": "Kaan Ayhan",
+        "team": "Turkey",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Auston Trusty|USA": {
+        "name": "Auston Trusty",
+        "team": "USA",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Sebastian Berhalter|USA": {
+        "name": "Sebastian Berhalter",
+        "team": "USA",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Felix Nmecha|Germany": {
+        "name": "Felix Nmecha",
+        "team": "Germany",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Nico Schlotterbeck|Germany": {
+        "name": "Nico Schlotterbeck",
+        "team": "Germany",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Kai Havertz|Germany": {
+        "name": "Kai Havertz",
+        "team": "Germany",
+        "goals": 3,
+        "pen": 1,
+        "npg": 2,
+        "mp": 2
+      },
+      "Jamal Musiala|Germany": {
+        "name": "Jamal Musiala",
+        "team": "Germany",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Nathaniel Brown|Germany": {
+        "name": "Nathaniel Brown",
+        "team": "Germany",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Deniz Undav|Germany": {
+        "name": "Deniz Undav",
+        "team": "Germany",
+        "goals": 3,
+        "pen": 0,
+        "npg": 3,
+        "mp": 2
+      },
+      "Livano Comenencia|Cura\u00e7ao": {
+        "name": "Livano Comenencia",
+        "team": "Cura\u00e7ao",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Amad Diallo|Ivory Coast": {
+        "name": "Amad Diallo",
+        "team": "Ivory Coast",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Franck Kessi\u00e9|Ivory Coast": {
+        "name": "Franck Kessi\u00e9",
+        "team": "Ivory Coast",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Nicolas P\u00e9p\u00e9|Ivory Coast": {
+        "name": "Nicolas P\u00e9p\u00e9",
+        "team": "Ivory Coast",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
+      },
+      "Nilson Angulo|Ecuador": {
+        "name": "Nilson Angulo",
+        "team": "Ecuador",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Gonzalo Plata|Ecuador": {
+        "name": "Gonzalo Plata",
+        "team": "Ecuador",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Leroy San\u00e9|Germany": {
+        "name": "Leroy San\u00e9",
+        "team": "Germany",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Virgil van Dijk|Netherlands": {
+        "name": "Virgil van Dijk",
+        "team": "Netherlands",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Crysencio Summerville|Netherlands": {
+        "name": "Crysencio Summerville",
+        "team": "Netherlands",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 2
+      },
+      "Keito Nakamura|Japan": {
+        "name": "Keito Nakamura",
+        "team": "Japan",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Daichi Kamada|Japan": {
+        "name": "Daichi Kamada",
+        "team": "Japan",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 2
+      },
+      "Yasin Ayari|Sweden": {
+        "name": "Yasin Ayari",
+        "team": "Sweden",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
+      },
+      "Alexander Isak|Sweden": {
+        "name": "Alexander Isak",
+        "team": "Sweden",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Viktor Gy\u00f6keres|Sweden": {
+        "name": "Viktor Gy\u00f6keres",
+        "team": "Sweden",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Mattias Svanberg|Sweden": {
+        "name": "Mattias Svanberg",
+        "team": "Sweden",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Omar Rekik|Tunisia": {
+        "name": "Omar Rekik",
+        "team": "Tunisia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Brian Brobbey|Netherlands": {
+        "name": "Brian Brobbey",
+        "team": "Netherlands",
+        "goals": 3,
+        "pen": 0,
+        "npg": 3,
+        "mp": 2
+      },
+      "Cody Gakpo|Netherlands": {
+        "name": "Cody Gakpo",
+        "team": "Netherlands",
+        "goals": 3,
+        "pen": 0,
+        "npg": 3,
+        "mp": 2
+      },
+      "Anthony Elanga|Sweden": {
+        "name": "Anthony Elanga",
+        "team": "Sweden",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 2
+      },
+      "Ayase Ueda|Japan": {
+        "name": "Ayase Ueda",
+        "team": "Japan",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
+      },
+      "Junya Ito|Japan": {
+        "name": "Junya Ito",
+        "team": "Japan",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Daizen Maeda|Japan": {
+        "name": "Daizen Maeda",
+        "team": "Japan",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Hazem Mastouri|Tunisia": {
+        "name": "Hazem Mastouri",
+        "team": "Tunisia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Jan Paul van Hecke|Netherlands": {
+        "name": "Jan Paul van Hecke",
+        "team": "Netherlands",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Emam Ashour|Egypt": {
+        "name": "Emam Ashour",
+        "team": "Egypt",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Ramin Rezaeian|Iran": {
+        "name": "Ramin Rezaeian",
+        "team": "Iran",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 2
+      },
+      "Mohammad Mohebbi|Iran": {
+        "name": "Mohammad Mohebbi",
+        "team": "Iran",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Elijah Just|New Zealand": {
+        "name": "Elijah Just",
+        "team": "New Zealand",
+        "goals": 3,
+        "pen": 0,
+        "npg": 3,
+        "mp": 2
+      },
+      "Finn Surman|New Zealand": {
+        "name": "Finn Surman",
+        "team": "New Zealand",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Mostafa Zico|Egypt": {
+        "name": "Mostafa Zico",
+        "team": "Egypt",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Mohamed Salah|Egypt": {
+        "name": "Mohamed Salah",
+        "team": "Egypt",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Tr\u00e9z\u00e9guet|Egypt": {
+        "name": "Tr\u00e9z\u00e9guet",
+        "team": "Egypt",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Mahmoud Saber|Egypt": {
+        "name": "Mahmoud Saber",
+        "team": "Egypt",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Leandro Trossard|Belgium": {
+        "name": "Leandro Trossard",
+        "team": "Belgium",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
+      },
+      "Kevin De Bruyne|Belgium": {
+        "name": "Kevin De Bruyne",
+        "team": "Belgium",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Romelu Lukaku|Belgium": {
+        "name": "Romelu Lukaku",
+        "team": "Belgium",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Alexis Saelemaekers|Belgium": {
+        "name": "Alexis Saelemaekers",
+        "team": "Belgium",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Abdulelah Al-Amri|Saudi Arabia": {
+        "name": "Abdulelah Al-Amri",
+        "team": "Saudi Arabia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Maxi Ara\u00fajo|Uruguay": {
+        "name": "Maxi Ara\u00fajo",
+        "team": "Uruguay",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 2
+      },
+      "Lamine Yamal|Spain": {
+        "name": "Lamine Yamal",
+        "team": "Spain",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Mikel Oyarzabal|Spain": {
+        "name": "Mikel Oyarzabal",
+        "team": "Spain",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
+      },
+      "Agust\u00edn Cano|Uruguay": {
+        "name": "Agust\u00edn Cano",
+        "team": "Uruguay",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Kevin Pina|Cape Verde": {
+        "name": "Kevin Pina",
+        "team": "Cape Verde",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "H\u00e9lio Varela|Cape Verde": {
+        "name": "H\u00e9lio Varela",
+        "team": "Cape Verde",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "\u00c1lex Baena|Spain": {
+        "name": "\u00c1lex Baena",
+        "team": "Spain",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Kylian Mbapp\u00e9|France": {
+        "name": "Kylian Mbapp\u00e9",
+        "team": "France",
+        "goals": 4,
+        "pen": 0,
+        "npg": 4,
+        "mp": 2
+      },
+      "Bradley Barcola|France": {
+        "name": "Bradley Barcola",
+        "team": "France",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Ibrahim Mbaye|Senegal": {
+        "name": "Ibrahim Mbaye",
+        "team": "Senegal",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Aymen Hussein|Iraq": {
+        "name": "Aymen Hussein",
+        "team": "Iraq",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Erling Haaland|Norway": {
+        "name": "Erling Haaland",
+        "team": "Norway",
+        "goals": 4,
+        "pen": 0,
+        "npg": 4,
+        "mp": 2
+      },
+      "Leo \u00d8stigard|Norway": {
+        "name": "Leo \u00d8stigard",
+        "team": "Norway",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Ousmane Demb\u00e9l\u00e9|France": {
+        "name": "Ousmane Demb\u00e9l\u00e9",
+        "team": "France",
+        "goals": 4,
+        "pen": 0,
+        "npg": 4,
+        "mp": 2
+      },
+      "Marcus Holmgren Pedersen|Norway": {
+        "name": "Marcus Holmgren Pedersen",
+        "team": "Norway",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Isma\u00efla Sarr|Senegal": {
+        "name": "Isma\u00efla Sarr",
+        "team": "Senegal",
+        "goals": 3,
+        "pen": 0,
+        "npg": 3,
+        "mp": 2
+      },
+      "Thelo Aasgaard|Norway": {
+        "name": "Thelo Aasgaard",
+        "team": "Norway",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "D\u00e9sir\u00e9 Dou\u00e9|France": {
+        "name": "D\u00e9sir\u00e9 Dou\u00e9",
+        "team": "France",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Habib Diarra|Senegal": {
+        "name": "Habib Diarra",
+        "team": "Senegal",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Pape Gueye|Senegal": {
+        "name": "Pape Gueye",
+        "team": "Senegal",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
+      },
+      "Iliman Ndiaye|Senegal": {
+        "name": "Iliman Ndiaye",
+        "team": "Senegal",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Lionel Messi|Argentina": {
+        "name": "Lionel Messi",
+        "team": "Argentina",
+        "goals": 6,
+        "pen": 0,
+        "npg": 6,
+        "mp": 3
+      },
+      "Romano Schmid|Austria": {
+        "name": "Romano Schmid",
+        "team": "Austria",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Marko Arnautovic|Austria": {
+        "name": "Marko Arnautovic",
+        "team": "Austria",
+        "goals": 2,
+        "pen": 1,
+        "npg": 1,
+        "mp": 2
+      },
+      "Ali Olwan|Jordan": {
+        "name": "Ali Olwan",
+        "team": "Jordan",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Nizar Al-Rashdan|Jordan": {
+        "name": "Nizar Al-Rashdan",
+        "team": "Jordan",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Nadhir Benbouali|Algeria": {
+        "name": "Nadhir Benbouali",
+        "team": "Algeria",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Amine Gouiri|Algeria": {
+        "name": "Amine Gouiri",
+        "team": "Algeria",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Rafik Belghali|Algeria": {
+        "name": "Rafik Belghali",
+        "team": "Algeria",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Riyad Mahrez|Algeria": {
+        "name": "Riyad Mahrez",
+        "team": "Algeria",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
+      },
+      "Marcel Sabitzer|Austria": {
+        "name": "Marcel Sabitzer",
+        "team": "Austria",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Sasa Kalajdzic|Austria": {
+        "name": "Sasa Kalajdzic",
+        "team": "Austria",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Mousa Al-Tamari|Jordan": {
+        "name": "Mousa Al-Tamari",
+        "team": "Jordan",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Giovani Lo Celso|Argentina": {
+        "name": "Giovani Lo Celso",
+        "team": "Argentina",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Lautaro Mart\u00ednez|Argentina": {
+        "name": "Lautaro Mart\u00ednez",
+        "team": "Argentina",
+        "goals": 1,
+        "pen": 1,
+        "npg": 0,
+        "mp": 1
+      },
+      "Jo\u00e3o Neves|Portugal": {
+        "name": "Jo\u00e3o Neves",
+        "team": "Portugal",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Yoane Wissa|DR Congo": {
+        "name": "Yoane Wissa",
+        "team": "DR Congo",
+        "goals": 3,
+        "pen": 1,
+        "npg": 2,
+        "mp": 2
+      },
+      "Abbosbek Fayzullaev|Uzbekistan": {
+        "name": "Abbosbek Fayzullaev",
+        "team": "Uzbekistan",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Daniel Mu\u00f1oz|Colombia": {
+        "name": "Daniel Mu\u00f1oz",
+        "team": "Colombia",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 2
+      },
+      "Luis D\u00edaz|Colombia": {
+        "name": "Luis D\u00edaz",
+        "team": "Colombia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "J\u00e1minton Campaz|Colombia": {
+        "name": "J\u00e1minton Campaz",
+        "team": "Colombia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Cristiano Ronaldo|Portugal": {
+        "name": "Cristiano Ronaldo",
+        "team": "Portugal",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
+      },
+      "Nuno Mendes|Portugal": {
+        "name": "Nuno Mendes",
+        "team": "Portugal",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Rafael Le\u00e3o|Portugal": {
+        "name": "Rafael Le\u00e3o",
+        "team": "Portugal",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Fiston Mayele|DR Congo": {
+        "name": "Fiston Mayele",
+        "team": "DR Congo",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Eldor Shomurodov|Uzbekistan": {
+        "name": "Eldor Shomurodov",
+        "team": "Uzbekistan",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Harry Kane|England": {
+        "name": "Harry Kane",
+        "team": "England",
+        "goals": 3,
+        "pen": 1,
+        "npg": 2,
+        "mp": 2
+      },
+      "Jude Bellingham|England": {
+        "name": "Jude Bellingham",
+        "team": "England",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 2
+      },
+      "Marcus Rashford|England": {
+        "name": "Marcus Rashford",
+        "team": "England",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Martin Baturina|Croatia": {
+        "name": "Martin Baturina",
+        "team": "Croatia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Petar Musa|Croatia": {
+        "name": "Petar Musa",
+        "team": "Croatia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Caleb Yirenkyi|Ghana": {
+        "name": "Caleb Yirenkyi",
+        "team": "Ghana",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Ante Budimir|Croatia": {
+        "name": "Ante Budimir",
+        "team": "Croatia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Petar Sucic|Croatia": {
+        "name": "Petar Sucic",
+        "team": "Croatia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Nikola Vlasic|Croatia": {
+        "name": "Nikola Vlasic",
+        "team": "Croatia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Derrick Luckassen|Ghana": {
+        "name": "Derrick Luckassen",
+        "team": "Ghana",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Stephan Eust\u00e1quio|Canada": {
+        "name": "Stephan Eust\u00e1quio",
+        "team": "Canada",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Julio Enciso|Paraguay": {
+        "name": "Julio Enciso",
+        "team": "Paraguay",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Issa Diop|Morocco": {
+        "name": "Issa Diop",
+        "team": "Morocco",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Casemiro|Brazil": {
+        "name": "Casemiro",
+        "team": "Brazil",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Gabriel Martinelli|Brazil": {
+        "name": "Gabriel Martinelli",
+        "team": "Brazil",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Kaishu Sano|Japan": {
+        "name": "Kaishu Sano",
+        "team": "Japan",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      }
+    },
+    "total_pen": 8,
+    "total_og": 12,
+    "hat_tricks": 3,
+    "goals_by_period": {
+      "0-15": 27,
+      "16-30": 27,
+      "31-45": 29,
+      "45+": 9,
+      "46-60": 35,
+      "61-75": 29,
+      "76-90": 32,
+      "90+": 23
+    },
+    "ht_goals": 97,
+    "sh_goals": 126,
+    "comeback_wins": [
+      {
+        "team": "South Africa",
+        "opponent": "Czech Republic",
+        "ht": "0-1",
+        "ft": "1-1",
+        "result": "drew"
+      },
+      {
+        "team": "Canada",
+        "opponent": "Bosnia & Herzegovina",
+        "ht": "0-1",
+        "ft": "1-1",
+        "result": "drew"
+      },
+      {
+        "team": "Qatar",
+        "opponent": "Switzerland",
+        "ht": "0-1",
+        "ft": "1-1",
+        "result": "drew"
+      },
+      {
+        "team": "Germany",
+        "opponent": "Ivory Coast",
+        "ht": "0-1",
+        "ft": "2-1",
+        "result": "won"
+      },
+      {
+        "team": "Belgium",
+        "opponent": "Egypt",
+        "ht": "0-1",
+        "ft": "1-1",
+        "result": "drew"
+      },
+      {
+        "team": "Egypt",
+        "opponent": "New Zealand",
+        "ht": "0-1",
+        "ft": "3-1",
+        "result": "won"
+      },
+      {
+        "team": "Uruguay",
+        "opponent": "Saudi Arabia",
+        "ht": "0-1",
+        "ft": "1-1",
+        "result": "drew"
+      },
+      {
+        "team": "Cape Verde",
+        "opponent": "Uruguay",
+        "ht": "1-2",
+        "ft": "2-2",
+        "result": "drew"
+      },
+      {
+        "team": "Algeria",
+        "opponent": "Jordan",
+        "ht": "0-1",
+        "ft": "2-1",
+        "result": "won"
+      },
+      {
+        "team": "DR Congo",
+        "opponent": "Uzbekistan",
+        "ht": "0-1",
+        "ft": "3-1",
+        "result": "won"
+      },
+      {
+        "team": "Germany",
+        "opponent": "Paraguay",
+        "ht": "0-1",
+        "ft": "1-1",
+        "result": "drew"
+      },
+      {
+        "team": "Brazil",
+        "opponent": "Japan",
+        "ht": "0-1",
+        "ft": "2-1",
+        "result": "won"
+      }
+    ],
+    "threw_leads": [
+      {
+        "team": "Czech Republic",
+        "opponent": "South Africa",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
+      },
+      {
+        "team": "Bosnia & Herzegovina",
+        "opponent": "Canada",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
+      },
+      {
+        "team": "Switzerland",
+        "opponent": "Qatar",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
+      },
+      {
+        "team": "Ivory Coast",
+        "opponent": "Germany",
+        "ht": "1-0",
+        "ft": "1-2",
+        "outcome": "lost"
+      },
+      {
+        "team": "Egypt",
+        "opponent": "Belgium",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
+      },
+      {
+        "team": "New Zealand",
+        "opponent": "Egypt",
+        "ht": "1-0",
+        "ft": "1-3",
+        "outcome": "lost"
+      },
+      {
+        "team": "Saudi Arabia",
+        "opponent": "Uruguay",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
+      },
+      {
+        "team": "Uruguay",
+        "opponent": "Cape Verde",
+        "ht": "2-1",
+        "ft": "2-2",
+        "outcome": "drew"
+      },
+      {
+        "team": "Jordan",
+        "opponent": "Algeria",
+        "ht": "1-0",
+        "ft": "1-2",
+        "outcome": "lost"
+      },
+      {
+        "team": "Uzbekistan",
+        "opponent": "DR Congo",
+        "ht": "1-0",
+        "ft": "1-3",
+        "outcome": "lost"
+      },
+      {
+        "team": "Paraguay",
+        "opponent": "Germany",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
+      },
+      {
+        "team": "Japan",
+        "opponent": "Brazil",
+        "ht": "1-0",
+        "ft": "1-2",
+        "outcome": "lost"
+      }
+    ],
+    "late_goals": [
+      {
+        "player": "Marko Arnautovic",
+        "team": "Austria",
+        "minute": "90+12",
+        "sort_val": 90.12,
+        "opponent": "Jordan"
+      },
+      {
+        "player": "J\u00e1minton Campaz",
+        "team": "Colombia",
+        "minute": "90+9",
+        "sort_val": 90.09,
+        "opponent": "Uzbekistan"
+      },
+      {
+        "player": "Giovanni Reyna",
+        "team": "USA",
+        "minute": "90+8",
+        "sort_val": 90.08,
+        "opponent": "Paraguay"
+      },
+      {
+        "player": "Kaan Ayhan",
+        "team": "Turkey",
+        "minute": "90+8",
+        "sort_val": 90.08,
+        "opponent": "USA"
+      },
+      {
+        "player": "Granit Xhaka",
+        "team": "Switzerland",
+        "minute": "90+7",
+        "sort_val": 90.07,
+        "opponent": "Bosnia & Herzegovina"
+      },
+      {
+        "player": "Yasin Ayari",
+        "team": "Sweden",
+        "minute": "90+6",
+        "sort_val": 90.06,
+        "opponent": "Tunisia"
+      },
+      {
+        "player": "Kylian Mbapp\u00e9",
+        "team": "France",
+        "minute": "90+6",
+        "sort_val": 90.06,
+        "opponent": "Senegal"
+      },
+      {
+        "player": "Sasa Kalajdzic",
+        "team": "Austria",
+        "minute": "90+6",
+        "sort_val": 90.06,
+        "opponent": "Algeria"
+      },
+      {
+        "player": "Ibrahim Mbaye",
+        "team": "Senegal",
+        "minute": "90+5",
+        "sort_val": 90.05,
+        "opponent": "France"
+      },
+      {
+        "player": "Lionel Messi",
+        "team": "Argentina",
+        "minute": "90+5",
+        "sort_val": 90.05,
+        "opponent": "Austria"
+      }
+    ],
+    "fastest_goals": [
+      {
+        "player": "Ismael Saibari",
+        "team": "Morocco",
+        "minute": "2",
+        "sort_val": 2.0,
+        "opponent": "Scotland"
+      },
+      {
+        "player": "Mat\u00edas Galarza",
+        "team": "Paraguay",
+        "minute": "2",
+        "sort_val": 2.0,
+        "opponent": "Turkey"
+      },
+      {
+        "player": "Leroy San\u00e9",
+        "team": "Germany",
+        "minute": "2",
+        "sort_val": 2.0,
+        "opponent": "Ecuador"
+      },
+      {
+        "player": "Auston Trusty",
+        "team": "USA",
+        "minute": "3",
+        "sort_val": 3.0,
+        "opponent": "Turkey"
+      },
+      {
+        "player": "Daichi Kamada",
+        "team": "Japan",
+        "minute": "4",
+        "sort_val": 4.0,
+        "opponent": "Tunisia"
+      }
+    ],
+    "scoring_streaks": [
+      {
+        "name": "Lionel Messi",
+        "team": "Argentina",
+        "streak": 3,
+        "goals": 6
+      },
+      {
+        "name": "Vin\u00edcius J\u00fanior",
+        "team": "Brazil",
+        "streak": 3,
+        "goals": 4
+      },
+      {
+        "name": "Ismael Saibari",
+        "team": "Morocco",
+        "streak": 3,
+        "goals": 3
+      },
+      {
+        "name": "Kylian Mbapp\u00e9",
+        "team": "France",
+        "streak": 2,
+        "goals": 4
+      },
+      {
+        "name": "Erling Haaland",
+        "team": "Norway",
+        "streak": 2,
+        "goals": 4
+      },
+      {
+        "name": "Ousmane Demb\u00e9l\u00e9",
+        "team": "France",
+        "streak": 2,
+        "goals": 4
+      },
+      {
+        "name": "Johan Manzambi",
+        "team": "Switzerland",
+        "streak": 2,
+        "goals": 3
+      },
+      {
+        "name": "Matheus Cunha",
+        "team": "Brazil",
+        "streak": 2,
+        "goals": 3
+      },
+      {
+        "name": "Deniz Undav",
+        "team": "Germany",
+        "streak": 2,
+        "goals": 3
+      },
+      {
+        "name": "Brian Brobbey",
+        "team": "Netherlands",
+        "streak": 2,
+        "goals": 3
+      },
+      {
+        "name": "Isma\u00efla Sarr",
+        "team": "Senegal",
+        "streak": 2,
+        "goals": 3
+      },
+      {
+        "name": "Cyle Larin",
+        "team": "Canada",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Rub\u00e9n Vargas",
+        "team": "Switzerland",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Ermin Mahmic",
+        "team": "Bosnia & Herzegovina",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Crysencio Summerville",
+        "team": "Netherlands",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Daichi Kamada",
+        "team": "Japan",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Anthony Elanga",
+        "team": "Sweden",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Maxi Ara\u00fajo",
+        "team": "Uruguay",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Daniel Mu\u00f1oz",
+        "team": "Colombia",
+        "streak": 2,
+        "goals": 2
+      }
+    ],
+    "one_man_shows": [
+      {
+        "player": "Luis Romo",
+        "team": "Mexico",
+        "goals": 1,
+        "opponent": "South Korea",
+        "score": "1-0"
+      },
+      {
+        "player": "Thapelo Maseko",
+        "team": "South Africa",
+        "goals": 1,
+        "opponent": "South Korea",
+        "score": "1-0"
+      },
+      {
+        "player": "John McGinn",
+        "team": "Scotland",
+        "goals": 1,
+        "opponent": "Haiti",
+        "score": "1-0"
+      },
+      {
+        "player": "Ismael Saibari",
+        "team": "Morocco",
+        "goals": 1,
+        "opponent": "Scotland",
+        "score": "1-0"
+      },
+      {
+        "player": "Mat\u00edas Galarza",
+        "team": "Paraguay",
+        "goals": 1,
+        "opponent": "Turkey",
+        "score": "1-0"
+      },
+      {
+        "player": "Amad Diallo",
+        "team": "Ivory Coast",
+        "goals": 1,
+        "opponent": "Ecuador",
+        "score": "1-0"
+      },
+      {
+        "player": "Deniz Undav",
+        "team": "Germany",
+        "goals": 2,
+        "opponent": "Ivory Coast",
+        "score": "2-1"
+      },
+      {
+        "player": "Nicolas P\u00e9p\u00e9",
+        "team": "Ivory Coast",
+        "goals": 2,
+        "opponent": "Cura\u00e7ao",
+        "score": "2-0"
+      },
+      {
+        "player": "\u00c1lex Baena",
+        "team": "Spain",
+        "goals": 1,
+        "opponent": "Uruguay",
+        "score": "1-0"
+      },
+      {
+        "player": "Lionel Messi",
+        "team": "Argentina",
+        "goals": 3,
+        "opponent": "Algeria",
+        "score": "3-0"
+      },
+      {
+        "player": "Lionel Messi",
+        "team": "Argentina",
+        "goals": 2,
+        "opponent": "Austria",
+        "score": "2-0"
+      },
+      {
+        "player": "Daniel Mu\u00f1oz",
+        "team": "Colombia",
+        "goals": 1,
+        "opponent": "DR Congo",
+        "score": "1-0"
+      },
+      {
+        "player": "Caleb Yirenkyi",
+        "team": "Ghana",
+        "goals": 1,
+        "opponent": "Panama",
+        "score": "1-0"
+      },
+      {
+        "player": "Ante Budimir",
+        "team": "Croatia",
+        "goals": 1,
+        "opponent": "Panama",
+        "score": "1-0"
+      },
+      {
+        "player": "Stephan Eust\u00e1quio",
+        "team": "Canada",
+        "goals": 1,
+        "opponent": "South Africa",
+        "score": "1-0"
+      }
+    ],
+    "matchday_goals": [
+      {
+        "round": "Matchday 1",
+        "goals": 5
+      },
+      {
+        "round": "Matchday 2",
+        "goals": 7
+      },
+      {
+        "round": "Matchday 3",
+        "goals": 7
+      },
+      {
+        "round": "Matchday 4",
+        "goals": 19
+      },
+      {
+        "round": "Matchday 5",
+        "goals": 8
+      },
+      {
+        "round": "Matchday 6",
+        "goals": 16
+      },
+      {
+        "round": "Matchday 7",
+        "goals": 13
+      },
+      {
+        "round": "Matchday 8",
+        "goals": 14
+      },
+      {
+        "round": "Matchday 9",
+        "goals": 7
+      },
+      {
+        "round": "Matchday 10",
+        "goals": 13
+      },
+      {
+        "round": "Matchday 11",
+        "goals": 12
+      },
+      {
+        "round": "Matchday 12",
+        "goals": 13
+      },
+      {
+        "round": "Matchday 13",
+        "goals": 7
+      },
+      {
+        "round": "Matchday 14",
+        "goals": 20
+      },
+      {
+        "round": "Matchday 15",
+        "goals": 16
+      },
+      {
+        "round": "Matchday 16",
+        "goals": 19
+      },
+      {
+        "round": "Matchday 17",
+        "goals": 19
+      },
+      {
+        "round": "Round of 32",
+        "goals": 8
+      }
+    ],
+    "scoreline_freq": [
+      {
+        "score": "1-1",
+        "count": 11
+      },
+      {
+        "score": "1-0",
+        "count": 11
+      },
+      {
+        "score": "3-1",
+        "count": 8
+      },
+      {
+        "score": "2-1",
+        "count": 7
+      },
+      {
+        "score": "0-0",
+        "count": 7
+      },
+      {
+        "score": "2-0",
+        "count": 6
+      },
+      {
+        "score": "3-0",
+        "count": 5
+      },
+      {
+        "score": "4-1",
+        "count": 4
+      },
+      {
+        "score": "2-2",
+        "count": 3
+      },
+      {
+        "score": "5-1",
+        "count": 3
+      }
+    ],
+    "group_top_scorers": {
+      "A": {
+        "name": "Juli\u00e1n Qui\u00f1ones",
+        "team": "Mexico",
+        "goals": 2
+      },
+      "B": {
+        "name": "Johan Manzambi",
+        "team": "Switzerland",
+        "goals": 3
+      },
+      "C": {
+        "name": "Vin\u00edcius J\u00fanior",
+        "team": "Brazil",
+        "goals": 4
+      },
+      "D": {
+        "name": "Folarin Balogun",
+        "team": "USA",
+        "goals": 2
+      },
+      "E": {
+        "name": "Deniz Undav",
+        "team": "Germany",
+        "goals": 3
+      },
+      "F": {
+        "name": "Brian Brobbey",
+        "team": "Netherlands",
+        "goals": 3
+      },
+      "G": {
+        "name": "Elijah Just",
+        "team": "New Zealand",
+        "goals": 3
+      },
+      "H": {
+        "name": "Maxi Ara\u00fajo",
+        "team": "Uruguay",
+        "goals": 2
+      },
+      "I": {
+        "name": "Kylian Mbapp\u00e9",
+        "team": "France",
+        "goals": 4
+      },
+      "J": {
+        "name": "Lionel Messi",
+        "team": "Argentina",
+        "goals": 6
+      },
+      "K": {
+        "name": "Yoane Wissa",
+        "team": "DR Congo",
+        "goals": 3
+      },
+      "L": {
+        "name": "Harry Kane",
+        "team": "England",
+        "goals": 3
+      }
     }
   }
 }
