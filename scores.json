@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T18:39:00Z",
+  "updated": "2026-06-30T19:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -307,7 +307,7 @@
     },
     "R32_5": {
       "h": 1,
-      "a": 1
+      "a": 2
     }
   },
   "penScores": {
@@ -924,7 +924,8 @@
         "Amad Diallo 74'"
       ],
       "a": [
-        "Antonio Nusa 39'"
+        "Antonio Nusa 39'",
+        "Erling Haaland 86'"
       ]
     }
   },
