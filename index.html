@@ -474,9 +474,20 @@ box-shadow: 0 0 20px rgba(255,215,0,0.3);
   .ms-group-top { grid-template-columns:1fr 1fr; }
   .ms-individual-cols { display:grid; grid-template-columns:1fr 1fr; gap:10px; align-items:start; }
   .ms-individual-col-full { grid-column:1 / -1; }
-  .ms-individual-row { flex-direction:column; align-items:flex-start; gap:4px; padding:8px 10px; }
-  .ms-ind-rank { width:auto; }
-  .ms-ind-val { text-align:left; min-width:0; }
+  .ms-individual-row {
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    grid-template-rows:auto auto;
+    align-items:center;
+    column-gap:6px;
+    row-gap:2px;
+    padding:8px 10px;
+  }
+  .ms-ind-rank { width:auto; grid-row:1; grid-column:1; font-size:0.95rem; }
+  .ms-ind-info { grid-row:1; grid-column:2; min-width:0; }
+  .ms-ind-player { font-size:0.8rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ms-ind-sub { grid-row:2; grid-column:1 / span 3; font-size:0.7rem; margin-top:0; }
+  .ms-ind-val { grid-row:1; grid-column:3; text-align:right; min-width:0; font-size:0.85rem; }
   .ms-oms-card { padding:8px 10px; }
   .ms-oms-player { font-size:0.8rem; }
   .ms-oms-detail { font-size:0.7rem; }
