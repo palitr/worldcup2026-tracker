@@ -401,6 +401,7 @@ box-shadow: 0 0 20px rgba(255,215,0,0.3);
 .ms-late-opp { font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; color:var(--muted); flex-shrink:0; }
 /* Block 2: Drama & Momentum */
 .ms-drama-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.ms-drama-grid.ms-drama-single { grid-template-columns:1fr; max-width:520px; }
 .ms-drama-col-title { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; letter-spacing:1.5px; color:var(--muted); margin-bottom:8px; }
 .ms-comeback-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:10px 12px; margin-bottom:7px; }
 .ms-comeback-card:hover { border-color:rgba(255,215,0,0.25); }
@@ -471,7 +472,14 @@ box-shadow: 0 0 20px rgba(255,215,0,0.3);
   .ms-late-opp { display:none; }
   .ms-ind-val { min-width:60px; font-size:0.88rem; }
   .ms-group-top { grid-template-columns:1fr 1fr; }
-  .ms-individual-cols { flex-direction:column; }
+  .ms-individual-cols { display:grid; grid-template-columns:1fr 1fr; gap:10px; align-items:start; }
+  .ms-individual-col-full { grid-column:1 / -1; }
+  .ms-individual-row { flex-direction:column; align-items:flex-start; gap:4px; padding:8px 10px; }
+  .ms-ind-rank { width:auto; }
+  .ms-ind-val { text-align:left; min-width:0; }
+  .ms-oms-card { padding:8px 10px; }
+  .ms-oms-player { font-size:0.8rem; }
+  .ms-oms-detail { font-size:0.7rem; }
 }
 
 /* ====== MAIN CONTENT ====== */
@@ -3282,7 +3290,7 @@ transition:all 0.15s; cursor:default;
 .hist-eras-toggle { display:none; }
 @media(max-width:700px) {
   .hist-eras-toggle { display:flex; align-items:center; justify-content:space-between; cursor:pointer; margin-top:36px; padding:4px 0; user-select:none; }
-  .hist-eras-toggle .toggle-arrow { font-size:0.75rem; transition:transform 0.25s; color:var(--muted); }
+  .hist-eras-toggle .toggle-arrow { font-size:0.9rem; transition:transform 0.25s; color:#5B9DFF; }
   .hist-eras-toggle.open .toggle-arrow { transform:rotate(180deg); }
   .hist-era-cards { margin-top:10px; }
   .hist-era-cards.collapsed { display:none; }
@@ -5566,15 +5574,10 @@ function renderMoreStats() {
       + '<span class="ms-result ' + cls + '">' + lbl + '</span>'
       + '</div></div>';
   }
-  var comebackHtml = '<div class="ms-drama-grid">'
+  var comebackHtml = '<div class="ms-drama-grid ms-drama-single">'
     + '<div class="ms-drama-col"><div class="ms-drama-col-title">📈 Came From Behind and Won</div>'
     + (comebackWins.filter(function(c){return c.result==='won';}).length
         ? comebackWins.filter(function(c){return c.result==='won';}).map(function(c){return msComeback(c,'comeback');}).join('')
-        : '<div class="ms-empty">None yet</div>')
-    + '</div>'
-    + '<div class="ms-drama-col"><div class="ms-drama-col-title">📉 Threw Away Lead and Lost</div>'
-    + (threwLeads.filter(function(c){return c.outcome==='lost';}).length
-        ? threwLeads.filter(function(c){return c.outcome==='lost';}).map(function(c){return msComeback(c,'threw');}).join('')
         : '<div class="ms-empty">None yet</div>')
     + '</div></div>';
 
@@ -5788,12 +5791,12 @@ function renderMoreStats() {
     + '<div class="ms-individual-list">' + fastestHtml + '</div>'
     + '</div>'
     + '<div class="ms-individual-col">'
-    + '<div class="stats-section-sub" style="margin:0 0 12px;">SCORING STREAKS</div>'
-    + '<div class="ms-individual-list">' + streaksHtml + '</div>'
-    + '</div>'
-    + '<div class="ms-individual-col">'
     + '<div class="stats-section-sub" style="margin:0 0 12px;">ONE-MAN SHOWS — SOLO WIN</div>'
     + '<div class="ms-oms-list">' + omsHtml + '</div>'
+    + '</div>'
+    + '<div class="ms-individual-col ms-individual-col-full">'
+    + '<div class="stats-section-sub" style="margin:0 0 12px;">SCORING STREAKS</div>'
+    + '<div class="ms-individual-list">' + streaksHtml + '</div>'
     + '</div>'
     + '</div>'
 
