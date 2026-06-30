@@ -347,14 +347,15 @@ def is_finished(m):
 
 def extract_penalty_scores(m):
     """
-    Try several plausible field-name variants for penalty shootout scores,
-    since the exact worldcup26.ir field name hasn't been confirmed yet.
-    Returns (home_pens, away_pens) or (None, None) if not found.
+    Extract penalty shootout scores from a worldcup26.ir match object.
+    Confirmed field names (from live workflow logs, 2026-06-30):
+      home_penalty_score / away_penalty_score
+    Older guesses kept as fallbacks in case the API changes.
     """
-    home_keys = ["home_score_penalties", "home_penalties", "penalty_home",
-                 "pen_home", "home_pen", "homePenalties", "home_pens"]
-    away_keys = ["away_score_penalties", "away_penalties", "penalty_away",
-                 "pen_away", "away_pen", "awayPenalties", "away_pens"]
+    home_keys = ["home_penalty_score", "home_score_penalties", "home_penalties",
+                 "penalty_home", "pen_home", "home_pen", "homePenalties", "home_pens"]
+    away_keys = ["away_penalty_score", "away_score_penalties", "away_penalties",
+                 "penalty_away", "pen_away", "away_pen", "awayPenalties", "away_pens"]
 
     pen_h = None
     for k in home_keys:
@@ -411,6 +412,17 @@ def build_scores(data):
 
         match_id = MATCH_MAP.get((home, away))
 
+        # Some group matches come back with home/away swapped vs our fixture list.
+        # Try the reversed order before giving up — and swap everything to match.
+        h_pen_swap = False
+        if not match_id:
+            rev_id = MATCH_MAP.get((away, home))
+            if rev_id:
+                match_id = rev_id
+                home_score, away_score = away_score, home_score
+                home, away = away, home
+                h_pen_swap = True
+
         KO_TYPES = {"knockout", "r32", "r16", "qf", "quarterfinal", "sf", "semifinal", "final"}
         if not match_id and (mtype.startswith("knockout") or any(mtype.startswith(t) for t in KO_TYPES)):
             utc_raw = (m.get("local_date") or m.get("utc") or
@@ -428,6 +440,8 @@ def build_scores(data):
 
         # ── Penalty shootout scores ──────────────────────────────────────
         pen_h_raw, pen_a_raw = extract_penalty_scores(m)
+        if h_pen_swap:
+            pen_h_raw, pen_a_raw = pen_a_raw, pen_h_raw
 
         if pen_h_raw is not None and pen_a_raw is not None:
             try:
@@ -445,8 +459,10 @@ def build_scores(data):
                   f"but no penalty data found. Raw keys: {sorted(m.keys())}")
 
         # Parse scorers
-        h_scorers = parse_scorers(m.get("home_scorers"))
-        a_scorers = parse_scorers(m.get("away_scorers"))
+        h_scorers_raw = m.get("away_scorers") if h_pen_swap else m.get("home_scorers")
+        a_scorers_raw = m.get("home_scorers") if h_pen_swap else m.get("away_scorers")
+        h_scorers = parse_scorers(h_scorers_raw)
+        a_scorers = parse_scorers(a_scorers_raw)
         if h_scorers or a_scorers:
             scorers[match_id] = {"h": h_scorers, "a": a_scorers}
 
