@@ -1097,8 +1097,12 @@ header { padding: 10px 20px 20px; }
 .ti-ft { color:rgba(255,255,255,0.95); }
 .ti-score { color:#FFD700; font-weight:700; font-size:15px; }
 .ti-min { color:rgba(255,80,80,0.9); font-size:12px; }
-.ti-up { color:rgba(100,190,255,0.95); }
-.ti-upt { color:rgba(100,190,255,0.8); font-size:12px; }
+.ti-up { color:rgba(100,190,255,0.95); font-weight:700; font-size:15px; }
+.ti-upt { color:#60a5fa; font-weight:700; font-size:13px; letter-spacing:0.5px; }
+.ti-ft-badge { color:#2DC653; font-weight:700; }
+.ti-ft-score { color:#2DC653; font-weight:700; font-size:15px; }
+.ti-ft-teams { color:rgba(255,255,255,0.75); }
+.ti-up-teams { color:rgba(255,255,255,0.65); }
 
 /* ====== WELCOME POPUP ====== */
 #welcome-overlay {
@@ -4560,15 +4564,17 @@ function buildTicker() {
   }
   var allMatches = groupMatches.concat(koFlat);
 
-  // 1. LIVE matches
+  // 1. LIVE matches — use API finished flag; fall back to 4h window for safety
   allMatches.forEach(function(m) {
     var s = scores[m.id];
     if (!s || s.h === null || s.a === null) return;
+    if (s.finished === true) return; // API confirmed finished
     var kickUtc = new Date(m.utc).getTime();
     var elapsed = (now - kickUtc) / 60000;
-    if (elapsed >= 0 && elapsed < 115 && !s.ft) {
-      var min = Math.min(Math.floor(elapsed), 90);
-      items.push({ type:'live', home:m.home, away:m.away, hs:s.h, as:s.a, min:min });
+    if (elapsed >= 0 && elapsed < 240) { // 4h covers 90min + ET + pens + delays
+      var minRaw = s.min && s.min !== 'finished' ? parseInt(s.min, 10) : null;
+      var minDisplay = minRaw > 0 ? minRaw + "'" : '';
+      items.push({ type:'live', home:m.home, away:m.away, hs:s.h, as:s.a, min:minDisplay });
     }
   });
 
@@ -4597,7 +4603,11 @@ function buildTicker() {
     var diff = (new Date(m.utc).getTime() - now) / 60000;
     var timeStr;
     if (diff < 60) timeStr = 'in ' + Math.round(diff) + 'm';
-    else if (diff < 1440) timeStr = 'in ' + Math.round(diff/60) + 'h';
+    else if (diff < 1440) {
+      var hrs = Math.floor(diff / 60);
+      var mins = Math.round(diff % 60);
+      timeStr = 'in ' + hrs + 'h' + (mins > 0 ? ' ' + mins + 'm' : '');
+    }
     else timeStr = 'in ' + Math.round(diff/1440) + 'd';
     items.push({ type:'up', home:m.home, away:m.away, time:timeStr });
   });
@@ -4613,13 +4623,17 @@ function buildTicker() {
       return '<span class="ticker-item"><span class="ti-live">🔴 LIVE</span>'
         + '<span class="ti-ft">' + it.home + ' vs ' + it.away + '</span>'
         + '<span class="ti-score">' + it.hs + '–' + it.as + '</span>'
-        + '<span class="ti-min">' + it.min + "'</span></span>";
+        + (it.min ? '<span class="ti-min">' + it.min + '</span>' : '')
+        + '</span>';
     } else if (it.type === 'ft') {
-      return '<span class="ticker-item"><span style="color:#2DC653;">⚽ FT</span>'
-        + '<span class="ti-ft">' + it.home + ' ' + it.hs + '–' + it.as + ' ' + it.away + '</span></span>';
+      return '<span class="ticker-item"><span class="ti-ft-badge">⚽ FT</span>'
+        + '<span class="ti-ft-teams">' + it.home + '</span>'
+        + '<span class="ti-ft-score">' + it.hs + '–' + it.as + '</span>'
+        + '<span class="ti-ft-teams">' + it.away + '</span>'
+        + '</span>';
     } else {
       return '<span class="ticker-item"><span class="ti-up">⏳</span>'
-        + '<span class="ti-ft">' + it.home + ' vs ' + it.away + '</span>'
+        + '<span class="ti-up-teams">' + it.home + ' vs ' + it.away + '</span>'
         + '<span class="ti-upt">' + it.time + '</span></span>';
     }
   }
@@ -6537,7 +6551,7 @@ document.addEventListener('keydown', function(e) {
           var s = data.scores[id];
           // Only set if not already manually entered (manual wins)
           if (s && s.h !== null && s.a !== null && !manualScores[id]) {
-            scores[id] = { h: s.h, a: s.a };
+            scores[id] = { h: s.h, a: s.a, finished: s.finished, min: s.min };
           }
         });
       }
@@ -6614,6 +6628,43 @@ document.addEventListener('keydown', function(e) {
       }
     });
 })();
+
+// ── Auto-refresh scores.json every 30 minutes ────────────────────────────
+function refreshLiveScores() {
+  fetch('scores.json?v=' + Date.now())
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(data) {
+      if (!data) return;
+      if (data.scores) {
+        Object.keys(data.scores).forEach(function(id) {
+          var s = data.scores[id];
+          if (s && s.h !== null && s.a !== null && !manualScores[id]) {
+            scores[id] = { h: s.h, a: s.a, finished: s.finished, min: s.min };
+          }
+        });
+      }
+      if (data.penScores) {
+        Object.keys(data.penScores).forEach(function(id) {
+          var p = data.penScores[id];
+          if (p && p.h !== null && p.a !== null && !manualScores[id]) {
+            penScores[id] = { h: p.h, a: p.a };
+          }
+        });
+      }
+      if (data.scorers) {
+        Object.keys(data.scorers).forEach(function(id) {
+          var sc = data.scorers[id];
+          if (sc) scorers[id] = {
+            h: (sc.h || []).map(normalizeScorer),
+            a: (sc.a || []).map(normalizeScorer)
+          };
+        });
+      }
+      buildTicker();
+    })
+    .catch(function() {});
+}
+setInterval(refreshLiveScores, 30 * 60 * 1000); // every 30 minutes
 
 
 // ── Info icon hover for desktop (after DOM ready) ────────────────────────
