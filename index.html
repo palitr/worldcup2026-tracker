@@ -252,6 +252,12 @@ opacity: 0.9;
 }
 }
 
+.bracket-trophy-anim {
+  animation: trophyGlow 3s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 h1 {
 font-family: 'Bebas Neue', cursive;
 font-size: clamp(3rem, 8vw, 7rem);
@@ -7059,9 +7065,9 @@ function renderBracket() {
 
   // Key Y positions (all at X.final centre line)
   var vsY       = sfCentre;           // VS finalists at SF match centre height
-  var champTextY= vsY - 242;          // CHAMPION text — high up
-  var trophyY   = champTextY + 42;    // Trophy below text (enough gap)
-  var champFlagY= trophyY + 78;       // Flag below trophy (clear of trophy bottom)
+  var trophyY    = vsY - 250;          // Trophy — high up, now first
+  var champTextY = trophyY + 56;       // CHAMPION text below trophy
+  var champFlagY = champTextY + 50;    // Flag below text (clear of text)
   var bronzeY   = sfCentre + sfSpread + 75; // 3rd place below SF bottom flags
 
   // X positions for finalists (flanking centre)
@@ -7086,7 +7092,9 @@ function renderBracket() {
   // ── Trophy (below CHAMPION text) ─────────────────────────────────────
   var trophyG = document.createElementNS('http://www.w3.org/2000/svg','g');
   trophyG.setAttribute('transform', 'translate('+BL.X.final+','+trophyY+')');
-  var trophySize = 56;
+  var trophyAnimG = document.createElementNS('http://www.w3.org/2000/svg','g');
+  trophyAnimG.setAttribute('class', 'bracket-trophy-anim');
+  var trophySize = 96;
   var trophyImg = document.createElementNS('http://www.w3.org/2000/svg','image');
   trophyImg.setAttribute('id','trophy-emoji');
   trophyImg.setAttribute('x', -trophySize/2);
@@ -7094,7 +7102,8 @@ function renderBracket() {
   trophyImg.setAttribute('width', trophySize);
   trophyImg.setAttribute('height', trophySize);
   trophyImg.setAttribute('href', getHeroTrophyDataUrl());
-  trophyG.appendChild(trophyImg);
+  trophyAnimG.appendChild(trophyImg);
+  trophyG.appendChild(trophyAnimG);
   flagsG.appendChild(trophyG);
 
   // ── Champion waving flag (below trophy) ─────────────────────────────
