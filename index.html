@@ -5017,7 +5017,7 @@ function renderRecentResults() {
         ? '<img src="https://flagcdn.com/20x15/' + isoCodes[penWinner] + '.png" alt="' + penWinner + '">'
         : '';
       penHtml = '<div class="recent-match-pen">'
-        + '<span class="recent-match-pen-score">PEN ' + Math.max(pen.h,pen.a) + '\u2013' + Math.min(pen.h,pen.a) + '</span>'
+        + '<span class="recent-match-pen-score">PEN ' + pen.h + '\u2013' + pen.a + '</span>'
         + '<span class="recent-match-pen-adv">\u2713 ' + penWinnerFlag + ' ' + penWinner + ' advances</span>'
         + '</div>';
     }
