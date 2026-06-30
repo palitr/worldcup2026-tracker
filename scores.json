@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T22:01:00Z",
+  "updated": "2026-06-30T22:31:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -332,7 +332,7 @@
       "min": "finished"
     },
     "R32_6": {
-      "h": 1,
+      "h": 2,
       "a": 0,
       "finished": false,
       "min": "live"
@@ -934,7 +934,8 @@
     },
     "R32_6": {
       "h": [
-        "Kylian Mbapp\u00e9 45'"
+        "Kylian Mbapp\u00e9 45'",
+        "Bradley Barcola 53'"
       ],
       "a": []
     },
