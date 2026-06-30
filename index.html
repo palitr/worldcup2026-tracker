@@ -6790,6 +6790,11 @@ function makeFlagNode(team, x, y, r, opacity, id, labelSide) {
   };
   var dispName = team === 'TBD' || team === 'Best 3rd' ? '' :
                  (nameMap[team] || (team.length > 9 ? team.substring(0,9) : team));
+  var _isMobileFlag = !!(window._bracketLayout && window._bracketLayout.VH === 1200);
+  // On mobile, hide R32 side-labels (left/right) — flags only, no team name
+  if (_isMobileFlag && (labelSide === 'left' || labelSide === 'right')) {
+    dispName = '';
+  }
   if (dispName) {
     var label = document.createElementNS('http://www.w3.org/2000/svg','text');
     if (labelSide === 'left') {
@@ -7253,8 +7258,10 @@ function renderBracket() {
 
 
   // ── Round labels ──────────────────────────────────────────────────────
-  var lblY = 16;
-  var lblStyle = "font-family:'Bebas Neue',cursive;font-size:13px;letter-spacing:2px;fill:#C0C0C0;opacity:1;";
+  var lblY = isMobile ? 18 : 16;
+  var lblStyle = isMobile
+    ? "font-family:'Bebas Neue',cursive;font-size:17px;letter-spacing:2.5px;fill:#5B9DFF;opacity:1;font-weight:bold;"
+    : "font-family:'Bebas Neue',cursive;font-size:13px;letter-spacing:2px;fill:#C0C0C0;opacity:1;";
   [['R32',BL.X.r32],['R16',BL.X.r16],['QF',BL.X.qf],['SF',BL.X.sf],['FINAL',BL.X.final]].forEach(function(p) {
     var lbl = p[0], cx = p[1];
     var t1 = document.createElementNS('http://www.w3.org/2000/svg','text');
