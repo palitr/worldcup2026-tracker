@@ -1,8 +1,8 @@
 """
 update_scores.py
 FIFA World Cup 2026 — Live Score Updater
-Fetches results from worldcup26.ir
-Maps KO matches by UTC datetime for reliable ID assignment
+Fetches results from worldcup26.ir (all tabs)
+Fetches scorer/penalty data from openfootball (More Stats tab only)
 © 2026 Rajarshi Palit
 """
 
@@ -14,6 +14,7 @@ import urllib.error
 from datetime import datetime, timezone
 
 API_URL = "https://worldcup26.ir/get/games"
+OFB_URL = "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json"
 
 # ── Team name mapping ─────────────────────────────────────────────────────
 TEAM_MAP = {
@@ -262,26 +263,18 @@ def normalise_utc(s):
 
 
 def make_ssl_context():
-    """
-    Create an SSL context that tolerates worldcup26.ir's broken SSL config.
-    UNEXPECTED_EOF_WHILE_READING = server closes connection abruptly during
-    handshake — disabling cert verification + using TLSv1.2 fallback fixes it.
-    """
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
-    # Allow legacy renegotiation (common cause of EOF on cheap hosting)
-    # hasattr guard for Python < 3.12 compatibility
     if hasattr(ssl, 'OP_LEGACY_SERVER_CONNECT'):
         ctx.options |= ssl.OP_LEGACY_SERVER_CONNECT
     return ctx
 
 
 def fetch_games(retries=3, delay=15):
-    """Fetch with SSL workaround and longer delay between retries."""
+    """Fetch from worldcup26.ir with SSL workaround."""
     last_error = None
     ssl_ctx = make_ssl_context()
-
     for attempt in range(1, retries + 1):
         try:
             req = urllib.request.Request(
@@ -303,12 +296,325 @@ def fetch_games(retries=3, delay=15):
     raise last_error
 
 
+def fetch_openfootball():
+    """Fetch WC2026 scorer data from openfootball/worldcup.json (no API key needed)."""
+    req = urllib.request.Request(
+        OFB_URL,
+        headers={"User-Agent": "Mozilla/5.0"}
+    )
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        return json.loads(resp.read().decode())
+
+
+def build_openfootball_stats(data):
+    """
+    Build More Stats from openfootball/worldcup.json.
+    Extracts all analytics for the More Stats tab.
+    """
+    # ── Minute helpers ────────────────────────────────────────────────────
+    def parse_min(s):
+        """'67' → 67.0,  '45+2' → 45.02,  '90+4' → 90.04"""
+        if not s:
+            return 999.0
+        s = str(s).strip()
+        if '+' in s:
+            parts = s.split('+', 1)
+            try:
+                return float(parts[0]) + float(parts[1]) * 0.01
+            except (ValueError, IndexError):
+                return 999.0
+        try:
+            return float(s)
+        except ValueError:
+            return 999.0
+
+    def period(s):
+        """Classify a goal minute string into a display bucket."""
+        if not s:
+            return None
+        s = str(s).strip()
+        if '+' in s:
+            base = int(s.split('+')[0])
+            return '45+' if base <= 45 else '90+'
+        try:
+            v = int(s)
+        except ValueError:
+            return None
+        if v <= 15: return '0-15'
+        if v <= 30: return '16-30'
+        if v <= 45: return '31-45'
+        if v <= 60: return '46-60'
+        if v <= 75: return '61-75'
+        return '76-90'
+
+    # ── Accumulators ─────────────────────────────────────────────────────
+    players          = {}
+    total_pen        = 0
+    total_og         = 0
+    hat_tricks       = 0
+    ht_goals         = 0
+    sh_goals         = 0
+    goals_by_period  = {
+        '0-15':0, '16-30':0, '31-45':0, '45+':0,
+        '46-60':0, '61-75':0, '76-90':0, '90+':0
+    }
+    all_goals_list   = []   # for fastest/latest
+    comeback_wins    = []
+    threw_leads      = []
+    matchday_goals   = {}   # round_label → total goals
+    scoreline_freq   = {}   # "h-a" → count
+    group_goals      = {}   # group → {player_key → {name,team,goals}}
+    player_dates     = {}   # player_key → [match dates scored in]
+    team_match_dates = {}   # team → sorted [match dates]
+    one_man_shows    = []
+
+    matches = data.get("matches", [])
+
+    # ── Pass 1: build per-team match date order ───────────────────────────
+    for m in matches:
+        if not m.get("score", {}).get("ft"):
+            continue
+        d = m.get("date", "")
+        for t in [m.get("team1",""), m.get("team2","")]:
+            if t not in team_match_dates:
+                team_match_dates[t] = []
+            if d and d not in team_match_dates[t]:
+                team_match_dates[t].append(d)
+    for t in team_match_dates:
+        team_match_dates[t].sort()
+
+    # ── Pass 2: main stats ────────────────────────────────────────────────
+    for m in matches:
+        score = m.get("score", {})
+        ft    = score.get("ft")
+        ht    = score.get("ht")
+        if not ft:
+            continue
+
+        team1    = m.get("team1", "")
+        team2    = m.get("team2", "")
+        rnd      = m.get("round", "")
+        grp      = m.get("group", "")
+        date     = m.get("date", "")
+        ft1, ft2 = ft[0], ft[1]
+
+        # Half-time / second-half goals split
+        if ht:
+            ht1, ht2 = ht[0], ht[1]
+            ht_goals += ht1 + ht2
+            sh_goals += (ft1 - ht1) + (ft2 - ht2)
+
+            # Comeback wins: losing at HT → drew/won at FT
+            if ht1 < ht2 and ft1 >= ft2:
+                comeback_wins.append({
+                    "team": team1, "opponent": team2,
+                    "ht": f"{ht1}-{ht2}", "ft": f"{ft1}-{ft2}",
+                    "result": "won" if ft1 > ft2 else "drew"
+                })
+            if ht2 < ht1 and ft2 >= ft1:
+                comeback_wins.append({
+                    "team": team2, "opponent": team1,
+                    "ht": f"{ht2}-{ht1}", "ft": f"{ft2}-{ft1}",
+                    "result": "won" if ft2 > ft1 else "drew"
+                })
+
+            # Threw away leads: winning at HT → drew/lost at FT
+            if ht1 > ht2 and ft1 <= ft2:
+                threw_leads.append({
+                    "team": team1, "opponent": team2,
+                    "ht": f"{ht1}-{ht2}", "ft": f"{ft1}-{ft2}",
+                    "outcome": "lost" if ft1 < ft2 else "drew"
+                })
+            if ht2 > ht1 and ft2 <= ft1:
+                threw_leads.append({
+                    "team": team2, "opponent": team1,
+                    "ht": f"{ht2}-{ht1}", "ft": f"{ft2}-{ft1}",
+                    "outcome": "lost" if ft2 < ft1 else "drew"
+                })
+
+        # Matchday goals
+        if rnd:
+            matchday_goals[rnd] = matchday_goals.get(rnd, 0) + ft1 + ft2
+
+        # Scoreline frequency (always larger score first)
+        hi, lo = max(ft1,ft2), min(ft1,ft2)
+        sl = f"{hi}-{lo}"
+        scoreline_freq[sl] = scoreline_freq.get(sl, 0) + 1
+
+        # Init group bucket
+        if grp and grp not in group_goals:
+            group_goals[grp] = {}
+
+        # ── Per-side goal processing ──────────────────────────────────────
+        match_goals = {}   # player_key → goals in this match (hat-trick)
+
+        for side_goals, team, opponent in [
+            (m.get("goals1") or [], team1, team2),
+            (m.get("goals2") or [], team2, team1),
+        ]:
+            side_scorer_goals = {}  # player_key → goals for this side (one-man show)
+
+            for goal in side_goals:
+                name   = (goal.get("name") or "").strip()
+                is_pen = bool(goal.get("penalty"))
+                is_og  = bool(goal.get("owngoal"))
+                minute = goal.get("minute", "")
+
+                if is_og:
+                    total_og += 1
+                    continue
+
+                if not name:
+                    continue
+
+                if is_pen:
+                    total_pen += 1
+
+                key = f"{name}|{team}"
+                if key not in players:
+                    players[key] = {
+                        "name": name, "team": team,
+                        "goals": 0, "pen": 0, "npg": 0, "mp": 0,
+                    }
+
+                players[key]["goals"] += 1
+                if is_pen:
+                    players[key]["pen"] += 1
+                else:
+                    players[key]["npg"] += 1
+
+                match_goals[key]       = match_goals.get(key, 0) + 1
+                side_scorer_goals[key] = side_scorer_goals.get(key, 0) + 1
+
+                # Time period bucket
+                p = period(minute)
+                if p:
+                    goals_by_period[p] += 1
+
+                # All goals (for fastest/latest)
+                sv = parse_min(minute)
+                all_goals_list.append({
+                    "player": name, "team": team,
+                    "minute": str(minute), "sort_val": sv,
+                    "opponent": opponent
+                })
+
+                # Group top scorers
+                if grp:
+                    if key not in group_goals[grp]:
+                        group_goals[grp][key] = {
+                            "name": name, "team": team, "goals": 0
+                        }
+                    group_goals[grp][key]["goals"] += 1
+
+                # Scoring streaks: track match dates per player
+                if key not in player_dates:
+                    player_dates[key] = []
+                if date and date not in player_dates[key]:
+                    player_dates[key].append(date)
+
+            # One-man show: one player scored ALL goals in a win
+            team_ft  = ft1 if team == team1 else ft2
+            opp_ft   = ft2 if team == team1 else ft1
+            if team_ft > opp_ft and len(side_scorer_goals) == 1:
+                sk    = list(side_scorer_goals.keys())[0]
+                sg    = side_scorer_goals[sk]
+                if sg == team_ft:
+                    one_man_shows.append({
+                        "player": players[sk]["name"], "team": team,
+                        "goals": sg, "opponent": opponent,
+                        "score": f"{team_ft}-{opp_ft}"
+                    })
+
+        # Hat-tricks + matches played
+        for key, count in match_goals.items():
+            if key in players:
+                players[key]["mp"] += 1
+            if count >= 3:
+                hat_tricks += 1
+
+    # ── Scoring streaks ───────────────────────────────────────────────────
+    scoring_streaks = []
+    for key, dates in player_dates.items():
+        if key not in players:
+            continue
+        p    = players[key]
+        tmd  = team_match_dates.get(p["team"], [])
+        idxs = sorted({tmd.index(d) for d in dates if d in tmd})
+        if len(idxs) < 2:
+            continue
+        max_s, cur = 1, 1
+        for i in range(1, len(idxs)):
+            if idxs[i] == idxs[i-1] + 1:
+                cur += 1
+                max_s = max(max_s, cur)
+            else:
+                cur = 1
+        if max_s >= 2:
+            scoring_streaks.append({
+                "name": p["name"], "team": p["team"],
+                "streak": max_s, "goals": p["goals"]
+            })
+    scoring_streaks.sort(key=lambda x: (-x["streak"], -x["goals"]))
+
+    # ── Fastest / Latest goals ────────────────────────────────────────────
+    valid = [g for g in all_goals_list if g["sort_val"] < 999]
+    valid.sort(key=lambda g: g["sort_val"])
+    fastest_goals = valid[:5]
+    late_goals    = sorted(
+        [g for g in valid if g["sort_val"] >= 90],
+        key=lambda g: -g["sort_val"]
+    )[:10]
+
+    # ── Matchday goals: sorted list ───────────────────────────────────────
+    import re as _re
+    def md_sort(rnd):
+        m2 = _re.search(r'\d+', rnd)
+        return int(m2.group()) if m2 else 999
+    matchday_goals_list = [
+        {"round": r, "goals": g}
+        for r, g in sorted(matchday_goals.items(), key=lambda x: md_sort(x[0]))
+    ]
+
+    # ── Scoreline frequency: top 10 ───────────────────────────────────────
+    scoreline_list = sorted(
+        [{"score": k, "count": v} for k, v in scoreline_freq.items()],
+        key=lambda x: -x["count"]
+    )[:10]
+
+    # ── Group top scorers ─────────────────────────────────────────────────
+    group_top = {}
+    for grp, sd in group_goals.items():
+        if not sd:
+            continue
+        top = max(sd.values(), key=lambda x: x["goals"])
+        group_top[grp.replace("Group ", "")] = top
+
+    print(f"  [openfootball] {len(players)} scorers, "
+          f"{total_pen} pen, {total_og} OG, {hat_tricks} HT, "
+          f"{len(comeback_wins)} comebacks, {len(one_man_shows)} one-man shows")
+
+    return {
+        "players":           players,
+        "total_pen":         total_pen,
+        "total_og":          total_og,
+        "hat_tricks":        hat_tricks,
+        "goals_by_period":   goals_by_period,
+        "ht_goals":          ht_goals,
+        "sh_goals":          sh_goals,
+        "comeback_wins":     comeback_wins,
+        "threw_leads":       threw_leads,
+        "late_goals":        late_goals,
+        "fastest_goals":     fastest_goals,
+        "scoring_streaks":   scoring_streaks,
+        "one_man_shows":     one_man_shows,
+        "matchday_goals":    matchday_goals_list,
+        "scoreline_freq":    scoreline_list,
+        "group_top_scorers": group_top,
+    }
+
+
 def parse_scorers(raw):
-    """
-    Parse the messy scorer string from worldcup26.ir API.
-    Input:  '{"J. Quiñones 9\'","R. Jiménez 67\'"}'  or  'null'  or  None
-    Output: ["J. Quiñones 9'", "R. Jiménez 67'"]    or  []
-    """
     import re
     if not raw:
         return []
@@ -369,7 +675,6 @@ def extract_penalty_scores(m):
             pen_a = m.get(k)
             break
 
-    # Nested "penalties": {"home": x, "away": y} structure
     if pen_h is None or pen_a is None:
         nested = m.get("penalties")
         if isinstance(nested, dict):
@@ -412,8 +717,8 @@ def build_scores(data):
 
         match_id = MATCH_MAP.get((home, away))
 
-        # Some group matches come back with home/away swapped vs our fixture list.
-        # Try the reversed order before giving up — and swap everything to match.
+        # Try reversed order — some sources swap home/away. Swap everything
+        # consistently (scores, names, will also swap scorers/pens below).
         h_pen_swap = False
         if not match_id:
             rev_id = MATCH_MAP.get((away, home))
@@ -453,12 +758,9 @@ def build_scores(data):
             except (ValueError, TypeError):
                 pass
         elif home_score == away_score and mtype and not mtype.startswith("group"):
-            # Knockout match finished level — penalties expected but not found.
-            # Log raw match keys once so we can identify the correct field name.
             print(f"  ⚠️  {match_id}: KO match level ({home_score}-{away_score}) "
                   f"but no penalty data found. Raw keys: {sorted(m.keys())}")
 
-        # Parse scorers
         h_scorers_raw = m.get("away_scorers") if h_pen_swap else m.get("home_scorers")
         a_scorers_raw = m.get("home_scorers") if h_pen_swap else m.get("away_scorers")
         h_scorers = parse_scorers(h_scorers_raw)
@@ -487,6 +789,7 @@ def main():
 
     write_heartbeat(now)
 
+    # ── Step 1: worldcup26.ir (primary source for all tabs) ──────────────
     try:
         data = fetch_games(retries=3, delay=15)
     except Exception as e:
@@ -496,17 +799,29 @@ def main():
 
     scores, pen_scores, scorers = build_scores(data)
 
+    # ── Step 2: openfootball (More Stats tab — free, no API key) ─────────
+    af_stats = {}
+    try:
+        print(f"[{now}] Fetching scorer data from openfootball...")
+        ofb_data = fetch_openfootball()
+        af_stats = build_openfootball_stats(ofb_data)
+    except Exception as e:
+        print(f"  [openfootball] ⚠️  Failed: {e}")
+
+    # ── Write scores.json ─────────────────────────────────────────────────
     output = {
         "updated":   now,
         "scores":    scores,
         "penScores": pen_scores,
         "scorers":   scorers,
+        "af_stats":  af_stats,
     }
 
     with open("scores.json", "w") as f:
         json.dump(output, f, indent=2)
 
-    print(f"✅ scores.json written — {len(scores)} results")
+    print(f"✅ scores.json written — {len(scores)} results, "
+          f"{len(af_stats.get('players', {}))} OFB scorers")
     return 0
 
 
