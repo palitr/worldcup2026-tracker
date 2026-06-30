@@ -158,8 +158,11 @@ MATCH_MAP = {
 }
 
 # ── KO match UTC → tracker ID mapping ────────────────────────────────────
+# NOTE: worldcup26.ir sends local kickoff time (not UTC) in the datetime field.
+# Each entry has BOTH the true UTC time AND the local time so matching works
+# regardless of which the API returns.
 KO_UTC_MAP = {
-    # Round of 32
+    # Round of 32 — UTC times
     "2026-06-28T19:00:00Z": "R32_1",
     "2026-06-29T17:00:00Z": "R32_2",
     "2026-06-29T20:30:00Z": "R32_3",
@@ -170,32 +173,68 @@ KO_UTC_MAP = {
     "2026-07-01T16:00:00Z": "R32_8",
     "2026-07-01T20:00:00Z": "R32_9",
     "2026-07-02T00:00:00Z": "R32_10",
-    "2026-07-02T19:00:00Z": "R32_11",
-    "2026-07-02T23:00:00Z": "R32_12",
-    "2026-07-03T03:00:00Z": "R32_13",
-    "2026-07-03T18:00:00Z": "R32_14",
-    "2026-07-03T22:00:00Z": "R32_15",
-    "2026-07-04T01:30:00Z": "R32_16",
-    # Round of 16
+    "2026-07-03T18:00:00Z": "R32_11",
+    "2026-07-02T19:00:00Z": "R32_12",
+    "2026-07-03T22:00:00Z": "R32_13",
+    "2026-07-02T23:00:00Z": "R32_14",
+    "2026-07-04T01:30:00Z": "R32_15",
+    "2026-07-03T03:00:00Z": "R32_16",
+    # Round of 32 — local times (worldcup26.ir quirk)
+    "2026-06-28T12:00:00Z": "R32_1",   # Los Angeles (UTC-7)
+    "2026-06-29T12:00:00Z": "R32_2",   # Houston (UTC-5)
+    "2026-06-29T16:30:00Z": "R32_3",   # Boston (UTC-4)
+    "2026-06-29T19:00:00Z": "R32_4",   # Monterrey (UTC-6)
+    "2026-06-30T12:00:00Z": "R32_5",   # Dallas (UTC-5)
+    "2026-06-30T17:00:00Z": "R32_6",   # New York NJ (UTC-4)
+    "2026-06-30T19:00:00Z": "R32_7",   # Mexico City (UTC-6)
+    "2026-07-01T12:00:00Z": "R32_8",   # Atlanta (UTC-4)
+    "2026-07-01T13:00:00Z": "R32_9",   # Seattle (UTC-7)
+    "2026-07-01T17:00:00Z": "R32_10",  # SF Bay Area (UTC-7)
+    "2026-07-03T13:00:00Z": "R32_11",  # Dallas (UTC-5)
+    "2026-07-02T12:00:00Z": "R32_12",  # Los Angeles (UTC-7)
+    "2026-07-03T18:00:00Z": "R32_13",  # Miami (UTC-4)
+    "2026-07-02T19:00:00Z": "R32_14",  # Toronto (UTC-4)
+    "2026-07-03T20:30:00Z": "R32_15",  # Kansas City (UTC-5)
+    "2026-07-02T20:00:00Z": "R32_16",  # Vancouver (UTC-7)
+    # Round of 16 — UTC times
     "2026-07-04T17:00:00Z": "R16_1",
     "2026-07-04T21:00:00Z": "R16_2",
-    "2026-07-05T17:00:00Z": "R16_3",
-    "2026-07-05T21:00:00Z": "R16_4",
-    "2026-07-06T17:00:00Z": "R16_5",
-    "2026-07-06T21:00:00Z": "R16_6",
-    "2026-07-07T17:00:00Z": "R16_7",
-    "2026-07-07T21:00:00Z": "R16_8",
-    # Quarter Finals
+    "2026-07-05T20:00:00Z": "R16_3",
+    "2026-07-06T00:00:00Z": "R16_4",
+    "2026-07-06T19:00:00Z": "R16_5",
+    "2026-07-07T00:00:00Z": "R16_6",
+    "2026-07-07T16:00:00Z": "R16_7",
+    "2026-07-07T20:00:00Z": "R16_8",
+    # Round of 16 — local times
+    "2026-07-04T12:00:00Z": "R16_1",   # Houston (UTC-5)
+    "2026-07-05T16:00:00Z": "R16_3",   # New York NJ (UTC-4)
+    "2026-07-05T18:00:00Z": "R16_4",   # Mexico City (UTC-6)
+    "2026-07-06T12:00:00Z": "R16_5",   # Los Angeles (UTC-7)
+    "2026-07-06T17:00:00Z": "R16_6",   # Seattle (UTC-7)
+    "2026-07-07T12:00:00Z": "R16_7",   # Atlanta (UTC-4)
+    "2026-07-07T15:00:00Z": "R16_8",   # Dallas (UTC-5)
+    # Quarter Finals — UTC times
     "2026-07-09T19:00:00Z": "QF1",
     "2026-07-10T19:00:00Z": "QF2",
-    "2026-07-11T19:00:00Z": "QF3",
-    "2026-07-11T23:00:00Z": "QF4",
-    # Semi Finals
+    "2026-07-11T21:00:00Z": "QF3",
+    "2026-07-12T01:00:00Z": "QF4",
+    # Quarter Finals — local times
+    "2026-07-09T15:00:00Z": "QF1",     # Boston (UTC-4)
+    "2026-07-10T12:00:00Z": "QF2",     # Los Angeles (UTC-7)
+    "2026-07-11T17:00:00Z": "QF3",     # Miami (UTC-4)
+    "2026-07-11T20:00:00Z": "QF4",     # Kansas City (UTC-5)
+    # Semi Finals — UTC times
     "2026-07-14T19:00:00Z": "SF1",
     "2026-07-15T19:00:00Z": "SF2",
-    # Bronze & Final
-    "2026-07-18T19:00:00Z": "BRONZE",
+    # Semi Finals — local times
+    "2026-07-14T14:00:00Z": "SF1",     # Dallas (UTC-5)
+    "2026-07-15T15:00:00Z": "SF2",     # Atlanta (UTC-4)
+    # Final — UTC and local
     "2026-07-19T19:00:00Z": "FINAL",
+    "2026-07-19T15:00:00Z": "FINAL",   # New York NJ (UTC-4)
+    # Bronze
+    "2026-07-18T21:00:00Z": "BRONZE",
+    "2026-07-18T17:00:00Z": "BRONZE",
 }
 
 
@@ -372,7 +411,8 @@ def build_scores(data):
 
         match_id = MATCH_MAP.get((home, away))
 
-        if not match_id and mtype.startswith("knockout"):
+        KO_TYPES = {"knockout", "r32", "r16", "qf", "quarterfinal", "sf", "semifinal", "final"}
+        if not match_id and (mtype.startswith("knockout") or any(mtype.startswith(t) for t in KO_TYPES)):
             utc_raw = (m.get("local_date") or m.get("utc") or
                        m.get("datetime") or "")
             utc_norm = normalise_utc(utc_raw)
