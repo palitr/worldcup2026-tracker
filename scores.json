@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T22:48:00Z",
+  "updated": "2026-06-30T23:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -334,8 +334,8 @@
     "R32_6": {
       "h": 3,
       "a": 0,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     },
     "H1": {
       "h": 0,
@@ -1854,18 +1854,18 @@
       "Kylian Mbapp\u00e9|France": {
         "name": "Kylian Mbapp\u00e9",
         "team": "France",
-        "goals": 4,
+        "goals": 6,
         "pen": 0,
-        "npg": 4,
-        "mp": 2
+        "npg": 6,
+        "mp": 3
       },
       "Bradley Barcola|France": {
         "name": "Bradley Barcola",
         "team": "France",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Ibrahim Mbaye|Senegal": {
         "name": "Ibrahim Mbaye",
@@ -2306,15 +2306,15 @@
     "goals_by_period": {
       "0-15": 27,
       "16-30": 27,
-      "31-45": 30,
+      "31-45": 31,
       "45+": 9,
-      "46-60": 35,
-      "61-75": 30,
+      "46-60": 36,
+      "61-75": 31,
       "76-90": 33,
       "90+": 23
     },
-    "ht_goals": 98,
-    "sh_goals": 128,
+    "ht_goals": 99,
+    "sh_goals": 130,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2616,16 +2616,16 @@
         "goals": 3
       },
       {
+        "name": "Kylian Mbapp\u00e9",
+        "team": "France",
+        "streak": 2,
+        "goals": 6
+      },
+      {
         "name": "Erling Haaland",
         "team": "Norway",
         "streak": 2,
         "goals": 5
-      },
-      {
-        "name": "Kylian Mbapp\u00e9",
-        "team": "France",
-        "streak": 2,
-        "goals": 4
       },
       {
         "name": "Ousmane Demb\u00e9l\u00e9",
@@ -2890,7 +2890,7 @@
       },
       {
         "round": "Round of 32",
-        "goals": 11
+        "goals": 14
       }
     ],
     "scoreline_freq": [
@@ -2920,7 +2920,7 @@
       },
       {
         "score": "3-0",
-        "count": 5
+        "count": 6
       },
       {
         "score": "4-1",
