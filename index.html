@@ -3626,6 +3626,7 @@ var _suppressSave = false;
 var manualScores = {};    // tracks which match IDs were entered by the user manually
 var watchlist = {};       // starred match IDs
 var STORAGE_WATCHLIST = 'fifa2026_watchlist';
+var STORAGE_NOTIFIED  = 'fifa2026_notified';  // tracks match IDs already notified this session
 var _postClearMsg = null; // save indicator message to show after clear
 var bracketAnimating = false;
 var bracketSoundOn = true;
@@ -4714,6 +4715,11 @@ hadEmbedded = true;
 }
 // Priority 2: localStorage
 var hadStorage = !hadEmbedded && loadFromStorage();
+
+// Schedule notifications for any watchlisted upcoming matches (if permission already granted)
+if (Object.keys(watchlist).length > 0) {
+  scheduleMatchNotifications();
+}
 
 // ── Score count-up animation (Overview, first load only) ──────────────────
 function animateScores() {
@@ -6227,10 +6233,156 @@ function showToast(msg, type) {
   }, 2500);
 }
 
+// ============================================================
+// MATCH ALERT NOTIFICATIONS
+// ============================================================
+
+// Active setTimeout handles keyed by matchId — cleared on reschedule
+var _notifTimers = {};
+
+// Request notification permission — only call on user gesture
+function requestNotifPermission(callback) {
+  if (!('Notification' in window)) {
+    if (callback) callback(false);
+    return;
+  }
+  if (Notification.permission === 'granted') {
+    if (callback) callback(true);
+    return;
+  }
+  if (Notification.permission === 'denied') {
+    if (callback) callback(false);
+    return;
+  }
+  Notification.requestPermission().then(function(result) {
+    if (callback) callback(result === 'granted');
+  });
+}
+
+// Fire a notification via the service worker registration
+function fireMatchNotif(matchId, home, away, venue) {
+  var title = '\u26bd Kicks off in 15 minutes!';
+  var body  = home + ' vs ' + away + (venue ? ' \u00b7 ' + venue : '');
+  var icon  = '/worldcup2026-tracker/icon-192.png';
+  var url   = '/worldcup2026-tracker/';
+
+  // Mark as notified so we don't reschedule on next page load
+  try {
+    var notified = JSON.parse(localStorage.getItem(STORAGE_NOTIFIED) || '{}');
+    notified[matchId] = Date.now();
+    localStorage.setItem(STORAGE_NOTIFIED, JSON.stringify(notified));
+  } catch(e) {}
+
+  // Show via SW registration if available, else fall back to direct Notification
+  if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.ready.then(function(reg) {
+      reg.showNotification(title, {
+        body: body, icon: icon, badge: icon,
+        tag: 'wc2026-' + matchId,
+        data: { url: url, matchId: matchId },
+        requireInteraction: false
+      });
+    }).catch(function() {
+      new Notification(title, { body: body, icon: icon });
+    });
+  } else if (Notification.permission === 'granted') {
+    new Notification(title, { body: body, icon: icon });
+  }
+}
+
+// Schedule (or reschedule) notifications for all upcoming watchlisted matches
+function scheduleMatchNotifications() {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+
+  // Build full match lookup
+  var allMatches = {};
+  groupMatches.forEach(function(m) { allMatches[m.id] = m; });
+  [].concat(
+    koMatchDefs.r32, koMatchDefs.r16, koMatchDefs.qf,
+    koMatchDefs.sf, koMatchDefs.final, koMatchDefs.bronze
+  ).forEach(function(m) { allMatches[m.id] = m; });
+
+  // Load already-notified matches (persisted across sessions)
+  var notified = {};
+  try { notified = JSON.parse(localStorage.getItem(STORAGE_NOTIFIED) || '{}'); } catch(e) {}
+
+  var now = Date.now();
+  var NOTIF_ADVANCE_MS = 15 * 60 * 1000; // 15 minutes before kickoff
+
+  Object.keys(watchlist).forEach(function(matchId) {
+    var m = allMatches[matchId];
+    if (!m) return;
+
+    // Resolve team names for KO matches
+    var home = m.home, away = m.away;
+    if ((!home || home === 'TBD') && typeof getKoTeams === 'function') {
+      var kt = getKoTeams(matchId);
+      home = kt.home; away = kt.away;
+    }
+    home = home || 'TBD'; away = away || 'TBD';
+
+    var kickoff = new Date(m.utc).getTime();
+    var notifAt = kickoff - NOTIF_ADVANCE_MS;
+    var delay   = notifAt - now;
+
+    // Skip if: already played, already notified, or more than 24h away
+    if (isPlayed(matchId)) return;
+    if (notified[matchId]) return;
+    if (delay < 0) return;              // kickoff already passed
+    if (delay > 24 * 60 * 60 * 1000) return; // more than 24h away
+
+    // Clear any existing timer for this match before setting a new one
+    if (_notifTimers[matchId]) {
+      clearTimeout(_notifTimers[matchId]);
+      delete _notifTimers[matchId];
+    }
+
+    _notifTimers[matchId] = setTimeout(function() {
+      delete _notifTimers[matchId];
+      fireMatchNotif(matchId, home, away, m.venue);
+    }, delay);
+  });
+
+  updateNotifIndicator();
+}
+
+// Cancel a specific match's scheduled notification (called when unstarred)
+function cancelMatchNotif(matchId) {
+  if (_notifTimers[matchId]) {
+    clearTimeout(_notifTimers[matchId]);
+    delete _notifTimers[matchId];
+  }
+  updateNotifIndicator();
+}
+
+// Update the 🔔 indicator on the watchlist header
+function updateNotifIndicator() {
+  var el = document.getElementById('notif-indicator');
+  if (!el) return;
+  var hasPerm = ('Notification' in window) && Notification.permission === 'granted';
+  var activeCount = Object.keys(_notifTimers).length;
+  if (!hasPerm) {
+    el.style.display = 'none';
+  } else if (activeCount > 0) {
+    el.style.display = 'inline-flex';
+    el.title = activeCount + ' match alert' + (activeCount > 1 ? 's' : '') + ' scheduled';
+  } else {
+    el.style.display = 'none';
+  }
+}
+
 function toggleStar(matchId, btn) {
   var wasStarred = !!watchlist[matchId];
-  if (wasStarred) { delete watchlist[matchId]; }
-  else { watchlist[matchId] = true; }
+  if (wasStarred) {
+    delete watchlist[matchId];
+    cancelMatchNotif(matchId);
+  } else {
+    watchlist[matchId] = true;
+    // Request permission on first star, then schedule
+    requestNotifPermission(function(granted) {
+      if (granted) scheduleMatchNotifications();
+    });
+  }
   try { localStorage.setItem(STORAGE_WATCHLIST, JSON.stringify(watchlist)); } catch(e) {}
   if (wasStarred) {
     showToast('Removed from Watchlist', 'remove');
@@ -6346,9 +6498,14 @@ function renderWatchlist() {
 
   section.innerHTML = '<div class="watchlist-wrap">'
     +'<div class="watchlist-header"><span class="watchlist-title">\u2605 My Watchlist '
-    +'<span style="font-family:Barlow Condensed,sans-serif;font-size:0.75rem;color:var(--muted);font-weight:400;letter-spacing:1px;">('+ids.length+')</span></span></div>'
+    +'<span style="font-family:Barlow Condensed,sans-serif;font-size:0.75rem;color:var(--muted);font-weight:400;letter-spacing:1px;">('+ids.length+')</span>'
+    +'<span id="notif-indicator" title="" style="display:none;font-size:0.7rem;background:rgba(34,197,94,0.15);color:#22c55e;border:1px solid rgba(34,197,94,0.3);border-radius:10px;padding:1px 7px;font-family:Barlow Condensed,sans-serif;letter-spacing:1px;align-items:center;gap:4px;">🔔 ALERTS ON</span>'
+    +'</span></div>'
     +'<div class="watchlist-grid">'+cards+'</div>'
     +'</div>';
+
+  // Update notification indicator after DOM is rebuilt
+  setTimeout(updateNotifIndicator, 0);
 
   if (!window._wlTimer) {
     window._wlTimer = setInterval(function() {
