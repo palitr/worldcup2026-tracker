@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3157,6 +3158,63 @@ transition:all 0.15s; cursor:default;
   #bracket-svg [id^="flag-"]:hover {
     cursor: pointer;
   }
+  /* ── Match Detail Popup ────────────────────────────────────── */
+  .match-popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;display:flex;align-items:center;justify-content:center;padding:16px;animation:popupFadeIn 0.18s ease}
+  @keyframes popupFadeIn{from{opacity:0}to{opacity:1}}
+  .match-popup{background:#0d1117;border:1px solid rgba(255,215,0,0.2);border-radius:16px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;font-family:'Barlow Condensed',sans-serif;color:#e8e8e8;animation:popupSlideUp 0.2s ease}
+  @keyframes popupSlideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .match-popup::-webkit-scrollbar{width:4px}
+  .match-popup::-webkit-scrollbar-thumb{background:rgba(255,215,0,0.2);border-radius:2px}
+  .mp-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 10px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02)}
+  .mp-header-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .mp-stage{font-size:0.68rem;letter-spacing:2px;color:#FFD700;font-weight:700}
+  .mp-dot{color:rgba(255,255,255,0.2)}
+  .mp-venue{font-size:0.68rem;color:rgba(255,255,255,0.4);letter-spacing:1px}
+  .mp-time{font-size:0.68rem;color:rgba(255,255,255,0.4)}
+  .mp-close{background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.35);font-size:22px;line-height:1;padding:0 0 0 8px;transition:color 0.15s}
+  .mp-close:hover{color:rgba(255,255,255,0.8)}
+  .mp-score-section{padding:18px 16px 14px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .mp-teams-row{display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+  .mp-team-home{flex:1;display:flex;align-items:center;justify-content:flex-end;gap:8px;padding-right:14px;font-size:1.1rem;font-weight:700}
+  .mp-team-away{flex:1;display:flex;align-items:center;gap:8px;padding-left:14px;font-size:1.1rem;font-weight:700}
+  .mp-scores{display:flex;align-items:center;gap:4px;flex-shrink:0}
+  .mp-score-num{font-size:2.6rem;font-weight:700;color:#FFD700;line-height:1}
+  .mp-score-dash{font-size:1.2rem;color:rgba(255,255,255,0.2);margin:0 4px}
+  .mp-pen-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .mp-pen-pill{background:rgba(255,193,7,0.1);color:#FFC107;border:1px solid rgba(255,193,7,0.25);border-radius:20px;font-size:0.72rem;padding:3px 12px;font-weight:700;letter-spacing:1px}
+  .mp-adv-pill{background:rgba(45,198,83,0.12);color:#2DC653;border:1px solid rgba(45,198,83,0.25);border-radius:20px;font-size:0.72rem;padding:3px 12px;font-weight:700}
+  .mp-goals-section{padding:14px 16px 0}
+  .mp-section-label{font-size:0.62rem;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-bottom:10px}
+  .mp-col-headers{display:grid;grid-template-columns:1fr 36px 1fr;margin-bottom:8px}
+  .mp-col-hdr{font-size:0.68rem;color:rgba(255,255,255,0.4);letter-spacing:1px;display:flex;align-items:center;gap:5px}
+  .mp-col-hdr.home{justify-content:flex-end}
+  .mp-goals-grid{display:grid;grid-template-columns:1fr 36px 1fr;row-gap:5px;align-items:center}
+  .mp-divider{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin:3px 0}
+  .mp-divider-line{flex:1;height:1px;background:rgba(255,255,255,0.07)}
+  .mp-divider-label{font-size:0.58rem;color:rgba(255,255,255,0.25);letter-spacing:1px;white-space:nowrap}
+  .mp-goal-pill{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:5px 10px;font-size:0.75rem}
+  .mp-goal-pill.home{background:rgba(59,143,239,0.1);border:1px solid rgba(59,143,239,0.2)}
+  .mp-goal-pill.away{background:rgba(232,93,74,0.1);border:1px solid rgba(232,93,74,0.2)}
+  .mp-goal-pill.og{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12)}
+  .mp-goal-name{color:#e8e8e8}
+  .mp-goal-min{font-size:0.65rem;font-weight:700}
+  .mp-goal-min.home{color:#3b8fef}.mp-goal-min.away{color:#e85d4a}.mp-goal-min.og{color:rgba(255,255,255,0.35)}
+  .mp-badge{font-size:0.55rem;padding:1px 5px;border-radius:10px;font-weight:700;letter-spacing:0.5px}
+  .mp-badge.pen{background:rgba(255,193,7,0.15);color:#FFC107;border:1px solid rgba(255,193,7,0.2)}
+  .mp-badge.og{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.12)}
+  .mp-min-cell{display:flex;justify-content:center;align-items:center}
+  .mp-min-label{font-size:0.62rem;color:rgba(255,255,255,0.2);font-weight:700}
+  .mp-pen-section{margin:12px 16px 16px;background:rgba(255,193,7,0.05);border:1px solid rgba(255,193,7,0.15);border-radius:10px;padding:11px 14px}
+  .mp-pen-scoreline{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+  .mp-pen-team{display:flex;align-items:center;gap:6px;font-size:0.9rem}
+  .mp-pen-team.winner{color:#2DC653;font-weight:700}.mp-pen-team.loser{color:rgba(255,255,255,0.45)}
+  .mp-pen-num{font-size:1.5rem;font-weight:700}
+  .mp-pen-num.winner{color:#2DC653}.mp-pen-num.loser{color:rgba(255,255,255,0.4)}
+  .mp-pen-vs{font-size:0.62rem;color:rgba(255,255,255,0.2);letter-spacing:1px}
+  .mp-pen-note{text-align:center;margin-top:8px;font-size:0.62rem;color:rgba(255,255,255,0.2)}
+  .card-clickable{cursor:pointer;position:relative}
+  .card-clickable::after{content:"\2197";position:absolute;top:10px;right:10px;font-size:0.7rem;color:rgba(255,255,255,0.2);pointer-events:none;transition:color 0.15s}
+  .card-clickable:hover::after{color:rgba(255,215,0,0.5)}
   /* ── Info Icon + Tooltip ─────────────────────────────────────────── */
   .save-info-wrap {
     display: inline-flex;
@@ -4307,6 +4365,7 @@ card.innerHTML =
 + '</div>'
 + (isPlayed(m.id) ? buildScorerFooter(m.id, 'default') : '');
 grid.appendChild(card);
+if (isPlayed(m.id)) makeCardClickable(card, m.id);
 });
 }
 function onKoScore(el) {
@@ -5091,7 +5150,7 @@ function renderRecentResults() {
 
     var timeStr = formatMatchTime(m.utc);
 
-    cards += '<div class="recent-match-card">'
+    cards += '<div class="recent-match-card card-clickable" onclick="if(!event.target.closest(\'button,input,a\'))openMatchPopup(\'' + m.id + '\')">'
       + '<div class="recent-match-stage"><span>' + m.stage + '</span>'
       + '<span class="match-ft-badge">FT</span></div>'
       + '<div class="recent-match-teams">'
@@ -6478,7 +6537,9 @@ function renderWatchlist() {
       stateHtml = '<div class="wl-countdown" style="color:var(--muted);">\u23f1 Awaiting result</div>';
     }
 
-    cards += '<div class="wl-card">'
+    cards += '<div class="wl-card' + (played ? ' card-clickable' : '') + '"'
+      + (played ? ' onclick="if(!event.target.closest(\'button,input,a,.wl-unstar\'))openMatchPopup(\'' + id + '\')"' : '')
+      + '>'
       +'<div class="wl-card-header"><span class="wl-card-stage">'+stage+'</span>'
       +'<button class="wl-unstar" onclick="toggleStar(\'' + id + '\', null)" title="Remove">\u2605</button></div>'
       +'<div class="wl-teams">'
@@ -8310,6 +8371,238 @@ function playCrowdCheer() {
   } catch(e) {}
 }
 
+// ============================================================
+// MATCH DETAIL POPUP
+// ============================================================
+
+// Parse a scorer string like "Havertz 54'" or "D.Bobadilla 7'(OG)" or "H.Kane 12'(p)"
+// Returns { name, min, type } where type = 'goal' | 'pen' | 'og'
+function parseGoalEntry(raw) {
+  if (!raw) return null;
+  var s = raw.trim();
+  // Extract minute — last token that looks like a minute
+  var minMatch = s.match(/(\d+(?:\+\d+)?)'?\s*(\((?:OG|og|p|P)\))?[\s\S]*$/);
+  var name = s.replace(/\s+\d+(?:\+\d+)?'[\s\S]*$/, '').trim();
+  var minStr = minMatch ? minMatch[1] + "'" : '';
+  var hasOG = /\(OG\)/i.test(s);
+  var hasPen = /\(p\)/i.test(s);
+  var type = hasOG ? 'og' : hasPen ? 'pen' : 'goal';
+  // Parse numeric minute for sorting
+  var minNum = minMatch ? parseInt(minMatch[1].split('+')[0]) : 0;
+  var minExtra = (minMatch && minMatch[1].indexOf('+') > -1) ? parseInt(minMatch[1].split('+')[1]) : 0;
+  var minTotal = minNum + minExtra * 0.1; // for sorting only
+  return { name: name, minStr: minStr, minTotal: minTotal, type: type };
+}
+
+function openMatchPopup(matchId) {
+  var overlay = document.getElementById('match-popup-overlay');
+  var inner = document.getElementById('match-popup-inner');
+  if (!overlay || !inner) return;
+
+  // ── Gather data ──────────────────────────────────────────────────────
+  var s = getScore(matchId);
+  if (!s || s.h === null) return;
+
+  // Get team names
+  var home, away, stage, venue, utcStr;
+  var allGroupMatches = {};
+  groupMatches.forEach(function(m) { allGroupMatches[m.id] = m; });
+  var koFlat = [].concat(
+    koMatchDefs.r32, koMatchDefs.r16, koMatchDefs.qf,
+    koMatchDefs.sf, koMatchDefs.final, koMatchDefs.bronze
+  );
+  var koMap = {};
+  koFlat.forEach(function(m) { koMap[m.id] = m; });
+
+  if (allGroupMatches[matchId]) {
+    var gm = allGroupMatches[matchId];
+    home = gm.home; away = gm.away;
+    stage = 'Group ' + gm.group;
+    venue = gm.venue; utcStr = gm.utc;
+  } else if (koMap[matchId]) {
+    var km = koMap[matchId];
+    var kt = getKoTeams(matchId);
+    home = kt.home; away = kt.away;
+    stage = km.desc || matchId;
+    venue = km.venue; utcStr = km.utc;
+  } else return;
+
+  // Scores
+  var hs = s.h, as = s.a;
+  var pen = penScores[matchId];
+  var penH = pen ? pen.h : null;
+  var penA = pen ? pen.a : null;
+  var hasPen = penH !== null && penA !== null;
+  var winner = hasPen ? (penH > penA ? home : away)
+               : (hs > as ? home : hs < as ? away : null);
+
+  // Scorers
+  var sc = getScorers(matchId);
+  var homeGoals = (sc.h || []).map(parseGoalEntry).filter(Boolean);
+  var awayGoals = (sc.a || []).map(parseGoalEntry).filter(Boolean);
+
+  // HT score — count goals with minTotal <= 45
+  var htH = homeGoals.filter(function(g){ return g.minTotal <= 45.5; }).length;
+  var htA = awayGoals.filter(function(g){ return g.minTotal <= 45.5; }).length;
+
+  // Time string
+  var timeStr = formatMatchTime(utcStr) + ' ' + getTZLabel();
+
+  // Flags
+  var homeFlagHtml = (isoCodes && isoCodes[home]) ? '<img src="https://flagcdn.com/24x18/' + isoCodes[home] + '.png" style="border-radius:2px;">' : '';
+  var awayFlagHtml = (isoCodes && isoCodes[away]) ? '<img src="https://flagcdn.com/24x18/' + isoCodes[away] + '.png" style="border-radius:2px;">' : '';
+  var homeSmFlag = (isoCodes && isoCodes[home]) ? '<img src="https://flagcdn.com/16x12/' + isoCodes[home] + '.png" style="border-radius:1px;">' : '';
+  var awaySmFlag = (isoCodes && isoCodes[away]) ? '<img src="https://flagcdn.com/16x12/' + isoCodes[away] + '.png" style="border-radius:1px;">' : '';
+
+  // ── Build goals grid HTML (newest at top = FT→HT→KO) ───────────────
+  function goalPill(g, side) {
+    var cls = g.type === 'og' ? 'og' : side;
+    var minCls = g.type === 'og' ? 'og' : side;
+    var badge = g.type === 'pen' ? '<span class="mp-badge pen">P</span>' :
+                g.type === 'og'  ? '<span class="mp-badge og">OG</span>' : '';
+    if (side === 'home') {
+      return '<div class="mp-goal-pill ' + cls + '">'
+        + '<span class="mp-goal-name">' + g.name + '</span>'
+        + badge
+        + '<span class="mp-goal-min ' + minCls + '">' + g.minStr + '</span>'
+        + '<span style="font-size:10px;">⚽</span>'
+        + '</div>';
+    } else {
+      return '<div class="mp-goal-pill ' + cls + '">'
+        + '<span style="font-size:10px;">⚽</span>'
+        + '<span class="mp-goal-min ' + minCls + '">' + g.minStr + '</span>'
+        + badge
+        + '<span class="mp-goal-name">' + g.name + '</span>'
+        + '</div>';
+    }
+  }
+
+  function divRow(label) {
+    return '<div class="mp-divider"><div class="mp-divider-line"></div>'
+      + '<span class="mp-divider-label">' + label + '</span>'
+      + '<div class="mp-divider-line"></div></div>';
+  }
+
+  // Merge all goals, sort by minute descending (newest first = top)
+  var allGoals = homeGoals.map(function(g){ return {g:g,side:'home'}; })
+    .concat(awayGoals.map(function(g){ return {g:g,side:'away'}; }));
+  allGoals.sort(function(a, b){ return b.g.minTotal - a.g.minTotal; });
+
+  var goalsHtml = '';
+  var passedHT = false, passedKO = false;
+
+  // FT divider at top
+  goalsHtml += divRow('FT ' + hs + '\u2013' + as);
+
+  allGoals.forEach(function(item) {
+    // Insert HT divider when we cross from 2nd half to 1st half
+    if (!passedHT && item.g.minTotal <= 45.5) {
+      goalsHtml += divRow('HT ' + htH + '\u2013' + htA);
+      passedHT = true;
+    }
+    var g = item.g, side = item.side;
+    var homePill = side === 'home' ? goalPill(g, 'home') : '';
+    var awayPill = side === 'away' ? goalPill(g, 'away') : '';
+    goalsHtml += '<div style="display:flex;justify-content:flex-end;">' + homePill + '</div>'
+      + '<div class="mp-min-cell"><span class="mp-min-label">' + g.minStr + '</span></div>'
+      + '<div>' + awayPill + '</div>';
+  });
+
+  if (!passedHT) goalsHtml += divRow('HT ' + htH + '\u2013' + htA);
+  goalsHtml += divRow('KO');
+
+  var noGoals = !allGoals.length;
+
+  // ── Penalty section ──────────────────────────────────────────────────
+  var penHtml = '';
+  if (hasPen) {
+    var penWinner = penH > penA ? home : away;
+    var penLoser  = penH > penA ? away : home;
+    var phW = penH > penA ? penH : penA;
+    var phL = penH > penA ? penA : penH;
+    var wFlag = penH > penA ? homeSmFlag : awaySmFlag;
+    var lFlag = penH > penA ? awaySmFlag : homeSmFlag;
+    penHtml = '<div class="mp-pen-section">'
+      + '<div class="mp-section-label">PENALTY SHOOTOUT</div>'
+      + '<div class="mp-pen-scoreline">'
+      + '<div class="mp-pen-team ' + (home === penWinner ? 'winner' : 'loser') + '">'
+      + homeSmFlag + '<span>' + home + '</span>'
+      + '</div>'
+      + '<div style="display:flex;align-items:center;gap:8px;">'
+      + '<span class="mp-pen-num ' + (home === penWinner ? 'winner' : 'loser') + '">' + penH + '</span>'
+      + '<span class="mp-pen-vs">PENS</span>'
+      + '<span class="mp-pen-num ' + (away === penWinner ? 'winner' : 'loser') + '">' + penA + '</span>'
+      + '</div>'
+      + '<div class="mp-pen-team ' + (away === penWinner ? 'winner' : 'loser') + '">'
+      + '<span>' + away + '</span>' + awaySmFlag
+      + '</div>'
+      + '</div>'
+      + '<div class="mp-pen-note">Individual taker data not available</div>'
+      + '</div>';
+  }
+
+  // ── Assemble popup ───────────────────────────────────────────────────
+  inner.innerHTML =
+    '<div class="mp-header">'
+    + '<div class="mp-header-left">'
+    + '<span class="mp-stage">' + stage + '</span>'
+    + (venue ? '<span class="mp-dot">\u00b7</span><span class="mp-venue">' + venue + '</span>' : '')
+    + '<span class="mp-dot">\u00b7</span><span class="mp-time">' + timeStr + '</span>'
+    + '</div>'
+    + '<button class="mp-close" onclick="closeMatchPopup()">&#xD7;</button>'
+    + '</div>'
+
+    + '<div class="mp-score-section">'
+    + '<div class="mp-teams-row">'
+    + '<div class="mp-team-home"><span>' + home + '</span>' + homeFlagHtml + '</div>'
+    + '<div class="mp-scores"><span class="mp-score-num">' + hs + '</span><span class="mp-score-dash">\u2013</span><span class="mp-score-num">' + as + '</span></div>'
+    + '<div class="mp-team-away">' + awayFlagHtml + '<span>' + away + '</span></div>'
+    + '</div>'
+    + (hasPen ? '<div class="mp-pen-row">'
+      + '<span class="mp-pen-pill">PEN ' + penH + '\u2013' + penA + '</span>'
+      + '<span class="mp-adv-pill">\u2713 ' + (penH > penA ? home : away) + ' advances</span>'
+      + '</div>' : '')
+    + '</div>'
+
+    + (noGoals ? '' :
+      '<div class="mp-goals-section">'
+      + '<div class="mp-section-label">GOALS</div>'
+      + '<div class="mp-col-headers">'
+      + '<div class="mp-col-hdr home">' + homeSmFlag + '<span>' + home + '</span></div>'
+      + '<div></div>'
+      + '<div class="mp-col-hdr">' + awaySmFlag + '<span>' + away + '</span></div>'
+      + '</div>'
+      + '<div class="mp-goals-grid">' + goalsHtml + '</div>'
+      + '</div>')
+
+    + penHtml;
+
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMatchPopup() {
+  var overlay = document.getElementById('match-popup-overlay');
+  if (overlay) overlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeMatchPopup();
+});
+
+// Make a played match card clickable — attach to a specific element
+function makeCardClickable(el, matchId) {
+  if (!el || !matchId) return;
+  el.classList.add('card-clickable');
+  el.addEventListener('click', function(e) {
+    // Don't trigger if clicking a button or input inside the card
+    if (e.target.closest('button, input, a, .star-btn, .wl-unstar')) return;
+    if (isPlayed(matchId)) openMatchPopup(matchId);
+  });
+}
+
 function bracketToggleSound() {
   bracketSoundOn = !bracketSoundOn;
   var btn = document.getElementById('anim-sound-btn');
@@ -9146,7 +9439,8 @@ teamsHtml = '<div class="sched-card-teams">'
 + '</div>';
 }
 var cardState = isMatchLive(m.utc) ? ' sched-card-live' : isPlayed(m.id) ? ' sched-card-ft' : ' sched-card-upcoming';
-list += '<div class="sched-card' + cardState + '">'
+var cardClick = isPlayed(m.id) ? ' card-clickable" onclick="if(!event.target.closest(\'button,input,a,.star-btn\'))openMatchPopup(\'' + m.id + '\')' : '';
+list += '<div class="sched-card' + cardState + cardClick + '">'
 + '<div class="sched-card-hdr">'
 + '<span class="sched-card-stage">'+m.stage+'</span>'
 + '<span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">'
@@ -9501,6 +9795,11 @@ fetch('scores.json?v=' + Date.now())
     </div>
     <div class="ts-body" id="ts-body"></div>
   </div>
+</div>
+
+<!-- ====== MATCH DETAIL POPUP ====== -->
+<div id="match-popup-overlay" class="match-popup-overlay" style="display:none;" onclick="if(event.target===this)closeMatchPopup()">
+  <div class="match-popup" id="match-popup-inner"></div>
 </div>
 
 <script>
