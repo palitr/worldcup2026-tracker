@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3106,40 +3102,7 @@ transition:all 0.15s; cursor:default;
   }
   .anim-sound-btn.on { border-color: rgba(255,215,0,0.35); color: var(--gold); background: rgba(255,215,0,0.07); }
 
-  /* Predict mode button */
-  .anim-predict-btn {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: var(--muted);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    font-family: 'Barlow Condensed', sans-serif;
-    letter-spacing: 1px;
-    transition: all 0.2s;
-  }
-  .anim-predict-btn.active {
-    border-color: rgba(167,139,250,0.6);
-    color: #a78bfa;
-    background: rgba(167,139,250,0.1);
-    box-shadow: 0 0 12px rgba(167,139,250,0.2);
-  }
-  /* Predicted winner flag — gold dashed ring */
-  .predicted-winner { outline: none; }
-  .predicted-winner circle:first-child {
-    stroke: #FFD700 !important;
-    stroke-dasharray: 4 3;
-    stroke-width: 2.5 !important;
-  }
-  /* Predicted loser — dimmed and greyscale */
-  .predicted-loser {
-    opacity: 0.35;
-    filter: grayscale(100%);
-  }
-  /* Predict mode cursor on flag groups */
-  #bracket-svg.predict-mode [id^="flag-"] { cursor: pointer; }
-
+  .anim-status {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.88rem;
     color: rgba(180,200,255,0.75);
@@ -3585,7 +3548,6 @@ transition:all 0.15s; cursor:default;
         <span id="anim-speed-label">3x</span>
       </div>
       <button class="anim-sound-btn on" id="anim-sound-btn" onclick="bracketToggleSound()">&#x1F50A; SOUND ON</button>
-      <button class="anim-predict-btn" id="anim-predict-btn" onclick="bracketTogglePredict()">&#x1F52E; PREDICT</button>
       <span class="anim-status" id="anim-status">Ready — press Play to animate</span>
     </div>
     <div id="bracket-svg-container"></div>
@@ -3635,8 +3597,6 @@ var STORAGE_MANUAL  = 'fifa2026_manual'; // tracks which scores user entered man
 // Bracket SVG constants — declared at top to avoid temporal dead zone when init() runs
 var VW = 1000, VH = 700;
 var bracketPlayed = false; // true after animation completes — button shows RESET
-var predictMode = false;   // true when user is in what-if prediction mode
-var predictedWinners = {}; // matchId → winning team name (session-only)
 var TOP_PAD = 24; // global so animation functions can access it
 var HALF = VW / 2;
 var FLAG_R = 18, FLAG_R_FINAL = 28, FLAG_R_SF = 20, FLAG_R_QF = 20;
@@ -7617,7 +7577,7 @@ function setupNextRoundKoTeams(completedRnd, nextRnd) {
       koTeams[t[0]] = { home: actualWinner(t[1]), away: actualWinner(t[2]) };
     });
   } else if (nextRnd === 'sf') {
-    [['SF1','QF1','QF3'],['SF2','QF2','QF4']].forEach(function(t) {
+    [['SF1','QF1','QF2'],['SF2','QF3','QF4']].forEach(function(t) {
       koTeams[t[0]] = { home: actualWinner(t[1]), away: actualWinner(t[2]) };
     });
   } else if (nextRnd === 'final') {
@@ -7804,8 +7764,8 @@ function getDestination(matchId) {
     'R16_3':{id:'QF2',fi:0},'R16_4':{id:'QF2',fi:1},
     'R16_5':{id:'QF3',fi:0},'R16_6':{id:'QF3',fi:1},
     'R16_7':{id:'QF4',fi:0},'R16_8':{id:'QF4',fi:1},
-    'QF1':{id:'SF1',fi:0},'QF3':{id:'SF1',fi:1},
-    'QF2':{id:'SF2',fi:0},'QF4':{id:'SF2',fi:1},
+    'QF1':{id:'SF1',fi:0},'QF2':{id:'SF1',fi:1},
+    'QF3':{id:'SF2',fi:0},'QF4':{id:'SF2',fi:1},
     'SF1':{id:'FINAL',fi:0},'SF2':{id:'FINAL',fi:1},
   };
   return map[matchId] || null;
@@ -8121,7 +8081,7 @@ function getSide(matchId) {
     b.r32.forEach(function(id){ leftIds.add(id); });
     leftIds.add(b.r16); leftIds.add(b.qf); leftIds.add(b.sf);
   });
-  leftIds.add('SF1'); leftIds.add('QF1'); leftIds.add('QF3');
+  leftIds.add('SF1'); leftIds.add('QF1'); leftIds.add('QF2');
   ['R16_1','R16_2','R16_3','R16_4'].forEach(function(id){ leftIds.add(id); });
   ['R32_1','R32_2','R32_3','R32_4','R32_5','R32_6','R32_7','R32_8'].forEach(function(id){ leftIds.add(id); });
   return leftIds.has(matchId) ? 'left' : 'right';
@@ -8360,220 +8320,10 @@ function bracketToggleSound() {
   }
 }
 
+
 // ============================================================
-// PREDICT MODE
+// ELEMENTS SHOWCASE TAB
 // ============================================================
-
-function bracketTogglePredict() {
-  predictMode = !predictMode;
-  var btn = document.getElementById('anim-predict-btn');
-  var svg = document.getElementById('bracket-svg');
-  if (predictMode) {
-    btn.className = 'anim-predict-btn active';
-    btn.textContent = '🔮 PREDICT ON';
-    if (svg) svg.classList.add('predict-mode');
-    var status = document.getElementById('anim-status');
-    if (status) status.textContent = 'Predict mode — click a team to pick the winner';
-    // Attach click handlers to all flag groups
-    attachPredictHandlers();
-  } else {
-    btn.className = 'anim-predict-btn';
-    btn.textContent = '🔮 PREDICT';
-    if (svg) svg.classList.remove('predict-mode');
-    // Clear all predictions and re-render bracket
-    predictedWinners = {};
-    renderBracket();
-    var status = document.getElementById('anim-status');
-    if (status) status.textContent = 'Ready — press Play to animate';
-  }
-}
-
-function attachPredictHandlers() {
-  var svg = document.getElementById('bracket-svg');
-  if (!svg) return;
-  // Find all flag groups (id="flag-MATCHID-h" or "flag-MATCHID-a")
-  var flagGroups = svg.querySelectorAll('[id^="flag-"]');
-  flagGroups.forEach(function(g) {
-    g.addEventListener('click', onPredictFlagClick);
-  });
-}
-
-function onPredictFlagClick(e) {
-  if (!predictMode) return;
-  var id = e.currentTarget.id; // e.g. "flag-R32_3-h"
-  var parts = id.match(/^flag-(.+)-(h|a)$/);
-  if (!parts) return;
-  var matchId = parts[1];
-  var slot = parts[2]; // 'h' or 'a'
-
-  // Don't allow predicting already-played matches
-  var s = getScore(matchId);
-  if (s.h !== null && s.a !== null) return;
-
-  // Don't allow predicting if neither team is known yet
-  var teams = getPredictTeams(matchId);
-  var winner = slot === 'h' ? teams.home : teams.away;
-  if (!winner || winner === 'TBD') return;
-
-  // If same team clicked again, toggle off (clear prediction for this match)
-  if (predictedWinners[matchId] === winner) {
-    clearPredictionCascade(matchId);
-  } else {
-    // Set winner and cascade
-    predictedWinners[matchId] = winner;
-    cascadePrediction(matchId, winner);
-  }
-
-  applyPredictVisuals();
-}
-
-// Get the two teams for a match in predict context
-// Uses actual koTeams first, then predictedWinners for upstream matches
-function getPredictTeams(matchId) {
-  // For R32, teams come from group qualifiers (already in koTeams)
-  var actual = getKoTeams(matchId);
-  if (actual.home !== 'TBD' && actual.away !== 'TBD') return actual;
-
-  // For later rounds, try to derive from predicted winners of feeder matches
-  var dest = getFeederMatches(matchId);
-  var home = (dest.hFeed && predictedWinners[dest.hFeed]) || actual.home;
-  var away = (dest.aFeed && predictedWinners[dest.aFeed]) || actual.away;
-  return { home: home, away: away };
-}
-
-// For a given matchId, return which matches feed its home and away slots
-function getFeederMatches(matchId) {
-  var feedMap = {
-    'R16_1': { hFeed:'R32_1', aFeed:'R32_4' },
-    'R16_2': { hFeed:'R32_3', aFeed:'R32_6' },
-    'R16_3': { hFeed:'R32_2', aFeed:'R32_5' },
-    'R16_4': { hFeed:'R32_7', aFeed:'R32_8' },
-    'R16_5': { hFeed:'R32_14',aFeed:'R32_12'},
-    'R16_6': { hFeed:'R32_10',aFeed:'R32_9' },
-    'R16_7': { hFeed:'R32_13',aFeed:'R32_11'},
-    'R16_8': { hFeed:'R32_16',aFeed:'R32_15'},
-    'QF1':   { hFeed:'R16_1', aFeed:'R16_2' },
-    'QF2':   { hFeed:'R16_3', aFeed:'R16_4' },
-    'QF3':   { hFeed:'R16_5', aFeed:'R16_6' },
-    'QF4':   { hFeed:'R16_7', aFeed:'R16_8' },
-    'SF1':   { hFeed:'QF1',   aFeed:'QF3'   },
-    'SF2':   { hFeed:'QF2',   aFeed:'QF4'   },
-    'FINAL': { hFeed:'SF1',   aFeed:'SF2'   }
-  };
-  return feedMap[matchId] || {};
-}
-
-// When a winner is predicted, cascade into the next round's slot
-function cascadePrediction(matchId, winner) {
-  var dest = getDestination(matchId);
-  if (!dest) return;
-  var destId = dest.id;
-  var fi = dest.fi; // 0=home, 1=away
-
-  // Get the current predicted teams for the destination match
-  var destTeams = getPredictTeams(destId);
-  var newHome = fi === 0 ? winner : destTeams.home;
-  var newAway = fi === 1 ? winner : destTeams.away;
-
-  // If destination had a predicted winner that is no longer a valid team, clear it
-  if (predictedWinners[destId] && predictedWinners[destId] !== newHome && predictedWinners[destId] !== newAway) {
-    clearPredictionCascade(destId);
-  }
-}
-
-// Clear a prediction and all downstream predictions that depended on it
-function clearPredictionCascade(matchId) {
-  delete predictedWinners[matchId];
-  // Clear any downstream match that had this match's winner feeding into it
-  var dest = getDestination(matchId);
-  if (dest) {
-    var destId = dest.id;
-    // If the destination's predicted winner came from this match, clear that too
-    var oldWinner = predictedWinners[matchId]; // already deleted, so get from context
-    // Recursively clear if destination prediction is now invalid
-    clearPredictionCascade(destId);
-  }
-}
-
-// Apply dim/highlight visuals to all flag groups based on predictedWinners
-function applyPredictVisuals() {
-  var svg = document.getElementById('bracket-svg');
-  if (!svg) return;
-
-  var BL = window._bracketLayout || { FLAG_R: FLAG_R, FLAG_R_QF: FLAG_R_QF, FLAG_R_SF: FLAG_R_SF, FLAG_R_FINAL: FLAG_R_FINAL };
-
-  // ── Step 1: Reset all non-R32 flag slots to TBD ──────────────────────
-  // (R32 flags always show actual group qualifiers — don't touch those)
-  ['R16_1','R16_2','R16_3','R16_4','R16_5','R16_6','R16_7','R16_8',
-   'QF1','QF2','QF3','QF4','SF1','SF2','FINAL'].forEach(function(matchId) {
-    var s = getScore(matchId);
-    var hasActualScore = s.h !== null && s.a !== null;
-    if (hasActualScore) return; // don't touch actual results
-    ['h','a'].forEach(function(slot) {
-      var el = document.getElementById('flag-' + matchId + '-' + slot);
-      if (el) {
-        var r = matchId.startsWith('R16') ? BL.FLAG_R_QF :
-                matchId.startsWith('QF')  ? BL.FLAG_R_QF :
-                matchId.startsWith('SF')  ? BL.FLAG_R_SF  :
-                matchId === 'FINAL'        ? BL.FLAG_R_SF  : BL.FLAG_R;
-        updateFlagNode(el, 'TBD', r);
-        el.classList.remove('predicted-winner', 'predicted-loser');
-      }
-    });
-  });
-
-  // Reset champion slot
-  var champImg = document.getElementById('champ-flag-img');
-  if (champImg) champImg.setAttribute('href', '');
-  var champG = document.getElementById('champ-flag-group');
-  if (champG) champG.setAttribute('opacity', '0');
-
-  // ── Step 2: Apply each prediction ────────────────────────────────────
-  Object.keys(predictedWinners).forEach(function(matchId) {
-    var winner = predictedWinners[matchId];
-    var teams = getPredictTeams(matchId);
-    var winSlot = winner === teams.home ? 'h' : 'a';
-    var loseSlot = winSlot === 'h' ? 'a' : 'h';
-
-    // Mark winner and loser in source match
-    var winEl  = document.getElementById('flag-' + matchId + '-' + winSlot);
-    var loseEl = document.getElementById('flag-' + matchId + '-' + loseSlot);
-    if (winEl)  winEl.classList.add('predicted-winner');
-    if (loseEl) loseEl.classList.add('predicted-loser');
-
-    // Fill destination slot with winner
-    var dest = getDestination(matchId);
-    if (dest) {
-      var destSlot = dest.fi === 0 ? 'h' : 'a';
-      var destEl = document.getElementById('flag-' + dest.id + '-' + destSlot);
-      if (destEl) {
-        var destId = dest.id;
-        var r = destId.startsWith('R16') ? BL.FLAG_R_QF :
-                destId.startsWith('QF')  ? BL.FLAG_R_QF :
-                destId.startsWith('SF')  ? BL.FLAG_R_SF  :
-                destId === 'FINAL'        ? BL.FLAG_R_SF  : BL.FLAG_R;
-        updateFlagNode(destEl, winner, r);
-        destEl.classList.add('predicted-winner');
-      }
-
-      // If destination is FINAL, also populate the champion slot
-      if (dest.id === 'FINAL' && predictedWinners['FINAL']) {
-        var champWinner = predictedWinners['FINAL'];
-        var champUrl = getFlagUrl(champWinner);
-        if (champImg && champUrl) champImg.setAttribute('href', champUrl);
-        if (champG) champG.setAttribute('opacity', '1');
-      }
-    }
-  });
-
-  // Champion slot: populate when FINAL has a predicted winner
-  if (predictedWinners['FINAL']) {
-    var champWinner = predictedWinners['FINAL'];
-    var champUrl = getFlagUrl(champWinner);
-    if (champImg && champUrl) champImg.setAttribute('href', champUrl);
-    if (champG) champG.setAttribute('opacity', '1');
-  }
-}
 function renderCeremonies() {
   var grid = document.getElementById('ceremony-grid');
   if (!grid) return;
