@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T21:06:00Z",
+  "updated": "2026-07-01T21:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -483,7 +483,7 @@
     },
     "R32_9": {
       "h": 0,
-      "a": 1,
+      "a": 2,
       "finished": false,
       "min": "live"
     }
@@ -1133,7 +1133,8 @@
     "R32_9": {
       "h": [],
       "a": [
-        "Habib Diarra 25'"
+        "Habib Diarra 25'",
+        "Isma\u00efla Sarr 51'"
       ]
     }
   },
