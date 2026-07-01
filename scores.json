@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T22:46:00Z",
+  "updated": "2026-07-01T23:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -484,8 +484,8 @@
     "R32_9": {
       "h": 3,
       "a": 2,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     }
   },
   "penScores": {
@@ -1818,10 +1818,10 @@
       "Romelu Lukaku|Belgium": {
         "name": "Romelu Lukaku",
         "team": "Belgium",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Alexis Saelemaekers|Belgium": {
         "name": "Alexis Saelemaekers",
@@ -1962,10 +1962,10 @@
       "Isma\u00efla Sarr|Senegal": {
         "name": "Isma\u00efla Sarr",
         "team": "Senegal",
-        "goals": 3,
+        "goals": 4,
         "pen": 0,
-        "npg": 3,
-        "mp": 2
+        "npg": 4,
+        "mp": 3
       },
       "Thelo Aasgaard|Norway": {
         "name": "Thelo Aasgaard",
@@ -1986,10 +1986,10 @@
       "Habib Diarra|Senegal": {
         "name": "Habib Diarra",
         "team": "Senegal",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Pape Gueye|Senegal": {
         "name": "Pape Gueye",
@@ -2350,23 +2350,31 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Youri Tielemans|Belgium": {
+        "name": "Youri Tielemans",
+        "team": "Belgium",
+        "goals": 2,
+        "pen": 1,
+        "npg": 1,
+        "mp": 1
       }
     },
-    "total_pen": 8,
+    "total_pen": 9,
     "total_og": 12,
     "hat_tricks": 3,
     "goals_by_period": {
       "0-15": 28,
-      "16-30": 27,
+      "16-30": 28,
       "31-45": 32,
       "45+": 10,
-      "46-60": 36,
+      "46-60": 37,
       "61-75": 32,
-      "76-90": 34,
-      "90+": 23
+      "76-90": 36,
+      "90+": 24
     },
-    "ht_goals": 101,
-    "sh_goals": 133,
+    "ht_goals": 102,
+    "sh_goals": 136,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2458,6 +2466,13 @@
         "ht": "0-1",
         "ft": "2-1",
         "result": "won"
+      },
+      {
+        "team": "Belgium",
+        "opponent": "Senegal",
+        "ht": "0-1",
+        "ft": "2-2",
+        "result": "drew"
       }
     ],
     "threw_leads": [
@@ -2551,9 +2566,23 @@
         "ht": "1-0",
         "ft": "1-2",
         "outcome": "lost"
+      },
+      {
+        "team": "Senegal",
+        "opponent": "Belgium",
+        "ht": "1-0",
+        "ft": "2-2",
+        "outcome": "drew"
       }
     ],
     "late_goals": [
+      {
+        "player": "Youri Tielemans",
+        "team": "Belgium",
+        "minute": "120+5",
+        "sort_val": 120.05,
+        "opponent": "Senegal"
+      },
       {
         "player": "Marko Arnautovic",
         "team": "Austria",
@@ -2616,13 +2645,6 @@
         "minute": "90+5",
         "sort_val": 90.05,
         "opponent": "France"
-      },
-      {
-        "player": "Lionel Messi",
-        "team": "Argentina",
-        "minute": "90+5",
-        "sort_val": 90.05,
-        "opponent": "Austria"
       }
     ],
     "fastest_goals": [
@@ -2672,6 +2694,12 @@
       {
         "name": "Vin\u00edcius J\u00fanior",
         "team": "Brazil",
+        "streak": 3,
+        "goals": 4
+      },
+      {
+        "name": "Isma\u00efla Sarr",
+        "team": "Senegal",
         "streak": 3,
         "goals": 4
       },
@@ -2736,12 +2764,6 @@
         "goals": 3
       },
       {
-        "name": "Isma\u00efla Sarr",
-        "team": "Senegal",
-        "streak": 2,
-        "goals": 3
-      },
-      {
         "name": "Cyle Larin",
         "team": "Canada",
         "streak": 2,
@@ -2778,8 +2800,20 @@
         "goals": 2
       },
       {
+        "name": "Romelu Lukaku",
+        "team": "Belgium",
+        "streak": 2,
+        "goals": 2
+      },
+      {
         "name": "Maxi Ara\u00fajo",
         "team": "Uruguay",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Habib Diarra",
+        "team": "Senegal",
         "streak": 2,
         "goals": 2
       },
@@ -2975,7 +3009,7 @@
       },
       {
         "round": "Round of 32",
-        "goals": 19
+        "goals": 23
       }
     ],
     "scoreline_freq": [
@@ -3013,7 +3047,7 @@
       },
       {
         "score": "2-2",
-        "count": 3
+        "count": 4
       },
       {
         "score": "5-1",
