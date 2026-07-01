@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T16:01:00Z",
+  "updated": "2026-07-01T16:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -474,6 +474,12 @@
       "a": 0,
       "finished": true,
       "min": "finished"
+    },
+    "R32_8": {
+      "h": 0,
+      "a": 1,
+      "finished": false,
+      "min": "live"
     }
   },
   "penScores": {
@@ -1108,6 +1114,12 @@
         "Ra\u00fal Jim\u00e9nez 31'"
       ],
       "a": []
+    },
+    "R32_8": {
+      "h": [],
+      "a": [
+        "Braian Sipnga 7'"
+      ]
     }
   },
   "af_stats": {
