@@ -1,6 +1,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9151,6 +9152,12 @@ function saveToStorage() {
 }
 
 function loadFromStorage() {
+  // Always restore watchlist regardless of whether scores exist in localStorage
+  try {
+    var wl = localStorage.getItem(STORAGE_WATCHLIST);
+    if (wl) { var wlp = JSON.parse(wl); Object.keys(wlp).forEach(function(k){ watchlist[k] = true; }); }
+  } catch(e) {}
+
   try {
     var s = localStorage.getItem(STORAGE_SCORES);
     var p = localStorage.getItem(STORAGE_PENS);
@@ -9175,8 +9182,6 @@ function loadFromStorage() {
       }
     }
     if (p) { var pp = JSON.parse(p); Object.keys(pp).forEach(function(k){ penScores[k] = pp[k]; }); }
-    var wl = localStorage.getItem(STORAGE_WATCHLIST);
-    if (wl) { try { var wlp = JSON.parse(wl); Object.keys(wlp).forEach(function(k){ watchlist[k] = true; }); } catch(e){} }
     window._restoredAt = t || new Date().toISOString();
     return true;
   } catch(e) { return false; }
