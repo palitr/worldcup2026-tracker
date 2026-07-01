@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T02:31:00Z",
+  "updated": "2026-07-01T03:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -470,7 +470,7 @@
       "min": "finished"
     },
     "R32_7": {
-      "h": 1,
+      "h": 2,
       "a": 0,
       "finished": false,
       "min": "live"
@@ -1104,7 +1104,8 @@
     },
     "R32_7": {
       "h": [
-        "Jvlian Kviinvnz 22'"
+        "Jvlian Kviinvnz 22'",
+        "Ra\u00fal Jim\u00e9nez 31'"
       ],
       "a": []
     }
