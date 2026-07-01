@@ -8500,30 +8500,53 @@ function applyPredictVisuals() {
   var svg = document.getElementById('bracket-svg');
   if (!svg) return;
 
-  // Reset all flag groups
-  svg.querySelectorAll('[id^="flag-"]').forEach(function(g) {
-    g.classList.remove('predicted-winner', 'predicted-loser');
+  var BL = window._bracketLayout || { FLAG_R: FLAG_R, FLAG_R_QF: FLAG_R_QF, FLAG_R_SF: FLAG_R_SF, FLAG_R_FINAL: FLAG_R_FINAL };
+
+  // ── Step 1: Reset all non-R32 flag slots to TBD ──────────────────────
+  // (R32 flags always show actual group qualifiers — don't touch those)
+  ['R16_1','R16_2','R16_3','R16_4','R16_5','R16_6','R16_7','R16_8',
+   'QF1','QF2','QF3','QF4','SF1','SF2','FINAL'].forEach(function(matchId) {
+    var s = getScore(matchId);
+    var hasActualScore = s.h !== null && s.a !== null;
+    if (hasActualScore) return; // don't touch actual results
+    ['h','a'].forEach(function(slot) {
+      var el = document.getElementById('flag-' + matchId + '-' + slot);
+      if (el) {
+        var r = matchId.startsWith('R16') ? BL.FLAG_R_QF :
+                matchId.startsWith('QF')  ? BL.FLAG_R_QF :
+                matchId.startsWith('SF')  ? BL.FLAG_R_SF  :
+                matchId === 'FINAL'        ? BL.FLAG_R_SF  : BL.FLAG_R;
+        updateFlagNode(el, 'TBD', r);
+        el.classList.remove('predicted-winner', 'predicted-loser');
+      }
+    });
   });
 
-  // For each predicted winner, mark winner and loser in that match
+  // Reset champion slot
+  var champImg = document.getElementById('champ-flag-img');
+  if (champImg) champImg.setAttribute('href', '');
+  var champG = document.getElementById('champ-flag-group');
+  if (champG) champG.setAttribute('opacity', '0');
+
+  // ── Step 2: Apply each prediction ────────────────────────────────────
   Object.keys(predictedWinners).forEach(function(matchId) {
     var winner = predictedWinners[matchId];
     var teams = getPredictTeams(matchId);
     var winSlot = winner === teams.home ? 'h' : 'a';
     var loseSlot = winSlot === 'h' ? 'a' : 'h';
 
+    // Mark winner and loser in source match
     var winEl  = document.getElementById('flag-' + matchId + '-' + winSlot);
     var loseEl = document.getElementById('flag-' + matchId + '-' + loseSlot);
     if (winEl)  winEl.classList.add('predicted-winner');
     if (loseEl) loseEl.classList.add('predicted-loser');
 
-    // Show winner in destination slot
+    // Fill destination slot with winner
     var dest = getDestination(matchId);
     if (dest) {
       var destSlot = dest.fi === 0 ? 'h' : 'a';
       var destEl = document.getElementById('flag-' + dest.id + '-' + destSlot);
       if (destEl) {
-        var BL = window._bracketLayout || { FLAG_R_QF: FLAG_R_QF, FLAG_R_SF: FLAG_R_SF, FLAG_R: FLAG_R };
         var destId = dest.id;
         var r = destId.startsWith('R16') ? BL.FLAG_R_QF :
                 destId.startsWith('QF')  ? BL.FLAG_R_QF :
@@ -8532,8 +8555,24 @@ function applyPredictVisuals() {
         updateFlagNode(destEl, winner, r);
         destEl.classList.add('predicted-winner');
       }
+
+      // If destination is FINAL, also populate the champion slot
+      if (dest.id === 'FINAL' && predictedWinners['FINAL']) {
+        var champWinner = predictedWinners['FINAL'];
+        var champUrl = getFlagUrl(champWinner);
+        if (champImg && champUrl) champImg.setAttribute('href', champUrl);
+        if (champG) champG.setAttribute('opacity', '1');
+      }
     }
   });
+
+  // Champion slot: populate when FINAL has a predicted winner
+  if (predictedWinners['FINAL']) {
+    var champWinner = predictedWinners['FINAL'];
+    var champUrl = getFlagUrl(champWinner);
+    if (champImg && champUrl) champImg.setAttribute('href', champUrl);
+    if (champG) champG.setAttribute('opacity', '1');
+  }
 }
 function renderCeremonies() {
   var grid = document.getElementById('ceremony-grid');
