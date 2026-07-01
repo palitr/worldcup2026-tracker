@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T17:31:00Z",
+  "updated": "2026-07-01T18:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -476,7 +476,7 @@
       "min": "finished"
     },
     "R32_8": {
-      "h": 0,
+      "h": 2,
       "a": 1,
       "finished": false,
       "min": "live"
@@ -1116,7 +1116,10 @@
       "a": []
     },
     "R32_8": {
-      "h": [],
+      "h": [
+        "Hri Kin 75'",
+        "Hri Kin 86'"
+      ],
       "a": [
         "Braian Sipnga 7'"
       ]
