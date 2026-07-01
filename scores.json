@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T18:01:00Z",
+  "updated": "2026-07-01T18:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -478,8 +478,8 @@
     "R32_8": {
       "h": 2,
       "a": 1,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     }
   },
   "penScores": {
@@ -2194,10 +2194,10 @@
       "Harry Kane|England": {
         "name": "Harry Kane",
         "team": "England",
-        "goals": 3,
+        "goals": 5,
         "pen": 1,
-        "npg": 2,
-        "mp": 2
+        "npg": 4,
+        "mp": 3
       },
       "Jude Bellingham|England": {
         "name": "Jude Bellingham",
@@ -2326,23 +2326,31 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Brian Cipenga|DR Congo": {
+        "name": "Brian Cipenga",
+        "team": "DR Congo",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 8,
     "total_og": 12,
     "hat_tricks": 3,
     "goals_by_period": {
-      "0-15": 27,
+      "0-15": 28,
       "16-30": 27,
       "31-45": 32,
       "45+": 10,
       "46-60": 36,
-      "61-75": 31,
-      "76-90": 33,
+      "61-75": 32,
+      "76-90": 34,
       "90+": 23
     },
-    "ht_goals": 100,
-    "sh_goals": 131,
+    "ht_goals": 101,
+    "sh_goals": 133,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2424,6 +2432,13 @@
       {
         "team": "Brazil",
         "opponent": "Japan",
+        "ht": "0-1",
+        "ft": "2-1",
+        "result": "won"
+      },
+      {
+        "team": "England",
+        "opponent": "DR Congo",
         "ht": "0-1",
         "ft": "2-1",
         "result": "won"
@@ -2510,6 +2525,13 @@
       {
         "team": "Japan",
         "opponent": "Brazil",
+        "ht": "1-0",
+        "ft": "1-2",
+        "outcome": "lost"
+      },
+      {
+        "team": "DR Congo",
+        "opponent": "England",
         "ht": "1-0",
         "ft": "1-2",
         "outcome": "lost"
@@ -2652,6 +2674,12 @@
       {
         "name": "Erling Haaland",
         "team": "Norway",
+        "streak": 2,
+        "goals": 5
+      },
+      {
+        "name": "Harry Kane",
+        "team": "England",
         "streak": 2,
         "goals": 5
       },
@@ -2851,6 +2879,13 @@
         "goals": 1,
         "opponent": "South Africa",
         "score": "1-0"
+      },
+      {
+        "player": "Harry Kane",
+        "team": "England",
+        "goals": 2,
+        "opponent": "DR Congo",
+        "score": "2-1"
       }
     ],
     "matchday_goals": [
@@ -2924,7 +2959,7 @@
       },
       {
         "round": "Round of 32",
-        "goals": 16
+        "goals": 19
       }
     ],
     "scoreline_freq": [
@@ -2938,7 +2973,7 @@
       },
       {
         "score": "2-1",
-        "count": 8
+        "count": 9
       },
       {
         "score": "3-1",
