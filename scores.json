@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T21:31:00Z",
+  "updated": "2026-07-01T22:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -482,7 +482,7 @@
       "min": "finished"
     },
     "R32_9": {
-      "h": 0,
+      "h": 2,
       "a": 2,
       "finished": false,
       "min": "live"
@@ -1131,7 +1131,10 @@
       ]
     },
     "R32_9": {
-      "h": [],
+      "h": [
+        "Romelu Lukaku 86'",
+        "Youri Tielemans 89'"
+      ],
       "a": [
         "Habib Diarra 25'",
         "Isma\u00efla Sarr 51'"
