@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T20:01:00Z",
+  "updated": "2026-07-01T20:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -480,6 +480,12 @@
       "a": 1,
       "finished": true,
       "min": "finished"
+    },
+    "R32_9": {
+      "h": 0,
+      "a": 1,
+      "finished": false,
+      "min": "live"
     }
   },
   "penScores": {
@@ -1122,6 +1128,12 @@
       ],
       "a": [
         "Braian Sipnga 7'"
+      ]
+    },
+    "R32_9": {
+      "h": [],
+      "a": [
+        "Habib Diarra 25'"
       ]
     }
   },
