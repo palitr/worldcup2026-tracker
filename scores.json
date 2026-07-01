@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T02:01:00Z",
+  "updated": "2026-07-01T02:31:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -470,7 +470,7 @@
       "min": "finished"
     },
     "R32_7": {
-      "h": 0,
+      "h": 1,
       "a": 0,
       "finished": false,
       "min": "live"
@@ -1101,6 +1101,12 @@
         "Antonio Nusa 39'",
         "Erling Haaland 86'"
       ]
+    },
+    "R32_7": {
+      "h": [
+        "Jvlian Kviinvnz 22'"
+      ],
+      "a": []
     }
   },
   "af_stats": {
