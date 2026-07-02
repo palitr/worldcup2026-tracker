@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T19:31:00Z",
+  "updated": "2026-07-02T20:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -494,7 +494,7 @@
       "min": "finished"
     },
     "R32_12": {
-      "h": 0,
+      "h": 1,
       "a": 0,
       "finished": false,
       "min": "live"
@@ -1159,6 +1159,12 @@
         "Habib Diarra 25'",
         "Isma\u00efla Sarr 51'"
       ]
+    },
+    "R32_12": {
+      "h": [
+        "Mikel Oyarzabal 36'"
+      ],
+      "a": []
     }
   },
   "af_stats": {
