@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T20:01:00Z",
+  "updated": "2026-07-02T20:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -494,7 +494,7 @@
       "min": "finished"
     },
     "R32_12": {
-      "h": 1,
+      "h": 2,
       "a": 0,
       "finished": false,
       "min": "live"
@@ -1162,7 +1162,8 @@
     },
     "R32_12": {
       "h": [
-        "Mikel Oyarzabal 36'"
+        "Mikel Oyarzabal 36'",
+        "Pedro Porro 66'"
       ],
       "a": []
     }
