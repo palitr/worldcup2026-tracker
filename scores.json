@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T00:31:00Z",
+  "updated": "2026-07-02T01:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -482,7 +482,7 @@
       "min": "finished"
     },
     "R32_10": {
-      "h": 0,
+      "h": 1,
       "a": 0,
       "finished": false,
       "min": "live"
@@ -1135,6 +1135,12 @@
       "a": [
         "Braian Sipnga 7'"
       ]
+    },
+    "R32_10": {
+      "h": [
+        "Flvrin Balvgan 45'"
+      ],
+      "a": []
     },
     "R32_9": {
       "h": [
