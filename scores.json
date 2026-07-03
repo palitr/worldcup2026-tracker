@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T21:01:00Z",
+  "updated": "2026-07-03T21:07:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -1803,10 +1803,10 @@
       "Emam Ashour|Egypt": {
         "name": "Emam Ashour",
         "team": "Egypt",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Ramin Rezaeian|Iran": {
         "name": "Ramin Rezaeian",
@@ -2474,10 +2474,10 @@
       }
     },
     "total_pen": 10,
-    "total_og": 12,
+    "total_og": 13,
     "hat_tricks": 3,
     "goals_by_period": {
-      "0-15": 29,
+      "0-15": 30,
       "16-30": 28,
       "31-45": 34,
       "45+": 10,
@@ -2486,8 +2486,8 @@
       "76-90": 38,
       "90+": 25
     },
-    "ht_goals": 105,
-    "sh_goals": 143,
+    "ht_goals": 106,
+    "sh_goals": 144,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2585,6 +2585,13 @@
         "opponent": "Senegal",
         "ht": "0-1",
         "ft": "2-2",
+        "result": "drew"
+      },
+      {
+        "team": "Australia",
+        "opponent": "Egypt",
+        "ht": "0-1",
+        "ft": "1-1",
         "result": "drew"
       }
     ],
@@ -2685,6 +2692,13 @@
         "opponent": "Belgium",
         "ht": "1-0",
         "ft": "2-2",
+        "outcome": "drew"
+      },
+      {
+        "team": "Egypt",
+        "opponent": "Australia",
+        "ht": "1-0",
+        "ft": "1-1",
         "outcome": "drew"
       }
     ],
@@ -3122,13 +3136,13 @@
       },
       {
         "round": "Round of 32",
-        "goals": 33
+        "goals": 35
       }
     ],
     "scoreline_freq": [
       {
         "score": "1-1",
-        "count": 11
+        "count": 12
       },
       {
         "score": "1-0",
