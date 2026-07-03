@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T03:01:00Z",
+  "updated": "2026-07-03T03:18:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -504,6 +504,12 @@
       "a": 0,
       "finished": true,
       "min": "finished"
+    },
+    "R32_16": {
+      "h": 1,
+      "a": 0,
+      "finished": false,
+      "min": "live"
     }
   },
   "penScores": {
@@ -1179,6 +1185,12 @@
         "Mikel Oyarzabal 36'",
         "Pedro Porro 66'",
         "Mikel Oyarzabal 89'"
+      ],
+      "a": []
+    },
+    "R32_16": {
+      "h": [
+        "Breel Embolo 10'"
       ],
       "a": []
     }
