@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T22:01:00Z",
+  "updated": "2026-07-03T22:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -510,6 +510,12 @@
       "a": 0,
       "finished": true,
       "min": "finished"
+    },
+    "R32_13": {
+      "h": 1,
+      "a": 0,
+      "finished": false,
+      "min": "live"
     },
     "R32_11": {
       "h": 1,
@@ -1202,6 +1208,12 @@
       "h": [
         "Breel Embolo 10'",
         "Dn Andvi 46'"
+      ],
+      "a": []
+    },
+    "R32_13": {
+      "h": [
+        "Lionel Messi 29'"
       ],
       "a": []
     },
