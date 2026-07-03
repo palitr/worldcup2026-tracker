@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T04:31:00Z",
+  "updated": "2026-07-03T05:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -508,8 +508,8 @@
     "R32_16": {
       "h": 2,
       "a": 0,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     }
   },
   "penScores": {
@@ -1191,7 +1191,7 @@
     "R32_16": {
       "h": [
         "Breel Embolo 10'",
-        "Dan Ndoye 46'"
+        "Dn Andvi 46'"
       ],
       "a": []
     }
