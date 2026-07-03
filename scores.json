@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T00:01:00Z",
+  "updated": "2026-07-03T00:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -494,8 +494,8 @@
       "min": "finished"
     },
     "R32_14": {
-      "h": 0,
-      "a": 0,
+      "h": 1,
+      "a": 1,
       "finished": false,
       "min": "live"
     },
@@ -1164,6 +1164,12 @@
       "a": [
         "Habib Diarra 25'",
         "Isma\u00efla Sarr 51'"
+      ]
+    },
+    "R32_14": {
+      "h": [],
+      "a": [
+        "Ivan Peri\u0161i\u0107 53'"
       ]
     },
     "R32_12": {
