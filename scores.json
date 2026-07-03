@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T05:01:00Z",
+  "updated": "2026-07-03T05:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -1305,10 +1305,10 @@
       "Breel Embolo|Switzerland": {
         "name": "Breel Embolo",
         "team": "Switzerland",
-        "goals": 1,
+        "goals": 2,
         "pen": 1,
-        "npg": 0,
-        "mp": 1
+        "npg": 1,
+        "mp": 2
       },
       "Johan Manzambi|Switzerland": {
         "name": "Johan Manzambi",
@@ -2445,23 +2445,31 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Dan Ndoye|Switzerland": {
+        "name": "Dan Ndoye",
+        "team": "Switzerland",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 10,
     "total_og": 12,
     "hat_tricks": 3,
     "goals_by_period": {
-      "0-15": 28,
+      "0-15": 29,
       "16-30": 28,
       "31-45": 34,
       "45+": 10,
-      "46-60": 38,
+      "46-60": 39,
       "61-75": 34,
       "76-90": 38,
       "90+": 25
     },
-    "ht_goals": 104,
-    "sh_goals": 142,
+    "ht_goals": 105,
+    "sh_goals": 143,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -3096,7 +3104,7 @@
       },
       {
         "round": "Round of 32",
-        "goals": 31
+        "goals": 33
       }
     ],
     "scoreline_freq": [
@@ -3114,7 +3122,7 @@
       },
       {
         "score": "2-0",
-        "count": 8
+        "count": 9
       },
       {
         "score": "3-1",
