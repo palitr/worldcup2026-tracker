@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T18:01:00Z",
+  "updated": "2026-07-03T18:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -510,6 +510,12 @@
       "a": 0,
       "finished": true,
       "min": "finished"
+    },
+    "R32_11": {
+      "h": 0,
+      "a": 1,
+      "finished": false,
+      "min": "live"
     }
   },
   "penScores": {
@@ -1194,6 +1200,12 @@
         "Dn Andvi 46'"
       ],
       "a": []
+    },
+    "R32_11": {
+      "h": [],
+      "a": [
+        "Emam Ashour 13'"
+      ]
     }
   },
   "af_stats": {
