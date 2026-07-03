@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T19:01:00Z",
+  "updated": "2026-07-03T19:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -512,7 +512,7 @@
       "min": "finished"
     },
     "R32_11": {
-      "h": 0,
+      "h": 1,
       "a": 1,
       "finished": false,
       "min": "live"
@@ -1202,7 +1202,9 @@
       "a": []
     },
     "R32_11": {
-      "h": [],
+      "h": [
+        "Mohamed Hany 55'"
+      ],
       "a": [
         "Emam Ashour 13'"
       ]
