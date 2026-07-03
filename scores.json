@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T01:01:00Z",
+  "updated": "2026-07-03T01:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -496,8 +496,8 @@
     "R32_14": {
       "h": 2,
       "a": 1,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     },
     "R32_12": {
       "h": 3,
@@ -2212,10 +2212,10 @@
       "Cristiano Ronaldo|Portugal": {
         "name": "Cristiano Ronaldo",
         "team": "Portugal",
-        "goals": 2,
-        "pen": 0,
+        "goals": 3,
+        "pen": 1,
         "npg": 2,
-        "mp": 1
+        "mp": 2
       },
       "Nuno Mendes|Portugal": {
         "name": "Nuno Mendes",
@@ -2409,6 +2409,22 @@
         "npg": 1,
         "mp": 1
       },
+      "Gon\u00e7alo Ramos|Portugal": {
+        "name": "Gon\u00e7alo Ramos",
+        "team": "Portugal",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Ivan Perisic|Croatia": {
+        "name": "Ivan Perisic",
+        "team": "Croatia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
       "Pedro Porro|Spain": {
         "name": "Pedro Porro",
         "team": "Spain",
@@ -2418,7 +2434,7 @@
         "mp": 1
       }
     },
-    "total_pen": 9,
+    "total_pen": 10,
     "total_og": 12,
     "hat_tricks": 3,
     "goals_by_period": {
@@ -2426,13 +2442,13 @@
       "16-30": 28,
       "31-45": 34,
       "45+": 10,
-      "46-60": 37,
-      "61-75": 33,
+      "46-60": 38,
+      "61-75": 34,
       "76-90": 38,
-      "90+": 24
+      "90+": 25
     },
     "ht_goals": 104,
-    "sh_goals": 139,
+    "sh_goals": 142,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -3067,7 +3083,7 @@
       },
       {
         "round": "Round of 32",
-        "goals": 28
+        "goals": 31
       }
     ],
     "scoreline_freq": [
@@ -3081,7 +3097,7 @@
       },
       {
         "score": "2-1",
-        "count": 9
+        "count": 10
       },
       {
         "score": "2-0",
