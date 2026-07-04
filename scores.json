@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T19:01:00Z",
+  "updated": "2026-07-04T19:06:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -531,9 +531,9 @@
     },
     "R16_1": {
       "h": 0,
-      "a": 2,
-      "finished": false,
-      "min": "live"
+      "a": 3,
+      "finished": true,
+      "min": "finished"
     }
   },
   "penScores": {
@@ -1252,7 +1252,8 @@
       "h": [],
       "a": [
         "Azdin Avnahi 50'",
-        "Azdin Avnahi 82'"
+        "Azdin Avnahi 82'",
+        "Svfian Rhimi 90+8'"
       ]
     }
   },
@@ -1485,10 +1486,10 @@
       "Soufiane Rahimi|Morocco": {
         "name": "Soufiane Rahimi",
         "team": "Morocco",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Gessime Yassine|Morocco": {
         "name": "Gessime Yassine",
@@ -2545,6 +2546,14 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Azzedine Ounahi|Morocco": {
+        "name": "Azzedine Ounahi",
+        "team": "Morocco",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
       }
     },
     "total_pen": 10,
@@ -2555,13 +2564,13 @@
       "16-30": 29,
       "31-45": 34,
       "45+": 10,
-      "46-60": 40,
+      "46-60": 41,
       "61-75": 34,
-      "76-90": 40,
-      "90+": 25
+      "76-90": 41,
+      "90+": 26
     },
     "ht_goals": 108,
-    "sh_goals": 145,
+    "sh_goals": 148,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2841,6 +2850,13 @@
         "opponent": "USA"
       },
       {
+        "player": "Soufiane Rahimi",
+        "team": "Morocco",
+        "minute": "90+8",
+        "sort_val": 90.08,
+        "opponent": "Canada"
+      },
+      {
         "player": "Granit Xhaka",
         "team": "Switzerland",
         "minute": "90+7",
@@ -2853,13 +2869,6 @@
         "minute": "90+6",
         "sort_val": 90.06,
         "opponent": "Tunisia"
-      },
-      {
-        "player": "Kylian Mbapp\u00e9",
-        "team": "France",
-        "minute": "90+6",
-        "sort_val": 90.06,
-        "opponent": "Senegal"
       }
     ],
     "fastest_goals": [
@@ -3226,6 +3235,10 @@
         "goals": 19
       },
       {
+        "round": "Round of 16",
+        "goals": 3
+      },
+      {
         "round": "Matchday 17",
         "goals": 19
       },
@@ -3252,12 +3265,12 @@
         "count": 9
       },
       {
-        "score": "3-1",
+        "score": "3-0",
         "count": 8
       },
       {
-        "score": "3-0",
-        "count": 7
+        "score": "3-1",
+        "count": 8
       },
       {
         "score": "0-0",
