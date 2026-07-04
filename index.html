@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -4977,9 +4979,24 @@ document.addEventListener('keydown', function(e) {
 
 function getLiveMatches() {
   var live = [];
+  var now = Date.now();
+  var WINDOW = 4 * 60 * 60 * 1000; // 4h safety window covers ET + pens
+
+  function isLive(m) {
+    var ms = istToUtcMs(m.utc);
+    if (!ms) return false;
+    var s = scores[m.id];
+    // Has a score from API and not confirmed finished = live
+    if (s && s.h !== null && s.a !== null && s.finished !== true) {
+      return now >= ms && now <= ms + WINDOW;
+    }
+    // Fallback: pure time window (no score yet)
+    return now >= ms && now <= ms + 115 * 60 * 1000;
+  }
+
   // Check all group matches
   groupMatches.forEach(function(m) {
-    if (isMatchLive(m.utc)) live.push({
+    if (isLive(m)) live.push({
       id: m.id, home: m.home, away: m.away,
       utc: m.utc, venue: m.venue,
       stage: 'Group ' + m.group
@@ -4991,7 +5008,7 @@ function getLiveMatches() {
     koMatchDefs.sf, koMatchDefs.final, koMatchDefs.bronze
   );
   koAll.forEach(function(m) {
-    if (isMatchLive(m.utc)) {
+    if (isLive(m)) {
       var teams = getKoTeams ? getKoTeams(m.id) : {home:'TBD',away:'TBD'};
       live.push({
         id: m.id, home: teams.home, away: teams.away,
@@ -5157,17 +5174,27 @@ setInterval(function() {
 
 function getRecentMatches() {
   var now = Date.now();
-  var MATCH_DURATION = 115 * 60 * 1000; // 115 mins (same as isMatchLive)
-  var WINDOW = 24 * 60 * 60 * 1000;     // 24 hours
+  var MATCH_DURATION = 115 * 60 * 1000;
+  var WINDOW = 24 * 60 * 60 * 1000;
   var recent = [];
+
+  function isFinished(matchId, utcStr) {
+    var ms = istToUtcMs(utcStr);
+    if (!ms) return false;
+    var s = scores[matchId];
+    if (s && s.h !== null && s.a !== null) {
+      // API confirmed finished, or time window passed
+      return s.finished === true || now > ms + MATCH_DURATION;
+    }
+    return false;
+  }
 
   // Group stage
   groupMatches.forEach(function(m) {
     var ms = istToUtcMs(m.utc);
     if (!ms) return;
     var endMs = ms + MATCH_DURATION;
-    // Finished (end time passed) but within 24 hours
-    if (now > endMs && now - endMs < WINDOW) {
+    if (isFinished(m.id, m.utc) && now - Math.min(endMs, now) < WINDOW) {
       recent.push({
         id: m.id, home: m.home, away: m.away,
         utc: m.utc, venue: m.venue, endMs: endMs,
@@ -5185,7 +5212,7 @@ function getRecentMatches() {
     var ms = istToUtcMs(m.utc);
     if (!ms) return;
     var endMs = ms + MATCH_DURATION;
-    if (now > endMs && now - endMs < WINDOW) {
+    if (isFinished(m.id, m.utc) && now - Math.min(endMs, now) < WINDOW) {
       var teams = getKoTeams(m.id);
       recent.push({
         id: m.id, home: teams.home, away: teams.away,
