@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T01:31:00Z",
+  "updated": "2026-07-04T02:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -516,6 +516,12 @@
       "a": 2,
       "finished": true,
       "min": "finished"
+    },
+    "R32_15": {
+      "h": 1,
+      "a": 0,
+      "finished": false,
+      "min": "live"
     },
     "R32_11": {
       "h": 1,
@@ -1221,6 +1227,12 @@
         "Drvi Dviart 59'",
         "Lvpz Kabral 103'"
       ]
+    },
+    "R32_15": {
+      "h": [
+        "Jan Arias 14'"
+      ],
+      "a": []
     },
     "R32_11": {
       "h": [
