@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T03:31:00Z",
+  "updated": "2026-07-04T04:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -520,8 +520,8 @@
     "R32_15": {
       "h": 1,
       "a": 0,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     },
     "R32_11": {
       "h": 1,
@@ -2524,13 +2524,21 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Jhon Arias|Colombia": {
+        "name": "Jhon Arias",
+        "team": "Colombia",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 10,
     "total_og": 14,
     "hat_tricks": 3,
     "goals_by_period": {
-      "0-15": 30,
+      "0-15": 31,
       "16-30": 29,
       "31-45": 34,
       "45+": 10,
@@ -2539,7 +2547,7 @@
       "76-90": 40,
       "90+": 25
     },
-    "ht_goals": 107,
+    "ht_goals": 108,
     "sh_goals": 145,
     "comeback_wins": [
       {
@@ -3130,6 +3138,13 @@
         "goals": 2,
         "opponent": "DR Congo",
         "score": "2-1"
+      },
+      {
+        "player": "Jhon Arias",
+        "team": "Colombia",
+        "goals": 1,
+        "opponent": "Ghana",
+        "score": "1-0"
       }
     ],
     "matchday_goals": [
@@ -3203,7 +3218,7 @@
       },
       {
         "round": "Round of 32",
-        "goals": 37
+        "goals": 38
       }
     ],
     "scoreline_freq": [
@@ -3213,7 +3228,7 @@
       },
       {
         "score": "1-0",
-        "count": 11
+        "count": 12
       },
       {
         "score": "2-1",
