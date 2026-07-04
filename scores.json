@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T00:04:00Z",
+  "updated": "2026-07-04T00:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -512,8 +512,8 @@
       "min": "finished"
     },
     "R32_13": {
-      "h": 1,
-      "a": 1,
+      "h": 2,
+      "a": 2,
       "finished": false,
       "min": "live"
     },
@@ -1213,10 +1213,12 @@
     },
     "R32_13": {
       "h": [
-        "Lionel Messi 29'"
+        "Lionel Messi 29'",
+        "Lisandro Mart\u00ednez 92'"
       ],
       "a": [
-        "Drvi Dviart 59'"
+        "Drvi Dviart 59'",
+        "Lvpz Kabral 103'"
       ]
     },
     "R32_11": {
