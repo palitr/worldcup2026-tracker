@@ -6911,6 +6911,7 @@ document.addEventListener('keydown', function(e) {
       renderRecentResults();
       renderUpcoming();
       if (window._liveScoresUpdatedAt && Object.keys(manualScores).length === 0) {
+        var d = new Date(window._liveScoresUpdatedAt);
         var fmt = new Intl.DateTimeFormat('en-GB', {
           timeZone: userTZ, day:'numeric', month:'short',
           hour:'numeric', minute:'2-digit', hour12:true
