@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T23:01:00Z",
+  "updated": "2026-07-04T23:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -2014,10 +2014,10 @@
       "Kylian Mbapp\u00e9|France": {
         "name": "Kylian Mbapp\u00e9",
         "team": "France",
-        "goals": 6,
-        "pen": 0,
+        "goals": 7,
+        "pen": 1,
         "npg": 6,
-        "mp": 3
+        "mp": 4
       },
       "Bradley Barcola|France": {
         "name": "Bradley Barcola",
@@ -2556,7 +2556,7 @@
         "mp": 1
       }
     },
-    "total_pen": 10,
+    "total_pen": 11,
     "total_og": 14,
     "hat_tricks": 3,
     "goals_by_period": {
@@ -2565,12 +2565,12 @@
       "31-45": 34,
       "45+": 10,
       "46-60": 41,
-      "61-75": 34,
+      "61-75": 35,
       "76-90": 41,
       "90+": 26
     },
     "ht_goals": 108,
-    "sh_goals": 148,
+    "sh_goals": 149,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2937,7 +2937,7 @@
         "name": "Kylian Mbapp\u00e9",
         "team": "France",
         "streak": 2,
-        "goals": 6
+        "goals": 7
       },
       {
         "name": "Erling Haaland",
@@ -3167,6 +3167,13 @@
         "goals": 1,
         "opponent": "Ghana",
         "score": "1-0"
+      },
+      {
+        "player": "Kylian Mbapp\u00e9",
+        "team": "France",
+        "goals": 1,
+        "opponent": "Paraguay",
+        "score": "1-0"
       }
     ],
     "matchday_goals": [
@@ -3236,7 +3243,7 @@
       },
       {
         "round": "Round of 16",
-        "goals": 3
+        "goals": 4
       },
       {
         "round": "Matchday 17",
@@ -3254,7 +3261,7 @@
       },
       {
         "score": "1-0",
-        "count": 12
+        "count": 13
       },
       {
         "score": "2-1",
