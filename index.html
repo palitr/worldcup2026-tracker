@@ -4717,6 +4717,7 @@ function buildTicker() {
 
   // 1. LIVE matches — use API finished flag; fall back to 4h window for safety
   allMatches.forEach(function(m) {
+    if (!m.home || !m.away || m.home.indexOf('W ') === 0 || m.away.indexOf('W ') === 0) return;
     var s = scores[m.id];
     if (!s || s.h === null || s.a === null) return;
     if (s.finished === true) return; // API confirmed finished
@@ -4731,6 +4732,7 @@ function buildTicker() {
 
   // 2. Recent FT results (last 24h)
   allMatches.forEach(function(m) {
+    if (!m.home || !m.away || m.home.indexOf('W ') === 0 || m.away.indexOf('W ') === 0) return;
     var s = scores[m.id];
     if (!s || s.h === null || s.a === null) return;
     var kickUtc = new Date(m.utc).getTime();
@@ -4751,6 +4753,10 @@ function buildTicker() {
 
   var upCount = hasLiveOrRecent ? 3 : 5;
   upcoming.slice(0, upCount).forEach(function(m) {
+    // Skip if either team is still a slot descriptor (e.g. "W R32_2")
+    if (!m.home || !m.away || m.home === 'TBD' || m.away === 'TBD'
+        || m.home.indexOf(' ') > -1 && m.home.indexOf('W ') === 0
+        || m.away.indexOf(' ') > -1 && m.away.indexOf('W ') === 0) return;
     var diff = (new Date(m.utc).getTime() - now) / 60000;
     var timeStr;
     if (diff < 60) timeStr = 'in ' + Math.round(diff) + 'm';
@@ -4890,6 +4896,7 @@ function animateScores() {
 _suppressSave = true;
 renderGroups();
 renderKnockout();
+buildTicker(); // rebuild now that koTeams is populated with R32+ winners
 updateStats();
 renderElements();
 _suppressSave = false;
