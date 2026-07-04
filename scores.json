@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T00:31:00Z",
+  "updated": "2026-07-04T01:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -512,10 +512,10 @@
       "min": "finished"
     },
     "R32_13": {
-      "h": 2,
+      "h": 3,
       "a": 2,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     },
     "R32_11": {
       "h": 1,
@@ -1214,7 +1214,8 @@
     "R32_13": {
       "h": [
         "Lionel Messi 29'",
-        "Lisandro Mart\u00ednez 92'"
+        "Lisandro Mart\u00ednez 92'",
+        "Dini Bvrgs 111'"
       ],
       "a": [
         "Drvi Dviart 59'",
@@ -2099,10 +2100,10 @@
       "Lionel Messi|Argentina": {
         "name": "Lionel Messi",
         "team": "Argentina",
-        "goals": 6,
+        "goals": 7,
         "pen": 0,
-        "npg": 6,
-        "mp": 3
+        "npg": 7,
+        "mp": 4
       },
       "Romano Schmid|Austria": {
         "name": "Romano Schmid",
@@ -2487,23 +2488,47 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Lisandro Mart\u00ednez|Argentina": {
+        "name": "Lisandro Mart\u00ednez",
+        "team": "Argentina",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Deroy Duarte|Cape Verde": {
+        "name": "Deroy Duarte",
+        "team": "Cape Verde",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Sidny Lopes Cabral|Cape Verde": {
+        "name": "Sidny Lopes Cabral",
+        "team": "Cape Verde",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 10,
-    "total_og": 13,
+    "total_og": 14,
     "hat_tricks": 3,
     "goals_by_period": {
       "0-15": 30,
-      "16-30": 28,
+      "16-30": 29,
       "31-45": 34,
       "45+": 10,
-      "46-60": 39,
+      "46-60": 40,
       "61-75": 34,
-      "76-90": 38,
+      "76-90": 40,
       "90+": 25
     },
-    "ht_goals": 106,
-    "sh_goals": 144,
+    "ht_goals": 107,
+    "sh_goals": 145,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2601,6 +2626,13 @@
         "opponent": "Senegal",
         "ht": "0-1",
         "ft": "2-2",
+        "result": "drew"
+      },
+      {
+        "team": "Cape Verde",
+        "opponent": "Argentina",
+        "ht": "0-1",
+        "ft": "1-1",
         "result": "drew"
       },
       {
@@ -2711,6 +2743,13 @@
         "outcome": "drew"
       },
       {
+        "team": "Argentina",
+        "opponent": "Cape Verde",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
+      },
+      {
         "team": "Egypt",
         "opponent": "Australia",
         "ht": "1-0",
@@ -2725,6 +2764,20 @@
         "minute": "120+5",
         "sort_val": 120.05,
         "opponent": "Senegal"
+      },
+      {
+        "player": "Sidny Lopes Cabral",
+        "team": "Cape Verde",
+        "minute": "103",
+        "sort_val": 103.0,
+        "opponent": "Argentina"
+      },
+      {
+        "player": "Lisandro Mart\u00ednez",
+        "team": "Argentina",
+        "minute": "92",
+        "sort_val": 92.0,
+        "opponent": "Cape Verde"
       },
       {
         "player": "Marko Arnautovic",
@@ -2774,20 +2827,6 @@
         "minute": "90+6",
         "sort_val": 90.06,
         "opponent": "Senegal"
-      },
-      {
-        "player": "Sasa Kalajdzic",
-        "team": "Austria",
-        "minute": "90+6",
-        "sort_val": 90.06,
-        "opponent": "Algeria"
-      },
-      {
-        "player": "Ibrahim Mbaye",
-        "team": "Senegal",
-        "minute": "90+5",
-        "sort_val": 90.05,
-        "opponent": "France"
       }
     ],
     "fastest_goals": [
@@ -2831,8 +2870,8 @@
       {
         "name": "Lionel Messi",
         "team": "Argentina",
-        "streak": 3,
-        "goals": 6
+        "streak": 4,
+        "goals": 7
       },
       {
         "name": "Vin\u00edcius J\u00fanior",
@@ -3152,13 +3191,13 @@
       },
       {
         "round": "Round of 32",
-        "goals": 35
+        "goals": 37
       }
     ],
     "scoreline_freq": [
       {
         "score": "1-1",
-        "count": 12
+        "count": 13
       },
       {
         "score": "1-0",
