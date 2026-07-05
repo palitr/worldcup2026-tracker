@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-05T22:01:00Z",
+  "updated": "2026-07-05T22:27:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -542,10 +542,10 @@
       "min": "finished"
     },
     "R16_3": {
-      "h": 0,
+      "h": 1,
       "a": 2,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     }
   },
   "penScores": {
@@ -2065,10 +2065,10 @@
       "Erling Haaland|Norway": {
         "name": "Erling Haaland",
         "team": "Norway",
-        "goals": 5,
+        "goals": 7,
         "pen": 0,
-        "npg": 5,
-        "mp": 3
+        "npg": 7,
+        "mp": 4
       },
       "Leo \u00d8stigard|Norway": {
         "name": "Leo \u00d8stigard",
@@ -2573,9 +2573,17 @@
         "pen": 0,
         "npg": 2,
         "mp": 1
+      },
+      "Neymar|Brazil": {
+        "name": "Neymar",
+        "team": "Brazil",
+        "goals": 1,
+        "pen": 1,
+        "npg": 0,
+        "mp": 1
       }
     },
-    "total_pen": 11,
+    "total_pen": 12,
     "total_og": 14,
     "hat_tricks": 3,
     "goals_by_period": {
@@ -2585,11 +2593,11 @@
       "45+": 10,
       "46-60": 41,
       "61-75": 35,
-      "76-90": 41,
-      "90+": 26
+      "76-90": 43,
+      "90+": 27
     },
     "ht_goals": 108,
-    "sh_goals": 149,
+    "sh_goals": 152,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2848,6 +2856,13 @@
         "opponent": "Jordan"
       },
       {
+        "player": "Neymar",
+        "team": "Brazil",
+        "minute": "90+10",
+        "sort_val": 90.1,
+        "opponent": "Norway"
+      },
+      {
         "player": "J\u00e1minton Campaz",
         "team": "Colombia",
         "minute": "90+9",
@@ -2881,13 +2896,6 @@
         "minute": "90+7",
         "sort_val": 90.07,
         "opponent": "Bosnia & Herzegovina"
-      },
-      {
-        "player": "Yasin Ayari",
-        "team": "Sweden",
-        "minute": "90+6",
-        "sort_val": 90.06,
-        "opponent": "Tunisia"
       }
     ],
     "fastest_goals": [
@@ -2962,7 +2970,7 @@
         "name": "Erling Haaland",
         "team": "Norway",
         "streak": 2,
-        "goals": 5
+        "goals": 7
       },
       {
         "name": "Harry Kane",
@@ -3193,6 +3201,13 @@
         "goals": 1,
         "opponent": "Paraguay",
         "score": "1-0"
+      },
+      {
+        "player": "Erling Haaland",
+        "team": "Norway",
+        "goals": 2,
+        "opponent": "Brazil",
+        "score": "2-1"
       }
     ],
     "matchday_goals": [
@@ -3262,7 +3277,7 @@
       },
       {
         "round": "Round of 16",
-        "goals": 4
+        "goals": 7
       },
       {
         "round": "Matchday 17",
@@ -3284,7 +3299,7 @@
       },
       {
         "score": "2-1",
-        "count": 10
+        "count": 11
       },
       {
         "score": "2-0",
