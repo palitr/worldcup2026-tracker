@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-05T21:31:00Z",
+  "updated": "2026-07-05T22:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -543,7 +543,7 @@
     },
     "R16_3": {
       "h": 0,
-      "a": 0,
+      "a": 2,
       "finished": false,
       "min": "live"
     }
@@ -1266,6 +1266,13 @@
         "Azdin Avnahi 50'",
         "Azdin Avnahi 82'",
         "Svfian Rhimi 90+8'"
+      ]
+    },
+    "R16_3": {
+      "h": [],
+      "a": [
+        "Erling Haaland 79'",
+        "Erling Haaland 90'"
       ]
     }
   },
