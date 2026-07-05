@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-05T20:01:00Z",
+  "updated": "2026-07-05T20:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -540,6 +540,12 @@
       "a": 3,
       "finished": true,
       "min": "finished"
+    },
+    "R16_3": {
+      "h": 0,
+      "a": 0,
+      "finished": false,
+      "min": "live"
     }
   },
   "penScores": {
