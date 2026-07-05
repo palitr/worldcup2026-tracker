@@ -9968,7 +9968,7 @@ function loadFromStorage() {
       // Only restore scores that were manually entered by the user
       // If STORAGE_MANUAL exists, use it to filter; otherwise treat all as manual
       // (backward compatibility: old format has no STORAGE_MANUAL)
-      var manual = m ? JSON.parse(m) : ps; // if no manual record, treat all as manual
+      var manual = m ? JSON.parse(m) : {};  // if no manual record, start empty (don't assume all are manual)
       Object.keys(ps).forEach(function(k) {
         if (manual[k]) {
           scores[k] = ps[k];
