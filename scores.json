@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-06T21:03:00Z",
+  "updated": "2026-07-06T21:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -556,8 +556,8 @@
     "R16_5": {
       "h": 0,
       "a": 1,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     }
   },
   "penScores": {
@@ -2608,6 +2608,14 @@
         "pen": 1,
         "npg": 0,
         "mp": 1
+      },
+      "Mikel Merino|Spain": {
+        "name": "Mikel Merino",
+        "team": "Spain",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 14,
@@ -2621,10 +2629,10 @@
       "46-60": 42,
       "61-75": 36,
       "76-90": 43,
-      "90+": 27
+      "90+": 28
     },
     "ht_goals": 111,
-    "sh_goals": 154,
+    "sh_goals": 155,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -3241,6 +3249,13 @@
         "goals": 2,
         "opponent": "Brazil",
         "score": "2-1"
+      },
+      {
+        "player": "Mikel Merino",
+        "team": "Spain",
+        "goals": 1,
+        "opponent": "Portugal",
+        "score": "1-0"
       }
     ],
     "matchday_goals": [
@@ -3310,7 +3325,7 @@
       },
       {
         "round": "Round of 16",
-        "goals": 12
+        "goals": 13
       },
       {
         "round": "Matchday 17",
@@ -3323,11 +3338,11 @@
     ],
     "scoreline_freq": [
       {
-        "score": "1-1",
-        "count": 13
+        "score": "1-0",
+        "count": 14
       },
       {
-        "score": "1-0",
+        "score": "1-1",
         "count": 13
       },
       {
