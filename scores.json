@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-06T01:31:00Z",
+  "updated": "2026-07-06T02:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -548,8 +548,8 @@
       "min": "finished"
     },
     "R16_4": {
-      "h": 0,
-      "a": 0,
+      "h": 1,
+      "a": 2,
       "finished": false,
       "min": "live"
     }
@@ -1279,6 +1279,15 @@
       "a": [
         "Erling Haaland 79'",
         "Erling Haaland 90'"
+      ]
+    },
+    "R16_4": {
+      "h": [
+        "Jvlian Kviinvnz 42'"
+      ],
+      "a": [
+        "Jvd Blingham 36'",
+        "Jvd Blingham 38'"
       ]
     }
   },
