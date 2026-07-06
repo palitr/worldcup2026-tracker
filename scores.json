@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-06T03:01:00Z",
+  "updated": "2026-07-06T03:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -550,8 +550,8 @@
     "R16_4": {
       "h": 2,
       "a": 3,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     }
   },
   "penScores": {
@@ -1296,18 +1296,18 @@
       "Juli\u00e1n Qui\u00f1ones|Mexico": {
         "name": "Juli\u00e1n Qui\u00f1ones",
         "team": "Mexico",
-        "goals": 3,
+        "goals": 4,
         "pen": 0,
-        "npg": 3,
-        "mp": 3
+        "npg": 4,
+        "mp": 4
       },
       "Ra\u00fal Jim\u00e9nez|Mexico": {
         "name": "Ra\u00fal Jim\u00e9nez",
         "team": "Mexico",
-        "goals": 2,
-        "pen": 0,
+        "goals": 3,
+        "pen": 1,
         "npg": 2,
-        "mp": 2
+        "mp": 3
       },
       "Hwang In-Beom|South Korea": {
         "name": "Hwang In-Beom",
@@ -2360,18 +2360,18 @@
       "Harry Kane|England": {
         "name": "Harry Kane",
         "team": "England",
-        "goals": 5,
-        "pen": 1,
+        "goals": 6,
+        "pen": 2,
         "npg": 4,
-        "mp": 3
+        "mp": 4
       },
       "Jude Bellingham|England": {
         "name": "Jude Bellingham",
         "team": "England",
-        "goals": 2,
+        "goals": 4,
         "pen": 0,
-        "npg": 2,
-        "mp": 2
+        "npg": 4,
+        "mp": 3
       },
       "Marcus Rashford|England": {
         "name": "Marcus Rashford",
@@ -2598,21 +2598,21 @@
         "mp": 1
       }
     },
-    "total_pen": 12,
+    "total_pen": 14,
     "total_og": 14,
     "hat_tricks": 3,
     "goals_by_period": {
       "0-15": 31,
       "16-30": 29,
-      "31-45": 34,
+      "31-45": 37,
       "45+": 10,
-      "46-60": 41,
-      "61-75": 35,
+      "46-60": 42,
+      "61-75": 36,
       "76-90": 43,
       "90+": 27
     },
-    "ht_goals": 108,
-    "sh_goals": 152,
+    "ht_goals": 111,
+    "sh_goals": 154,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2958,6 +2958,18 @@
         "goals": 7
       },
       {
+        "name": "Harry Kane",
+        "team": "England",
+        "streak": 3,
+        "goals": 6
+      },
+      {
+        "name": "Juli\u00e1n Qui\u00f1ones",
+        "team": "Mexico",
+        "streak": 3,
+        "goals": 4
+      },
+      {
         "name": "Vin\u00edcius J\u00fanior",
         "team": "Brazil",
         "streak": 3,
@@ -2988,19 +3000,13 @@
         "goals": 7
       },
       {
-        "name": "Harry Kane",
-        "team": "England",
-        "streak": 2,
-        "goals": 5
-      },
-      {
         "name": "Ousmane Demb\u00e9l\u00e9",
         "team": "France",
         "streak": 2,
         "goals": 4
       },
       {
-        "name": "Juli\u00e1n Qui\u00f1ones",
+        "name": "Ra\u00fal Jim\u00e9nez",
         "team": "Mexico",
         "streak": 2,
         "goals": 3
@@ -3292,7 +3298,7 @@
       },
       {
         "round": "Round of 16",
-        "goals": 7
+        "goals": 12
       },
       {
         "round": "Matchday 17",
@@ -3341,7 +3347,7 @@
         "count": 4
       },
       {
-        "score": "5-1",
+        "score": "3-2",
         "count": 3
       }
     ],
