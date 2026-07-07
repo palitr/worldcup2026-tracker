@@ -216,12 +216,12 @@ KO_UTC_MAP = {
     "2026-07-07T12:00:00Z": "R16_7",   # Atlanta (UTC-4)
     "2026-07-07T13:00:00Z": "R16_8",   # Vancouver (UTC-7)
     # Quarter Finals — UTC times
-    "2026-07-09T19:00:00Z": "QF1",
+    "2026-07-09T20:00:00Z": "QF1",
     "2026-07-10T19:00:00Z": "QF2",
     "2026-07-11T21:00:00Z": "QF3",
     "2026-07-12T01:00:00Z": "QF4",
     # Quarter Finals — local times
-    "2026-07-09T15:00:00Z": "QF1",     # Boston (UTC-4)
+    "2026-07-09T16:00:00Z": "QF1",     # Boston (UTC-4)
     "2026-07-10T12:00:00Z": "QF2",     # Los Angeles (UTC-7)
     "2026-07-11T17:00:00Z": "QF3",     # Miami (UTC-4)
     "2026-07-11T20:00:00Z": "QF4",     # Kansas City (UTC-5)
