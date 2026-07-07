@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T17:33:00Z",
+  "updated": "2026-07-07T18:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -566,7 +566,7 @@
       "min": "finished"
     },
     "R16_7": {
-      "h": 0,
+      "h": 3,
       "a": 2,
       "finished": false,
       "min": "live"
@@ -1326,7 +1326,11 @@
       ]
     },
     "R16_7": {
-      "h": [],
+      "h": [
+        "Cristian Romero 79'",
+        "Lionel Messi 83'",
+        "Enzo Fern\u00e1ndez 90+2'"
+      ],
       "a": [
         "Yasser Ibrahim 15'",
         "Mostafa Ziko 67'"
