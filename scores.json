@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T00:01:00Z",
+  "updated": "2026-07-07T00:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -558,6 +558,12 @@
       "a": 1,
       "finished": true,
       "min": "finished"
+    },
+    "R16_6": {
+      "h": 0,
+      "a": 1,
+      "finished": false,
+      "min": "live"
     }
   },
   "penScores": {
@@ -1300,6 +1306,12 @@
       "h": [],
       "a": [
         "Mikel Merino 90+1'"
+      ]
+    },
+    "R16_6": {
+      "h": [],
+      "a": [
+        "Sharl D Ktlar 9'"
       ]
     }
   },
