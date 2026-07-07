@@ -157,8 +157,8 @@ r16: [
 ],
 qf: [
 { id:'QF1', utc:'2026-07-09T19:00:00Z', venue:'Boston Stadium',       desc:'QF1', slotA:'W R16_1', slotB:'W R16_2' },
-{ id:'QF2', utc:'2026-07-10T19:00:00Z', venue:'Los Angeles Stadium',  desc:'QF2', slotA:'W R16_3', slotB:'W R16_4' },
-{ id:'QF3', utc:'2026-07-11T21:00:00Z', venue:'Miami Stadium',        desc:'QF3', slotA:'W R16_5', slotB:'W R16_6' },
+{ id:'QF2', utc:'2026-07-10T19:00:00Z', venue:'Los Angeles Stadium',  desc:'QF2', slotA:'W R16_5', slotB:'W R16_6' },
+{ id:'QF3', utc:'2026-07-11T21:00:00Z', venue:'Miami Stadium',        desc:'QF3', slotA:'W R16_3', slotB:'W R16_4' },
 { id:'QF4', utc:'2026-07-12T01:00:00Z', venue:'Kansas City Stadium',  desc:'QF4', slotA:'W R16_7', slotB:'W R16_8' },
 ],
 sf: [
@@ -199,12 +199,12 @@ var BRACKET_TREE = {
   left: [
     { r32: ['R32_3','R32_6'], r16: 'R16_2', qf: 'QF1', sf: 'SF1' },
     { r32: ['R32_1','R32_4'], r16: 'R16_1', qf: 'QF1', sf: 'SF1' },
-    { r32: ['R32_14','R32_12'], r16: 'R16_5', qf: 'QF3', sf: 'SF1' },
-    { r32: ['R32_10','R32_9'],  r16: 'R16_6', qf: 'QF3', sf: 'SF1' },
+    { r32: ['R32_14','R32_12'], r16: 'R16_5', qf: 'QF2', sf: 'SF2' },
+    { r32: ['R32_10','R32_9'],  r16: 'R16_6', qf: 'QF2', sf: 'SF2' },
   ],
   right: [
-    { r32: ['R32_2','R32_5'], r16: 'R16_3', qf: 'QF2', sf: 'SF2' },
-    { r32: ['R32_7','R32_8'], r16: 'R16_4', qf: 'QF2', sf: 'SF2' },
+    { r32: ['R32_2','R32_5'], r16: 'R16_3', qf: 'QF3', sf: 'SF1' },
+    { r32: ['R32_7','R32_8'], r16: 'R16_4', qf: 'QF3', sf: 'SF1' },
     { r32: ['R32_13','R32_11'], r16: 'R16_7', qf: 'QF4', sf: 'SF2' },
     { r32: ['R32_16','R32_15'], r16: 'R16_8', qf: 'QF4', sf: 'SF2' },
   ]
