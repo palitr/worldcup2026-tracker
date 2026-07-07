@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T02:01:00Z",
+  "updated": "2026-07-07T02:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -1997,10 +1997,10 @@
       "Romelu Lukaku|Belgium": {
         "name": "Romelu Lukaku",
         "team": "Belgium",
-        "goals": 2,
+        "goals": 3,
         "pen": 0,
-        "npg": 2,
-        "mp": 2
+        "npg": 3,
+        "mp": 3
       },
       "Alexis Saelemaekers|Belgium": {
         "name": "Alexis Saelemaekers",
@@ -2533,10 +2533,10 @@
       "Malik Tillman|USA": {
         "name": "Malik Tillman",
         "team": "USA",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Youri Tielemans|Belgium": {
         "name": "Youri Tielemans",
@@ -2633,23 +2633,39 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Charles De Ketelaere|Belgium": {
+        "name": "Charles De Ketelaere",
+        "team": "Belgium",
+        "goals": 2,
+        "pen": 0,
+        "npg": 2,
+        "mp": 1
+      },
+      "Hans Vanaken|Belgium": {
+        "name": "Hans Vanaken",
+        "team": "Belgium",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 14,
     "total_og": 14,
     "hat_tricks": 3,
     "goals_by_period": {
-      "0-15": 31,
+      "0-15": 32,
       "16-30": 29,
-      "31-45": 37,
+      "31-45": 39,
       "45+": 10,
-      "46-60": 42,
+      "46-60": 43,
       "61-75": 36,
       "76-90": 43,
-      "90+": 28
+      "90+": 29
     },
-    "ht_goals": 111,
-    "sh_goals": 155,
+    "ht_goals": 114,
+    "sh_goals": 157,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -3025,6 +3041,12 @@
         "goals": 3
       },
       {
+        "name": "Romelu Lukaku",
+        "team": "Belgium",
+        "streak": 3,
+        "goals": 3
+      },
+      {
         "name": "Kylian Mbapp\u00e9",
         "team": "France",
         "streak": 2,
@@ -3109,12 +3131,6 @@
         "goals": 2
       },
       {
-        "name": "Romelu Lukaku",
-        "team": "Belgium",
-        "streak": 2,
-        "goals": 2
-      },
-      {
         "name": "Maxi Ara\u00fajo",
         "team": "Uruguay",
         "streak": 2,
@@ -3129,6 +3145,12 @@
       {
         "name": "Daniel Mu\u00f1oz",
         "team": "Colombia",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Malik Tillman",
+        "team": "USA",
         "streak": 2,
         "goals": 2
       }
@@ -3342,7 +3364,7 @@
       },
       {
         "round": "Round of 16",
-        "goals": 13
+        "goals": 18
       },
       {
         "round": "Matchday 17",
@@ -3384,7 +3406,7 @@
       },
       {
         "score": "4-1",
-        "count": 4
+        "count": 5
       },
       {
         "score": "2-2",
