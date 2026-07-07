@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T18:01:00Z",
+  "updated": "2026-07-07T18:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -568,8 +568,8 @@
     "R16_7": {
       "h": 3,
       "a": 2,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     }
   },
   "penScores": {
@@ -1966,10 +1966,10 @@
       "Mostafa Zico|Egypt": {
         "name": "Mostafa Zico",
         "team": "Egypt",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Mohamed Salah|Egypt": {
         "name": "Mohamed Salah",
@@ -2206,10 +2206,10 @@
       "Lionel Messi|Argentina": {
         "name": "Lionel Messi",
         "team": "Argentina",
-        "goals": 7,
+        "goals": 8,
         "pen": 0,
-        "npg": 7,
-        "mp": 4
+        "npg": 8,
+        "mp": 5
       },
       "Romano Schmid|Austria": {
         "name": "Romano Schmid",
@@ -2666,23 +2666,47 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Cristian Romero|Argentina": {
+        "name": "Cristian Romero",
+        "team": "Argentina",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Enzo Fern\u00e1ndez|Argentina": {
+        "name": "Enzo Fern\u00e1ndez",
+        "team": "Argentina",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Yasser Ibrahim|Egypt": {
+        "name": "Yasser Ibrahim",
+        "team": "Egypt",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 14,
     "total_og": 14,
     "hat_tricks": 3,
     "goals_by_period": {
-      "0-15": 32,
+      "0-15": 33,
       "16-30": 29,
       "31-45": 39,
       "45+": 10,
       "46-60": 43,
-      "61-75": 36,
-      "76-90": 43,
-      "90+": 29
+      "61-75": 37,
+      "76-90": 45,
+      "90+": 30
     },
-    "ht_goals": 114,
-    "sh_goals": 157,
+    "ht_goals": 115,
+    "sh_goals": 161,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2795,6 +2819,13 @@
         "ht": "0-1",
         "ft": "1-1",
         "result": "drew"
+      },
+      {
+        "team": "Argentina",
+        "opponent": "Egypt",
+        "ht": "0-1",
+        "ft": "3-2",
+        "result": "won"
       }
     ],
     "threw_leads": [
@@ -2909,6 +2940,13 @@
         "ht": "1-0",
         "ft": "1-1",
         "outcome": "drew"
+      },
+      {
+        "team": "Egypt",
+        "opponent": "Argentina",
+        "ht": "1-0",
+        "ft": "2-3",
+        "outcome": "lost"
       }
     ],
     "late_goals": [
@@ -3024,8 +3062,8 @@
       {
         "name": "Lionel Messi",
         "team": "Argentina",
-        "streak": 4,
-        "goals": 7
+        "streak": 5,
+        "goals": 8
       },
       {
         "name": "Harry Kane",
@@ -3381,7 +3419,7 @@
       },
       {
         "round": "Round of 16",
-        "goals": 18
+        "goals": 23
       },
       {
         "round": "Matchday 17",
@@ -3426,12 +3464,12 @@
         "count": 5
       },
       {
-        "score": "2-2",
+        "score": "3-2",
         "count": 4
       },
       {
-        "score": "3-2",
-        "count": 3
+        "score": "2-2",
+        "count": 4
       }
     ],
     "group_top_scorers": {
