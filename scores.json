@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T16:01:00Z",
+  "updated": "2026-07-07T16:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -564,6 +564,12 @@
       "a": 4,
       "finished": true,
       "min": "finished"
+    },
+    "R16_7": {
+      "h": 0,
+      "a": 1,
+      "finished": false,
+      "min": "live"
     }
   },
   "penScores": {
@@ -1317,6 +1323,12 @@
         "Sharl D Ktlar 33'",
         "Hans Vanaken 57'",
         "Romelu Lukaku 90+3'"
+      ]
+    },
+    "R16_7": {
+      "h": [],
+      "a": [
+        "Yasser Ibrahim 15'"
       ]
     }
   },
