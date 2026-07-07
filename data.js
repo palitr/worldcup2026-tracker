@@ -156,7 +156,7 @@ r16: [
 { id:'R16_8', utc:'2026-07-07T20:00:00Z', venue:'BC Place, Vancouver',  desc:'R16 M8', slotA:'W R32_16', slotB:'W R32_15' },
 ],
 qf: [
-{ id:'QF1', utc:'2026-07-09T19:00:00Z', venue:'Boston Stadium',       desc:'QF1', slotA:'W R16_1', slotB:'W R16_2' },
+{ id:'QF1', utc:'2026-07-09T20:00:00Z', venue:'Boston Stadium',       desc:'QF1', slotA:'W R16_1', slotB:'W R16_2' },
 { id:'QF2', utc:'2026-07-10T19:00:00Z', venue:'Los Angeles Stadium',  desc:'QF2', slotA:'W R16_5', slotB:'W R16_6' },
 { id:'QF3', utc:'2026-07-11T21:00:00Z', venue:'Miami Stadium',        desc:'QF3', slotA:'W R16_3', slotB:'W R16_4' },
 { id:'QF4', utc:'2026-07-12T01:00:00Z', venue:'Kansas City Stadium',  desc:'QF4', slotA:'W R16_7', slotB:'W R16_8' },
