@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T17:31:00Z",
+  "updated": "2026-07-07T17:33:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -567,7 +567,7 @@
     },
     "R16_7": {
       "h": 0,
-      "a": 1,
+      "a": 2,
       "finished": false,
       "min": "live"
     }
@@ -1328,7 +1328,8 @@
     "R16_7": {
       "h": [],
       "a": [
-        "Yasser Ibrahim 15'"
+        "Yasser Ibrahim 15'",
+        "Mostafa Ziko 67'"
       ]
     }
   },
