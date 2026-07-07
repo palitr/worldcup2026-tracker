@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T01:16:00Z",
+  "updated": "2026-07-07T01:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -561,7 +561,7 @@
     },
     "R16_6": {
       "h": 1,
-      "a": 2,
+      "a": 3,
       "finished": false,
       "min": "live"
     }
@@ -1314,7 +1314,8 @@
       ],
       "a": [
         "Sharl D Ktlar 9'",
-        "Sharl D Ktlar 33'"
+        "Sharl D Ktlar 33'",
+        "Hans Vanaken 57'"
       ]
     }
   },
