@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7349,9 +7350,9 @@ function renderBracket() {
     'R32_16': {id:'R16_8', fi:0}, 'R32_15': {id:'R16_8', fi:1},
     // R16 → QF (left)
     'R16_1': {id:'QF1', fi:0}, 'R16_2': {id:'QF1', fi:1},
-    'R16_3': {id:'QF2', fi:0}, 'R16_4': {id:'QF2', fi:1},
+    'R16_3': {id:'QF3', fi:0}, 'R16_4': {id:'QF3', fi:1},
     // R16 → QF (right)
-    'R16_5': {id:'QF3', fi:0}, 'R16_6': {id:'QF3', fi:1},
+    'R16_5': {id:'QF2', fi:0}, 'R16_6': {id:'QF2', fi:1},
     'R16_7': {id:'QF4', fi:0}, 'R16_8': {id:'QF4', fi:1},
     // QF → SF (left: QF1+QF3 → SF1)
     'QF1': {id:'SF1', fi:0}, 'QF3': {id:'SF1', fi:1},
@@ -7752,12 +7753,12 @@ function setupNextRoundKoTeams(completedRnd, nextRnd) {
       koTeams[t[0]] = { home: actualWinner(t[1]), away: actualWinner(t[2]) };
     });
   } else if (nextRnd === 'qf') {
-    [['QF1','R16_1','R16_2'],['QF2','R16_3','R16_4'],
-     ['QF3','R16_5','R16_6'],['QF4','R16_7','R16_8']].forEach(function(t) {
+    [['QF1','R16_1','R16_2'],['QF2','R16_5','R16_6'],
+     ['QF3','R16_3','R16_4'],['QF4','R16_7','R16_8']].forEach(function(t) {
       koTeams[t[0]] = { home: actualWinner(t[1]), away: actualWinner(t[2]) };
     });
   } else if (nextRnd === 'sf') {
-    [['SF1','QF1','QF2'],['SF2','QF3','QF4']].forEach(function(t) {
+    [['SF1','QF1','QF3'],['SF2','QF2','QF4']].forEach(function(t) {
       koTeams[t[0]] = { home: actualWinner(t[1]), away: actualWinner(t[2]) };
     });
   } else if (nextRnd === 'final') {
@@ -7941,11 +7942,11 @@ function getDestination(matchId) {
     'R32_13':{id:'R16_7',fi:0},'R32_11':{id:'R16_7',fi:1},
     'R32_16':{id:'R16_8',fi:0},'R32_15':{id:'R16_8',fi:1},
     'R16_1':{id:'QF1',fi:0},'R16_2':{id:'QF1',fi:1},
-    'R16_3':{id:'QF2',fi:0},'R16_4':{id:'QF2',fi:1},
-    'R16_5':{id:'QF3',fi:0},'R16_6':{id:'QF3',fi:1},
+    'R16_3':{id:'QF3',fi:0},'R16_4':{id:'QF3',fi:1},
+    'R16_5':{id:'QF2',fi:0},'R16_6':{id:'QF2',fi:1},
     'R16_7':{id:'QF4',fi:0},'R16_8':{id:'QF4',fi:1},
-    'QF1':{id:'SF1',fi:0},'QF2':{id:'SF1',fi:1},
-    'QF3':{id:'SF2',fi:0},'QF4':{id:'SF2',fi:1},
+    'QF1':{id:'SF1',fi:0},'QF3':{id:'SF1',fi:1},
+    'QF2':{id:'SF2',fi:0},'QF4':{id:'SF2',fi:1},
     'SF1':{id:'FINAL',fi:0},'SF2':{id:'FINAL',fi:1},
   };
   return map[matchId] || null;
@@ -8261,7 +8262,7 @@ function getSide(matchId) {
     b.r32.forEach(function(id){ leftIds.add(id); });
     leftIds.add(b.r16); leftIds.add(b.qf); leftIds.add(b.sf);
   });
-  leftIds.add('SF1'); leftIds.add('QF1'); leftIds.add('QF2');
+  leftIds.add('SF1'); leftIds.add('QF1'); leftIds.add('QF3');
   ['R16_1','R16_2','R16_3','R16_4'].forEach(function(id){ leftIds.add(id); });
   ['R32_1','R32_2','R32_3','R32_4','R32_5','R32_6','R32_7','R32_8'].forEach(function(id){ leftIds.add(id); });
   return leftIds.has(matchId) ? 'left' : 'right';
