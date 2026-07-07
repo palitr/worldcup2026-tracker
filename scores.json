@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T00:31:00Z",
+  "updated": "2026-07-07T01:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -560,8 +560,8 @@
       "min": "finished"
     },
     "R16_6": {
-      "h": 0,
-      "a": 1,
+      "h": 1,
+      "a": 2,
       "finished": false,
       "min": "live"
     }
@@ -1309,9 +1309,12 @@
       ]
     },
     "R16_6": {
-      "h": [],
+      "h": [
+        "Malik Tillman 31'"
+      ],
       "a": [
-        "Sharl D Ktlar 9'"
+        "Sharl D Ktlar 9'",
+        "Sharl D Ktlar 33'"
       ]
     }
   },
