@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-09T20:01:00Z",
+  "updated": "2026-07-09T20:19:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -438,6 +438,12 @@
       "a": 2,
       "finished": true,
       "min": "finished"
+    },
+    "QF1": {
+      "h": 0,
+      "a": 0,
+      "finished": false,
+      "min": "live"
     },
     "B1": {
       "h": 1,
