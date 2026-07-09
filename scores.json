@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-09T21:01:00Z",
+  "updated": "2026-07-09T21:31:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -440,7 +440,7 @@
       "min": "finished"
     },
     "QF1": {
-      "h": 0,
+      "h": 1,
       "a": 0,
       "finished": false,
       "min": "live"
@@ -1188,6 +1188,13 @@
         "Erling Haaland 79'",
         "Erling Haaland 90'"
       ]
+    },
+    "QF1": {
+      "h": [
+        "Kylian Mbapp\u00e9 60'",
+        "Ousmane Demb\u00e9l\u00e9 66'"
+      ],
+      "a": []
     },
     "B1": {
       "h": [
