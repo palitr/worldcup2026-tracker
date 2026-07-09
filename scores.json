@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-09T22:01:00Z",
+  "updated": "2026-07-09T22:31:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -442,8 +442,8 @@
     "QF1": {
       "h": 2,
       "a": 0,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     },
     "B1": {
       "h": 1,
@@ -2117,10 +2117,10 @@
       "Kylian Mbapp\u00e9|France": {
         "name": "Kylian Mbapp\u00e9",
         "team": "France",
-        "goals": 7,
+        "goals": 8,
         "pen": 1,
-        "npg": 6,
-        "mp": 4
+        "npg": 7,
+        "mp": 5
       },
       "Bradley Barcola|France": {
         "name": "Bradley Barcola",
@@ -2165,10 +2165,10 @@
       "Ousmane Demb\u00e9l\u00e9|France": {
         "name": "Ousmane Demb\u00e9l\u00e9",
         "team": "France",
-        "goals": 4,
+        "goals": 5,
         "pen": 0,
-        "npg": 4,
-        "mp": 2
+        "npg": 5,
+        "mp": 3
       },
       "Marcus Holmgren Pedersen|Norway": {
         "name": "Marcus Holmgren Pedersen",
@@ -2723,13 +2723,13 @@
       "16-30": 29,
       "31-45": 39,
       "45+": 10,
-      "46-60": 43,
-      "61-75": 37,
+      "46-60": 44,
+      "61-75": 38,
       "76-90": 45,
       "90+": 30
     },
     "ht_goals": 115,
-    "sh_goals": 161,
+    "sh_goals": 163,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -3089,6 +3089,12 @@
         "goals": 8
       },
       {
+        "name": "Kylian Mbapp\u00e9",
+        "team": "France",
+        "streak": 3,
+        "goals": 8
+      },
+      {
         "name": "Harry Kane",
         "team": "England",
         "streak": 3,
@@ -3125,12 +3131,6 @@
         "goals": 3
       },
       {
-        "name": "Kylian Mbapp\u00e9",
-        "team": "France",
-        "streak": 2,
-        "goals": 7
-      },
-      {
         "name": "Erling Haaland",
         "team": "Norway",
         "streak": 2,
@@ -3140,7 +3140,7 @@
         "name": "Ousmane Demb\u00e9l\u00e9",
         "team": "France",
         "streak": 2,
-        "goals": 4
+        "goals": 5
       },
       {
         "name": "Ra\u00fal Jim\u00e9nez",
@@ -3451,6 +3451,10 @@
       {
         "round": "Round of 32",
         "goals": 38
+      },
+      {
+        "round": "Quarter-final",
+        "goals": 2
       }
     ],
     "scoreline_freq": [
@@ -3468,7 +3472,7 @@
       },
       {
         "score": "2-0",
-        "count": 9
+        "count": 10
       },
       {
         "score": "3-0",
