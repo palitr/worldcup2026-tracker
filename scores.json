@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-10T20:49:00Z",
+  "updated": "2026-07-10T21:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -584,7 +584,7 @@
       "min": "finished"
     },
     "QF2": {
-      "h": 1,
+      "h": 2,
       "a": 1,
       "finished": false,
       "min": "live"
@@ -1367,7 +1367,8 @@
     },
     "QF2": {
       "h": [
-        "Fabin Rviz 30'"
+        "Fabin Rviz 30'",
+        "Mikel Merino 88'"
       ],
       "a": [
         "Sharl D Ktlar 41'"
