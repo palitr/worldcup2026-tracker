@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-10T21:01:00Z",
+  "updated": "2026-07-10T21:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -586,8 +586,8 @@
     "QF2": {
       "h": 2,
       "a": 1,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     }
   },
   "penScores": {
@@ -2684,18 +2684,18 @@
       "Mikel Merino|Spain": {
         "name": "Mikel Merino",
         "team": "Spain",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Charles De Ketelaere|Belgium": {
         "name": "Charles De Ketelaere",
         "team": "Belgium",
-        "goals": 2,
+        "goals": 3,
         "pen": 0,
-        "npg": 2,
-        "mp": 1
+        "npg": 3,
+        "mp": 2
       },
       "Hans Vanaken|Belgium": {
         "name": "Hans Vanaken",
@@ -2728,6 +2728,14 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Fabi\u00e1n Ruiz|Spain": {
+        "name": "Fabi\u00e1n Ruiz",
+        "team": "Spain",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 14,
@@ -2735,16 +2743,16 @@
     "hat_tricks": 3,
     "goals_by_period": {
       "0-15": 33,
-      "16-30": 29,
-      "31-45": 39,
+      "16-30": 30,
+      "31-45": 40,
       "45+": 10,
       "46-60": 44,
       "61-75": 38,
-      "76-90": 45,
+      "76-90": 46,
       "90+": 30
     },
-    "ht_goals": 115,
-    "sh_goals": 163,
+    "ht_goals": 117,
+    "sh_goals": 164,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -3188,6 +3196,12 @@
         "goals": 3
       },
       {
+        "name": "Charles De Ketelaere",
+        "team": "Belgium",
+        "streak": 2,
+        "goals": 3
+      },
+      {
         "name": "Cyle Larin",
         "team": "Canada",
         "streak": 2,
@@ -3244,6 +3258,12 @@
       {
         "name": "Malik Tillman",
         "team": "USA",
+        "streak": 2,
+        "goals": 2
+      },
+      {
+        "name": "Mikel Merino",
+        "team": "Spain",
         "streak": 2,
         "goals": 2
       }
@@ -3469,7 +3489,7 @@
       },
       {
         "round": "Quarter-final",
-        "goals": 2
+        "goals": 5
       }
     ],
     "scoreline_freq": [
@@ -3483,7 +3503,7 @@
       },
       {
         "score": "2-1",
-        "count": 11
+        "count": 12
       },
       {
         "score": "2-0",
