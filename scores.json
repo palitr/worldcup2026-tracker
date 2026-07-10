@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-10T19:31:00Z",
+  "updated": "2026-07-10T20:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -584,8 +584,8 @@
       "min": "finished"
     },
     "QF2": {
-      "h": 0,
-      "a": 0,
+      "h": 1,
+      "a": 1,
       "finished": false,
       "min": "live"
     }
@@ -1364,6 +1364,14 @@
         "Ousmane Demb\u00e9l\u00e9 66'"
       ],
       "a": []
+    },
+    "QF2": {
+      "h": [
+        "Fabin Rviz 30'"
+      ],
+      "a": [
+        "Sharl D Ktlar 41'"
+      ]
     }
   },
   "af_stats": {
