@@ -691,6 +691,11 @@ def build_scores(data):
     scores = {}
     pen_scores = {}
     scorers = {}
+    # Track winners keyed by match_id so we can verify KO home/away order
+    # match_id → (home_team_name, away_team_name) as per slotA/slotB
+    ko_expected = {}   # populated as R32/R16 winners become known
+    # Winners resolved so far: match_id → winning team name
+    ko_winners = {}
 
     matches = data
     if isinstance(data, dict):
@@ -698,6 +703,13 @@ def build_scores(data):
                    or data.get("data") or [])
 
     print(f"  Total matches from API: {len(matches)}")
+
+    # Sort by kickoff time so earlier rounds are processed first.
+    # This ensures ko_expected is populated before downstream matches are processed.
+    def sort_key(m):
+        utc_raw = (m.get("local_date") or m.get("utc") or m.get("datetime") or "")
+        return str(normalise_utc(utc_raw) or "9999")
+    matches = sorted(matches, key=sort_key)
 
     for m in matches:
         if not is_finished(m):
@@ -738,6 +750,19 @@ def build_scores(data):
             if not match_id:
                 print(f"  ⚠️  KO UTC not in map: {utc_norm} | {home} vs {away}")
 
+            # ── KO home/away swap check ──────────────────────────────────
+            # The API may send teams in a different order than our slotA/slotB.
+            # If we know the expected home team from previously resolved feeder
+            # matches, check and swap if the API has them reversed.
+            if match_id and match_id in ko_expected:
+                expected_home = ko_expected[match_id]
+                if expected_home and expected_home != home:
+                    # API has teams reversed vs our slot definition — swap everything
+                    home_score, away_score = away_score, home_score
+                    home, away = away, home
+                    h_pen_swap = not h_pen_swap
+                    print(f"  🔄 {match_id}: swapped to match slot order ({home} vs {away})")
+
         if not match_id:
             print(f"  ⚠️  Unmatched: {home} vs {away} [type={mtype}]")
             continue
@@ -748,6 +773,50 @@ def build_scores(data):
             "finished": str(m.get("finished") or "").upper() == "TRUE",
             "min": str(m.get("time_elapsed") or "").strip() or None
         }
+
+        # ── Track winner for downstream KO slot resolution ───────────────
+        if home_score is not None and away_score is not None:
+            pen = pen_scores.get(match_id) or {}
+            if home_score > away_score:
+                winner, loser = home, away
+            elif away_score > home_score:
+                winner, loser = away, home
+            elif pen.get("h", 0) > pen.get("a", 0):
+                winner, loser = home, away
+            elif pen.get("a", 0) > pen.get("h", 0):
+                winner, loser = away, home
+            else:
+                winner, loser = None, None
+
+            if winner:
+                ko_winners[match_id] = winner
+                # Populate expected home/away for downstream matches
+                # KO slot feeding map: which match feeds slotA/slotB of which match
+                KO_FEED = {
+                    "R32_1": ("R16_1", "h"), "R32_4": ("R16_1", "a"),
+                    "R32_3": ("R16_2", "h"), "R32_6": ("R16_2", "a"),
+                    "R32_2": ("R16_3", "h"), "R32_5": ("R16_3", "a"),
+                    "R32_7": ("R16_4", "h"), "R32_8": ("R16_4", "a"),
+                    "R32_14": ("R16_5", "h"), "R32_12": ("R16_5", "a"),
+                    "R32_10": ("R16_6", "h"), "R32_9": ("R16_6", "a"),
+                    "R32_13": ("R16_7", "h"), "R32_11": ("R16_7", "a"),
+                    "R32_16": ("R16_8", "h"), "R32_15": ("R16_8", "a"),
+                    "R16_2": ("QF1", "h"), "R16_1": ("QF1", "a"),
+                    "R16_5": ("QF2", "h"), "R16_6": ("QF2", "a"),
+                    "R16_3": ("QF3", "h"), "R16_4": ("QF3", "a"),
+                    "R16_7": ("QF4", "h"), "R16_8": ("QF4", "a"),
+                    "QF1": ("SF1", "h"), "QF2": ("SF1", "a"),
+                    "QF3": ("SF2", "h"), "QF4": ("SF2", "a"),
+                    "SF1": ("FINAL", "h"), "SF2": ("FINAL", "a"),
+                }
+                if match_id in KO_FEED:
+                    dest_match, slot = KO_FEED[match_id]
+                    if dest_match not in ko_expected:
+                        ko_expected[dest_match] = {"h": None, "a": None}
+                    ko_expected[dest_match][slot] = winner
+                    # Once both slots are known, set expected_home
+                    if ko_expected[dest_match]["h"] and ko_expected[dest_match]["a"]:
+                        ko_expected[dest_match] = ko_expected[dest_match]["h"]
 
         # ── Penalty shootout scores ──────────────────────────────────────
         pen_h_raw, pen_a_raw = extract_penalty_scores(m)
