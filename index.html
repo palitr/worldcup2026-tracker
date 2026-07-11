@@ -7350,7 +7350,7 @@ function renderBracket() {
     // R16_8: W R32_16 vs W R32_15
     'R32_16': {id:'R16_8', fi:0}, 'R32_15': {id:'R16_8', fi:1},
     // R16 → QF (left)
-    'R16_1': {id:'QF1', fi:0}, 'R16_2': {id:'QF1', fi:1},
+    'R16_2': {id:'QF1', fi:0}, 'R16_1': {id:'QF1', fi:1},
     'R16_3': {id:'QF3', fi:0}, 'R16_4': {id:'QF3', fi:1},
     // R16 → QF (right)
     'R16_5': {id:'QF2', fi:0}, 'R16_6': {id:'QF2', fi:1},
@@ -7754,7 +7754,7 @@ function setupNextRoundKoTeams(completedRnd, nextRnd) {
       koTeams[t[0]] = { home: actualWinner(t[1]), away: actualWinner(t[2]) };
     });
   } else if (nextRnd === 'qf') {
-    [['QF1','R16_1','R16_2'],['QF2','R16_5','R16_6'],
+    [['QF1','R16_2','R16_1'],['QF2','R16_5','R16_6'],
      ['QF3','R16_3','R16_4'],['QF4','R16_7','R16_8']].forEach(function(t) {
       koTeams[t[0]] = { home: actualWinner(t[1]), away: actualWinner(t[2]) };
     });
@@ -7942,7 +7942,7 @@ function getDestination(matchId) {
     'R32_10':{id:'R16_6',fi:0},'R32_9':{id:'R16_6',fi:1},
     'R32_13':{id:'R16_7',fi:0},'R32_11':{id:'R16_7',fi:1},
     'R32_16':{id:'R16_8',fi:0},'R32_15':{id:'R16_8',fi:1},
-    'R16_1':{id:'QF1',fi:0},'R16_2':{id:'QF1',fi:1},
+    'R16_2':{id:'QF1',fi:0},'R16_1':{id:'QF1',fi:1},
     'R16_3':{id:'QF3',fi:0},'R16_4':{id:'QF3',fi:1},
     'R16_5':{id:'QF2',fi:0},'R16_6':{id:'QF2',fi:1},
     'R16_7':{id:'QF4',fi:0},'R16_8':{id:'QF4',fi:1},
