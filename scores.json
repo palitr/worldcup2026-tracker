@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-11T19:42:00Z",
+  "updated": "2026-07-11T20:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -25,9 +25,15 @@
       "finished": true,
       "min": "finished"
     },
-    "B2": {
-      "h": 1,
+    "C2": {
+      "h": 0,
       "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "D2": {
+      "h": 2,
+      "a": 0,
       "finished": true,
       "min": "finished"
     },
@@ -37,14 +43,14 @@
       "finished": true,
       "min": "finished"
     },
-    "C2": {
-      "h": 0,
+    "B2": {
+      "h": 1,
       "a": 1,
       "finished": true,
       "min": "finished"
     },
-    "D2": {
-      "h": 2,
+    "E2": {
+      "h": 1,
       "a": 0,
       "finished": true,
       "min": "finished"
@@ -61,15 +67,15 @@
       "finished": true,
       "min": "finished"
     },
-    "E2": {
-      "h": 1,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
     "F2": {
       "h": 5,
       "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "H2": {
+      "h": 2,
+      "a": 2,
       "finished": true,
       "min": "finished"
     },
@@ -82,12 +88,6 @@
     "G1": {
       "h": 1,
       "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "H2": {
-      "h": 2,
-      "a": 2,
       "finished": true,
       "min": "finished"
     },
@@ -133,32 +133,14 @@
       "finished": true,
       "min": "finished"
     },
-    "L2": {
-      "h": 1,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
     "K2": {
       "h": 1,
       "a": 3,
       "finished": true,
       "min": "finished"
     },
-    "B3": {
-      "h": 4,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "A3": {
+    "L2": {
       "h": 1,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "B4": {
-      "h": 6,
       "a": 0,
       "finished": true,
       "min": "finished"
@@ -169,20 +151,20 @@
       "finished": true,
       "min": "finished"
     },
-    "D3": {
-      "h": 2,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "C3": {
-      "h": 0,
+    "B3": {
+      "h": 4,
       "a": 1,
       "finished": true,
       "min": "finished"
     },
-    "D4": {
-      "h": 0,
+    "B4": {
+      "h": 6,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "A3": {
+      "h": 1,
       "a": 1,
       "finished": true,
       "min": "finished"
@@ -193,8 +175,20 @@
       "finished": true,
       "min": "finished"
     },
-    "F3": {
-      "h": 5,
+    "C3": {
+      "h": 0,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "D3": {
+      "h": 2,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "D4": {
+      "h": 0,
       "a": 1,
       "finished": true,
       "min": "finished"
@@ -211,6 +205,12 @@
       "finished": true,
       "min": "finished"
     },
+    "F3": {
+      "h": 5,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
     "F4": {
       "h": 0,
       "a": 4,
@@ -223,27 +223,21 @@
       "finished": true,
       "min": "finished"
     },
-    "H3": {
-      "h": 4,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
     "H6": {
       "h": 1,
       "a": 3,
       "finished": true,
       "min": "finished"
     },
-    "G4": {
-      "h": 2,
-      "a": 2,
+    "H3": {
+      "h": 4,
+      "a": 0,
       "finished": true,
       "min": "finished"
     },
-    "J3": {
+    "G4": {
       "h": 2,
-      "a": 0,
+      "a": 2,
       "finished": true,
       "min": "finished"
     },
@@ -259,6 +253,12 @@
       "finished": true,
       "min": "finished"
     },
+    "J3": {
+      "h": 2,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
     "J4": {
       "h": 1,
       "a": 2,
@@ -267,12 +267,6 @@
     },
     "K3": {
       "h": 5,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "L3": {
-      "h": 0,
       "a": 0,
       "finished": true,
       "min": "finished"
@@ -289,15 +283,9 @@
       "finished": true,
       "min": "finished"
     },
-    "B6": {
-      "h": 3,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "B5": {
-      "h": 2,
-      "a": 1,
+    "L3": {
+      "h": 0,
+      "a": 0,
       "finished": true,
       "min": "finished"
     },
@@ -325,6 +313,18 @@
       "finished": true,
       "min": "finished"
     },
+    "B6": {
+      "h": 3,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "B5": {
+      "h": 2,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
     "E6": {
       "h": 0,
       "a": 2,
@@ -334,18 +334,6 @@
     "E5": {
       "h": 2,
       "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "F5": {
-      "h": 1,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "F6": {
-      "h": 1,
-      "a": 3,
       "finished": true,
       "min": "finished"
     },
@@ -361,6 +349,18 @@
       "finished": true,
       "min": "finished"
     },
+    "F5": {
+      "h": 1,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "F6": {
+      "h": 1,
+      "a": 3,
+      "finished": true,
+      "min": "finished"
+    },
     "I6": {
       "h": 5,
       "a": 0,
@@ -370,18 +370,6 @@
     "I5": {
       "h": 1,
       "a": 4,
-      "finished": true,
-      "min": "finished"
-    },
-    "H5": {
-      "h": 0,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "H4": {
-      "h": 0,
-      "a": 0,
       "finished": true,
       "min": "finished"
     },
@@ -397,6 +385,18 @@
       "finished": true,
       "min": "finished"
     },
+    "H4": {
+      "h": 0,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "H5": {
+      "h": 0,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
     "L5": {
       "h": 0,
       "a": 2,
@@ -405,18 +405,6 @@
     },
     "L6": {
       "h": 2,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "K5": {
-      "h": 0,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "K6": {
-      "h": 3,
       "a": 1,
       "finished": true,
       "min": "finished"
@@ -433,14 +421,20 @@
       "finished": true,
       "min": "finished"
     },
-    "R32_1": {
+    "K5": {
       "h": 0,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "K6": {
+      "h": 3,
       "a": 1,
       "finished": true,
       "min": "finished"
     },
-    "R32_2": {
-      "h": 2,
+    "R32_1": {
+      "h": 0,
       "a": 1,
       "finished": true,
       "min": "finished"
@@ -457,15 +451,21 @@
       "finished": true,
       "min": "finished"
     },
-    "R32_5": {
-      "h": 1,
-      "a": 2,
+    "R32_2": {
+      "h": 2,
+      "a": 1,
       "finished": true,
       "min": "finished"
     },
     "R32_6": {
       "h": 3,
       "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "R32_5": {
+      "h": 1,
+      "a": 2,
       "finished": true,
       "min": "finished"
     },
@@ -481,21 +481,15 @@
       "finished": true,
       "min": "finished"
     },
-    "R32_9": {
-      "h": 3,
-      "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
     "R32_10": {
       "h": 2,
       "a": 0,
       "finished": true,
       "min": "finished"
     },
-    "R32_12": {
+    "R32_9": {
       "h": 3,
-      "a": 0,
+      "a": 2,
       "finished": true,
       "min": "finished"
     },
@@ -505,15 +499,15 @@
       "finished": true,
       "min": "finished"
     },
-    "R32_16": {
-      "h": 2,
+    "R32_12": {
+      "h": 3,
       "a": 0,
       "finished": true,
       "min": "finished"
     },
-    "R32_11": {
-      "h": 1,
-      "a": 1,
+    "R32_16": {
+      "h": 2,
+      "a": 0,
       "finished": true,
       "min": "finished"
     },
@@ -529,15 +523,21 @@
       "finished": true,
       "min": "finished"
     },
-    "R16_1": {
-      "h": 3,
-      "a": 0,
+    "R32_11": {
+      "h": 1,
+      "a": 1,
       "finished": true,
       "min": "finished"
     },
     "R16_2": {
-      "h": 1,
-      "a": 0,
+      "h": 0,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "R16_1": {
+      "h": 0,
+      "a": 3,
       "finished": true,
       "min": "finished"
     },
@@ -566,8 +566,8 @@
       "min": "finished"
     },
     "R16_7": {
-      "h": 2,
-      "a": 3,
+      "h": 3,
+      "a": 2,
       "finished": true,
       "min": "finished"
     },
@@ -643,22 +643,6 @@
         "Maur\u00edcio 73'"
       ]
     },
-    "B2": {
-      "h": [
-        "B. Khoukhi 90'+5'"
-      ],
-      "a": [
-        "Breel Embolo 17' (p)"
-      ]
-    },
-    "C1": {
-      "h": [
-        "V. J\u00fanior 32'"
-      ],
-      "a": [
-        "I. Saibari 21'"
-      ]
-    },
     "C2": {
       "h": [],
       "a": [
@@ -669,6 +653,28 @@
       "h": [
         "Nestory Irankunda 27'",
         "C. Metcalfe 75'"
+      ],
+      "a": []
+    },
+    "C1": {
+      "h": [
+        "V. J\u00fanior 32'"
+      ],
+      "a": [
+        "I. Saibari 21'"
+      ]
+    },
+    "B2": {
+      "h": [
+        "B. Khoukhi 90'+5'"
+      ],
+      "a": [
+        "Breel Embolo 17' (p)"
+      ]
+    },
+    "E2": {
+      "h": [
+        "A. Diallo 90'"
       ],
       "a": []
     },
@@ -696,12 +702,6 @@
         "K. Ogawa 89'"
       ]
     },
-    "E2": {
-      "h": [
-        "A. Diallo 90'"
-      ],
-      "a": []
-    },
     "F2": {
       "h": [
         "Y.Ayari 7'",
@@ -714,14 +714,6 @@
         "O. Rekik 43'"
       ]
     },
-    "G1": {
-      "h": [
-        "Mohamed Hany 66'"
-      ],
-      "a": [
-        "Emam Ashour 20'"
-      ]
-    },
     "H2": {
       "h": [
         "Ramin Rezaiian 32'",
@@ -730,6 +722,14 @@
       "a": [
         "Elijah Just 7'",
         "Elijah Just 54'"
+      ]
+    },
+    "G1": {
+      "h": [
+        "Mohamed Hany 66'"
+      ],
+      "a": [
+        "Emam Ashour 20'"
       ]
     },
     "G2": {
@@ -798,12 +798,6 @@
         "P. Musa 45+5'"
       ]
     },
-    "L2": {
-      "h": [
-        "Kalb Iirnki 90+5'"
-      ],
-      "a": []
-    },
     "K2": {
       "h": [
         "Abas Bk Fiz Allh Af 60'"
@@ -814,6 +808,18 @@
         "Khamintvn Kampaz 90+9'"
       ]
     },
+    "L2": {
+      "h": [
+        "Kalb Iirnki 90+5'"
+      ],
+      "a": []
+    },
+    "A4": {
+      "h": [
+        "Luis Romo 50'"
+      ],
+      "a": []
+    },
     "B3": {
       "h": [
         "Jvhan Mnzambi 74'",
@@ -823,12 +829,6 @@
       "a": [
         "Armin Mhmich 90+3'"
       ]
-    },
-    "A3": {
-      "h": [
-        "\u202bmikhal Sadilk 6'"
-      ],
-      "a": []
     },
     "B4": {
       "h": [
@@ -841,16 +841,17 @@
       ],
       "a": []
     },
-    "A4": {
+    "A3": {
       "h": [
-        "Luis Romo 50'"
+        "\u202bmikhal Sadilk 6'"
       ],
       "a": []
     },
-    "D3": {
+    "C4": {
       "h": [
-        "Kamrvn Bargs 11'",
-        "Alex Freeman 43'"
+        "Matheus Cunha 23'",
+        "Matheus Cunha 36'",
+        "Vin\u00edcius J\u00fanior 45+3'"
       ],
       "a": []
     },
@@ -860,19 +861,27 @@
         "Asmaail Saibari 2'"
       ]
     },
+    "D3": {
+      "h": [
+        "Kamrvn Bargs 11'",
+        "Alex Freeman 43'"
+      ],
+      "a": []
+    },
     "D4": {
       "h": [],
       "a": [
         "Mat\u00edas Galarza 2'"
       ]
     },
-    "C4": {
+    "E3": {
       "h": [
-        "Matheus Cunha 23'",
-        "Matheus Cunha 36'",
-        "Vin\u00edcius J\u00fanior 45+3'"
+        "Dniz Avndav 68'",
+        "Dniz Avndav 90+4'"
       ],
-      "a": []
+      "a": [
+        "Franck Kessi\u00e9 30'"
+      ]
     },
     "F3": {
       "h": [
@@ -886,15 +895,6 @@
         "Anthony Elanga 59'"
       ]
     },
-    "E3": {
-      "h": [
-        "Dniz Avndav 68'",
-        "Dniz Avndav 90+4'"
-      ],
-      "a": [
-        "Franck Kessi\u00e9 30'"
-      ]
-    },
     "F4": {
       "h": [],
       "a": [
@@ -903,15 +903,6 @@
         "Junya It\u014d 69'",
         "Aiash Ivida 83'"
       ]
-    },
-    "H3": {
-      "h": [
-        "Lamine Yamal 10'",
-        "Mikel Oyarzabal 21'",
-        "Mikel Oyarzabal 24'",
-        "Hassan Mohamed Altmbkti 49'"
-      ],
-      "a": []
     },
     "H6": {
       "h": [
@@ -923,6 +914,15 @@
         "Mahmoud Hassan Trezeguet 82'"
       ]
     },
+    "H3": {
+      "h": [
+        "Lamine Yamal 10'",
+        "Mikel Oyarzabal 21'",
+        "Mikel Oyarzabal 24'",
+        "Hassan Mohamed Altmbkti 49'"
+      ],
+      "a": []
+    },
     "G4": {
       "h": [
         "Maximiliano Ara\u00fajo 44'",
@@ -932,13 +932,6 @@
         "Kevin Pina 21'",
         "Hliv Varla 61'"
       ]
-    },
-    "J3": {
-      "h": [
-        "Lionel Messi 38'",
-        "Lionel Messi 90+5'"
-      ],
-      "a": []
     },
     "I4": {
       "h": [
@@ -958,6 +951,13 @@
         "Isma\u00efla Sarr 53'",
         "Isma\u00efla Sarr 90+3'"
       ]
+    },
+    "J3": {
+      "h": [
+        "Lionel Messi 38'",
+        "Lionel Messi 90+5'"
+      ],
+      "a": []
     },
     "J4": {
       "h": [
@@ -989,25 +989,6 @@
         "Dnil Mvnvz 76'"
       ],
       "a": []
-    },
-    "B6": {
-      "h": [
-        "Karim Alaibgvvich 29'",
-        "Abvnad 34'",
-        "Armin Mhmich 80'"
-      ],
-      "a": [
-        "Hassan Al-Haydos 42'"
-      ]
-    },
-    "B5": {
-      "h": [
-        "Rub\u00e9n Vargas 46'",
-        "Jvhan Mnzambi 57'"
-      ],
-      "a": [
-        "Prvmis Divid 76'"
-      ]
     },
     "C5": {
       "h": [],
@@ -1043,6 +1024,25 @@
       ],
       "a": []
     },
+    "B6": {
+      "h": [
+        "Karim Alaibgvvich 29'",
+        "Abvnad 34'",
+        "Armin Mhmich 80'"
+      ],
+      "a": [
+        "Hassan Al-Haydos 42'"
+      ]
+    },
+    "B5": {
+      "h": [
+        "Rub\u00e9n Vargas 46'",
+        "Jvhan Mnzambi 57'"
+      ],
+      "a": [
+        "Prvmis Divid 76'"
+      ]
+    },
     "E6": {
       "h": [],
       "a": [
@@ -1057,6 +1057,17 @@
       ],
       "a": [
         "Leroy San\u00e9 2'"
+      ]
+    },
+    "D5": {
+      "h": [
+        "Arda G\u00fcler 10'",
+        "Baris Alpr Ailmaz 31'",
+        "Kan Aihan 90+8'"
+      ],
+      "a": [
+        "Auston Trusty 3'",
+        "Sebastian Berhalter 49'"
       ]
     },
     "F5": {
@@ -1075,17 +1086,6 @@
         "Alis Skhiri 3'",
         "Brian Brobbey 7'",
         "Ian Fn Hkh 62'"
-      ]
-    },
-    "D5": {
-      "h": [
-        "Arda G\u00fcler 10'",
-        "Baris Alpr Ailmaz 31'",
-        "Kan Aihan 90+8'"
-      ],
-      "a": [
-        "Auston Trusty 3'",
-        "Sebastian Berhalter 49'"
       ]
     },
     "I6": {
@@ -1109,12 +1109,6 @@
         "D\u00e9sir\u00e9 Dou\u00e9 90+4'"
       ]
     },
-    "H5": {
-      "h": [],
-      "a": [
-        "\u00c1lex Baena 42'"
-      ]
-    },
     "G5": {
       "h": [
         "Mahmoud Saber 5'"
@@ -1135,6 +1129,12 @@
         "Alexis Saelemaekers 90+4'"
       ]
     },
+    "H5": {
+      "h": [],
+      "a": [
+        "\u00c1lex Baena 42'"
+      ]
+    },
     "L5": {
       "h": [],
       "a": [
@@ -1149,15 +1149,6 @@
       ],
       "a": [
         "Drik Lvkasn 73'"
-      ]
-    },
-    "K6": {
-      "h": [
-        "Fistvn Mail 78'",
-        "Yoane Wissa 90+1'"
-      ],
-      "a": [
-        "Aldvr Shvmvrvdvf 10'"
       ]
     },
     "J5": {
@@ -1182,19 +1173,19 @@
         "Lionel Messi 80'"
       ]
     },
+    "K6": {
+      "h": [
+        "Fistvn Mail 78'",
+        "Yoane Wissa 90+1'"
+      ],
+      "a": [
+        "Aldvr Shvmvrvdvf 10'"
+      ]
+    },
     "R32_1": {
       "h": [],
       "a": [
         "Astfan Avstakviv 90+2'"
-      ]
-    },
-    "R32_2": {
-      "h": [
-        "Casemiro 56'",
-        "Gabriel Martinelli 90+5'"
-      ],
-      "a": [
-        "Kaish\u016b Sano 29'"
       ]
     },
     "R32_3": {
@@ -1213,13 +1204,13 @@
         "Issa Diop 90+1'"
       ]
     },
-    "R32_5": {
+    "R32_2": {
       "h": [
-        "Amad Diallo 74'"
+        "Casemiro 56'",
+        "Gabriel Martinelli 90+5'"
       ],
       "a": [
-        "Antonio Nusa 39'",
-        "Erling Haaland 86'"
+        "Kaish\u016b Sano 29'"
       ]
     },
     "R32_6": {
@@ -1229,6 +1220,15 @@
         "Kylian Mbapp\u00e9 74'"
       ],
       "a": []
+    },
+    "R32_5": {
+      "h": [
+        "Amad Diallo 74'"
+      ],
+      "a": [
+        "Antonio Nusa 39'",
+        "Erling Haaland 86'"
+      ]
     },
     "R32_7": {
       "h": [
@@ -1246,6 +1246,13 @@
         "Braian Sipnga 7'"
       ]
     },
+    "R32_10": {
+      "h": [
+        "Flvrin Balvgan 45'",
+        "Malik Tillman 82'"
+      ],
+      "a": []
+    },
     "R32_9": {
       "h": [
         "Romelu Lukaku 86'",
@@ -1257,12 +1264,13 @@
         "Isma\u00efla Sarr 51'"
       ]
     },
-    "R32_10": {
+    "R32_14": {
       "h": [
-        "Flvrin Balvgan 45'",
-        "Malik Tillman 82'"
+        "Gvnchalv Ramvs 90+4'"
       ],
-      "a": []
+      "a": [
+        "Ivan Peri\u0161i\u0107 53'"
+      ]
     },
     "R32_12": {
       "h": [
@@ -1272,28 +1280,12 @@
       ],
       "a": []
     },
-    "R32_14": {
-      "h": [
-        "Gvnchalv Ramvs 90+4'"
-      ],
-      "a": [
-        "Ivan Peri\u0161i\u0107 53'"
-      ]
-    },
     "R32_16": {
       "h": [
         "Breel Embolo 10'",
         "Dn Andvi 46'"
       ],
       "a": []
-    },
-    "R32_11": {
-      "h": [
-        "Mohamed Hany 55'"
-      ],
-      "a": [
-        "Emam Ashour 13'"
-      ]
     },
     "R32_13": {
       "h": [
@@ -1312,13 +1304,21 @@
       ],
       "a": []
     },
-    "R16_1": {
+    "R32_11": {
       "h": [
+        "Mohamed Hany 55'"
+      ],
+      "a": [
+        "Emam Ashour 13'"
+      ]
+    },
+    "R16_1": {
+      "h": [],
+      "a": [
         "Azdin Avnahi 50'",
         "Azdin Avnahi 82'",
         "Svfian Rhimi 90+8'"
-      ],
-      "a": []
+      ]
     },
     "R16_3": {
       "h": [],
@@ -1355,13 +1355,13 @@
     },
     "R16_7": {
       "h": [
-        "Yasser Ibrahim 15'",
-        "Mostafa Ziko 67'"
-      ],
-      "a": [
         "Cristian Romero 79'",
         "Lionel Messi 83'",
         "Enzo Fern\u00e1ndez 90+2'"
+      ],
+      "a": [
+        "Yasser Ibrahim 15'",
+        "Mostafa Ziko 67'"
       ]
     },
     "QF1": {
