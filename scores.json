@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-11T23:31:00Z",
+  "updated": "2026-07-11T23:55:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -592,8 +592,8 @@
     "QF3": {
       "h": 1,
       "a": 2,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     }
   },
   "penScores": {
@@ -2467,10 +2467,10 @@
       "Jude Bellingham|England": {
         "name": "Jude Bellingham",
         "team": "England",
-        "goals": 4,
+        "goals": 6,
         "pen": 0,
-        "npg": 4,
-        "mp": 3
+        "npg": 6,
+        "mp": 4
       },
       "Marcus Rashford|England": {
         "name": "Marcus Rashford",
@@ -2751,6 +2751,14 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Andreas Schjelderup|Norway": {
+        "name": "Andreas Schjelderup",
+        "team": "Norway",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 14,
@@ -2759,14 +2767,14 @@
     "goals_by_period": {
       "0-15": 33,
       "16-30": 30,
-      "31-45": 40,
-      "45+": 10,
+      "31-45": 41,
+      "45+": 11,
       "46-60": 44,
       "61-75": 38,
-      "76-90": 46,
+      "76-90": 47,
       "90+": 30
     },
-    "ht_goals": 117,
+    "ht_goals": 119,
     "sh_goals": 164,
     "comeback_wins": [
       {
@@ -3026,6 +3034,13 @@
         "opponent": "Argentina"
       },
       {
+        "player": "Jude Bellingham",
+        "team": "England",
+        "minute": "93",
+        "sort_val": 93.0,
+        "opponent": "Norway"
+      },
+      {
         "player": "Lisandro Mart\u00ednez",
         "team": "Argentina",
         "minute": "92",
@@ -3073,13 +3088,6 @@
         "minute": "90+8",
         "sort_val": 90.08,
         "opponent": "Canada"
-      },
-      {
-        "player": "Granit Xhaka",
-        "team": "Switzerland",
-        "minute": "90+7",
-        "sort_val": 90.07,
-        "opponent": "Bosnia & Herzegovina"
       }
     ],
     "fastest_goals": [
@@ -3173,6 +3181,12 @@
         "team": "Norway",
         "streak": 2,
         "goals": 7
+      },
+      {
+        "name": "Jude Bellingham",
+        "team": "England",
+        "streak": 2,
+        "goals": 6
       },
       {
         "name": "Ousmane Demb\u00e9l\u00e9",
@@ -3504,17 +3518,17 @@
       },
       {
         "round": "Quarter-final",
-        "goals": 5
+        "goals": 7
       }
     ],
     "scoreline_freq": [
       {
-        "score": "1-0",
+        "score": "1-1",
         "count": 14
       },
       {
-        "score": "1-1",
-        "count": 13
+        "score": "1-0",
+        "count": 14
       },
       {
         "score": "2-1",
