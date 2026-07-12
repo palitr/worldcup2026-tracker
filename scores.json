@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-12T03:31:00Z",
+  "updated": "2026-07-12T04:01:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -2363,10 +2363,10 @@
       "Lautaro Mart\u00ednez|Argentina": {
         "name": "Lautaro Mart\u00ednez",
         "team": "Argentina",
-        "goals": 1,
+        "goals": 2,
         "pen": 1,
-        "npg": 0,
-        "mp": 1
+        "npg": 1,
+        "mp": 2
       },
       "Jo\u00e3o Neves|Portugal": {
         "name": "Jo\u00e3o Neves",
@@ -2643,10 +2643,10 @@
       "Dan Ndoye|Switzerland": {
         "name": "Dan Ndoye",
         "team": "Switzerland",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Lisandro Mart\u00ednez|Argentina": {
         "name": "Lisandro Mart\u00ednez",
@@ -2759,23 +2759,39 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Alexis Mac Allister|Argentina": {
+        "name": "Alexis Mac Allister",
+        "team": "Argentina",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Juli\u00e1n \u00c1lvarez|Argentina": {
+        "name": "Juli\u00e1n \u00c1lvarez",
+        "team": "Argentina",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 14,
     "total_og": 14,
     "hat_tricks": 3,
     "goals_by_period": {
-      "0-15": 33,
+      "0-15": 34,
       "16-30": 30,
       "31-45": 41,
       "45+": 11,
       "46-60": 44,
-      "61-75": 38,
-      "76-90": 47,
-      "90+": 30
+      "61-75": 39,
+      "76-90": 48,
+      "90+": 31
     },
-    "ht_goals": 119,
-    "sh_goals": 164,
+    "ht_goals": 120,
+    "sh_goals": 165,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -2895,6 +2911,13 @@
         "ht": "0-1",
         "ft": "3-2",
         "result": "won"
+      },
+      {
+        "team": "Switzerland",
+        "opponent": "Argentina",
+        "ht": "0-1",
+        "ft": "1-1",
+        "result": "drew"
       }
     ],
     "threw_leads": [
@@ -3016,6 +3039,13 @@
         "ht": "1-0",
         "ft": "2-3",
         "outcome": "lost"
+      },
+      {
+        "team": "Argentina",
+        "opponent": "Switzerland",
+        "ht": "1-0",
+        "ft": "1-1",
+        "outcome": "drew"
       }
     ],
     "late_goals": [
@@ -3025,6 +3055,20 @@
         "minute": "120+5",
         "sort_val": 120.05,
         "opponent": "Senegal"
+      },
+      {
+        "player": "Lautaro Mart\u00ednez",
+        "team": "Argentina",
+        "minute": "120+1",
+        "sort_val": 120.01,
+        "opponent": "Switzerland"
+      },
+      {
+        "player": "Juli\u00e1n \u00c1lvarez",
+        "team": "Argentina",
+        "minute": "112",
+        "sort_val": 112.0,
+        "opponent": "Switzerland"
       },
       {
         "player": "Sidny Lopes Cabral",
@@ -3074,20 +3118,6 @@
         "minute": "90+8",
         "sort_val": 90.08,
         "opponent": "Paraguay"
-      },
-      {
-        "player": "Kaan Ayhan",
-        "team": "Turkey",
-        "minute": "90+8",
-        "sort_val": 90.08,
-        "opponent": "USA"
-      },
-      {
-        "player": "Soufiane Rahimi",
-        "team": "Morocco",
-        "minute": "90+8",
-        "sort_val": 90.08,
-        "opponent": "Canada"
       }
     ],
     "fastest_goals": [
@@ -3518,13 +3548,13 @@
       },
       {
         "round": "Quarter-final",
-        "goals": 7
+        "goals": 9
       }
     ],
     "scoreline_freq": [
       {
         "score": "1-1",
-        "count": 14
+        "count": 15
       },
       {
         "score": "1-0",
