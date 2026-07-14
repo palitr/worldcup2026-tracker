@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-14T21:01:00Z",
+  "updated": "2026-07-14T21:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -2135,10 +2135,10 @@
       "Mikel Oyarzabal|Spain": {
         "name": "Mikel Oyarzabal",
         "team": "Spain",
-        "goals": 4,
-        "pen": 0,
+        "goals": 5,
+        "pen": 1,
         "npg": 4,
-        "mp": 2
+        "mp": 3
       },
       "Agust\u00edn Cano|Uruguay": {
         "name": "Agust\u00edn Cano",
@@ -2663,10 +2663,10 @@
       "Pedro Porro|Spain": {
         "name": "Pedro Porro",
         "team": "Spain",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Dan Ndoye|Switzerland": {
         "name": "Dan Ndoye",
@@ -2805,21 +2805,21 @@
         "mp": 1
       }
     },
-    "total_pen": 14,
+    "total_pen": 15,
     "total_og": 14,
     "hat_tricks": 3,
     "goals_by_period": {
       "0-15": 34,
-      "16-30": 30,
+      "16-30": 31,
       "31-45": 41,
       "45+": 11,
-      "46-60": 44,
+      "46-60": 45,
       "61-75": 39,
       "76-90": 48,
       "90+": 31
     },
-    "ht_goals": 120,
-    "sh_goals": 165,
+    "ht_goals": 121,
+    "sh_goals": 166,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -3577,6 +3577,10 @@
       {
         "round": "Quarter-final",
         "goals": 9
+      },
+      {
+        "round": "Semi-final",
+        "goals": 2
       }
     ],
     "scoreline_freq": [
@@ -3594,7 +3598,7 @@
       },
       {
         "score": "2-0",
-        "count": 10
+        "count": 11
       },
       {
         "score": "3-0",
