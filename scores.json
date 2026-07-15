@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-15T21:01:00Z",
+  "updated": "2026-07-15T21:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -610,8 +610,8 @@
     "SF2": {
       "h": 1,
       "a": 2,
-      "finished": false,
-      "min": "live"
+      "finished": true,
+      "min": "finished"
     }
   },
   "penScores": {
@@ -2406,10 +2406,10 @@
       "Lautaro Mart\u00ednez|Argentina": {
         "name": "Lautaro Mart\u00ednez",
         "team": "Argentina",
-        "goals": 2,
+        "goals": 3,
         "pen": 1,
-        "npg": 1,
-        "mp": 2
+        "npg": 2,
+        "mp": 3
       },
       "Jo\u00e3o Neves|Portugal": {
         "name": "Jo\u00e3o Neves",
@@ -2774,10 +2774,10 @@
       "Enzo Fern\u00e1ndez|Argentina": {
         "name": "Enzo Fern\u00e1ndez",
         "team": "Argentina",
-        "goals": 1,
+        "goals": 2,
         "pen": 0,
-        "npg": 1,
-        "mp": 1
+        "npg": 2,
+        "mp": 2
       },
       "Yasser Ibrahim|Egypt": {
         "name": "Yasser Ibrahim",
@@ -2818,6 +2818,14 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Anthony Gordon|England": {
+        "name": "Anthony Gordon",
+        "team": "England",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 15,
@@ -2828,13 +2836,13 @@
       "16-30": 31,
       "31-45": 41,
       "45+": 11,
-      "46-60": 45,
+      "46-60": 46,
       "61-75": 39,
-      "76-90": 48,
+      "76-90": 50,
       "90+": 31
     },
     "ht_goals": 121,
-    "sh_goals": 166,
+    "sh_goals": 169,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -3135,6 +3143,13 @@
         "opponent": "Cape Verde"
       },
       {
+        "player": "Lautaro Mart\u00ednez",
+        "team": "Argentina",
+        "minute": "92",
+        "sort_val": 92.0,
+        "opponent": "England"
+      },
+      {
         "player": "Marko Arnautovic",
         "team": "Austria",
         "minute": "90+12",
@@ -3154,13 +3169,6 @@
         "minute": "90+9",
         "sort_val": 90.09,
         "opponent": "Uzbekistan"
-      },
-      {
-        "player": "Giovanni Reyna",
-        "team": "USA",
-        "minute": "90+8",
-        "sort_val": 90.08,
-        "opponent": "Paraguay"
       }
     ],
     "fastest_goals": [
@@ -3294,6 +3302,12 @@
       {
         "name": "Brian Brobbey",
         "team": "Netherlands",
+        "streak": 2,
+        "goals": 3
+      },
+      {
+        "name": "Lautaro Mart\u00ednez",
+        "team": "Argentina",
         "streak": 2,
         "goals": 3
       },
@@ -3595,7 +3609,7 @@
       },
       {
         "round": "Semi-final",
-        "goals": 2
+        "goals": 5
       }
     ],
     "scoreline_freq": [
@@ -3609,7 +3623,7 @@
       },
       {
         "score": "2-1",
-        "count": 12
+        "count": 13
       },
       {
         "score": "2-0",
