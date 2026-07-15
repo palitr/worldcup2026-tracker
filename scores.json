@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-15T20:01:00Z",
+  "updated": "2026-07-15T20:31:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -608,7 +608,7 @@
       "min": "finished"
     },
     "SF2": {
-      "h": 0,
+      "h": 1,
       "a": 0,
       "finished": false,
       "min": "live"
@@ -1422,6 +1422,12 @@
       "a": [
         "Pedro Porro 58'"
       ]
+    },
+    "SF2": {
+      "h": [
+        "Antvni Gvrdvn 55'"
+      ],
+      "a": []
     }
   },
   "af_stats": {
