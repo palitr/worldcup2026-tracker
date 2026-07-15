@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-15T20:31:00Z",
+  "updated": "2026-07-15T21:00:00Z",
   "scores": {
     "A1": {
       "h": 2,
@@ -609,7 +609,7 @@
     },
     "SF2": {
       "h": 1,
-      "a": 0,
+      "a": 2,
       "finished": false,
       "min": "live"
     }
@@ -1427,7 +1427,10 @@
       "h": [
         "Antvni Gvrdvn 55'"
       ],
-      "a": []
+      "a": [
+        "Enzo Fern\u00e1ndez 85'",
+        "Lautaro Mart\u00ednez 90+2'"
+      ]
     }
   },
   "af_stats": {
