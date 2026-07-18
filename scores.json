@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-18T22:31:00Z",
+  "updated": "2026-07-18T22:41:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -540,6 +540,12 @@
       "a": 0,
       "finished": true,
       "min": "finished"
+    },
+    "BRONZE": {
+      "h": 3,
+      "a": 4,
+      "finished": false,
+      "min": "live"
     },
     "G1": {
       "h": 1,
@@ -1349,6 +1355,19 @@
         "Malik Tillman 82'"
       ],
       "a": []
+    },
+    "BRONZE": {
+      "h": [
+        "Kylian Mbapp\u00e9 48'",
+        "Bradley Barcola 54'",
+        "Kylian Mbapp\u00e9 66'"
+      ],
+      "a": [
+        "Dklan Rais 3'",
+        "Azri Knsa 18'",
+        "Bvkaiv Saka 37'",
+        "Bvkaiv Saka 45+1'"
+      ]
     },
     "G1": {
       "h": [
