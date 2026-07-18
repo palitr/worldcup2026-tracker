@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-18T22:58:00Z",
+  "updated": "2026-07-18T23:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -542,7 +542,7 @@
       "min": "finished"
     },
     "BRONZE": {
-      "h": 3,
+      "h": 4,
       "a": 5,
       "finished": false,
       "min": "live"
@@ -1360,7 +1360,8 @@
       "h": [
         "Kylian Mbapp\u00e9 48'",
         "Bradley Barcola 54'",
-        "Kylian Mbapp\u00e9 66'"
+        "Kylian Mbapp\u00e9 66'",
+        "Ousmane Demb\u00e9l\u00e9 90+6'"
       ],
       "a": [
         "Dklan Rais 3'",
