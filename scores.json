@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-18T23:06:00Z",
+  "updated": "2026-07-18T23:26:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -2211,18 +2211,18 @@
       "Kylian Mbapp\u00e9|France": {
         "name": "Kylian Mbapp\u00e9",
         "team": "France",
-        "goals": 8,
+        "goals": 10,
         "pen": 1,
-        "npg": 7,
-        "mp": 5
+        "npg": 9,
+        "mp": 6
       },
       "Bradley Barcola|France": {
         "name": "Bradley Barcola",
         "team": "France",
-        "goals": 2,
+        "goals": 3,
         "pen": 0,
-        "npg": 2,
-        "mp": 2
+        "npg": 3,
+        "mp": 3
       },
       "Ibrahim Mbaye|Senegal": {
         "name": "Ibrahim Mbaye",
@@ -2259,10 +2259,10 @@
       "Ousmane Demb\u00e9l\u00e9|France": {
         "name": "Ousmane Demb\u00e9l\u00e9",
         "team": "France",
-        "goals": 5,
+        "goals": 6,
         "pen": 0,
-        "npg": 5,
-        "mp": 3
+        "npg": 6,
+        "mp": 4
       },
       "Marcus Holmgren Pedersen|Norway": {
         "name": "Marcus Holmgren Pedersen",
@@ -2531,10 +2531,10 @@
       "Jude Bellingham|England": {
         "name": "Jude Bellingham",
         "team": "England",
-        "goals": 6,
+        "goals": 7,
         "pen": 0,
-        "npg": 6,
-        "mp": 4
+        "npg": 7,
+        "mp": 5
       },
       "Marcus Rashford|England": {
         "name": "Marcus Rashford",
@@ -2847,23 +2847,47 @@
         "pen": 0,
         "npg": 1,
         "mp": 1
+      },
+      "Declan Rice|England": {
+        "name": "Declan Rice",
+        "team": "England",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Ezri Konsa|England": {
+        "name": "Ezri Konsa",
+        "team": "England",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
+      },
+      "Bukayo Saka|England": {
+        "name": "Bukayo Saka",
+        "team": "England",
+        "goals": 3,
+        "pen": 1,
+        "npg": 2,
+        "mp": 1
       }
     },
-    "total_pen": 15,
+    "total_pen": 16,
     "total_og": 14,
-    "hat_tricks": 3,
+    "hat_tricks": 4,
     "goals_by_period": {
-      "0-15": 34,
-      "16-30": 31,
-      "31-45": 41,
-      "45+": 11,
-      "46-60": 46,
-      "61-75": 39,
-      "76-90": 50,
-      "90+": 31
+      "0-15": 35,
+      "16-30": 32,
+      "31-45": 42,
+      "45+": 12,
+      "46-60": 48,
+      "61-75": 40,
+      "76-90": 51,
+      "90+": 33
     },
-    "ht_goals": 121,
-    "sh_goals": 169,
+    "ht_goals": 125,
+    "sh_goals": 175,
     "comeback_wins": [
       {
         "team": "South Africa",
@@ -3222,11 +3246,11 @@
         "opponent": "Turkey"
       },
       {
-        "player": "Daichi Kamada",
-        "team": "Japan",
-        "minute": "4",
-        "sort_val": 4.0,
-        "opponent": "Tunisia"
+        "player": "Declan Rice",
+        "team": "England",
+        "minute": "3",
+        "sort_val": 3.0,
+        "opponent": "France"
       }
     ],
     "scoring_streaks": [
@@ -3240,7 +3264,7 @@
         "name": "Kylian Mbapp\u00e9",
         "team": "France",
         "streak": 3,
-        "goals": 8
+        "goals": 10
       },
       {
         "name": "Harry Kane",
@@ -3288,13 +3312,13 @@
         "name": "Jude Bellingham",
         "team": "England",
         "streak": 2,
-        "goals": 6
+        "goals": 7
       },
       {
         "name": "Ousmane Demb\u00e9l\u00e9",
         "team": "France",
         "streak": 2,
-        "goals": 5
+        "goals": 6
       },
       {
         "name": "Ra\u00fal Jim\u00e9nez",
@@ -3631,6 +3655,10 @@
       {
         "round": "Semi-final",
         "goals": 5
+      },
+      {
+        "round": "Match for third place",
+        "goals": 10
       }
     ],
     "scoreline_freq": [
