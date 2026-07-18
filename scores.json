@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-18T22:51:00Z",
+  "updated": "2026-07-18T22:53:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -543,7 +543,7 @@
     },
     "BRONZE": {
       "h": 3,
-      "a": 4,
+      "a": 5,
       "finished": false,
       "min": "live"
     },
