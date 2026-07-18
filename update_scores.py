@@ -729,7 +729,7 @@ def build_scores(data):
                 home, away = away, home
                 h_pen_swap = True
 
-        KO_TYPES = {"knockout", "r32", "r16", "qf", "quarterfinal", "sf", "semifinal", "final"}
+        KO_TYPES = {"knockout", "r32", "r16", "qf", "quarterfinal", "sf", "semifinal", "final", "third", "bronze", "third_place", "third place", "play-off"}
         if not match_id and (mtype.startswith("knockout") or any(mtype.startswith(t) for t in KO_TYPES)):
             utc_raw = (m.get("local_date") or m.get("utc") or
                        m.get("datetime") or "")
