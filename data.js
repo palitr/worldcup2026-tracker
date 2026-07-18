@@ -251,6 +251,8 @@ const SCORER_ALIASES = {
   'Alis Skhiri':'Ellyes Skhiri','Alis Skiri':'Ellyes Skhiri',
   'Hassan Mohamed Altmbkti':'Hassan Al-Tambakti',
   'Hri Kin':'Harry Kane',
+  'Bvkaiv Saka':'Bukayo Saka',
+  'Dklan Rais':'Declan Rice',
   'Jvd Blingham':'Jude Bellingham',
   'Jivani Lv Slsv':'Giovani Lo Celso',
   'Mohamed Almnai':'Mohammad Al Manai','Mohamed Al Manai':'Mohammad Al Manai',
