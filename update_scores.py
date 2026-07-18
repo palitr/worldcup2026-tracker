@@ -729,8 +729,9 @@ def build_scores(data):
                 home, away = away, home
                 h_pen_swap = True
 
-        KO_TYPES = {"knockout", "r32", "r16", "qf", "quarterfinal", "sf", "semifinal", "final", "third", "bronze", "third_place", "third place", "play-off"}
-        if not match_id and (mtype.startswith("knockout") or any(mtype.startswith(t) for t in KO_TYPES)):
+        if not match_id:
+            # Always try UTC lookup for any unmatched match —
+            # avoids missing KO matches due to unexpected API type strings
             utc_raw = (m.get("local_date") or m.get("utc") or
                        m.get("datetime") or "")
             utc_norm = normalise_utc(utc_raw)
