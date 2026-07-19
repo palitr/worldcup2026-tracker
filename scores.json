@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-19T21:31:00Z",
+  "updated": "2026-07-19T21:52:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -470,7 +470,7 @@
       "min": "finished"
     },
     "FINAL": {
-      "h": 0,
+      "h": 1,
       "a": 0,
       "finished": false,
       "min": "live"
@@ -1269,6 +1269,12 @@
       "h": [
         "Kylian Mbapp\u00e9 60'",
         "Ousmane Demb\u00e9l\u00e9 66'"
+      ],
+      "a": []
+    },
+    "FINAL": {
+      "h": [
+        "Ferran Torres 106'"
       ],
       "a": []
     },
