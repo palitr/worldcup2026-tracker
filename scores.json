@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-20T10:31:00Z",
+  "updated": "2026-07-20T11:01:00Z",
   "scores": {
     "D2": {
       "h": 2,
@@ -2883,6 +2883,14 @@
         "pen": 1,
         "npg": 2,
         "mp": 1
+      },
+      "Ferran Torres|Spain": {
+        "name": "Ferran Torres",
+        "team": "Spain",
+        "goals": 1,
+        "pen": 0,
+        "npg": 1,
+        "mp": 1
       }
     },
     "total_pen": 16,
@@ -2895,7 +2903,7 @@
       "45+": 12,
       "46-60": 48,
       "61-75": 40,
-      "76-90": 51,
+      "76-90": 52,
       "90+": 33
     },
     "ht_goals": 125,
@@ -3179,6 +3187,13 @@
         "opponent": "Switzerland"
       },
       {
+        "player": "Ferran Torres",
+        "team": "Spain",
+        "minute": "106",
+        "sort_val": 106.0,
+        "opponent": "Argentina"
+      },
+      {
         "player": "Sidny Lopes Cabral",
         "team": "Cape Verde",
         "minute": "103",
@@ -3219,13 +3234,6 @@
         "minute": "90+10",
         "sort_val": 90.1,
         "opponent": "Norway"
-      },
-      {
-        "player": "J\u00e1minton Campaz",
-        "team": "Colombia",
-        "minute": "90+9",
-        "sort_val": 90.09,
-        "opponent": "Uzbekistan"
       }
     ],
     "fastest_goals": [
@@ -3671,6 +3679,10 @@
       {
         "round": "Match for third place",
         "goals": 10
+      },
+      {
+        "round": "Final",
+        "goals": 0
       }
     ],
     "scoreline_freq": [
@@ -3691,15 +3703,15 @@
         "count": 11
       },
       {
+        "score": "0-0",
+        "count": 9
+      },
+      {
         "score": "3-0",
         "count": 8
       },
       {
         "score": "3-1",
-        "count": 8
-      },
-      {
-        "score": "0-0",
         "count": 8
       },
       {
