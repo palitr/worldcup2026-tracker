@@ -1,182 +1,14 @@
 {
-  "updated": "2026-07-21T18:31:00Z",
+  "updated": "2026-07-21T19:01:00Z",
   "scores": {
-    "A1": {
-      "h": 2,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "A2": {
-      "h": 2,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "B1": {
-      "h": 1,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "D1": {
-      "h": 4,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "C2": {
-      "h": 0,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
     "D2": {
       "h": 2,
       "a": 0,
       "finished": true,
       "min": "finished"
     },
-    "C1": {
-      "h": 1,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
     "B2": {
       "h": 1,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "E2": {
-      "h": 1,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "E1": {
-      "h": 7,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "F1": {
-      "h": 2,
-      "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
-    "F2": {
-      "h": 5,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "H2": {
-      "h": 2,
-      "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
-    "H1": {
-      "h": 0,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "G1": {
-      "h": 1,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "G2": {
-      "h": 1,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "I1": {
-      "h": 3,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "I2": {
-      "h": 1,
-      "a": 4,
-      "finished": true,
-      "min": "finished"
-    },
-    "J1": {
-      "h": 3,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "J2": {
-      "h": 3,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "K1": {
-      "h": 1,
-      "a": 1,
-      "finished": true,
-      "min": "Finished"
-    },
-    "L1": {
-      "h": 4,
-      "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
-    "K2": {
-      "h": 1,
-      "a": 3,
-      "finished": true,
-      "min": "finished"
-    },
-    "L2": {
-      "h": 1,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "A4": {
-      "h": 1,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "B3": {
-      "h": 4,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "B4": {
-      "h": 6,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "A3": {
-      "h": 1,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "C4": {
-      "h": 3,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "C3": {
-      "h": 0,
       "a": 1,
       "finished": true,
       "min": "finished"
@@ -187,57 +19,15 @@
       "finished": true,
       "min": "finished"
     },
-    "D4": {
-      "h": 0,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
     "E3": {
       "h": 2,
       "a": 1,
       "finished": true,
       "min": "finished"
     },
-    "E4": {
-      "h": 0,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
     "F3": {
       "h": 5,
       "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "F4": {
-      "h": 0,
-      "a": 4,
-      "finished": true,
-      "min": "finished"
-    },
-    "G3": {
-      "h": 0,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "H6": {
-      "h": 1,
-      "a": 3,
-      "finished": true,
-      "min": "finished"
-    },
-    "H3": {
-      "h": 4,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "G4": {
-      "h": 2,
-      "a": 2,
       "finished": true,
       "min": "finished"
     },
@@ -253,8 +43,44 @@
       "finished": true,
       "min": "finished"
     },
-    "J3": {
-      "h": 2,
+    "F5": {
+      "h": 1,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "R16_7": {
+      "h": 3,
+      "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
+    "SF1": {
+      "h": 0,
+      "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
+    "SF2": {
+      "h": 1,
+      "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
+    "C2": {
+      "h": 0,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "L1": {
+      "h": 4,
+      "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
+    "H3": {
+      "h": 4,
       "a": 0,
       "finished": true,
       "min": "finished"
@@ -277,81 +103,9 @@
       "finished": true,
       "min": "finished"
     },
-    "K4": {
-      "h": 1,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "L3": {
-      "h": 0,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "C5": {
-      "h": 0,
-      "a": 3,
-      "finished": true,
-      "min": "finished"
-    },
-    "C6": {
-      "h": 4,
-      "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
-    "A5": {
-      "h": 1,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
     "A6": {
       "h": 3,
       "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "B6": {
-      "h": 3,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "B5": {
-      "h": 2,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "E6": {
-      "h": 0,
-      "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
-    "E5": {
-      "h": 2,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "D6": {
-      "h": 0,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "D5": {
-      "h": 3,
-      "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
-    "F5": {
-      "h": 1,
-      "a": 1,
       "finished": true,
       "min": "finished"
     },
@@ -367,6 +121,162 @@
       "finished": true,
       "min": "finished"
     },
+    "L5": {
+      "h": 0,
+      "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
+    "K6": {
+      "h": 3,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "R32_13": {
+      "h": 3,
+      "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
+    "R32_11": {
+      "h": 1,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "QF4": {
+      "h": 3,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "A2": {
+      "h": 2,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "D1": {
+      "h": 4,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "I1": {
+      "h": 3,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "I2": {
+      "h": 1,
+      "a": 4,
+      "finished": true,
+      "min": "finished"
+    },
+    "K1": {
+      "h": 1,
+      "a": 1,
+      "finished": true,
+      "min": "Finished"
+    },
+    "G3": {
+      "h": 0,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "C6": {
+      "h": 4,
+      "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
+    "A5": {
+      "h": 1,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "R32_15": {
+      "h": 1,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "QF2": {
+      "h": 2,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "E2": {
+      "h": 1,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "E1": {
+      "h": 7,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "F2": {
+      "h": 5,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "A4": {
+      "h": 1,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "B4": {
+      "h": 6,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "C3": {
+      "h": 0,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "D4": {
+      "h": 0,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "J3": {
+      "h": 2,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "C5": {
+      "h": 0,
+      "a": 3,
+      "finished": true,
+      "min": "finished"
+    },
+    "B6": {
+      "h": 3,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "D5": {
+      "h": 3,
+      "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
     "I5": {
       "h": 1,
       "a": 4,
@@ -376,12 +286,6 @@
     "G5": {
       "h": 1,
       "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "G6": {
-      "h": 1,
-      "a": 5,
       "finished": true,
       "min": "finished"
     },
@@ -397,9 +301,225 @@
       "finished": true,
       "min": "finished"
     },
-    "L5": {
+    "J6": {
+      "h": 1,
+      "a": 3,
+      "finished": true,
+      "min": "finished"
+    },
+    "R32_2": {
+      "h": 2,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "R32_14": {
+      "h": 2,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "R32_16": {
+      "h": 2,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "R16_5": {
+      "h": 0,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "R16_8": {
+      "h": 0,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "A1": {
+      "h": 2,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "C1": {
+      "h": 1,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "F1": {
+      "h": 2,
+      "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
+    "B3": {
+      "h": 4,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "C4": {
+      "h": 3,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "F4": {
+      "h": 0,
+      "a": 4,
+      "finished": true,
+      "min": "finished"
+    },
+    "H6": {
+      "h": 1,
+      "a": 3,
+      "finished": true,
+      "min": "finished"
+    },
+    "G4": {
+      "h": 2,
+      "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
+    "K4": {
+      "h": 1,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "K5": {
+      "h": 0,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "R32_1": {
+      "h": 0,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "R32_6": {
+      "h": 3,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "R32_12": {
+      "h": 3,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "R16_1": {
+      "h": 0,
+      "a": 3,
+      "finished": true,
+      "min": "finished"
+    },
+    "R16_4": {
+      "h": 2,
+      "a": 3,
+      "finished": true,
+      "min": "finished"
+    },
+    "R16_6": {
+      "h": 1,
+      "a": 4,
+      "finished": true,
+      "min": "finished"
+    },
+    "H1": {
+      "h": 0,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "G2": {
+      "h": 1,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "J2": {
+      "h": 3,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "K2": {
+      "h": 1,
+      "a": 3,
+      "finished": true,
+      "min": "finished"
+    },
+    "R16_3": {
+      "h": 1,
+      "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
+    "QF1": {
+      "h": 2,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "FINAL": {
+      "h": 1,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "B1": {
+      "h": 1,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "H2": {
+      "h": 2,
+      "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
+    "J1": {
+      "h": 3,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "L2": {
+      "h": 1,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "A3": {
+      "h": 1,
+      "a": 1,
+      "finished": true,
+      "min": "finished"
+    },
+    "L3": {
+      "h": 0,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "E6": {
       "h": 0,
       "a": 2,
+      "finished": true,
+      "min": "finished"
+    },
+    "E5": {
+      "h": 2,
+      "a": 1,
       "finished": true,
       "min": "finished"
     },
@@ -415,51 +535,57 @@
       "finished": true,
       "min": "finished"
     },
-    "J6": {
-      "h": 1,
-      "a": 3,
-      "finished": true,
-      "min": "finished"
-    },
-    "K5": {
-      "h": 0,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "K6": {
-      "h": 3,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "R32_1": {
-      "h": 0,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
     "R32_3": {
       "h": 1,
       "a": 1,
       "finished": true,
       "min": "finished"
     },
-    "R32_4": {
+    "R32_10": {
+      "h": 2,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "BRONZE": {
+      "h": 4,
+      "a": 6,
+      "finished": true,
+      "min": "finished"
+    },
+    "G1": {
       "h": 1,
       "a": 1,
       "finished": true,
       "min": "finished"
     },
-    "R32_2": {
+    "E4": {
+      "h": 0,
+      "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "B5": {
       "h": 2,
       "a": 1,
       "finished": true,
       "min": "finished"
     },
-    "R32_6": {
-      "h": 3,
+    "D6": {
+      "h": 0,
       "a": 0,
+      "finished": true,
+      "min": "finished"
+    },
+    "G6": {
+      "h": 1,
+      "a": 5,
+      "finished": true,
+      "min": "finished"
+    },
+    "R32_4": {
+      "h": 1,
+      "a": 1,
       "finished": true,
       "min": "finished"
     },
@@ -481,51 +607,9 @@
       "finished": true,
       "min": "finished"
     },
-    "R32_10": {
-      "h": 2,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
     "R32_9": {
       "h": 3,
       "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
-    "R32_14": {
-      "h": 2,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "R32_12": {
-      "h": 3,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "R32_16": {
-      "h": 2,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "R32_13": {
-      "h": 3,
-      "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
-    "R32_15": {
-      "h": 1,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "R32_11": {
-      "h": 1,
-      "a": 1,
       "finished": true,
       "min": "finished"
     },
@@ -535,106 +619,14 @@
       "finished": true,
       "min": "finished"
     },
-    "R16_1": {
-      "h": 0,
-      "a": 3,
-      "finished": true,
-      "min": "finished"
-    },
-    "R16_3": {
-      "h": 1,
-      "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
-    "R16_4": {
-      "h": 2,
-      "a": 3,
-      "finished": true,
-      "min": "finished"
-    },
-    "R16_5": {
-      "h": 0,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "R16_6": {
-      "h": 1,
-      "a": 4,
-      "finished": true,
-      "min": "finished"
-    },
-    "R16_7": {
-      "h": 3,
-      "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
-    "R16_8": {
-      "h": 0,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "QF1": {
-      "h": 2,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
-    },
-    "QF2": {
-      "h": 2,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
     "QF3": {
       "h": 1,
       "a": 2,
       "finished": true,
       "min": "finished"
-    },
-    "QF4": {
-      "h": 3,
-      "a": 1,
-      "finished": true,
-      "min": "finished"
-    },
-    "SF1": {
-      "h": 0,
-      "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
-    "SF2": {
-      "h": 1,
-      "a": 2,
-      "finished": true,
-      "min": "finished"
-    },
-    "BRONZE": {
-      "h": 4,
-      "a": 6,
-      "finished": true,
-      "min": "finished"
-    },
-    "FINAL": {
-      "h": 1,
-      "a": 0,
-      "finished": true,
-      "min": "finished"
     }
   },
   "penScores": {
-    "R32_3": {
-      "h": 3,
-      "a": 4
-    },
-    "R32_4": {
-      "h": 2,
-      "a": 3
-    },
     "R32_11": {
       "h": 2,
       "a": 4
@@ -642,57 +634,23 @@
     "R16_8": {
       "h": 4,
       "a": 3
+    },
+    "R32_3": {
+      "h": 3,
+      "a": 4
+    },
+    "R32_4": {
+      "h": 2,
+      "a": 3
     }
   },
   "scorers": {
-    "A2": {
-      "h": [
-        "I.B. Hwang 67'",
-        "H.G. Oh 80'"
-      ],
-      "a": [
-        "L. Krej\u010d\u00ed 59'"
-      ]
-    },
-    "B1": {
-      "h": [
-        "C. Larin 11'"
-      ],
-      "a": [
-        "Jovo Luki\u0107 21'"
-      ]
-    },
-    "D1": {
-      "h": [
-        "D. Bobadilla 7'(OG)",
-        "F. Balogun 31'",
-        "F. Balogun 45'+5'",
-        "G. Reyna 90'+8'"
-      ],
-      "a": [
-        "Maur\u00edcio 73'"
-      ]
-    },
-    "C2": {
-      "h": [],
-      "a": [
-        "J. McGinn 28'"
-      ]
-    },
     "D2": {
       "h": [
         "Nestory Irankunda 27'",
         "C. Metcalfe 75'"
       ],
       "a": []
-    },
-    "C1": {
-      "h": [
-        "V. J\u00fanior 32'"
-      ],
-      "a": [
-        "I. Saibari 21'"
-      ]
     },
     "B2": {
       "h": [
@@ -702,207 +660,12 @@
         "Breel Embolo 17' (p)"
       ]
     },
-    "E2": {
-      "h": [
-        "A. Diallo 90'"
-      ],
-      "a": []
-    },
-    "E1": {
-      "h": [
-        "Felix Nmecha 7'",
-        "N. Schlotterbeck 38'",
-        "K. Havertz 45'+5'(p)",
-        "J. Musiala 47'",
-        "N. Brown 68'",
-        "D. Undav 78'",
-        "K. Havertz 88'"
-      ],
-      "a": [
-        "L. Comenencia 21'"
-      ]
-    },
-    "F1": {
-      "h": [
-        "Virgil van Dijk 51'",
-        "C. Summerville 64'"
-      ],
-      "a": [
-        "K. Nakamura 57'",
-        "K. Ogawa 89'"
-      ]
-    },
-    "F2": {
-      "h": [
-        "Y.Ayari 7'",
-        "A. Isak 30'",
-        "V. Gy\u00f6keres 59'",
-        "M. Svanberg 84'",
-        "Y.Ayari 90'+6'"
-      ],
-      "a": [
-        "O. Rekik 43'"
-      ]
-    },
-    "H2": {
-      "h": [
-        "Ramin Rezaiian 32'",
-        "Mohammad Mohebi 64'"
-      ],
-      "a": [
-        "Elijah Just 7'",
-        "Elijah Just 54'"
-      ]
-    },
-    "G1": {
-      "h": [
-        "Mohamed Hany 66'"
-      ],
-      "a": [
-        "Emam Ashour 20'"
-      ]
-    },
-    "G2": {
-      "h": [
-        "Abdulelah Al-Amri 41'"
-      ],
-      "a": [
-        "Maximiliano Ara\u00fajo 80'"
-      ]
-    },
-    "I1": {
-      "h": [
-        "K. Mbapp\u00e9 66'",
-        "B. Barcola 82'",
-        "K. Mbapp\u00e9 90+6'"
-      ],
-      "a": [
-        "I. Mbaye 90+5'"
-      ]
-    },
-    "I2": {
-      "h": [
-        "Aymen Hussein 39'"
-      ],
-      "a": [
-        "Erling Haaland 29'",
-        "Erling Haaland 43'",
-        "Leo \u00d8stig\u00e5rd 76'",
-        "Aymen Hussein 90+7'"
-      ]
-    },
-    "J1": {
-      "h": [
-        "Lionel Messi 17'",
-        "Lionel Messi 60'",
-        "Lionel Messi 76'"
-      ],
-      "a": []
-    },
-    "J2": {
-      "h": [
-        "Rvmanv Ashmid 21'",
-        "Izn Alarb 76'"
-      ],
-      "a": [
-        "Ali Avlvan 50'"
-      ]
-    },
-    "K1": {
-      "h": [
-        "J. Neves 6'"
-      ],
-      "a": [
-        "Y. Wissa 45+5'"
-      ]
-    },
-    "L1": {
-      "h": [
-        "H. Kane 12'(p)",
-        "H. Kane 42'",
-        "J. Bellingham 47'",
-        "M. Rashford 85'"
-      ],
-      "a": [
-        "M. Baturina 36'",
-        "P. Musa 45+5'"
-      ]
-    },
-    "K2": {
-      "h": [
-        "Abas Bk Fiz Allh Af 60'"
-      ],
-      "a": [
-        "Dnil Mvnvz 40'",
-        "Lviiz Diaz 65'",
-        "Khamintvn Kampaz 90+9'"
-      ]
-    },
-    "L2": {
-      "h": [
-        "Kalb Iirnki 90+5'"
-      ],
-      "a": []
-    },
-    "A4": {
-      "h": [
-        "Luis Romo 50'"
-      ],
-      "a": []
-    },
-    "B3": {
-      "h": [
-        "Jvhan Mnzambi 74'",
-        "Rvbn Vargas 84'",
-        "Jvhan Mnzambi 90'"
-      ],
-      "a": [
-        "Armin Mhmich 90+3'"
-      ]
-    },
-    "B4": {
-      "h": [
-        "Kail Larin 16'",
-        "Jonathan David 29'",
-        "Jonathan David 45+3'",
-        "Nathan Saliba 64'",
-        "Mohamed Almnai 75'",
-        "Jonathan David 90+2'"
-      ],
-      "a": []
-    },
-    "A3": {
-      "h": [
-        "\u202bmikhal Sadilk 6'"
-      ],
-      "a": []
-    },
-    "C4": {
-      "h": [
-        "Matheus Cunha 23'",
-        "Matheus Cunha 36'",
-        "Vin\u00edcius J\u00fanior 45+3'"
-      ],
-      "a": []
-    },
-    "C3": {
-      "h": [],
-      "a": [
-        "Asmaail Saibari 2'"
-      ]
-    },
     "D3": {
       "h": [
         "Kamrvn Bargs 11'",
         "Alex Freeman 43'"
       ],
       "a": []
-    },
-    "D4": {
-      "h": [],
-      "a": [
-        "Mat\u00edas Galarza 2'"
-      ]
     },
     "E3": {
       "h": [
@@ -925,44 +688,6 @@
         "Anthony Elanga 59'"
       ]
     },
-    "F4": {
-      "h": [],
-      "a": [
-        "Daichi Kamada 4'",
-        "Aiash Ivida 31'",
-        "Junya It\u014d 69'",
-        "Aiash Ivida 83'"
-      ]
-    },
-    "H6": {
-      "h": [
-        "Fin Svrman 15'"
-      ],
-      "a": [
-        "Mostafa Ziko 58'",
-        "Mohamed Salah 67'",
-        "Mahmoud Hassan Trezeguet 82'"
-      ]
-    },
-    "H3": {
-      "h": [
-        "Lamine Yamal 10'",
-        "Mikel Oyarzabal 21'",
-        "Mikel Oyarzabal 24'",
-        "Hassan Mohamed Altmbkti 49'"
-      ],
-      "a": []
-    },
-    "G4": {
-      "h": [
-        "Maximiliano Ara\u00fajo 44'",
-        "Agust\u00edn Canobbio 45+6'"
-      ],
-      "a": [
-        "Kevin Pina 21'",
-        "Hliv Varla 61'"
-      ]
-    },
     "I4": {
       "h": [
         "Kylian Mbapp\u00e9 14'",
@@ -982,10 +707,64 @@
         "Isma\u00efla Sarr 90+3'"
       ]
     },
-    "J3": {
+    "F5": {
       "h": [
-        "Lionel Messi 38'",
-        "Lionel Messi 90+5'"
+        "Daizen Maeda 56'"
+      ],
+      "a": [
+        "Anthony Elanga 62'"
+      ]
+    },
+    "R16_7": {
+      "h": [
+        "Cristian Romero 79'",
+        "Lionel Messi 83'",
+        "Enzo Fern\u00e1ndez 90+2'"
+      ],
+      "a": [
+        "Yasser Ibrahim 15'",
+        "Mostafa Ziko 67'"
+      ]
+    },
+    "SF1": {
+      "h": [],
+      "a": [
+        "Pedro Porro 58'"
+      ]
+    },
+    "SF2": {
+      "h": [
+        "Antvni Gvrdvn 55'"
+      ],
+      "a": [
+        "Enzo Fern\u00e1ndez 85'",
+        "Lautaro Mart\u00ednez 90+2'"
+      ]
+    },
+    "C2": {
+      "h": [],
+      "a": [
+        "J. McGinn 28'"
+      ]
+    },
+    "L1": {
+      "h": [
+        "H. Kane 12'(p)",
+        "H. Kane 42'",
+        "J. Bellingham 47'",
+        "M. Rashford 85'"
+      ],
+      "a": [
+        "M. Baturina 36'",
+        "P. Musa 45+5'"
+      ]
+    },
+    "H3": {
+      "h": [
+        "Lamine Yamal 10'",
+        "Mikel Oyarzabal 21'",
+        "Mikel Oyarzabal 24'",
+        "Hassan Mohamed Altmbkti 49'"
       ],
       "a": []
     },
@@ -1014,38 +793,6 @@
         "Ante Budimir 54'"
       ]
     },
-    "K4": {
-      "h": [
-        "Dnil Mvnvz 76'"
-      ],
-      "a": []
-    },
-    "C5": {
-      "h": [],
-      "a": [
-        "Vin\u00edcius J\u00fanior 7'",
-        "Vin\u00edcius J\u00fanior 45+3'",
-        "Matheus Cunha 60'"
-      ]
-    },
-    "C6": {
-      "h": [
-        "Achraf Hakimi 39'",
-        "Asmaail Saibari 45+1'",
-        "Svfian Rhimi 78'",
-        "Gessime Yassine 89'"
-      ],
-      "a": [
-        "Yassine Bounou 10'",
-        "Wilson Isidor 43'"
-      ]
-    },
-    "A5": {
-      "h": [
-        "Taplv Maskv 63'"
-      ],
-      "a": []
-    },
     "A6": {
       "h": [
         "Mateo Ch\u00e1vez 55'",
@@ -1053,60 +800,6 @@
         "\u00c1lvaro Fidalgo 90+4'"
       ],
       "a": []
-    },
-    "B6": {
-      "h": [
-        "Karim Alaibgvvich 29'",
-        "Abvnad 34'",
-        "Armin Mhmich 80'"
-      ],
-      "a": [
-        "Hassan Al-Haydos 42'"
-      ]
-    },
-    "B5": {
-      "h": [
-        "Rub\u00e9n Vargas 46'",
-        "Jvhan Mnzambi 57'"
-      ],
-      "a": [
-        "Prvmis Divid 76'"
-      ]
-    },
-    "E6": {
-      "h": [],
-      "a": [
-        "Nikvlas Ph Ph 7'",
-        "Nikvlas Ph Ph 64'"
-      ]
-    },
-    "E5": {
-      "h": [
-        "Nilsvn Angvlv 9'",
-        "Gvnzalv Plata 77'"
-      ],
-      "a": [
-        "Leroy San\u00e9 2'"
-      ]
-    },
-    "D5": {
-      "h": [
-        "Arda G\u00fcler 10'",
-        "Baris Alpr Ailmaz 31'",
-        "Kan Aihan 90+8'"
-      ],
-      "a": [
-        "Auston Trusty 3'",
-        "Sebastian Berhalter 49'"
-      ]
-    },
-    "F5": {
-      "h": [
-        "Daizen Maeda 56'"
-      ],
-      "a": [
-        "Anthony Elanga 62'"
-      ]
     },
     "F6": {
       "h": [
@@ -1128,6 +821,230 @@
       ],
       "a": []
     },
+    "L5": {
+      "h": [],
+      "a": [
+        "Jvd Blingham 62'",
+        "Hri Kin 67'"
+      ]
+    },
+    "K6": {
+      "h": [
+        "Fistvn Mail 78'",
+        "Yoane Wissa 90+1'"
+      ],
+      "a": [
+        "Aldvr Shvmvrvdvf 10'"
+      ]
+    },
+    "R32_13": {
+      "h": [
+        "Lionel Messi 29'",
+        "Lisandro Mart\u00ednez 92'",
+        "Dini Bvrgs 111'"
+      ],
+      "a": [
+        "Drvi Dviart 59'",
+        "Lvpz Kabral 103'"
+      ]
+    },
+    "R32_11": {
+      "h": [
+        "Mohamed Hany 55'"
+      ],
+      "a": [
+        "Emam Ashour 13'"
+      ]
+    },
+    "QF4": {
+      "h": [
+        "Alexis Mac Allister 10'",
+        "Khvlin Alvarz 112'",
+        "Lautaro Mart\u00ednez 120+1'"
+      ],
+      "a": [
+        "Dn Andvi 67'"
+      ]
+    },
+    "A2": {
+      "h": [
+        "I.B. Hwang 67'",
+        "H.G. Oh 80'"
+      ],
+      "a": [
+        "L. Krej\u010d\u00ed 59'"
+      ]
+    },
+    "D1": {
+      "h": [
+        "D. Bobadilla 7'(OG)",
+        "F. Balogun 31'",
+        "F. Balogun 45'+5'",
+        "G. Reyna 90'+8'"
+      ],
+      "a": [
+        "Maur\u00edcio 73'"
+      ]
+    },
+    "I1": {
+      "h": [
+        "K. Mbapp\u00e9 66'",
+        "B. Barcola 82'",
+        "K. Mbapp\u00e9 90+6'"
+      ],
+      "a": [
+        "I. Mbaye 90+5'"
+      ]
+    },
+    "I2": {
+      "h": [
+        "Aymen Hussein 39'"
+      ],
+      "a": [
+        "Erling Haaland 29'",
+        "Erling Haaland 43'",
+        "Leo \u00d8stig\u00e5rd 76'",
+        "Aymen Hussein 90+7'"
+      ]
+    },
+    "K1": {
+      "h": [
+        "J. Neves 6'"
+      ],
+      "a": [
+        "Y. Wissa 45+5'"
+      ]
+    },
+    "C6": {
+      "h": [
+        "Achraf Hakimi 39'",
+        "Asmaail Saibari 45+1'",
+        "Svfian Rhimi 78'",
+        "Gessime Yassine 89'"
+      ],
+      "a": [
+        "Yassine Bounou 10'",
+        "Wilson Isidor 43'"
+      ]
+    },
+    "A5": {
+      "h": [
+        "Taplv Maskv 63'"
+      ],
+      "a": []
+    },
+    "R32_15": {
+      "h": [
+        "Jan Arias 14'"
+      ],
+      "a": []
+    },
+    "QF2": {
+      "h": [
+        "Fabin Rviz 30'",
+        "Mikel Merino 88'"
+      ],
+      "a": [
+        "Sharl D Ktlar 41'"
+      ]
+    },
+    "E2": {
+      "h": [
+        "A. Diallo 90'"
+      ],
+      "a": []
+    },
+    "E1": {
+      "h": [
+        "Felix Nmecha 7'",
+        "N. Schlotterbeck 38'",
+        "K. Havertz 45'+5'(p)",
+        "J. Musiala 47'",
+        "N. Brown 68'",
+        "D. Undav 78'",
+        "K. Havertz 88'"
+      ],
+      "a": [
+        "L. Comenencia 21'"
+      ]
+    },
+    "F2": {
+      "h": [
+        "Y.Ayari 7'",
+        "A. Isak 30'",
+        "V. Gy\u00f6keres 59'",
+        "M. Svanberg 84'",
+        "Y.Ayari 90'+6'"
+      ],
+      "a": [
+        "O. Rekik 43'"
+      ]
+    },
+    "A4": {
+      "h": [
+        "Luis Romo 50'"
+      ],
+      "a": []
+    },
+    "B4": {
+      "h": [
+        "Kail Larin 16'",
+        "Jonathan David 29'",
+        "Jonathan David 45+3'",
+        "Nathan Saliba 64'",
+        "Mohamed Almnai 75'",
+        "Jonathan David 90+2'"
+      ],
+      "a": []
+    },
+    "C3": {
+      "h": [],
+      "a": [
+        "Asmaail Saibari 2'"
+      ]
+    },
+    "D4": {
+      "h": [],
+      "a": [
+        "Mat\u00edas Galarza 2'"
+      ]
+    },
+    "J3": {
+      "h": [
+        "Lionel Messi 38'",
+        "Lionel Messi 90+5'"
+      ],
+      "a": []
+    },
+    "C5": {
+      "h": [],
+      "a": [
+        "Vin\u00edcius J\u00fanior 7'",
+        "Vin\u00edcius J\u00fanior 45+3'",
+        "Matheus Cunha 60'"
+      ]
+    },
+    "B6": {
+      "h": [
+        "Karim Alaibgvvich 29'",
+        "Abvnad 34'",
+        "Armin Mhmich 80'"
+      ],
+      "a": [
+        "Hassan Al-Haydos 42'"
+      ]
+    },
+    "D5": {
+      "h": [
+        "Arda G\u00fcler 10'",
+        "Baris Alpr Ailmaz 31'",
+        "Kan Aihan 90+8'"
+      ],
+      "a": [
+        "Auston Trusty 3'",
+        "Sebastian Berhalter 49'"
+      ]
+    },
     "I5": {
       "h": [
         "Thelo Aasgaard 21'"
@@ -1147,29 +1064,272 @@
         "Ramin Rezaeian 14'"
       ]
     },
-    "G6": {
-      "h": [
-        "Ali Jast 84'"
-      ],
-      "a": [
-        "Leandro Trossard 28'",
-        "Leandro Trossard 50'",
-        "Kevin De Bruyne 66'",
-        "Romelu Lukaku 86'",
-        "Alexis Saelemaekers 90+4'"
-      ]
-    },
     "H5": {
       "h": [],
       "a": [
         "\u00c1lex Baena 42'"
       ]
     },
-    "L5": {
+    "J6": {
+      "h": [
+        "Mvsi Altmari 55'"
+      ],
+      "a": [
+        "Jivani Lv Slsv 19'",
+        "Lautaro Mart\u00ednez 31'(P)",
+        "Lionel Messi 80'"
+      ]
+    },
+    "R32_2": {
+      "h": [
+        "Casemiro 56'",
+        "Gabriel Martinelli 90+5'"
+      ],
+      "a": [
+        "Kaish\u016b Sano 29'"
+      ]
+    },
+    "R32_14": {
+      "h": [
+        "Gvnchalv Ramvs 90+4'"
+      ],
+      "a": [
+        "Ivan Peri\u0161i\u0107 53'"
+      ]
+    },
+    "R32_16": {
+      "h": [
+        "Breel Embolo 10'",
+        "Dn Andvi 46'"
+      ],
+      "a": []
+    },
+    "R16_5": {
       "h": [],
       "a": [
-        "Jvd Blingham 62'",
-        "Hri Kin 67'"
+        "Mikel Merino 90+1'"
+      ]
+    },
+    "C1": {
+      "h": [
+        "V. J\u00fanior 32'"
+      ],
+      "a": [
+        "I. Saibari 21'"
+      ]
+    },
+    "F1": {
+      "h": [
+        "Virgil van Dijk 51'",
+        "C. Summerville 64'"
+      ],
+      "a": [
+        "K. Nakamura 57'",
+        "K. Ogawa 89'"
+      ]
+    },
+    "B3": {
+      "h": [
+        "Jvhan Mnzambi 74'",
+        "Rvbn Vargas 84'",
+        "Jvhan Mnzambi 90'"
+      ],
+      "a": [
+        "Armin Mhmich 90+3'"
+      ]
+    },
+    "C4": {
+      "h": [
+        "Matheus Cunha 23'",
+        "Matheus Cunha 36'",
+        "Vin\u00edcius J\u00fanior 45+3'"
+      ],
+      "a": []
+    },
+    "F4": {
+      "h": [],
+      "a": [
+        "Daichi Kamada 4'",
+        "Aiash Ivida 31'",
+        "Junya It\u014d 69'",
+        "Aiash Ivida 83'"
+      ]
+    },
+    "H6": {
+      "h": [
+        "Fin Svrman 15'"
+      ],
+      "a": [
+        "Mostafa Ziko 58'",
+        "Mohamed Salah 67'",
+        "Mahmoud Hassan Trezeguet 82'"
+      ]
+    },
+    "G4": {
+      "h": [
+        "Maximiliano Ara\u00fajo 44'",
+        "Agust\u00edn Canobbio 45+6'"
+      ],
+      "a": [
+        "Kevin Pina 21'",
+        "Hliv Varla 61'"
+      ]
+    },
+    "K4": {
+      "h": [
+        "Dnil Mvnvz 76'"
+      ],
+      "a": []
+    },
+    "R32_1": {
+      "h": [],
+      "a": [
+        "Astfan Avstakviv 90+2'"
+      ]
+    },
+    "R32_6": {
+      "h": [
+        "Kylian Mbapp\u00e9 45'",
+        "Bradley Barcola 53'",
+        "Kylian Mbapp\u00e9 74'"
+      ],
+      "a": []
+    },
+    "R32_12": {
+      "h": [
+        "Mikel Oyarzabal 36'",
+        "Pedro Porro 66'",
+        "Mikel Oyarzabal 89'"
+      ],
+      "a": []
+    },
+    "R16_1": {
+      "h": [],
+      "a": [
+        "Azdin Avnahi 50'",
+        "Azdin Avnahi 82'",
+        "Svfian Rhimi 90+8'"
+      ]
+    },
+    "R16_4": {
+      "h": [
+        "Jvlian Kviinvnz 42'"
+      ],
+      "a": [
+        "Jvd Blingham 36'",
+        "Jvd Blingham 38'"
+      ]
+    },
+    "R16_6": {
+      "h": [
+        "Malik Tillman 31'"
+      ],
+      "a": [
+        "Sharl D Ktlar 9'",
+        "Sharl D Ktlar 33'",
+        "Hans Vanaken 57'",
+        "Romelu Lukaku 90+3'"
+      ]
+    },
+    "G2": {
+      "h": [
+        "Abdulelah Al-Amri 41'"
+      ],
+      "a": [
+        "Maximiliano Ara\u00fajo 80'"
+      ]
+    },
+    "J2": {
+      "h": [
+        "Rvmanv Ashmid 21'",
+        "Izn Alarb 76'"
+      ],
+      "a": [
+        "Ali Avlvan 50'"
+      ]
+    },
+    "K2": {
+      "h": [
+        "Abas Bk Fiz Allh Af 60'"
+      ],
+      "a": [
+        "Dnil Mvnvz 40'",
+        "Lviiz Diaz 65'",
+        "Khamintvn Kampaz 90+9'"
+      ]
+    },
+    "R16_3": {
+      "h": [],
+      "a": [
+        "Erling Haaland 79'",
+        "Erling Haaland 90'"
+      ]
+    },
+    "QF1": {
+      "h": [
+        "Kylian Mbapp\u00e9 60'",
+        "Ousmane Demb\u00e9l\u00e9 66'"
+      ],
+      "a": []
+    },
+    "FINAL": {
+      "h": [
+        "Ferran Torres 106'"
+      ],
+      "a": []
+    },
+    "B1": {
+      "h": [
+        "C. Larin 11'"
+      ],
+      "a": [
+        "Jovo Luki\u0107 21'"
+      ]
+    },
+    "H2": {
+      "h": [
+        "Ramin Rezaiian 32'",
+        "Mohammad Mohebi 64'"
+      ],
+      "a": [
+        "Elijah Just 7'",
+        "Elijah Just 54'"
+      ]
+    },
+    "J1": {
+      "h": [
+        "Lionel Messi 17'",
+        "Lionel Messi 60'",
+        "Lionel Messi 76'"
+      ],
+      "a": []
+    },
+    "L2": {
+      "h": [
+        "Kalb Iirnki 90+5'"
+      ],
+      "a": []
+    },
+    "A3": {
+      "h": [
+        "\u202bmikhal Sadilk 6'"
+      ],
+      "a": []
+    },
+    "E6": {
+      "h": [],
+      "a": [
+        "Nikvlas Ph Ph 7'",
+        "Nikvlas Ph Ph 64'"
+      ]
+    },
+    "E5": {
+      "h": [
+        "Nilsvn Angvlv 9'",
+        "Gvnzalv Plata 77'"
+      ],
+      "a": [
+        "Leroy San\u00e9 2'"
       ]
     },
     "L6": {
@@ -1193,37 +1353,63 @@
         "Sa\u0161a Kalajd\u017ei\u0107 90+6'"
       ]
     },
-    "J6": {
-      "h": [
-        "Mvsi Altmari 55'"
-      ],
-      "a": [
-        "Jivani Lv Slsv 19'",
-        "Lautaro Mart\u00ednez 31'(P)",
-        "Lionel Messi 80'"
-      ]
-    },
-    "K6": {
-      "h": [
-        "Fistvn Mail 78'",
-        "Yoane Wissa 90+1'"
-      ],
-      "a": [
-        "Aldvr Shvmvrvdvf 10'"
-      ]
-    },
-    "R32_1": {
-      "h": [],
-      "a": [
-        "Astfan Avstakviv 90+2'"
-      ]
-    },
     "R32_3": {
       "h": [
         "Kai Havertz 54'"
       ],
       "a": [
         "Khvliv Ansisv 42'"
+      ]
+    },
+    "R32_10": {
+      "h": [
+        "Flvrin Balvgan 45'",
+        "Malik Tillman 82'"
+      ],
+      "a": []
+    },
+    "BRONZE": {
+      "h": [
+        "Kylian Mbapp\u00e9 48'",
+        "Bradley Barcola 54'",
+        "Kylian Mbapp\u00e9 66'",
+        "Ousmane Demb\u00e9l\u00e9 90+6'"
+      ],
+      "a": [
+        "Dklan Rais 3'",
+        "Azri Knsa 18'",
+        "Bvkaiv Saka 37'",
+        "Bvkaiv Saka 45+1'",
+        "Jvd Blingham 90+8'"
+      ]
+    },
+    "G1": {
+      "h": [
+        "Mohamed Hany 66'"
+      ],
+      "a": [
+        "Emam Ashour 20'"
+      ]
+    },
+    "B5": {
+      "h": [
+        "Rub\u00e9n Vargas 46'",
+        "Jvhan Mnzambi 57'"
+      ],
+      "a": [
+        "Prvmis Divid 76'"
+      ]
+    },
+    "G6": {
+      "h": [
+        "Ali Jast 84'"
+      ],
+      "a": [
+        "Leandro Trossard 28'",
+        "Leandro Trossard 50'",
+        "Kevin De Bruyne 66'",
+        "Romelu Lukaku 86'",
+        "Alexis Saelemaekers 90+4'"
       ]
     },
     "R32_4": {
@@ -1233,23 +1419,6 @@
       "a": [
         "Issa Diop 90+1'"
       ]
-    },
-    "R32_2": {
-      "h": [
-        "Casemiro 56'",
-        "Gabriel Martinelli 90+5'"
-      ],
-      "a": [
-        "Kaish\u016b Sano 29'"
-      ]
-    },
-    "R32_6": {
-      "h": [
-        "Kylian Mbapp\u00e9 45'",
-        "Bradley Barcola 53'",
-        "Kylian Mbapp\u00e9 74'"
-      ],
-      "a": []
     },
     "R32_5": {
       "h": [
@@ -1276,13 +1445,6 @@
         "Braian Sipnga 7'"
       ]
     },
-    "R32_10": {
-      "h": [
-        "Flvrin Balvgan 45'",
-        "Malik Tillman 82'"
-      ],
-      "a": []
-    },
     "R32_9": {
       "h": [
         "Romelu Lukaku 86'",
@@ -1294,122 +1456,6 @@
         "Isma\u00efla Sarr 51'"
       ]
     },
-    "R32_14": {
-      "h": [
-        "Gvnchalv Ramvs 90+4'"
-      ],
-      "a": [
-        "Ivan Peri\u0161i\u0107 53'"
-      ]
-    },
-    "R32_12": {
-      "h": [
-        "Mikel Oyarzabal 36'",
-        "Pedro Porro 66'",
-        "Mikel Oyarzabal 89'"
-      ],
-      "a": []
-    },
-    "R32_16": {
-      "h": [
-        "Breel Embolo 10'",
-        "Dn Andvi 46'"
-      ],
-      "a": []
-    },
-    "R32_13": {
-      "h": [
-        "Lionel Messi 29'",
-        "Lisandro Mart\u00ednez 92'",
-        "Dini Bvrgs 111'"
-      ],
-      "a": [
-        "Drvi Dviart 59'",
-        "Lvpz Kabral 103'"
-      ]
-    },
-    "R32_15": {
-      "h": [
-        "Jan Arias 14'"
-      ],
-      "a": []
-    },
-    "R32_11": {
-      "h": [
-        "Mohamed Hany 55'"
-      ],
-      "a": [
-        "Emam Ashour 13'"
-      ]
-    },
-    "R16_1": {
-      "h": [],
-      "a": [
-        "Azdin Avnahi 50'",
-        "Azdin Avnahi 82'",
-        "Svfian Rhimi 90+8'"
-      ]
-    },
-    "R16_3": {
-      "h": [],
-      "a": [
-        "Erling Haaland 79'",
-        "Erling Haaland 90'"
-      ]
-    },
-    "R16_4": {
-      "h": [
-        "Jvlian Kviinvnz 42'"
-      ],
-      "a": [
-        "Jvd Blingham 36'",
-        "Jvd Blingham 38'"
-      ]
-    },
-    "R16_5": {
-      "h": [],
-      "a": [
-        "Mikel Merino 90+1'"
-      ]
-    },
-    "R16_6": {
-      "h": [
-        "Malik Tillman 31'"
-      ],
-      "a": [
-        "Sharl D Ktlar 9'",
-        "Sharl D Ktlar 33'",
-        "Hans Vanaken 57'",
-        "Romelu Lukaku 90+3'"
-      ]
-    },
-    "R16_7": {
-      "h": [
-        "Cristian Romero 79'",
-        "Lionel Messi 83'",
-        "Enzo Fern\u00e1ndez 90+2'"
-      ],
-      "a": [
-        "Yasser Ibrahim 15'",
-        "Mostafa Ziko 67'"
-      ]
-    },
-    "QF1": {
-      "h": [
-        "Kylian Mbapp\u00e9 60'",
-        "Ousmane Demb\u00e9l\u00e9 66'"
-      ],
-      "a": []
-    },
-    "QF2": {
-      "h": [
-        "Fabin Rviz 30'",
-        "Mikel Merino 88'"
-      ],
-      "a": [
-        "Sharl D Ktlar 41'"
-      ]
-    },
     "QF3": {
       "h": [
         "Andrias Shldrvp 36'"
@@ -1418,52 +1464,6 @@
         "Jvd Blingham 45+2'",
         "Jvd Blingham 93'"
       ]
-    },
-    "QF4": {
-      "h": [
-        "Alexis Mac Allister 10'",
-        "Khvlin Alvarz 112'",
-        "Lautaro Mart\u00ednez 120+1'"
-      ],
-      "a": [
-        "Dn Andvi 67'"
-      ]
-    },
-    "SF1": {
-      "h": [],
-      "a": [
-        "Pedro Porro 58'"
-      ]
-    },
-    "SF2": {
-      "h": [
-        "Antvni Gvrdvn 55'"
-      ],
-      "a": [
-        "Enzo Fern\u00e1ndez 85'",
-        "Lautaro Mart\u00ednez 90+2'"
-      ]
-    },
-    "BRONZE": {
-      "h": [
-        "Kylian Mbapp\u00e9 48'",
-        "Bradley Barcola 54'",
-        "Kylian Mbapp\u00e9 66'",
-        "Ousmane Demb\u00e9l\u00e9 90+6'"
-      ],
-      "a": [
-        "Dklan Rais 3'",
-        "Azri Knsa 18'",
-        "Bvkaiv Saka 37'",
-        "Bvkaiv Saka 45+1'",
-        "Jvd Blingham 90+8'"
-      ]
-    },
-    "FINAL": {
-      "h": [
-        "Ferran Torres 106'"
-      ],
-      "a": []
     }
   },
   "af_stats": {
