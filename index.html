@@ -394,39 +394,29 @@ box-shadow: 0 0 20px rgba(255,215,0,0.3);
 .ms-period-chart { display:flex; flex-direction:column; gap:7px; }
 
 /* ── Hydration Break Chart ──────────────────────────────────────────── */
-.hb-chart-wrap { width:100%; }
-.hb-half-label { font-size:0.6rem; letter-spacing:2px; color:rgba(255,255,255,0.3); margin:10px 0 6px; }
-/* Desktop: horizontal bars */
-.hb-row { display:grid; grid-template-columns:36px 1fr 28px; align-items:center; gap:6px; margin-bottom:3px; }
-.hb-label { font-size:0.68rem; color:rgba(255,255,255,0.45); text-align:right; font-family:'Barlow Condensed',sans-serif; }
-.hb-bar-wrap { height:10px; background:rgba(255,255,255,0.06); border-radius:3px; overflow:hidden; }
-.hb-bar { height:100%; border-radius:3px; background:linear-gradient(90deg,#3b8fef,#60a5fa); transition:width 0.4s ease; }
-.hb-bar.post-break { background:linear-gradient(90deg,#34d399,#6ee7b7); }
-.hb-bar.injury { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
-.hb-count { font-size:0.68rem; color:rgba(255,255,255,0.5); font-family:'Barlow Condensed',sans-serif; }
-.hb-break-marker { grid-column:1/-1; display:flex; align-items:center; gap:6px; margin:4px 0; }
-.hb-break-line { flex:1; height:1px; background:rgba(96,160,255,0.25); }
-.hb-break-text { font-size:0.58rem; color:#60a5fa; letter-spacing:1px; white-space:nowrap; }
-.hb-ht-line { flex:1; height:1px; background:rgba(255,215,0,0.2); }
-.hb-ht-text { font-size:0.58rem; color:rgba(255,215,0,0.6); letter-spacing:1px; white-space:nowrap; }
-.hb-footnote { font-size:0.65rem; color:rgba(255,255,255,0.28); margin-top:10px; font-style:italic; }
-/* Mobile: vertical bars */
+.hb-wrap { width:100%; }
+.hb-row4 { display:grid; grid-template-columns:120px 1fr auto; align-items:center; gap:10px; margin-bottom:8px; }
+.hb-label4 { font-size:0.72rem; color:rgba(255,255,255,0.55); font-family:'Barlow Condensed',sans-serif; letter-spacing:0.5px; text-align:right; }
+.hb-label4.pre { color:rgba(96,160,255,0.8); }
+.hb-label4.post { color:rgba(52,211,153,0.9); font-weight:700; }
+.hb-bar-wrap4 { height:18px; background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden; }
+.hb-bar4 { height:100%; border-radius:4px; transition:width 0.5s ease; }
+.hb-bar4.pre { background:linear-gradient(90deg,#3b8fef,#60a5fa); }
+.hb-bar4.post { background:linear-gradient(90deg,#34d399,#6ee7b7); }
+.hb-right4 { display:flex; align-items:center; gap:8px; min-width:90px; }
+.hb-count4 { font-size:0.78rem; font-weight:700; color:#e8e8e8; font-family:'Barlow Condensed',sans-serif; min-width:28px; }
+.hb-pct4 { font-size:0.68rem; color:#34d399; font-weight:700; font-family:'Barlow Condensed',sans-serif; }
+.hb-divider4 { display:flex; align-items:center; gap:8px; margin:10px 0; }
+.hb-divider4-line { flex:1; height:1px; background:rgba(255,255,255,0.07); }
+.hb-divider4-text { font-size:0.6rem; color:rgba(255,255,255,0.25); letter-spacing:1px; white-space:nowrap; font-family:'Barlow Condensed',sans-serif; }
+.hb-footnote { font-size:0.65rem; color:rgba(255,255,255,0.28); margin-top:12px; font-style:italic; }
 @media (max-width:600px) {
-  .hb-chart-mobile { display:flex; flex-direction:column; gap:0; }
-  .hb-half-block { display:flex; flex-direction:column; gap:2px; }
-  .hb-bars-row { display:flex; align-items:flex-end; gap:3px; height:80px; }
-  .hb-vcol { display:flex; flex-direction:column; align-items:center; gap:2px; flex:1; }
-  .hb-vbar-wrap { width:100%; display:flex; align-items:flex-end; justify-content:center; height:60px; }
-  .hb-vbar { width:100%; border-radius:2px 2px 0 0; background:linear-gradient(0deg,#3b8fef,#60a5fa); transition:height 0.4s ease; }
-  .hb-vbar.post-break { background:linear-gradient(0deg,#34d399,#6ee7b7); }
-  .hb-vbar.injury { background:linear-gradient(0deg,#f59e0b,#fbbf24); }
-  .hb-vlabel { font-size:0.52rem; color:rgba(255,255,255,0.4); text-align:center; line-height:1.1; }
-  .hb-vcount { font-size:0.58rem; color:rgba(255,255,255,0.5); }
-  .hb-mobile-break { display:flex; align-items:center; gap:4px; margin:4px 0; }
-  .hb-row { display:none; } /* hide desktop rows on mobile */
-}
-@media (min-width:601px) {
-  .hb-chart-mobile { display:none; } /* hide mobile chart on desktop */
+  .hb-row4 { grid-template-columns:90px 1fr auto; gap:6px; }
+  .hb-label4 { font-size:0.65rem; }
+  .hb-bar-wrap4 { height:14px; }
+  .hb-right4 { min-width:70px; gap:5px; }
+  .hb-count4 { font-size:0.72rem; min-width:22px; }
+  .hb-pct4 { font-size:0.62rem; }
 }
 .ms-period-row { display:flex; align-items:center; gap:10px; transition:transform 0.2s; cursor:default; }
 .ms-period-row:hover { transform:translateX(4px); }
@@ -5630,99 +5620,59 @@ function renderStats() {
 // ====== MORE STATS (openfootball powered) =====================================
 
 function buildHydrationChart(g5, etGoals, etMatches) {
-  var BINS_1H = ['1-5','6-10','11-15','16-20','21-25','26-30','31-35','36-40','41-45','45+'];
-  var BINS_2H = ['46-50','51-55','56-60','61-65','66-70','71-75','76-80','81-85','86-90','90+'];
-  var POST_BREAK_BINS = {'26-30':1,'31-35':1,'32-40':1,'71-75':1,'76-80':1};
-  var INJURY_BINS = {'45+':1,'90+':1};
+  // 4-bin pre/post comparison
+  // PRE-BREAK 1:  1-25'  (before first hydration break)
+  // POST-BREAK 1: 26-45' (after first break incl injury time)
+  // PRE-BREAK 2:  46-70' (before second hydration break)
+  // POST-BREAK 2: 71-90+ (after second break incl injury time)
 
-  var allBins = BINS_1H.concat(BINS_2H);
-  var maxVal = Math.max.apply(null, allBins.map(function(b){ return g5[b]||0; })) || 1;
+  var pre1  = (g5['1-5']||0)+(g5['6-10']||0)+(g5['11-15']||0)+(g5['16-20']||0)+(g5['21-25']||0);
+  var post1 = (g5['26-30']||0)+(g5['31-35']||0)+(g5['36-40']||0)+(g5['41-45']||0)+(g5['45+']||0);
+  var pre2  = (g5['46-50']||0)+(g5['51-55']||0)+(g5['56-60']||0)+(g5['61-65']||0)+(g5['66-70']||0);
+  var post2 = (g5['71-75']||0)+(g5['76-80']||0)+(g5['81-85']||0)+(g5['86-90']||0)+(g5['90+']||0);
 
-  function barClass(bin) {
-    if (INJURY_BINS[bin]) return 'injury';
-    if (POST_BREAK_BINS[bin]) return 'post-break';
-    return '';
+  var maxVal = Math.max(pre1, post1, pre2, post2) || 1;
+
+  function pct(v) { return Math.round(v / maxVal * 100); }
+  function diff(pre, post) {
+    if (pre === 0) return '';
+    var d = Math.round((post - pre) / pre * 100);
+    return d > 0 ? '(+' + d + '%)' : '(' + d + '%)';
   }
 
-  function desktopRow(bin) {
-    var v = g5[bin] || 0;
-    var pct = Math.round(v / maxVal * 100);
-    var cls = barClass(bin);
-    return '<div class="hb-row">'
-      + '<div class="hb-label">' + bin + '\'</div>'
-      + '<div class="hb-bar-wrap"><div class="hb-bar' + (cls?' '+cls:'') + '" style="width:' + pct + '%"></div></div>'
-      + '<div class="hb-count">' + v + '</div>'
+  function row(label, v, cls, diffStr) {
+    return '<div class="hb-row4">'
+      + '<div class="hb-label4 ' + cls + '">' + label + '</div>'
+      + '<div class="hb-bar-wrap4"><div class="hb-bar4 ' + cls + '" style="width:' + pct(v) + '%"></div></div>'
+      + '<div class="hb-right4">'
+      + '<span class="hb-count4">' + v + '</span>'
+      + (diffStr ? '<span class="hb-pct4">' + diffStr + '</span>' : '')
+      + '</div>'
       + '</div>';
   }
 
-  function breakMarker(icon, text, isHT) {
-    var lineClass = isHT ? 'hb-ht-line' : 'hb-break-line';
-    var textClass = isHT ? 'hb-ht-text' : 'hb-break-text';
-    return '<div class="hb-break-marker">'
-      + '<div class="' + lineClass + '"></div>'
-      + '<span class="' + textClass + '">' + icon + ' ' + text + '</span>'
-      + '<div class="' + lineClass + '"></div>'
+  function divider(text) {
+    return '<div class="hb-divider4">'
+      + '<div class="hb-divider4-line"></div>'
+      + '<span class="hb-divider4-text">' + text + '</span>'
+      + '<div class="hb-divider4-line"></div>'
       + '</div>';
   }
 
-  // Desktop: horizontal bars, 1st half then 2nd half with markers
-  var desktopHtml = '<div class="hb-chart-wrap">';
-  desktopHtml += '<div class="hb-half-label">FIRST HALF</div>';
-  BINS_1H.forEach(function(b, i) {
-    if (i === 5) desktopHtml += breakMarker('💧', 'HYDRATION BREAK ~25\'', false);
-    desktopHtml += desktopRow(b);
-  });
-  desktopHtml += breakMarker('⏸', 'HALF TIME', true);
-  desktopHtml += '<div class="hb-half-label">SECOND HALF</div>';
-  BINS_2H.forEach(function(b, i) {
-    if (i === 5) desktopHtml += breakMarker('💧', 'HYDRATION BREAK ~70\'', false);
-    desktopHtml += desktopRow(b);
-  });
-  desktopHtml += '</div>';
+  var html = '<div class="hb-wrap">'
+    + row("PRE-BREAK 1  (1–25')", pre1, 'pre', '')
+    + row("POST-BREAK 1 (26–45+')", post1, 'post', diff(pre1, post1))
+    + divider('\u23f8 HALF TIME')
+    + row("PRE-BREAK 2  (46–70')", pre2, 'pre', '')
+    + row("POST-BREAK 2 (71–90+')", post2, 'post', diff(pre2, post2))
+    + (etGoals > 0
+        ? '<div class="hb-footnote">* Extra time goals excluded (' + etGoals + ' goals across ' + etMatches + ' matches)</div>'
+        : '')
+    + '</div>';
 
-  // Mobile: vertical bars split into 1H and 2H groups
-  function mobileGroup(bins, breakAt, breakLabel) {
-    var html = '<div class="hb-bars-row">';
-    bins.forEach(function(b, i) {
-      var v = g5[b] || 0;
-      var pct = Math.round(v / maxVal * 100);
-      var cls = barClass(b);
-      var shortLbl = b.replace('-','-\u200B'); // zero-width space for wrap
-      html += '<div class="hb-vcol">'
-        + '<div class="hb-vcount">' + (v > 0 ? v : '') + '</div>'
-        + '<div class="hb-vbar-wrap"><div class="hb-vbar' + (cls?' '+cls:'') + '" style="height:' + pct + '%"></div></div>'
-        + '<div class="hb-vlabel">' + shortLbl + '</div>'
-        + '</div>';
-    });
-    html += '</div>';
     return html;
-  }
-
-  var mobileHtml = '<div class="hb-chart-mobile">'
-    + '<div class="hb-half-label">FIRST HALF</div>'
-    + mobileGroup(BINS_1H.slice(0,5))
-    + '<div class="hb-mobile-break"><div class="hb-break-line"></div><span class="hb-break-text">💧 ~25\'</span><div class="hb-break-line"></div></div>'
-    + mobileGroup(BINS_1H.slice(5))
-    + '<div class="hb-mobile-break"><div class="hb-ht-line"></div><span class="hb-ht-text">⏸ HT</span><div class="hb-ht-line"></div></div>'
-    + '<div class="hb-half-label">SECOND HALF</div>'
-    + mobileGroup(BINS_2H.slice(0,5))
-    + '<div class="hb-mobile-break"><div class="hb-break-line"></div><span class="hb-break-text">💧 ~70\'</span><div class="hb-break-line"></div></div>'
-    + mobileGroup(BINS_2H.slice(5))
-    + '</div>';
-
-  // Legend
-  var legendHtml = '<div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:0.65rem;font-family:\'Barlow Condensed\',sans-serif;">'
-    + '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#3b8fef;margin-right:4px;"></span>Regular play</span>'
-    + '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#34d399;margin-right:4px;"></span>Post-break (26-35\' & 71-80\')</span>'
-    + '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#f59e0b;margin-right:4px;"></span>Injury time</span>'
-    + '</div>';
-
-  var footnote = etGoals > 0
-    ? '<div class="hb-footnote">* Extra time goals excluded (' + etGoals + ' goals across ' + etMatches + ' matches)</div>'
-    : '';
-
-  return desktopHtml + mobileHtml + legendHtml + footnote;
 }
+
 
 function renderMoreStats() {
   var root = document.getElementById('morestats-root');
