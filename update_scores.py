@@ -348,6 +348,34 @@ def build_openfootball_stats(data):
         if v <= 75: return '61-75'
         return '76-90'
 
+    def period_5min(s):
+        """Classify goal into 5-min bin for hydration break analysis.
+        Returns (bin_key, is_et) where is_et=True means extra time goal.
+        Bins: '1-5','6-10',...,'86-90','45+','90+', or None if ET (91+)."""
+        if not s:
+            return None, False
+        s = str(s).strip()
+        if '+' in s:
+            base = int(s.split('+')[0])
+            if base <= 45:
+                return '45+', False   # regulation injury time 1st half
+            elif base == 90:
+                return '90+', False   # regulation injury time 2nd half
+            else:
+                return None, True     # ET injury time — exclude
+        try:
+            v = int(s)
+        except ValueError:
+            return None, False
+        if v >= 91:
+            return None, True         # Extra time — exclude
+        if v <= 0:
+            return None, False
+        # Round up to nearest 5
+        bucket_end = ((v - 1) // 5 + 1) * 5
+        bucket_start = bucket_end - 4
+        return f'{bucket_start}-{bucket_end}', False
+
     # ── Accumulators ─────────────────────────────────────────────────────
     players          = {}
     total_pen        = 0
@@ -359,6 +387,14 @@ def build_openfootball_stats(data):
         '0-15':0, '16-30':0, '31-45':0, '45+':0,
         '46-60':0, '61-75':0, '76-90':0, '90+':0
     }
+    # 5-min bins for hydration break analysis (ET goals excluded)
+    _5min_bins = ['1-5','6-10','11-15','16-20','21-25','26-30',
+                  '31-35','36-40','41-45','45+',
+                  '46-50','51-55','56-60','61-65','66-70','71-75',
+                  '76-80','81-85','86-90','90+']
+    goals_by_5min    = {b: 0 for b in _5min_bins}
+    et_goals_count   = 0   # total ET goals excluded
+    et_matches_set   = set()  # matches that had ET goals
     all_goals_list   = []   # for fastest/latest
     comeback_wins    = []
     threw_leads      = []
@@ -487,10 +523,18 @@ def build_openfootball_stats(data):
                 match_goals[key]       = match_goals.get(key, 0) + 1
                 side_scorer_goals[key] = side_scorer_goals.get(key, 0) + 1
 
-                # Time period bucket
+                # Time period bucket (existing 15-min bins)
                 p = period(minute)
                 if p:
                     goals_by_period[p] += 1
+
+                # 5-min hydration break bins
+                bin5, is_et = period_5min(minute)
+                if is_et:
+                    et_goals_count += 1
+                    et_matches_set.add(m.get('date','') + team1 + team2)
+                elif bin5 and bin5 in goals_by_5min:
+                    goals_by_5min[bin5] += 1
 
                 # All goals (for fastest/latest)
                 sv = parse_min(minute)
@@ -601,6 +645,9 @@ def build_openfootball_stats(data):
         "total_og":          total_og,
         "hat_tricks":        hat_tricks,
         "goals_by_period":   goals_by_period,
+        "goals_by_5min":     goals_by_5min,
+        "et_goals_excluded": et_goals_count,
+        "et_matches_count":  len(et_matches_set),
         "ht_goals":          ht_goals,
         "sh_goals":          sh_goals,
         "comeback_wins":     comeback_wins,
